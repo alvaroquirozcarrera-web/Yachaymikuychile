@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienestar Psicológico - Yachay Mikuy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2c5aa0;
+            --light-blue: #5d8cc4;
+            --dark-blue: #1a3a6e;
+            --success-green: #28a745;
+            --success-green-dark: #218838;
+            --accent-orange: #ff9800;
+            --accent-orange-dark: #e08e0b;
+            --accent-purple: #6f42c1;
+            --accent-purple-dark: #5a32a3;
+            --accent-teal: #20c997;
+            --accent-teal-dark: #1aa27d;
+            --accent-pink: #d63384;
+            --accent-pink-dark: #b02a6e;
+            --accent-cyan: #0dcaf0;
+            --accent-cyan-dark: #0baccc;
+            --gray: #6c757d;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --shadow-color: rgba(40, 50, 70, 0.1);
+            --danger-red: #dc3545;
+            --danger-red-dark: #c82333;
+            --pastel-purple: #e6d7ff;
+            --pastel-blue: #d7e9ff;
+            --pastel-pink: #ffd7eb;
+            --pastel-green: #d7ffe6;
+            --pastel-yellow: #fff9d7;
+            --emotion-happy: #ffeb3b;
+            --emotion-sad: #2196f3;
+            --emotion-angry: #f44336;
+            --emotion-anxious: #9c27b0;
+            --emotion-calm: #4caf50;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-image: linear-gradient(120deg, #f5f9ff 0%, #e6f0fa 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-color);
+            padding: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 8px solid var(--accent-purple);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background-color: rgba(111, 66, 193, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(111, 66, 193, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-icon {
+            font-size: 2.5rem;
+            color: var(--accent-purple);
+            animation: bounce 2s infinite;
+        }
+
+        .header-title h1 {
+            color: var(--dark-blue);
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            font-family: 'Fredoka', cursive;
+        }
+
+        .header-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-blue), var(--light-blue));
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(44, 90, 160, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, var(--danger-red), #e85d75);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        /* Children Tags */
+        .children-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .child-tag {
+            background-color: rgba(93, 140, 196, 0.1);
+            color: var(--primary-blue);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .child-tag:hover {
+            background-color: rgba(93, 140, 196, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Wellness Info Section */
+        .wellness-info {
+            background: linear-gradient(135deg, rgba(111, 66, 193, 0.1), rgba(93, 140, 196, 0.1));
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-color);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wellness-info::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(111, 66, 193, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .wellness-info-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .wellness-icon {
+            font-size: 3rem;
+            color: var(--accent-purple);
+            animation: pulse 2s infinite;
+        }
+
+        .wellness-text h2 {
+            color: var(--accent-purple);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Fredoka', cursive;
+        }
+
+        .wellness-text p {
+            color: var(--dark-blue);
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .wellness-tips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .wellness-tip {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .wellness-tip:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .wellness-tip-icon {
+            font-size: 1.5rem;
+            color: var(--accent-purple);
+        }
+
+        .wellness-tip-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Mood Input Section */
+        .mood-input {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-color);
+            padding: 25px;
+            margin-bottom: 30px;
+            background-color: var(--pastel-purple);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mood-input::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            background-color: rgba(111, 66, 193, 0.05);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mood-description {
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mood-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            resize: vertical;
+            transition: border-color 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mood-textarea:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+        }
+
+        .emotion-selector {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .emotion-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .emotion-option:hover {
+            transform: scale(1.1);
+        }
+
+        .emotion-option.selected {
+            transform: scale(1.15);
+        }
+
+        .emotion-icon {
+            font-size: 2.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .emotion-option.happy .emotion-icon {
+            color: var(--emotion-happy);
+        }
+
+        .emotion-option.sad .emotion-icon {
+            color: var(--emotion-sad);
+        }
+
+        .emotion-option.angry .emotion-icon {
+            color: var(--emotion-angry);
+        }
+
+        .emotion-option.anxious .emotion-icon {
+            color: var(--emotion-anxious);
+        }
+
+        .emotion-option.calm .emotion-icon {
+            color: var(--emotion-calm);
+        }
+
+        .emotion-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        .btn-generate {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-purple-dark));
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(111, 66, 193, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .btn-generate::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s ease;
+        }
+
+        .btn-generate:hover::before {
+            left: 100%;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(111, 66, 193, 0.4);
+        }
+
+        /* Tips Display Section */
+        .tips-display {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-color);
+            padding: 25px;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .tip-card {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.5s ease;
+            position: relative;
+            border-top: 5px solid var(--accent-purple);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .tip-card.favorite {
+            border-top-color: var(--accent-orange);
+        }
+
+        .tip-header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--pastel-purple);
+        }
+
+        .tip-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .btn-favorite {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-favorite:hover {
+            color: var(--accent-orange);
+            transform: scale(1.2);
+        }
+
+        .btn-favorite.active {
+            color: var(--accent-orange);
+        }
+
+        .tip-body {
+            padding: 20px;
+        }
+
+        .tip-description {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .tip-related {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .related-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .related-games {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .game-tag {
+            background-color: var(--pastel-blue);
+            color: var(--primary-blue);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .game-tag:hover {
+            background-color: var(--light-blue);
+            color: var(--white);
+        }
+
+        .nutrition-info {
+            background-color: rgba(40, 167, 69, 0.1);
+            border-left: 4px solid var(--success-green);
+            padding: 15px;
+            border-radius: 0 10px 10px 0;
+            margin-top: 15px;
+        }
+
+        .nutrition-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--success-green);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Loading Spinner */
+        .spinner-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(111, 66, 193, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--accent-purple);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .modal-body {
+            margin-bottom: 25px;
+            color: var(--gray);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .wellness-info-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .wellness-tips {
+                flex-direction: column;
+            }
+
+            .emotion-selector {
+                flex-wrap: wrap;
+            }
+
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="header-title">
+                    <h1>Bienestar Psicológico</h1>
+                    <p>Panel Familiar</p>
+                    <div class="children-tags" id="childrenTags">
+                        <!-- Se llenará dinámicamente -->
+                    </div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a href="yachay.html" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i> Volver al Panel
+                </a>
+                <a href="index1.html" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </a>
+            </div>
+        </header>
+
+        <!-- Wellness Info Section -->
+        <section class="wellness-info">
+            <div class="wellness-info-content">
+                <div class="wellness-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="wellness-text">
+                    <h2>Salud Emocional y Nutrición</h2>
+                    <p>El bienestar emocional de los niños está directamente relacionado con su nutrición. Una dieta adecuada puede mejorar el estado de ánimo y reducir la ansiedad.</p>
+                    <div class="wellness-tips">
+                        <div class="wellness-tip">
+                            <div class="wellness-tip-icon">
+                                <i class="fas fa-apple-alt"></i>
+                            </div>
+                            <div class="wellness-tip-text">Alimentos ricos en omega-3 mejoran el estado de ánimo</div>
+                        </div>
+                        <div class="wellness-tip">
+                            <div class="wellness-tip-icon">
+                                <i class="fas fa-lemon"></i>
+                            </div>
+                            <div class="wellness-tip-text">La vitamina C reduce el estrés y la fatiga</div>
+                        </div>
+                        <div class="wellness-tip">
+                            <div class="wellness-tip-icon">
+                                <i class="fas fa-carrot"></i>
+                            </div>
+                            <div class="wellness-tip-text">El hierro previene la irritabilidad y fatiga</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mood Input Section -->
+        <section class="mood-input">
+            <h2 class="section-title">
+                <i class="fas fa-heart"></i> ¿Cómo se sienten tus hijos hoy?
+            </h2>
+            
+            <div class="mood-description">
+                <p>Describe el estado de ánimo o alguna situación emocional que hayas observado en tus hijos para recibir consejos personalizados.</p>
+            </div>
+            
+            <div class="emotion-selector">
+                <div class="emotion-option happy" data-emotion="happy">
+                    <div class="emotion-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <div class="emotion-label">Feliz</div>
+                </div>
+                <div class="emotion-option sad" data-emotion="sad">
+                    <div class="emotion-icon">
+                        <i class="fas fa-sad-tear"></i>
+                    </div>
+                    <div class="emotion-label">Triste</div>
+                </div>
+                <div class="emotion-option angry" data-emotion="angry">
+                    <div class="emotion-icon">
+                        <i class="fas fa-angry"></i>
+                    </div>
+                    <div class="emotion-label">Enojado</div>
+                </div>
+                <div class="emotion-option anxious" data-emotion="anxious">
+                    <div class="emotion-icon">
+                        <i class="fas fa-meh"></i>
+                    </div>
+                    <div class="emotion-label">Ansioso</div>
+                </div>
+                <div class="emotion-option calm" data-emotion="calm">
+                    <div class="emotion-icon">
+                        <i class="fas fa-smile-beam"></i>
+                    </div>
+                    <div class="emotion-label">Tranquilo</div>
+                </div>
+            </div>
+            
+            <textarea id="moodTextarea" class="mood-textarea" placeholder="Hoy se sintieron frustrados porque no pudieron armar sus juguetes..."></textarea>
+            
+            <button id="generateTipsBtn" class="btn-generate">
+                <i class="fas fa-lightbulb"></i> Generar Consejos
+            </button>
+        </section>
+
+        <!-- Tips Display Section -->
+        <section class="tips-display">
+            <h2 class="section-title">
+                <i class="fas fa-comments"></i> Consejos Psicológicos
+            </h2>
+            
+            <div class="spinner-container" id="spinnerContainer">
+                <div class="spinner"></div>
+            </div>
+            
+            <div class="tips-grid" id="tipsGrid"></div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirmar acción</h3>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                ¿Estás seguro de que quieres realizar esta acción?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="modalCancel">Cancelar</button>
+                <button class="btn btn-danger" id="modalConfirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Storage Adapter - Para facilitar migración a backend
+        const storageAdapter = {
+            // Users
+            getUsers: function() {
+                const users = localStorage.getItem('yachay_users');
+                return users ? JSON.parse(users) : [];
+            },
+            saveUsers: function(users) {
+                localStorage.setItem('yachay_users', JSON.stringify(users));
+            },
+            
+            // Children
+            getChildren: function() {
+                const children = localStorage.getItem('yachay_children');
+                return children ? JSON.parse(children) : [];
+            },
+            saveChildren: function(children) {
+                localStorage.setItem('yachay_children', JSON.stringify(children));
+            },
+            
+            // Responses
+            getResponses: function() {
+                const responses = localStorage.getItem('yachay_responses');
+                return responses ? JSON.parse(responses) : {};
+            },
+            saveResponses: function(responses) {
+                localStorage.setItem('yachay_responses', JSON.stringify(responses));
+            },
+            
+            // Session
+            getSession: function() {
+                const session = localStorage.getItem('yachay_session');
+                return session ? JSON.parse(session) : { currentUserId: null, exploringAsGuest: false, lastActiveAt: null };
+            },
+            saveSession: function(session) {
+                localStorage.setItem('yachay_session', JSON.stringify(session));
+            },
+            
+            // Audit Log
+            getAuditLog: function() {
+                const auditLog = localStorage.getItem('yachay_auditLog');
+                return auditLog ? JSON.parse(auditLog) : [];
+            },
+            saveAuditLog: function(auditLog) {
+                localStorage.setItem('yachay_auditLog', JSON.stringify(auditLog));
+            }
+        };
+
+        // --- INICIO DE FUNCIONES DE SINCRONIZACIÓN ---
+        
+        // Función para sincronizar la eliminación/restauración entre páginas
+        function syncChildDeletionAcrossPages(childId, action) {
+            // action puede ser 'soft-delete', 'restore' o 'permanent-delete'
+            const syncData = {
+                childId: childId,
+                action: action,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Guardar en localStorage para que otras páginas puedan detectar cambios
+            localStorage.setItem('yachay_sync_action', JSON.stringify(syncData));
+            
+            // Notificar a otras pestañas abiertas usando BroadcastChannel
+            if ('BroadcastChannel' in window) {
+                const channel = new BroadcastChannel('yachay_sync');
+                channel.postMessage(syncData);
+            }
+        }
+
+        // --- FIN DE FUNCIONES DE SINCRONIZACIÓN ---
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- INICIO DE VERIFICACIÓN DE SINCRONIZACIÓN AL CARGAR ---
+            // Verificar si hay acciones de sincronización pendientes de otras pestañas
+            const syncAction = localStorage.getItem('yachay_sync_action');
+            if (syncAction) {
+                const syncData = JSON.parse(syncAction);
+                // Si la acción es reciente (menos de 5 segundos), la procesamos
+                const actionTime = new Date(syncData.timestamp);
+                const now = new Date();
+                if ((now - actionTime) < 5000) {
+                    // Si la acción afecta a algún niño mostrado, recargamos la página
+                    const session = storageAdapter.getSession();
+                    const guestMode = getURLParameter('guest') === 'true';
+                    
+                    let childrenToShow;
+                    if (guestMode || session.exploringAsGuest) {
+                        // Modo invitado: mostrar solo los perfiles de invitado
+                        childrenToShow = storageAdapter.getChildren().filter(child => child.ownerId === null);
+                    } else if (session.currentUserId) {
+                        // Modo con cuenta: mostrar los perfiles del usuario actual
+                        childrenToShow = storageAdapter.getChildren().filter(child => 
+                            child.ownerId === session.currentUserId
+                        );
+                    }
+                    
+                    // Verificar si el niño eliminado está en la lista de niños mostrados
+                    if (childrenToShow.some(child => child.id === syncData.childId)) {
+                        if (syncData.action === 'soft-delete' || syncData.action === 'permanent-delete') {
+                            showToast('Un perfil ha sido eliminado', 'info');
+                            // Recargar la página para actualizar la lista de niños
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        }
+                    }
+                }
+                // Limpiamos la acción para no procesarla de nuevo
+                localStorage.removeItem('yachay_sync_action');
+            }
+
+            // Configurar listener para sincronización en tiempo real con otras pestañas
+            if ('BroadcastChannel' in window) {
+                const channel = new BroadcastChannel('yachay_sync');
+                channel.onmessage = function(event) {
+                    const syncData = event.data;
+                    const session = storageAdapter.getSession();
+                    const guestMode = getURLParameter('guest') === 'true';
+                    
+                    let childrenToShow;
+                    if (guestMode || session.exploringAsGuest) {
+                        // Modo invitado: mostrar solo los perfiles de invitado
+                        childrenToShow = storageAdapter.getChildren().filter(child => child.ownerId === null);
+                    } else if (session.currentUserId) {
+                        // Modo con cuenta: mostrar los perfiles del usuario actual
+                        childrenToShow = storageAdapter.getChildren().filter(child => 
+                            child.ownerId === session.currentUserId
+                        );
+                    }
+                    
+                    // Verificar si el niño eliminado está en la lista de niños mostrados
+                    if (childrenToShow.some(child => child.id === syncData.childId)) {
+                        if (syncData.action === 'soft-delete' || syncData.action === 'permanent-delete') {
+                            showToast('Un perfil ha sido eliminado', 'info');
+                            // Recargar la página para actualizar la lista de niños
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        }
+                    }
+                };
+            }
+            // --- FIN DE VERIFICACIÓN DE SINCRONIZACIÓN AL CARGAR ---
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const guestMode = urlParams.get('guest') === 'true';
+            const showCompletion = urlParams.get('showCompletion') === 'true';
+            const userId = urlParams.get('userId');
+
+            // Verificar si estamos en modo invitado o con cuenta
+            const session = storageAdapter.getSession();
+            let isGuestMode = guestMode || session.exploringAsGuest;
+
+            // Cargar los datos de TODOS los niños desde localStorage
+            let allChildrenData = storageAdapter.getChildren();
+            
+            if (!allChildrenData || allChildrenData.length === 0) {
+                // Si no hay datos, crear los niños de ejemplo si estamos en modo invitado
+                if (isGuestMode) {
+                    createGuestChildrenIfNotExists();
+                    allChildrenData = storageAdapter.getChildren();
+                } else {
+                    document.body.innerHTML = '<h1>Error: No se encontraron datos de niños. Por favor, complete al menos un cuestionario.</h1>';
+                    return;
+                }
+            }
+            
+            // Filtrar para usar solo los perfiles que han completado el cuestionario
+            let completedChildren;
+            
+            if (isGuestMode) {
+                // Modo invitado: mostrar solo los perfiles de invitado (Alvaro y Luz)
+                completedChildren = allChildrenData.filter(child => child.ownerId === null);
+            } else {
+                // Modo con cuenta: mostrar los perfiles del usuario actual
+                if (session.currentUserId) {
+                    completedChildren = allChildrenData.filter(child => 
+                        child.ownerId === session.currentUserId
+                    );
+                } else {
+                    completedChildren = [];
+                }
+            }
+
+            if (completedChildren.length === 0) {
+                document.body.innerHTML = '<h1>No hay perfiles completados. Por favor, finalice al menos un cuestionario para continuar.</h1>';
+                return;
+            }
+
+            // Mostrar etiquetas de niños en la cabecera
+            const childrenTags = document.getElementById('childrenTags');
+            completedChildren.forEach(child => {
+                const childTag = document.createElement('span');
+                childTag.className = 'child-tag';
+                childTag.innerHTML = `<i class="fas fa-child"></i> ${child.name}`;
+                childrenTags.appendChild(childTag);
+            });
+            
+            // Configurar selector de emociones
+            const emotionOptions = document.querySelectorAll('.emotion-option');
+            let selectedEmotion = null;
+            
+            emotionOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Quitar selección previa
+                    emotionOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Añadir selección actual
+                    this.classList.add('selected');
+                    selectedEmotion = this.getAttribute('data-emotion');
+                    
+                    // Actualizar placeholder del textarea según la emoción seleccionada
+                    const moodTextarea = document.getElementById('moodTextarea');
+                    const placeholders = {
+                        happy: "Hoy se sintieron muy contentos porque...",
+                        sad: "Hoy se sintieron tristes porque...",
+                        angry: "Hoy se sintieron enojados porque...",
+                        anxious: "Hoy se sintieron ansiosos o nerviosos porque...",
+                        calm: "Hoy se sintieron tranquilos y relajados porque..."
+                    };
+                    
+                    moodTextarea.placeholder = placeholders[selectedEmotion];
+                });
+            });
+            
+            // Cargar consejos guardados previamente
+            let tips = [];
+            const savedTips = localStorage.getItem('familyWellnessTips');
+            if (savedTips) {
+                tips = JSON.parse(savedTips);
+                renderTips(tips);
+            } else {
+                // Mostrar consejos de ejemplo iniciales
+                const exampleTips = generateExampleTips();
+                renderTips(exampleTips);
+            }
+            
+            // Configurar botón de generar consejos
+            const generateTipsBtn = document.getElementById('generateTipsBtn');
+            generateTipsBtn.addEventListener('click', function() {
+                const moodDescription = document.getElementById('moodTextarea').value.trim();
+                
+                if (!moodDescription && !selectedEmotion) {
+                    alert('Por favor, selecciona una emoción o describe cómo se sienten tus hijos antes de generar consejos.');
+                    return;
+                }
+                
+                generateTips(moodDescription, selectedEmotion);
+            });
+            
+            // Función para generar consejos
+            function generateTips(moodDescription, emotion) {
+                const spinnerContainer = document.getElementById('spinnerContainer');
+                const tipsGrid = document.getElementById('tipsGrid');
+                
+                // Mostrar spinner
+                spinnerContainer.style.display = 'flex';
+                tipsGrid.style.display = 'none';
+                
+                // Simular llamada a API
+                setTimeout(() => {
+                    // Ocultar spinner
+                    spinnerContainer.style.display = 'none';
+                    tipsGrid.style.display = 'grid';
+                    
+                    // Generar consejos de ejemplo
+                    const newTips = generateExampleTips(moodDescription, emotion);
+                    
+                    // Guardar consejos
+                    localStorage.setItem('familyWellnessTips', JSON.stringify(newTips));
+                    
+                    // Renderizar consejos
+                    renderTips(newTips);
+                }, 2000);
+            }
+            
+            // Función para generar consejos de ejemplo
+            function generateExampleTips(moodDescription = '', emotion = null) {
+                // Plantillas de consejos
+                const tipTemplates = [
+                    {
+                        titulo: "Técnica de Respiración del Volcán",
+                        descripcion: "Enséñales a inhalar profundamente por la nariz contando hasta 4, contener la respiración contando hasta 2, y luego exhalar lentamente por la boca como si fuera un volcán en erupción. Repite 3-5 veces para calmar la ansiedad.",
+                        juegosRelacionados: ["Juego de la respiración", "El volcán de emociones"],
+                        nutricion: "Alimentos ricos en magnesio como plátanos y nueces ayudan a relajar el sistema nervioso."
+                    },
+                    {
+                        titulo: "El Frasco de la Calma",
+                        descripcion: "Crea un frasco transparente con agua, purpurina y un poco de glicerina. Cuando los niños se sientan ansiosos, pueden agitar el frasco y observar cómo la purpurina se asienta, imitando la calma que deben buscar interiormente.",
+                        juegosRelacionados: ["Frasco de la calma", "Meditación para niños"],
+                        nutricion: "Los alimentos ricos en triptófano como el pavo y los lácteos favorecen la producción de serotonina, la hormona de la felicidad."
+                    },
+                    {
+                        titulo: "Dibuja tus Emociones",
+                        descripcion: "Invita a los niños a dibujar lo que sienten sin usar palabras. Luego, hablen sobre el dibujo juntos. Esto ayuda a externalizar emociones difíciles de expresar verbalmente.",
+                        juegosRelacionados: ["Dibujo emocional", "Colores de mis sentimientos"],
+                        nutricion: "Los ácidos grasos omega-3 presentes en pescados y nueces mejoran la función cerebral y el estado de ánimo."
+                    },
+                    {
+                        titulo: "El Abrazo de Oso",
+                        descripcion: "Un abrazo fuerte y prolongado (de 10-20 segundos) libera oxitocina, la hormona del bienestar. Cuando notes que tus hijos están alterados, ofréceles un abrazo de oso y mantén el contacto hasta que sientas cómo se relajan.",
+                        juegosRelacionados: ["Juego de los abrazos", "La ronda del cariño"],
+                        nutricion: "El chocolate negro (con moderación) estimula la producción de endorfinas, que mejoran el estado de ánimo."
+                    },
+                    {
+                        titulo: "Cuentos Terapéuticos",
+                        descripcion: "Crea o lee cuentos donde los personajes enfrenten situaciones similares a las que experimentan tus hijos. Ver cómo otros resuelven problemas les da herramientas para manejar sus propias emociones.",
+                        juegosRelacionados: ["Cuentos para sentir", "Historias de superación"],
+                        nutricion: "Una dieta equilibrada con suficiente hierro previene la fatiga y la irritabilidad, comunes en niños con anemia."
+                    },
+                    {
+                        titulo: "Rutina de Poder",
+                        descripcion: "Establece una rutina matutina que incluya afirmaciones positivas. Por ejemplo: 'Hoy voy a ser valiente', 'Puedo pedir ayuda cuando la necesite'. Esto construye autoestima y resiliencia emocional.",
+                        juegosRelacionados: ["El espejo mágico", "Superhéroes del día"],
+                        nutricion: "El desayuno rico en proteínas y carbohidratos complejos proporciona energía estable durante todo el día."
+                    }
+                ];
+                
+                // Consejos específicos según la emoción
+                const emotionSpecificTips = {
+                    happy: [
+                        {
+                            titulo: "Diario de Gratitud",
+                            descripcion: "Crea un diario donde tus hijos puedan escribir o dibujar tres cosas por las que se sienten agradecidos cada día. Esto refuerza las emociones positivas y fomenta una mentalidad optimista.",
+                            juegosRelacionados: ["El árbol de la gratitud", "Caja de los buenos momentos"],
+                            nutricion: "Los alimentos ricos en vitamina B6 como plátanos y aguacate ayudan a mantener los niveles de serotonina, asociada con el bienestar."
+                        },
+                        {
+                            titulo: "Baile de la Alegría",
+                            descripcion: "Pon música alegre y baila con tus hijos sin inhibiciones. El movimiento libera endorfinas y fortalece el vínculo emocional mientras celebran sus sentimientos positivos.",
+                            juegosRelacionados: ["Orquesta familiar", "Sigue al líder"],
+                            nutricion: "Los frutos secos y semillas proporcionan energía sostenida para mantener el buen ánimo durante todo el día."
+                        }
+                    ],
+                    sad: [
+                        {
+                            titulo: "Nido de Confort",
+                            descripcion: "Crea un espacio acogedor con mantas, almohadas y objetos reconfortantes. Cuando tus hijos estén tristes, invítalos a este 'nido' para hablar sobre sus sentimientos en un ambiente seguro.",
+                            juegosRelacionados: ["Mi rincón especial", "Caja de tesoros emocionales"],
+                            nutricion: "Los alimentos ricos en vitamina D como los lácteos fortificados y el pescado pueden ayudar a mejorar el estado de ánimo en momentos de tristeza."
+                        },
+                        {
+                            titulo: "Carta a la Emoción",
+                            descripcion: "Anima a tus hijos a escribir una carta a su tristeza, preguntándole por qué está ahí y qué necesita. Esta externalización ayuda a comprender y procesar la emoción.",
+                            juegosRelacionados: ["Buzón de emociones", "Diario secreto"],
+                            nutricion: "El chocolate amargo contiene compuestos que pueden mejorar temporalmente el estado de ánimo y aliviar la tristeza."
+                        }
+                    ],
+                    angry: [
+                        {
+                            titulo: "Caja de la Furia",
+                            descripcion: "Decora una caja con colores intensos y úsala para 'guardar' temporalmente la ira. Explícales que la emoción no desaparecerá, pero tendrá un lugar seguro mientras encuentran una forma de expresarla.",
+                            juegosRelacionados: ["Monstruo de emociones", "Dardos de ira"],
+                            nutricion: "Los alimentos ricos en magnesio como las espinacas y las almendras pueden ayudar a calmar el sistema nervioso y reducir la irritabilidad."
+                        },
+                        {
+                            titulo: "Punching Ball de Emociones",
+                            descripcion: "Crea un pelota de boxeo suave con globos y arena. Cuando sientan ira, pueden golpearla físicamente de forma segura mientras verbalizan lo que les molesta.",
+                            juegosRelacionados: ["Lucha de almohadas", "Gritos en una almohada"],
+                            nutricion: "Una dieta baja en azúcares procesados puede ayudar a mantener estables los niveles de energía y reducir los picos de irritabilidad."
+                        }
+                    ],
+                    anxious: [
+                        {
+                            titulo: "Botiquín de Calma",
+                            descripcion: "Prepara un pequeño kit con objetos sensoriales que reconforten: una piedra suave, un aroma agradable, un trozo de tela suave, etc. Usen estos elementos cuando aparezca la ansiedad.",
+                            juegosRelacionados: ["Caja sensorial", "Masaje de manos"],
+                            nutricion: "Las infusiones de manzanilla o tilo pueden tener un efecto calmante suave en niños ansiosos."
+                        },
+                        {
+                            titulo: "Mapa de Preocupaciones",
+                            descripcion: "Dibuja un mapa con diferentes 'territorios' de preocupaciones. Ayuda a tus hijos a identificar qué preocupaciones son grandes (montañas) y cuáles son pequeñas (colinas) para ponerlas en perspectiva.",
+                            juegosRelacionados: ["Monstruo de preocupaciones", "Nube de pensamientos"],
+                            nutricion: "Los alimentos ricos en triptófano como el plátano y los lácteos favorecen la producción de serotonina, que ayuda a regular la ansiedad."
+                        }
+                    ],
+                    calm: [
+                        {
+                            titulo: "Jardín de la Serenidad",
+                            descripcion: "Crea un pequeño espacio al aire libre o en macetas donde puedan cuidar plantas. El contacto con la naturaleza y la responsabilidad de cuidar algo vivo fomenta la calma y la paciencia.",
+                            juegosRelacionados: ["Mi planta amiga", "Jardín sensorial"],
+                            nutricion: "Los alimentos ricos en antioxidantes como bayas y vegetales de colores vivos protegen el cerebro y promueven el bienestar mental."
+                        },
+                        {
+                            titulo: "Música para Relajarse",
+                            descripcion: "Crea una playlist de música tranquila y usenla para momentos de calma. Pueden tumbarse, cerrar los ojos y simplemente escuchar, prestando atención a los diferentes instrumentos.",
+                            juegosRelacionados: ["Concierto de sonidos de la naturaleza", "Viaje musical"],
+                            nutricion: "Los alimentos ricos en magnesio como las semillas de calabaza y el chocolate negro ayudan a relajar los músculos y la mente."
+                        }
+                    ]
+                };
+                
+                // Combinar consejos generales con específicos según la emoción
+                let finalTips = [...tipTemplates];
+                
+                if (emotion && emotionSpecificTips[emotion]) {
+                    finalTips = [...emotionSpecificTips[emotion], ...finalTips];
+                }
+                
+                // Si hay una descripción de estado de ánimo, personalizar los consejos
+                if (moodDescription) {
+                    // Simular personalización basada en el estado de ánimo descrito
+                    finalTips = finalTips.map(tip => ({
+                        ...tip,
+                        personalizado: true
+                    }));
+                }
+                
+                // Limitar a 6 consejos
+                return finalTips.slice(0, 6);
+            }
+            
+            // Renderizar consejos
+            function renderTips(tips) {
+                const tipsGrid = document.getElementById('tipsGrid');
+                tipsGrid.innerHTML = '';
+                
+                if (tips.length === 0) {
+                    tipsGrid.innerHTML = '<p style="text-align: center; color: var(--gray); grid-column: 1 / -1;">No hay consejos generados aún. ¡Genera tus primeros consejos!</p>';
+                    return;
+                }
+                
+                tips.forEach((tip, index) => {
+                    const card = document.createElement('div');
+                    card.classList.add('tip-card');
+                    
+                    // Verificar si es favorito
+                    const favoriteTips = JSON.parse(localStorage.getItem('favoriteWellnessTips') || '[]');
+                    const isFavorite = favoriteTips.includes(index);
+                    
+                    if (isFavorite) {
+                        card.classList.add('favorite');
+                    }
+                    
+                    card.innerHTML = `
+                        <div class="tip-header">
+                            <h3 class="tip-title">${tip.titulo}</h3>
+                            <button class="btn-favorite ${isFavorite ? 'active' : ''}" data-index="${index}">
+                                <i class="${isFavorite ? 'fas' : 'far'} fa-star"></i>
+                            </button>
+                        </div>
+                        <div class="tip-body">
+                            <p class="tip-description">${tip.descripcion}</p>
+                            ${tip.nutricion ? `
+                                <div class="nutrition-info">
+                                    <h4 class="nutrition-title">
+                                        <i class="fas fa-apple-alt"></i> Conexión Nutricional
+                                    </h4>
+                                    <p>${tip.nutricion}</p>
+                                </div>
+                            ` : ''}
+                            <div class="tip-related">
+                                <h4 class="related-title">
+                                    <i class="fas fa-puzzle-piece"></i> Juegos Relacionados
+                                </h4>
+                                <div class="related-games">
+                                    ${tip.juegosRelacionados.map(juego => `
+                                        <span class="game-tag" data-game="${juego}">
+                                            <i class="fas fa-gamepad"></i> ${juego}
+                                        </span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    tipsGrid.appendChild(card);
+                });
+                
+                // Configurar botones de favorito
+                document.querySelectorAll('.btn-favorite').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        toggleFavorite(index, this);
+                    });
+                });
+                
+                // Configurar etiquetas de juegos relacionados
+                document.querySelectorAll('.game-tag').forEach(tag => {
+                    tag.addEventListener('click', function() {
+                        const gameName = this.getAttribute('data-game');
+                        // Aquí se podría redirigir a la sección de juegos
+                        alert(`Redirigiendo al juego: ${gameName}`);
+                    });
+                });
+            }
+            
+            // Función para alternar favorito
+            function toggleFavorite(index, button) {
+                let favoriteTips = JSON.parse(localStorage.getItem('favoriteWellnessTips') || '[]');
+                
+                if (favoriteTips.includes(index)) {
+                    // Quitar de favoritos
+                    favoriteTips = favoriteTips.filter(i => i !== index);
+                    button.classList.remove('active');
+                    button.innerHTML = '<i class="far fa-star"></i>';
+                    button.parentElement.parentElement.classList.remove('favorite');
+                } else {
+                    // Añadir a favoritos
+                    favoriteTips.push(index);
+                    button.classList.add('active');
+                    button.innerHTML = '<i class="fas fa-star"></i>';
+                    button.parentElement.parentElement.classList.add('favorite');
+                }
+                
+                localStorage.setItem('favoriteWellnessTips', JSON.stringify(favoriteTips));
+            }
+            
+            // Configurar modal
+            const modal = document.getElementById('confirmModal');
+            const modalClose = document.getElementById('modalClose');
+            const modalCancel = document.getElementById('modalCancel');
+            const modalConfirm = document.getElementById('modalConfirm');
+            
+            modalClose.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            modalCancel.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            // Cerrar modal al hacer clic fuera
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Función para mostrar notificaciones toast
+            function showToast(message, type = 'info') {
+                const toastContainer = document.createElement('div');
+                toastContainer.className = 'toast-container';
+                toastContainer.style.position = 'fixed';
+                toastContainer.style.top = '20px';
+                toastContainer.style.right = '20px';
+                toastContainer.style.zIndex = '1050';
+                
+                const toastId = 'toast-' + Date.now();
+                
+                const toastHtml = `
+                    <div id="${toastId}" class="custom-toast toast-${type}" style="
+                        background: white;
+                        border-radius: 10px;
+                        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                        padding: 15px 20px;
+                        margin-bottom: 10px;
+                        display: flex;
+                        align-items: center;
+                        animation: slideIn 0.3s ease;
+                        ${type === 'success' ? 'border-left: 5px solid var(--success-green);' : 
+                          type === 'error' ? 'border-left: 5px solid var(--danger-red);' : 
+                          'border-left: 5px solid var(--accent-cyan);'}
+                    ">
+                        <div class="me-2">
+                            ${type === 'success' ? '<i class="fas fa-check-circle text-success"></i>' : 
+                              type === 'error' ? '<i class="fas fa-exclamation-circle text-danger"></i>' : 
+                              '<i class="fas fa-info-circle text-info"></i>'}
+                        </div>
+                        <div class="flex-grow-1">${message}</div>
+                        <button type="button" class="btn-close ms-2" onclick="document.getElementById('${toastId}').remove()"></button>
+                    </div>
+                `;
+                
+                toastContainer.innerHTML = toastHtml;
+                document.body.appendChild(toastContainer);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    const toast = document.getElementById(toastId);
+                    if (toast) {
+                        toast.remove();
+                        if (toastContainer.children.length === 0) {
+                            document.body.removeChild(toastContainer);
+                        }
+                    }
+                }, 5000);
+            }
+
+            // Función para obtener parámetros de la URL
+            function getURLParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+
+            // Función para crear niños de ejemplo si no existen
+            function createGuestChildrenIfNotExists() {
+                let childrenData = storageAdapter.getChildren();
+                
+                // Verificar si ya existen los niños de ejemplo
+                const hasAlvaro = childrenData.some(child => child.name === 'Alvaro');
+                const hasLuz = childrenData.some(child => child.name === 'Luz');
+                
+                if (!hasAlvaro) {
+                    childrenData.push({
+                        id: 'alvaro-' + Date.now(),
+                        name: 'Alvaro',
+                        dob: '2017-08-10',
+                        sex: 'male',
+                        avatarCustomization: '1',
+                        theme: 'default',
+                        ownerId: null,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString(),
+                        progressPercent: 100,
+                        deletedAt: null,
+                        version: 1
+                    });
+                }
+                
+                if (!hasLuz) {
+                    childrenData.push({
+                        id: 'luz-' + Date.now(),
+                        name: 'Luz',
+                        dob: '2019-12-05',
+                        sex: 'female',
+                        avatarCustomization: '2',
+                        theme: 'default',
+                        ownerId: null,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString(),
+                        progressPercent: 100,
+                        deletedAt: null,
+                        version: 1
+                    });
+                }
+                
+                storageAdapter.saveChildren(childrenData);
+                
+                // Crear respuestas para los perfiles predefinidos
+                const responses = storageAdapter.getResponses();
+                
+                if (!responses['alvaro-' + Date.now()]) {
+                    responses['alvaro-' + Date.now()] = {};
+                    for (let i = 1; i <= 50; i++) {
+                        responses['alvaro-' + Date.now()][`q${i}`] = {
+                            type: 'select',
+                            value: i % 5 === 0 ? 'Opción 5' : `Opción ${i % 5}`,
+                            timestamp: new Date().toISOString(),
+                            version: 1
+                        };
+                    }
+                }
+                
+                if (!responses['luz-' + Date.now()]) {
+                    responses['luz-' + Date.now()] = {};
+                    for (let i = 1; i <= 50; i++) {
+                        responses['luz-' + Date.now()][`q${i}`] = {
+                            type: 'select',
+                            value: i % 5 === 0 ? 'Opción 5' : `Opción ${i % 5}`,
+                            timestamp: new Date().toISOString(),
+                            version: 1
+                        };
+                    }
+                }
+                
+                storageAdapter.saveResponses(responses);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comida por Región - YachayMikuy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #8E44AD;
+            --secondary-color: #3498DB;
+            --accent-color: #E74C3C;
+            --light-color: #F9F9F9;
+            --dark-color: #333;
+            --danger-color: #E74C3C;
+            --warning-color: #F39C12;
+            --success-color: #2ECC71;
+            --info-color: #3498DB;
+            --primary-blue: #2c5aa0;
+            --light-blue: #5d8cc4;
+            --dark-blue: #1a3a6e;
+            --iron-color: #B22222;
+            --vitamin-c-color: #FF8C00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark-color);
+            line-height: 1.6;
+            padding-bottom: 60px;
+            background-image: url('https://picsum.photos/seed/peru-food/1600/900.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.85);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Barra superior mejorada para móviles */
+        .header {
+            background-color: white;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border: 2px solid var(--primary-color);
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+
+        .header h1 i {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: white;
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .btn-info {
+            background-color: var(--info-color);
+            color: white;
+        }
+
+        .btn-iron {
+            background-color: var(--iron-color);
+            color: white;
+        }
+
+        .btn-vitamin-c {
+            background-color: var(--vitamin-c-color);
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sección de Anemia */
+        .anemia-section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--iron-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .anemia-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 10px;
+            height: 100%;
+            background-color: var(--iron-color);
+        }
+
+        .anemia-title {
+            color: var(--iron-color);
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .anemia-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .anemia-text {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .anemia-image {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .anemia-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .region-selector {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--secondary-color);
+        }
+
+        .selector-title {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .selector-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .selector-group label {
+            font-weight: bold;
+            color: var(--dark-color);
+        }
+
+        .selector-group select {
+            flex: 1;
+            min-width: 250px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .selector-group select:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+
+        .generate-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .generate-btn:hover {
+            background-color: #7D3C98;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .regional-banner {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .regional-banner::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        .regional-banner h2 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .regional-banner p {
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .fun-fact {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fun-fact i {
+            font-size: 1.5rem;
+        }
+
+        .recipes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .recipe-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .recipe-card.removing {
+            animation: fadeOut 0.5s forwards;
+        }
+
+        .recipe-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .recipe-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .recipe-card:hover .recipe-image img {
+            transform: scale(1.05);
+        }
+
+        .recipe-content {
+            padding: 20px;
+        }
+
+        .recipe-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .recipe-card h4 {
+            margin-top: 15px;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .recipe-card ul, .recipe-card ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .recipe-card li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .recipe-tip {
+            background-color: #f0f7ff;
+            border-left: 4px solid var(--info-color);
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .recipe-benefit {
+            background-color: #f0fff4;
+            border-left: 4px solid var(--success-color);
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .recipe-alert {
+            background-color: #fff8f0;
+            border-left: 4px solid var(--warning-color);
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .copy-btn {
+            background-color: var(--info-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background-color: #0288d1;
+            transform: translateY(-2px);
+        }
+
+        .nutrition-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .nutrition-tag {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-10px); }
+        }
+
+        .development-message {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Toast container para notificaciones */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+        }
+        
+        .custom-toast {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .toast-success {
+            border-left: 5px solid var(--success-color);
+        }
+        
+        .toast-error {
+            border-left: 5px solid var(--danger-color);
+        }
+        
+        .toast-info {
+            border-left: 5px solid var(--info-color);
+        }
+
+        /* Footer para móviles */
+        .mobile-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        .mobile-footer a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .mobile-footer i {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        /* Sección de Combos Regionales */
+        .regional-combos {
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid var(--success-color);
+        }
+
+        .combos-title {
+            color: var(--success-color);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .combo-card {
+            display: flex;
+            background-color: #f0fff4;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .combo-image {
+            width: 120px;
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .combo-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .combo-info {
+            flex: 1;
+            padding: 15px;
+        }
+
+        .combo-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+            font-size: 1.1rem;
+        }
+
+        .combo-description {
+            font-size: 0.9rem;
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+
+        .combo-benefits {
+            display: flex;
+            gap: 10px;
+        }
+
+        .combo-benefit {
+            background-color: var(--success-color);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.3rem;
+            }
+
+            .header-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .selector-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .selector-group select {
+                min-width: auto;
+            }
+
+            .regional-banner h2 {
+                font-size: 1.5rem;
+            }
+
+            .recipes-container {
+                grid-template-columns: 1fr;
+            }
+
+            .mobile-footer {
+                display: flex;
+            }
+
+            .anemia-content {
+                flex-direction: column;
+            }
+
+            .combo-card {
+                flex-direction: column;
+            }
+
+            .combo-image {
+                width: 100%;
+                height: 150px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-footer {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-map-marked-alt"></i> Comida por Región</h1>
+            <div class="header-buttons">
+                <a href="#" id="backToProfile" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver al Perfil</a>
+                <a href="index1.html" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Salir</a>
+            </div>
+        </div>
+
+        <!-- Sección de Anemia -->
+        <div class="anemia-section">
+            <h2 class="anemia-title"><i class="fas fa-heartbeat"></i> ¿Qué es la Anemia y cómo prevenirla?</h2>
+            <div class="anemia-content">
+                <div class="anemia-text">
+                    <p>La anemia es una condición donde el cuerpo no tiene suficientes glóbulos rojos sanos para transportar oxígeno adecuadamente. En los niños, puede causar fatiga, debilidad y problemas de desarrollo.</p>
+                    <p>¡La buena noticia es que podemos prevenirla con una alimentación adecuada! Los alimentos ricos en hierro son nuestros mejores aliados.</p>
+                    <div style="margin-top: 15px;">
+                        <span class="btn-iron" style="padding: 5px 10px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;">
+                            <i class="fas fa-tint"></i> Hierro
+                        </span>
+                        <span style="margin: 0 10px;">+</span>
+                        <span class="btn-vitamin-c" style="padding: 5px 10px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;">
+                            <i class="fas fa-lemon"></i> Vitamina C
+                        </span>
+                        <span style="margin: 0 10px;">=</span>
+                        <span class="btn-success" style="padding: 5px 10px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;">
+                            <i class="fas fa-shield-alt"></i> Protección contra la Anemia
+                        </span>
+                    </div>
+                </div>
+                <div class="anemia-image">
+                    <img src="https://picsum.photos/seed/anemia-prevention/300/200.jpg" alt="Prevención de la anemia">
+                </div>
+            </div>
+        </div>
+
+        <div class="region-selector">
+            <h2 class="selector-title"><i class="fas fa-map"></i> Explora Sabores Regionales</h2>
+            <div class="selector-group">
+                <label for="region-select">Selecciona un departamento:</label>
+                <select id="region-select">
+                    <option value="">-- Selecciona un departamento --</option>
+                    <option value="Amazonas">Amazonas</option>
+                    <option value="Áncash">Áncash</option>
+                    <option value="Apurímac">Apurímac</option>
+                    <option value="Arequipa">Arequipa</option>
+                    <option value="Ayacucho">Ayacucho</option>
+                    <option value="Cajamarca">Cajamarca</option>
+                    <option value="Callao">Callao</option>
+                    <option value="Cusco">Cusco</option>
+                    <option value="Huancavelica">Huancavelica</option>
+                    <option value="Huánuco">Huánuco</option>
+                    <option value="Ica">Ica</option>
+                    <option value="Junín">Junín</option>
+                    <option value="La Libertad">La Libertad</option>
+                    <option value="Lambayeque">Lambayeque</option>
+                    <option value="Lima" selected>Lima</option>
+                    <option value="Loreto">Loreto</option>
+                    <option value="Madre de Dios">Madre de Dios</option>
+                    <option value="Moquegua">Moquegua</option>
+                    <option value="Pasco">Pasco</option>
+                    <option value="Piura">Piura</option>
+                    <option value="Puno">Puno</option>
+                    <option value="San Martín">San Martín</option>
+                    <option value="Tacna">Tacna</option>
+                    <option value="Tumbes">Tumbes</option>
+                    <option value="Ucayali">Ucayali</option>
+                </select>
+                <button id="generate-plan" class="generate-btn">
+                    <i class="fas fa-magic"></i> Generar Plan Nutricional Regional
+                </button>
+            </div>
+        </div>
+
+        <div class="regional-banner" id="regional-banner">
+            <h2 id="banner-title">Sabores de Lima para <span id="child-name">...</span></h2>
+            <p>Descubre recetas tradicionales adaptadas para combatir la anemia</p>
+            <div class="fun-fact" id="fun-fact">
+                <i class="fas fa-lightbulb"></i>
+                <span>¿Sabías que? Lima es conocida por su cocina criolla que fusiona influencias indígenas, españolas, africanas y asiáticas.</span>
+            </div>
+        </div>
+
+        <!-- Sección de Combos Regionales -->
+        <div class="regional-combos">
+            <h2 class="combos-title"><i class="fas fa-star"></i> Combos Regionales contra la Anemia</h2>
+            <div class="combo-card">
+                <div class="combo-image">
+                    <img src="https://picsum.photos/seed/lima-combo/120/120.jpg" alt="Combo Limeño">
+                </div>
+                <div class="combo-info">
+                    <div class="combo-name">Combo Nutritivo Limeño</div>
+                    <div class="combo-description">Tallarines verdes con jugo de naranja, combinando hierro no hemo con vitamina C para máxima absorción.</div>
+                    <div class="combo-benefits">
+                        <div class="combo-benefit">
+                            <i class="fas fa-tint"></i> Hierro
+                        </div>
+                        <div class="combo-benefit">
+                            <i class="fas fa-lemon"></i> Vitamina C
+                        </div>
+                        <div class="combo-benefit">
+                            <i class="fas fa-heart"></i> Saludable
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="combo-card">
+                <div class="combo-image">
+                    <img src="https://picsum.photos/seed/andean-combo/120/120.jpg" alt="Combo Andino">
+                </div>
+                <div class="combo-info">
+                    <div class="combo-name">Combo Andino Energético</div>
+                    <div class="combo-description">Quinua con kiwicha y frutos rojos, una combinación andina rica en hierro y antioxidantes.</div>
+                    <div class="combo-benefits">
+                        <div class="combo-benefit">
+                            <i class="fas fa-tint"></i> Hierro
+                        </div>
+                        <div class="combo-benefit">
+                            <i class="fas fa-lemon"></i> Vitamina C
+                        </div>
+                        <div class="combo-benefit">
+                            <i class="fas fa-bolt"></i> Energía
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loader" id="loader"></div>
+
+        <div class="recipes-container" id="recipes-container"></div>
+    </div>
+
+    <!-- Footer para móviles -->
+    <div class="mobile-footer">
+        <a href="#" id="mobileBackToProfile">
+            <i class="fas fa-arrow-left"></i>
+            <span>Volver</span>
+        </a>
+        <a href="#" id="mobileHome">
+            <i class="fas fa-home"></i>
+            <span>Inicio</span>
+        </a>
+        <a href="#" id="mobileProfile">
+            <i class="fas fa-user"></i>
+            <span>Perfil</span>
+        </a>
+        <a href="#" id="mobileExit">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Salir</span>
+        </a>
+    </div>
+
+    <!-- Toast container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Datos de ejemplo para recetas regionales iniciales (Lima)
+        const sampleLimaRecipes = [
+            {
+                nombreReceta: "Tallarines Verdes con Pollo",
+                ingredientes: ["200g de tallarines", "1 pechuga de pollo", "1 taza de espinacas", "1/2 taza de albahaca fresca", "1/4 taza de nueces", "1/4 taza de queso parmesano", "2 dientes de ajo", "Aceite de oliva", "Sal y pimienta"],
+                preparacion: ["Cocinar los tallarines según las instrucciones del paquete.", "Cocinar la pechuga de pollo y desmenuzar.", "Licuar las espinacas, albahaca, nueces, queso, ajo y aceite de oliva.", "Salpimentar la salsa al gusto.", "Mezclar los tallarines con la salsa verde.", "Añadir el pollo desmenuzado y servir."],
+                consejosDespensa: "Las espinacas y albahaca son ricas en hierro. Acompaña con una limonada para mejorar la absorción del hierro no hemo.",
+                beneficiosNiño: "Aporta hierro, proteínas y antioxidantes esenciales para el desarrollo y prevención de la anemia.",
+                alertaAlergenos: "Contiene gluten (tallarines), frutos secos (nueces) y lácteos (queso).",
+                tags: ["Hierro", "Proteínas"],
+                image: "https://picsum.photos/seed/tallarines-verdes/400/300.jpg"
+            },
+            {
+                nombreReceta: "Causa Limeña Rellena de Atún",
+                ingredientes: ["1kg de papas amarillas", "2 latas de atún", "1/2 taza de mayonesa", "1 limón", "1 cebolla morada", "1 ají amarillo", "1 palta", "Huevos duros", "Aceitunas", "Sal y pimienta"],
+                preparacion: ["Cocinar las papas, pelar y hacer un puré con aceite y limón.", "Desmenuzar el atún y mezclar con mayonesa.", "Cortar la cebolla en juliana y macerar con limón y sal.", "Cocinar el ají amarillo y licuar con un poco del puré de papa.", "Mezclar el ají licuado con el resto del puré.", "En un molde, poner una capa de puré, luego atún, palta en láminas, huevo duro y aceitunas.", "Cubrir con otra capa de puré y desmoldar.", "Decorar con huevo duro, aceitunas y palta."],
+                consejosDespensa: "El atún es rico en hierro hemo de fácil absorción. La vitamina C del limón ayuda a absorber el hierro de las verduras.",
+                beneficiosNiño: "Proporciona hierro, omega-3 y carbohidratos complejos, ideales para el desarrollo cerebral y físico.",
+                alertaAlergenos: "Contiene pescado (atún), huevo y lácteos (mayonesa).",
+                tags: ["Hierro", "Omega-3"],
+                image: "https://picsum.photos/seed/causa-limena/400/300.jpg"
+            },
+            {
+                nombreReceta: "Lomo Saltado con Quinua",
+                ingredientes: ["500g de lomo de res", "2 tomates", "1 cebolla roja", "1 ají amarillo", "2 dientes de ajo", "1 taza de quinua", "Vinagre", "Salsa de soja", "Aceite", "Sal y pimienta", "Cilantro fresco"],
+                preparacion: ["Cortar el lomo en tiras y marinar con ajo, salsa de soja, vinagre, sal y pimienta.", "Cocinar la quinua según las instrucciones del paquete.", "Cortar la cebolla y tomate en gajos.", "En una sartén caliente con aceite, saltear el lomo a fuego fuerte.", "Añadir la cebolla, tomate y ají picado.", "Saltear todo junto por unos minutos.", "Servir acompañado de quinua y espolvorear con cilantro fresco."],
+                consejosDespensa: "La carne de res es una excelente fuente de hierro hemo. La quinua añade hierro adicional y proteínas de alta calidad.",
+                beneficiosNiño: "Aporta proteínas de alta calidad, hierro y aminoácidos esenciales para el crecimiento y prevención de la anemia.",
+                alertaAlergenos: "Contiene carne de res. La salsa de soja puede contener gluten.",
+                tags: ["Hierro", "Proteínas"],
+                image: "https://picsum.photos/seed/lomo-saltado/400/300.jpg"
+            },
+            {
+                nombreReceta: "Suspiro a la Limeña con Quinua",
+                ingredientes: ["1 taza de quinua cocida", "1/2 taza de leche evaporada", "1/4 taza de azúcar", "3 yemas de huevo", "1 cucharadita de extracto de vainilla", "3 claras de huevo", "1/2 taza de azúcar para el merengue", "Canela en polvo"],
+                preparacion: ["Cocinar la quinua y dejar enfriar.", "En una olla, calentar la leche con el azúcar hasta disolver.", "Añadir la quinua cocida y cocinar a fuego lento hasta espesar.", "Retirar del fuego y añadir las yemas batidas y la vainilla.", "Cocinar sin hervir hasta que espese más.", "Verter en copas y dejar enfriar.", "Batir las claras a punto de nieve y añadir el azúcar gradualmente.", "Cubrir la quinua con el merengue y espolvorear canela.", "Quemar el merengue con un soplete o bajo el grill."],
+                consejosDespensa: "La quinua es un pseudocereal rico en hierro. Las yemas de huevo aportan hierro adicional y vitaminas del complejo B.",
+                beneficiosNiño: "Proporciona hierro, proteínas y carbohidratos complejos, ideales para la energía y el desarrollo cognitivo.",
+                alertaAlergenos: "Contiene huevo y lácteos (leche evaporada).",
+                tags: ["Hierro", "Calcio"],
+                image: "https://picsum.photos/seed/suspiro-limeno/400/300.jpg"
+            },
+            {
+                nombreReceta: "Arroz con Pollo a la Limeña",
+                ingredientes: ["2 tazas de arroz", "1 pollo trozado", "1 cebolla", "3 dientes de ajo", "1 ají verde", "1/2 taza de arvejas", "1 zanahoria", "1/4 taza de culantro picado", "Caldo de pollo", "Aceite", "Sal y pimienta"],
+                preparacion: ["Sofreír la cebolla, ajo y ají picados en aceite.", "Añadir el pollo y dorar por todos lados.", "Incorporar la zanahoria en cubitos y las arvejas.", "Añadir el arroz y sofreír unos minutos.", "Verter el caldo de pollo caliente, salpimentar y cocinar a fuego medio.", "Cuando el arroz esté casi listo, añadir el culantro picado.", "Cocinar hasta que el arroz esté grains y el pollo tierno."],
+                consejosDespensa: "El pollo es una buena fuente de hierro hemo. El culantro aporta vitamina C que mejora la absorción del hierro.",
+                beneficiosNiño: "Aporta proteínas, hierro y carbohidratos, esenciales para el crecimiento, desarrollo y prevención de la anemia.",
+                alertaAlergenos: "Contiene pollo. Puede contener gluten si el caldo de pollo lo tiene.",
+                tags: ["Hierro", "Proteínas"],
+                image: "https://picsum.photos/seed/arroz-con-pollo/400/300.jpg"
+            },
+            {
+                nombreReceta: "Mazamorra Morada con Kiwicha",
+                ingredientes: ["1 taza de maíz morado", "1/2 taza de kiwicha", "2 manzanas", "1 piña", "1 membrillo", "1/2 taza de camote cocido", "Cáscara de piña", "Canela, clavo de olor", "Azúcar al gusto", "Chicha morada", "Maicena"],
+                preparacion: ["Cocinar el maíz morado con la cáscara de piña, canela y clavo en abundante agua.", "Colar el líquido y reservar.", "Cocinar la kiwicha en parte del líquido reservado hasta que esté tierna.", "Cortar las frutas en cubos pequeños.", "Añadir las frutas y el camote cocido y machacado al líquido de maíz morado.", "Cocinar hasta que las frutas estén tiernas.", "Diluir la maicena en un poco de agua fría y añadir a la mazamorra para espesar.", "Endulzar con azúcar al gusto y cocinar unos minutos más.", "Dejar enfriar y servir."],
+                consejosDespensa: "El maíz morado y la kiwicha son ricos en hierro y antioxidantes. Las frutas aportan vitamina C que mejora la absorción del hierro.",
+                beneficiosNiño: "Aporta antioxidantes, hierro y fibra, fortaleciendo el sistema inmunológico y previniendo la anemia.",
+                alertaAlergenos: "Sin alérgenos comunes. Apto para la mayoría de las dietas.",
+                tags: ["Hierro", "Antioxidantes"],
+                image: "https://picsum.photos/seed/mazamorra-morada/400/300.jpg"
+            }
+        ];
+
+        // Datos curiosos sobre cada región
+        const regionFunFacts = {
+            "Amazonas": "¿Sabías que? La gastronomía amazónica utiliza ingredientes únicos como el paiche, el suri y frutas exóticas como el camu camu, rica en vitamina C.",
+            "Áncash": "¿Sabías que? En Áncash se prepara el 'pachamanca', una técnica ancestral de cocción bajo tierra que conserva los nutrientes de los alimentos.",
+            "Apurímac": "¿Sabías que? Apurímac es conocido por sus variedades de papas nativas, que son excelentes fuentes de carbohidratos complejos y vitamina C.",
+            "Arequipa": "¿Sabías que? La cocina arequipeña es famosa por sus 'rocotos rellenos', que combinan el picante del rocoto con proteínas y verduras nutritivas.",
+            "Ayacucho": "¿Sabías que? En Ayacucho se prepara el 'puca picante', un plato a base de maní y papas que aporta proteínas vegetales y hierro.",
+            "Cajamarca": "¿Sabías que? Cajamarca es famosa por su leche y derivados, excelentes fuentes de calcio y proteínas esenciales para el desarrollo infantil.",
+            "Callao": "¿Sabías que? La gastronomía chalaca incluye platos como el 'ceviche' y el 'tiradito', ricos en proteínas de alta calidad y ácidos grasos omega-3.",
+            "Cusco": "¿Sabías que? El Cusco es la cuna del 'cuy chactado', una fuente importante de proteínas y bajo en grasa, ideal para el crecimiento infantil.",
+            "Huancavelica": "¿Sabías que? Huancavelica es conocida por sus truchas, pescados de agua dulce ricos en omega-3 y proteínas de alta calidad.",
+            "Huánuco": "¿Sabías que? En Huánuco se prepara el 'inchicapi', una sopa a base de maní y gallina que aporta proteínas y grasas saludables.",
+            "Ica": "¿Sabías que? Ica es la tierra del 'pisco' y también de platos como la 'carapulcra', que combina papa seca con carne, aportando carbohidratos y proteínas.",
+            "Junín": "¿Sabías que? Junín es famoso por su 'pachamanca' y por la trucha, un pescado rico en omega-3 que beneficia el desarrollo cerebral infantil.",
+            "La Libertad": "¿Sabías que? La Libertad es cuna del 'shambar', un caldo que combina granos, carnes y hierbas aromáticas, rico en proteínas y fibra.",
+            "Lambayeque": "¿Sabías que? En Lambayeque se prepara el 'arroz con pato', un plato que combina proteínas de alta calidad con carbohidratos complejos.",
+            "Lima": "¿Sabías que? Lima es conocida por su cocina criolla que fusiona influencias indígenas, españolas, africanas y asiáticas.",
+            "Loreto": "¿Sabías que? La gastronomía loreto utiliza ingredientes como el paiche, el suri y frutas exóticas como el camu camu, rica en vitamina C.",
+            "Madre de Dios": "¿Sabías que? Madre de Dios es rica en frutos amazónicos como el aguaje, que aporta vitamina A y C, esenciales para el sistema inmunológico.",
+            "Moquegua": "¿Sabías que? Moquegua es famosa por sus vinos y piscos, y por platos como el 'chupe de camarones', rico en proteínas y zinc.",
+            "Pasco": "¿Sabías que? Pasco es conocido por su 'pachamanca' y por la trucha, un pescado rico en omega-3 que beneficia el desarrollo cerebral infantil.",
+            "Piura": "¿Sabías que? Piura es famosa por sus platos a base de plátano como el 'majao', que combina carbohidratos complejos con proteínas.",
+            "Puno": "¿Sabías que? Puno es la cuna del 'chupe de quinua', un plato que combina este pseudocereal rico en hierro con productos lácteos.",
+            "San Martín": "¿Sabías que? San Martín es conocida por su 'juane', una preparación a base de arroz, gallina y especias envuelta en hojas de bijao.",
+            "Tacna": "¿Sabías que? Tacna es famosa por su 'picante a la tacneña', que combina carne con papas y ajíes, aportando proteínas y vitamina C.",
+            "Tumbes": "¿Sabías que? Tumbes es conocida por sus ceviches de pescado y mariscos, ricos en proteínas de alta calidad y ácidos grasos omega-3.",
+            "Ucayali": "¿Sabías que? Ucayali es rica en platos a base de pescado como el 'timbuche', una sopa de pescado con plátano y yuca."
+        };
+
+        // Variables globales
+        let childId = "";
+        let childData = {};
+        let recipes = [];
+
+        // Storage Adapter - Para facilitar migración a backend
+        const storageAdapter = {
+            // Users
+            getUsers: function() {
+                const users = localStorage.getItem('yachay_users');
+                return users ? JSON.parse(users) : [];
+            },
+            saveUsers: function(users) {
+                localStorage.setItem('yachay_users', JSON.stringify(users));
+            },
+            
+            // Children
+            getChildren: function() {
+                const children = localStorage.getItem('yachay_children');
+                return children ? JSON.parse(children) : [];
+            },
+            saveChildren: function(children) {
+                localStorage.setItem('yachay_children', JSON.stringify(children));
+            },
+            
+            // Responses
+            getResponses: function() {
+                const responses = localStorage.getItem('yachay_responses');
+                return responses ? JSON.parse(responses) : {};
+            },
+            saveResponses: function(responses) {
+                localStorage.setItem('yachay_responses', JSON.stringify(responses));
+            },
+            
+            // Session
+            getSession: function() {
+                const session = localStorage.getItem('yachay_session');
+                return session ? JSON.parse(session) : { currentUserId: null, exploringAsGuest: false, lastActiveAt: null };
+            },
+            saveSession: function(session) {
+                localStorage.setItem('yachay_session', JSON.stringify(session));
+            },
+            
+            // Audit Log
+            getAuditLog: function() {
+                const auditLog = localStorage.getItem('yachay_auditLog');
+                return auditLog ? JSON.parse(auditLog) : [];
+            },
+            saveAuditLog: function(auditLog) {
+                localStorage.setItem('yachay_auditLog', JSON.stringify(auditLog));
+            }
+        };
+
+        // --- INICIO DE FUNCIONES DE SINCRONIZACIÓN ---
+        
+        // Función para sincronizar la eliminación/restauración entre páginas
+        function syncChildDeletionAcrossPages(childId, action) {
+            // action puede ser 'soft-delete', 'restore' o 'permanent-delete'
+            const syncData = {
+                childId: childId,
+                action: action,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Guardar en localStorage para que otras páginas puedan detectar cambios
+            localStorage.setItem('yachay_sync_action', JSON.stringify(syncData));
+            
+            // Notificar a otras pestañas abiertas usando BroadcastChannel
+            if ('BroadcastChannel' in window) {
+                const channel = new BroadcastChannel('yachay_sync');
+                channel.postMessage(syncData);
+            }
+        }
+
+        // --- FIN DE FUNCIONES DE SINCRONIZACIÓN ---
+
+        // Función para mostrar notificaciones toast mejoradas
+        function showToast(message, type = 'info') {
+            const toastContainer = document.getElementById('toastContainer');
+            const toastId = 'toast-' + Date.now();
+            
+            const toastHtml = `
+                <div id="${toastId}" class="custom-toast toast-${type}">
+                    <div class="me-2">
+                        ${type === 'success' ? '<i class="fas fa-check-circle text-success"></i>' : 
+                          type === 'error' ? '<i class="fas fa-exclamation-circle text-danger"></i>' : 
+                          '<i class="fas fa-info-circle text-info"></i>'}
+                    </div>
+                    <div class="flex-grow-1">${message}</div>
+                    <button type="button" class="btn-close ms-2" onclick="document.getElementById('${toastId}').remove()"></button>
+                </div>
+            `;
+            
+            toastContainer.insertAdjacentHTML('beforeend', toastHtml);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                const toast = document.getElementById(toastId);
+                if (toast) toast.remove();
+            }, 5000);
+        }
+
+        // Función para obtener el childId de la URL
+        function getChildIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('childId');
+        }
+
+        // Función para cargar los datos del niño desde localStorage
+        function loadChildData() {
+            const childrenData = storageAdapter.getChildren();
+            const child = childrenData.find(c => c.id === childId);
+            if (child) {
+                childData = child;
+                updateHeaderWithChildName();
+                updateBannerWithChildName();
+                return true;
+            }
+            return false;
+        }
+
+        // Función para actualizar el encabezado con el nombre del niño
+        function updateHeaderWithChildName() {
+            const headerTitle = document.querySelector('.header h1');
+            headerTitle.innerHTML = `<i class="fas fa-map-marked-alt"></i> Comida por Región para ${childData.name}`;
+            
+            // Actualizar enlace de volver al perfil
+            const backToProfileLink = document.getElementById('backToProfile');
+            backToProfileLink.href = `chicos.html?childId=${childId}`;
+            
+            // Actualizar enlaces del footer móvil
+            const mobileBackToProfile = document.getElementById('mobileBackToProfile');
+            const mobileProfile = document.getElementById('mobileProfile');
+            
+            mobileBackToProfile.href = `chicos.html?childId=${childId}`;
+            mobileProfile.href = `chicos.html?childId=${childId}`;
+        }
+
+        // Función para actualizar el banner con el nombre del niño
+        function updateBannerWithChildName() {
+            const childNameElement = document.getElementById('child-name');
+            childNameElement.textContent = childData.name;
+        }
+
+        // Función para mostrar notificaciones (mantenida por compatibilidad)
+        function showNotification(message, type) {
+            showToast(message, type);
+        }
+
+        // Función para generar recetas regionales
+        function generateRegionalRecipes() {
+            // Mostrar mensaje de desarrollo
+            showDevelopmentMessage();
+        }
+
+        // Función para mostrar mensaje de desarrollo
+        function showDevelopmentMessage() {
+            const existingMessage = document.querySelector('.development-message');
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+            
+            const message = document.createElement('div');
+            message.className = 'development-message';
+            message.innerHTML = '<i class="fas fa-tools"></i> Funcionalidad en desarrollo. Próximamente podrás generar recetas regionales personalizadas con IA.';
+            
+            const recipesContainer = document.getElementById('recipes-container');
+            recipesContainer.parentNode.insertBefore(message, recipesContainer);
+            
+            setTimeout(() => {
+                message.style.animation = 'fadeOut 0.5s';
+                setTimeout(() => {
+                    if (message.parentNode) {
+                        message.parentNode.removeChild(message);
+                    }
+                }, 500);
+            }, 5000);
+        }
+
+        // Función para actualizar el banner regional
+        function updateRegionalBanner(region) {
+            const bannerTitle = document.getElementById('banner-title');
+            const funFact = document.getElementById('fun-fact');
+            
+            bannerTitle.innerHTML = `Sabores de ${region} para <span id="child-name">${childData.name}</span>`;
+            funFact.innerHTML = `<i class="fas fa-lightbulb"></i><span>${regionFunFacts[region] || "Descubre la riqueza gastronómica de esta región peruana."}</span>`;
+        }
+
+        // Función para actualizar las recetas
+        function updateRecipes(newRecipes) {
+            // Eliminar las recetas existentes con animación
+            const existingCards = document.querySelectorAll('.recipe-card');
+            existingCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('removing');
+                }, index * 100);
+            });
+            
+            // Añadir las nuevas recetas después de que se completen las animaciones
+            setTimeout(() => {
+                recipes = newRecipes;
+                renderRecipes();
+            }, existingCards.length * 100 + 500);
+        }
+
+        // Función para renderizar las recetas
+        function renderRecipes() {
+            const recipesContainer = document.getElementById('recipes-container');
+            recipesContainer.innerHTML = '';
+            
+            recipes.forEach((recipe, index) => {
+                const card = document.createElement('div');
+                card.className = 'recipe-card';
+                
+                // Generar HTML para ingredientes
+                const ingredientsHtml = recipe.ingredientes.map(ing => `<li>${ing}</li>`).join('');
+                
+                // Generar HTML para preparación
+                const preparationHtml = recipe.preparacion.map(step => `<li>${step}</li>`).join('');
+                
+                // Generar HTML para etiquetas nutricionales
+                const tagsHtml = recipe.tags ? recipe.tags.map(tag => 
+                    `<span class="nutrition-tag"><i class="fas fa-check"></i> ${tag}</span>`
+                ).join('') : '';
+                
+                card.innerHTML = `
+                    <div class="recipe-image">
+                        <img src="${recipe.image || 'https://picsum.photos/seed/recipe-' + index + '/400/300.jpg'}" alt="${recipe.nombreReceta}">
+                    </div>
+                    <div class="recipe-content">
+                        ${tagsHtml ? `<div class="nutrition-tags">${tagsHtml}</div>` : ''}
+                        <h3><i class="fas fa-utensils"></i> ${recipe.nombreReceta}</h3>
+                        
+                        <h4><i class="fas fa-shopping-basket"></i> Ingredientes:</h4>
+                        <ul>${ingredientsHtml}</ul>
+                        
+                        <h4><i class="fas fa-list-ol"></i> Preparación:</h4>
+                        <ol>${preparationHtml}</ol>
+                        
+                        <div class="recipe-tip">
+                            <i class="fas fa-lightbulb"></i>
+                            <div>
+                                <strong>Consejos para tu Despensa:</strong> ${recipe.consejosDespensa}
+                            </div>
+                        </div>
+                        
+                        <div class="recipe-benefit">
+                            <i class="fas fa-heartbeat"></i>
+                            <div>
+                                <strong>Beneficios para el Niño:</strong> ${recipe.beneficiosNiño}
+                            </div>
+                        </div>
+                        
+                        ${recipe.alertaAlergenos ? `
+                        <div class="recipe-alert">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <div>
+                                <strong>Alerta de Alérgenos:</strong> ${recipe.alertaAlergenos}
+                            </div>
+                        </div>
+                        ` : ''}
+                        
+                        <button class="copy-btn" data-recipe-index="${index}">
+                            <i class="fas fa-copy"></i> Copiar Receta
+                        </button>
+                    </div>
+                `;
+                
+                recipesContainer.appendChild(card);
+            });
+            
+            // Añadir event listeners a los botones de copiar
+            document.querySelectorAll('.copy-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-recipe-index'));
+                    copyRecipe(index);
+                });
+            });
+        }
+
+        // Función para copiar una receta al portapapeles
+        function copyRecipe(index) {
+            const recipe = recipes[index];
+            
+            let textToCopy = `${recipe.nombreReceta}\n\n`;
+            textToCopy += `Ingredientes:\n`;
+            recipe.ingredientes.forEach(ing => {
+                textToCopy += `- ${ing}\n`;
+            });
+            
+            textToCopy += `\nPreparación:\n`;
+            recipe.preparacion.forEach((step, i) => {
+                textToCopy += `${i + 1}. ${step}\n`;
+            });
+            
+            textToCopy += `\nConsejos para tu Despensa: ${recipe.consejosDespensa}\n`;
+            textToCopy += `Beneficios para el Niño: ${recipe.beneficiosNiño}\n`;
+            
+            if (recipe.alertaAlergenos) {
+                textToCopy += `Alerta de Alérgenos: ${recipe.alertaAlergenos}\n`;
+            }
+            
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showToast('Receta copiada al portapapeles', 'success');
+            }).catch(err => {
+                showToast('Error al copiar la receta', 'error');
+                console.error('Error al copiar: ', err);
+            });
+        }
+
+        // Función para inicializar las recetas de ejemplo
+        function initializeSampleRecipes() {
+            recipes = [...sampleLimaRecipes];
+            renderRecipes();
+        }
+
+        // Función para inicializar el footer móvil
+        function initMobileFooter() {
+            // Enlace de inicio
+            document.getElementById('mobileHome').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'index1.html';
+            });
+            
+            // Enlace de salir
+            document.getElementById('mobileExit').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'index1.html';
+            });
+        }
+
+        // Función de inicialización
+        function init() {
+            // --- INICIO DE VERIFICACIÓN DE SINCRONIZACIÓN AL CARGAR ---
+            // Verificar si hay acciones de sincronización pendientes de otras pestañas
+            const syncAction = localStorage.getItem('yachay_sync_action');
+            if (syncAction) {
+                const syncData = JSON.parse(syncAction);
+                // Si la acción es reciente (menos de 5 segundos), la procesamos
+                const actionTime = new Date(syncData.timestamp);
+                const now = new Date();
+                if ((now - actionTime) < 5000) {
+                    // Si la acción afecta al niño actual, redirigimos
+                    const currentChildId = getChildIdFromUrl();
+                    if (currentChildId === syncData.childId) {
+                        if (syncData.action === 'soft-delete' || syncData.action === 'permanent-delete') {
+                            showToast('El perfil actual ha sido eliminado', 'info');
+                            setTimeout(() => {
+                                window.location.href = 'chicos.html';
+                            }, 2000);
+                        }
+                    }
+                }
+                // Limpiamos la acción para no procesarla de nuevo
+                localStorage.removeItem('yachay_sync_action');
+            }
+
+            // Configurar listener para sincronización en tiempo real con otras pestañas
+            if ('BroadcastChannel' in window) {
+                const channel = new BroadcastChannel('yachay_sync');
+                channel.onmessage = function(event) {
+                    const syncData = event.data;
+                    // Si recibimos un mensaje de sincronización, verificamos si afecta al niño actual
+                    const currentChildId = getChildIdFromUrl();
+                    if (currentChildId === syncData.childId) {
+                        if (syncData.action === 'soft-delete' || syncData.action === 'permanent-delete') {
+                            showToast('El perfil actual ha sido eliminado', 'info');
+                            setTimeout(() => {
+                                window.location.href = 'chicos.html';
+                            }, 2000);
+                        }
+                    }
+                };
+            }
+            // --- FIN DE VERIFICACIÓN DE SINCRONIZACIÓN AL CARGAR ---
+
+            // Obtener el childId de la URL
+            childId = getChildIdFromUrl();
+            
+            if (!childId) {
+                showToast('No se encontró el ID del niño', 'error');
+                return;
+            }
+            
+            // Cargar los datos del niño
+            if (!loadChildData()) {
+                showToast('No se encontraron datos del niño', 'error');
+                return;
+            }
+            
+            // Inicializar componentes
+            initMobileFooter();
+            
+            // Inicializar recetas de ejemplo
+            initializeSampleRecipes();
+            
+            // Event listeners
+            document.getElementById('generate-plan').addEventListener('click', generateRegionalRecipes);
+            
+            // Actualizar el banner cuando se seleccione una región
+            document.getElementById('region-select').addEventListener('change', function() {
+                const selectedRegion = this.value;
+                if (selectedRegion) {
+                    updateRegionalBanner(selectedRegion);
+                }
+            });
+        }
+
+        // Ejecutar la inicialización cuando el DOM esté cargado
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

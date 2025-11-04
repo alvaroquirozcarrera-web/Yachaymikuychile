@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platos del Día - Yachay Mikuy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2c5aa0;
+            --light-blue: #5d8cc4;
+            --dark-blue: #1a3a6e;
+            --success-green: #28a745;
+            --success-green-dark: #218838;
+            --accent-orange: #ff9800;
+            --accent-orange-dark: #e08e0b;
+            --accent-purple: #6f42c1;
+            --accent-purple-dark: #5a32a3;
+            --accent-teal: #20c997;
+            --accent-teal-dark: #1aa27d;
+            --accent-pink: #d63384;
+            --accent-pink-dark: #b02a6e;
+            --accent-cyan: #0dcaf0;
+            --accent-cyan-dark: #0baccc;
+            --gray: #6c757d;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --shadow-color: rgba(40, 50, 70, 0.1);
+            --danger-red: #dc3545;
+            --danger-red-dark: #c82333;
+            --pastel-cyan: #d7f9ff;
+            --pastel-green: #d7ffe6;
+            --pastel-yellow: #fff9d7;
+            --pastel-orange: #ffe6d7;
+            --iron-red: #e74c3c;
+            --iron-red-dark: #c0392b;
+            --vitamin-c-orange: #f39c12;
+            --vitamin-c-orange-dark: #e67e22;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-image: linear-gradient(120deg, #f5f9ff 0%, #e6f0fa 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        .header {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-color);
+            padding: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 8px solid var(--accent-cyan);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 150px;
+            height: 150px;
+            background-color: rgba(13, 202, 240, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: -30px;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(13, 202, 240, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-icon {
+            font-size: 2.5rem;
+            color: var(--accent-cyan);
+            animation: bounce 2s infinite;
+        }
+
+        .header-title h1 {
+            color: var(--dark-blue);
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            font-family: 'Fredoka', cursive;
+        }
+
+        .header-title p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-blue), var(--light-blue));
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(44, 90, 160, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(45deg, var(--danger-red), #e85d75);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+        }
+
+        /* Children Tags */
+        .children-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .child-tag {
+            background-color: rgba(93, 140, 196, 0.1);
+            color: var(--primary-blue);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .child-tag:hover {
+            background-color: rgba(93, 140, 196, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Nutrition Info Section */
+        .nutrition-info {
+            background: linear-gradient(135deg, rgba(13, 202, 240, 0.1), rgba(40, 167, 69, 0.1));
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-color);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nutrition-info::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background-color: rgba(13, 202, 240, 0.1);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .nutrition-info-content {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .nutrition-icon {
+            font-size: 3rem;
+            color: var(--accent-cyan);
+            animation: pulse 2s infinite;
+        }
+
+        .nutrition-text h2 {
+            color: var(--accent-cyan);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-family: 'Fredoka', cursive;
+        }
+
+        .nutrition-text p {
+            color: var(--dark-blue);
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .nutrition-tips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .nutrition-tip {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .nutrition-tip:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nutrition-tip-icon {
+            font-size: 1.5rem;
+            color: var(--accent-cyan);
+        }
+
+        .nutrition-tip-text {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Generate Menu Section */
+        .generate-menu {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-color);
+            padding: 25px;
+            margin-bottom: 30px;
+            text-align: center;
+            background-color: var(--pastel-cyan);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .generate-menu::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            width: 120px;
+            height: 120px;
+            background-color: rgba(13, 202, 240, 0.05);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-description {
+            margin-bottom: 25px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-option {
+            background-color: var(--white);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 10px;
+            padding: 10px 15px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-option:hover {
+            background-color: var(--accent-cyan);
+            color: var(--white);
+        }
+
+        .menu-option.selected {
+            background-color: var(--accent-cyan);
+            color: var(--white);
+        }
+
+        .btn-generate {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--accent-cyan), var(--accent-cyan-dark));
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(13, 202, 240, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .btn-generate::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s ease;
+        }
+
+        .btn-generate:hover::before {
+            left: 100%;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(13, 202, 240, 0.4);
+        }
+
+        /* Menu Display Section */
+        .menu-display {
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-color);
+            padding: 25px;
+        }
+
+        .meals-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .meal-card {
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.5s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .meal-header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .breakfast-header {
+            background: linear-gradient(45deg, var(--accent-orange), var(--accent-orange-dark));
+            color: var(--white);
+        }
+
+        .midmorning-header {
+            background: linear-gradient(45deg, var(--success-green), var(--success-green-dark));
+            color: var(--white);
+        }
+
+        .lunch-header {
+            background: linear-gradient(45deg, var(--primary-blue), var(--light-blue));
+            color: var(--white);
+        }
+
+        .snack-header {
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-purple-dark));
+            color: var(--white);
+        }
+
+        .dinner-header {
+            background: linear-gradient(45deg, var(--accent-teal), var(--accent-teal-dark));
+            color: var(--white);
+        }
+
+        .meal-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-copy {
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-copy:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .meal-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .recipe-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .meal-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meal-section {
+            margin-bottom: 15px;
+        }
+
+        .meal-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark-blue);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ingredient-list {
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .ingredient-list li {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .iron-rich {
+            color: var(--iron-red);
+            font-weight: 600;
+        }
+
+        .vitamin-c-rich {
+            color: var(--vitamin-c-orange);
+            font-weight: 600;
+        }
+
+        .steps-list {
+            padding-left: 20px;
+            counter-reset: step-counter;
+        }
+
+        .steps-list li {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            position: relative;
+            padding-left: 5px;
+        }
+
+        .benefits-box {
+            background-color: rgba(13, 202, 240, 0.1);
+            border-left: 4px solid var(--accent-cyan);
+            padding: 12px;
+            border-radius: 0 10px 10px 0;
+            margin-top: auto;
+        }
+
+        .allergy-box {
+            background-color: rgba(220, 53, 69, 0.1);
+            border-left: 4px solid var(--danger-red);
+            padding: 12px;
+            border-radius: 0 10px 10px 0;
+            margin-top: 10px;
+        }
+
+        .iron-info {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--iron-red);
+            padding: 12px;
+            border-radius: 0 10px 10px 0;
+            margin-top: 10px;
+        }
+
+        /* Loading Spinner */
+        .spinner-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(13, 202, 240, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--accent-cyan);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: var(--white);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+        }
+
+        .modal-body {
+            margin-bottom: 25px;
+            color: var(--gray);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .header-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nutrition-info-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nutrition-tips {
+                flex-direction: column;
+            }
+
+            .meals-container {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-generate {
+                font-size: 1rem;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="header-icon">
+                    <i class="fas fa-plate-wheat"></i>
+                </div>
+                <div class="header-title">
+                    <h1>Platos del Día</h1>
+                    <p>Panel Familiar</p>
+                    <div class="children-tags" id="childrenTags">
+                        <!-- Se llenará dinámicamente -->
+                    </div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a href="yachay.html" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i> Volver al Panel
+                </a>
+                <a href="index1.html" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </a>
+            </div>
+        </header>
+
+        <!-- Nutrition Info Section -->
+        <section class="nutrition-info">
+            <div class="nutrition-info-content">
+                <div class="nutrition-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <div class="nutrition-text">
+                    <h2>Nutrición para Combatir la Anemia</h2>
+                    <p>Un menú diario equilibrado es fundamental para prevenir y tratar la anemia infantil. Los platos del día están diseñados para maximizar la absorción de hierro.</p>
+                    <div class="nutrition-tips">
+                        <div class="nutrition-tip">
+                            <div class="nutrition-tip-icon">
+                                <i class="fas fa-lemon"></i>
+                            </div>
+                            <div class="nutrition-tip-text">Combina hierro con vitamina C</div>
+                        </div>
+                        <div class="nutrition-tip">
+                            <div class="nutrition-tip-icon">
+                                <i class="fas fa-coffee"></i>
+                            </div>
+                            <div class="nutrition-tip-text">Evita té o café con las comidas</div>
+                        </div>
+                        <div class="nutrition-tip">
+                            <div class="nutrition-tip-icon">
+                                <i class="fas fa-carrot"></i>
+                            </div>
+                            <div class="nutrition-tip-text">Incluye vegetales de color verde oscuro</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Generate Menu Section -->
+        <section class="generate-menu">
+            <h2 class="section-title">
+                <i class="fas fa-calendar-day"></i> Menú Diario para tu Familia
+            </h2>
+            
+            <div class="menu-description">
+                <p>Genera un plan nutricional completo para un día, diseñado para combatir la anemia y promover el bienestar de todos tus hijos.</p>
+            </div>
+            
+            <div class="menu-options">
+                <div class="menu-option selected" data-type="balanced">
+                    <i class="fas fa-balance-scale"></i> Equilibrado
+                </div>
+                <div class="menu-option" data-type="iron-rich">
+                    <i class="fas fa-pills"></i> Rico en Hierro
+                </div>
+                <div class="menu-option" data-type="vegetarian">
+                    <i class="fas fa-leaf"></i> Vegetariano
+                </div>
+                <div class="menu-option" data-type="quick">
+                    <i class="fas fa-clock"></i> Rápido
+                </div>
+            </div>
+            
+            <button id="generateMenuBtn" class="btn-generate">
+                <i class="fas fa-sync-alt"></i> Generar Menú de Hoy
+            </button>
+        </section>
+
+        <!-- Menu Display Section -->
+        <section class="menu-display">
+            <h2 class="section-title">
+                <i class="fas fa-utensils"></i> Plan Nutricional del Día
+            </h2>
+            
+            <div class="spinner-container" id="spinnerContainer">
+                <div class="spinner"></div>
+            </div>
+            
+            <div class="meals-container" id="mealsContainer"></div>
+        </section>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Confirmar acción</h3>
+                <button class="modal-close" id="modalClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                ¿Estás seguro de que quieres realizar esta acción?
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="modalCancel">Cancelar</button>
+                <button class="btn btn-danger" id="modalConfirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Storage Adapter - Para facilitar migración a backend
+        const storageAdapter = {
+            // Users
+            getUsers: function() {
+                const users = localStorage.getItem('yachay_users');
+                return users ? JSON.parse(users) : [];
+            },
+            saveUsers: function(users) {
+                localStorage.setItem('yachay_users', JSON.stringify(users));
+            },
+            
+            // Children
+            getChildren: function() {
+                const children = localStorage.getItem('yachay_children');
+                return children ? JSON.parse(children) : [];
+            },
+            saveChildren: function(children) {
+                localStorage.setItem('yachay_children', JSON.stringify(children));
+            },
+            
+            // Responses
+            getResponses: function() {
+                const responses = localStorage.getItem('yachay_responses');
+                return responses ? JSON.parse(responses) : {};
+            },
+            saveResponses: function(responses) {
+                localStorage.setItem('yachay_responses', JSON.stringify(responses));
+            },
+            
+            // Session
+            getSession: function() {
+                const session = localStorage.getItem('yachay_session');
+                return session ? JSON.parse(session) : { currentUserId: null, exploringAsGuest: false, lastActiveAt: null };
+            },
+            saveSession: function(session) {
+                localStorage.setItem('yachay_session', JSON.stringify(session));
+            },
+            
+            // Audit Log
+            getAuditLog: function() {
+                const auditLog = localStorage.getItem('yachay_auditLog');
+                return auditLog ? JSON.parse(auditLog) : [];
+            },
+            saveAuditLog: function(auditLog) {
+                localStorage.setItem('yachay_auditLog', JSON.stringify(auditLog));
+            }
+        };
+
+        // --- INICIO DE FUNCIONES DE SINCRONIZACIÓN ---
+        
+        // Función para sincronizar la eliminación/restauración entre páginas
+        function syncChildDeletionAcrossPages(childId, action) {
+            // action puede ser 'soft-delete', 'restore' o 'permanent-delete'
+            const syncData = {
+                childId: childId,
+                action: action,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Guardar en localStorage para que otras páginas puedan detectar cambios
+            localStorage.setItem('yachay_sync_action', JSON.stringify(syncData));
+            
+            // Notificar a otras pestañas abiertas usando BroadcastChannel
+            if ('BroadcastChannel' in window) {
+                const channel = new BroadcastChannel('yachay_sync');
+                channel.postMessage(syncData);
+            }
+        }
+
+        // --- FIN DE FUNCIONES DE SINCRONIZACIÓN ---
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- INICIO DE VERIFICACIÓN DE SINCRONIZACIÓN AL CARGAR ---
+            // Verificar si hay acciones de sincronización pendientes de otras pestañas
+            const syncAction = localStorage.getItem('yachay_sync_action');
+            if (syncAction) {
+                const syncData = JSON.parse(syncAction);
+                // Si la acción es reciente (menos de 5 segundos), la procesamos
+                const actionTime = new Date(syncData.timestamp);
+                const now = new Date();
+                if ((now - actionTime) < 5000) {
+                    // Si la acción afecta a algún niño mostrado, recargamos la página
+                    const session = storageAdapter.getSession();
+                    const guestMode = getURLParameter('guest') === 'true';
+                    
+                    let childrenToShow;
+                    if (guestMode || session.exploringAsGuest) {
+                        // Modo invitado: mostrar solo los perfiles de invitado
+                        childrenToShow = storageAdapter.getChildren().filter(child => child.ownerId === null);
+                    } else if (session.currentUserId) {
+                        // Modo con cuenta: mostrar los perfiles del usuario actual
+                        childrenToShow = storageAdapter.getChildren().filter(child => 
+                            child.ownerId === session.currentUserId
+                        );
+                    }
+                    
+                    // Verificar si el niño eliminado está en la lista de niños mostrados
+                    if (childrenToShow.some(child => child.id === syncData.childId)) {
+                        if (syncData.action === 'soft-delete' || syncData.action === 'permanent-delete') {
+                            showToast('Un perfil ha sido eliminado', 'info');
+                            // Recargar la página para actualizar la lista de niños
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        }
+                    }
+                }
+                // Limpiamos la acción para no procesarla de nuevo
+                localStorage.removeItem('yachay_sync_action');
+            }
+
+            // Configurar listener para sincronización en tiempo real con otras pestañas
+            if ('BroadcastChannel' in window) {
+                const channel = new BroadcastChannel('yachay_sync');
+                channel.onmessage = function(event) {
+                    const syncData = event.data;
+                    const session = storageAdapter.getSession();
+                    const guestMode = getURLParameter('guest') === 'true';
+                    
+                    let childrenToShow;
+                    if (guestMode || session.exploringAsGuest) {
+                        // Modo invitado: mostrar solo los perfiles de invitado
+                        childrenToShow = storageAdapter.getChildren().filter(child => child.ownerId === null);
+                    } else if (session.currentUserId) {
+                        // Modo con cuenta: mostrar los perfiles del usuario actual
+                        childrenToShow = storageAdapter.getChildren().filter(child => 
+                            child.ownerId === session.currentUserId
+                        );
+                    }
+                    
+                    // Verificar si el niño eliminado está en la lista de niños mostrados
+                    if (childrenToShow.some(child => child.id === syncData.childId)) {
+                        if (syncData.action === 'soft-delete' || syncData.action === 'permanent-delete') {
+                            showToast('Un perfil ha sido eliminado', 'info');
+                            // Recargar la página para actualizar la lista de niños
+                            setTimeout(() => {
+                                location.reload();
+                            }, 2000);
+                        }
+                    }
+                };
+            }
+            // --- FIN DE VERIFICACIÓN DE SINCRONIZACIÓN AL CARGAR ---
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const guestMode = urlParams.get('guest') === 'true';
+            const showCompletion = urlParams.get('showCompletion') === 'true';
+            const userId = urlParams.get('userId');
+
+            // Verificar si estamos en modo invitado o con cuenta
+            const session = storageAdapter.getSession();
+            let isGuestMode = guestMode || session.exploringAsGuest;
+
+            // Cargar los datos de TODOS los niños desde localStorage
+            let allChildrenData = storageAdapter.getChildren();
+            
+            if (!allChildrenData || allChildrenData.length === 0) {
+                // Si no hay datos, crear los niños de ejemplo si estamos en modo invitado
+                if (isGuestMode) {
+                    createGuestChildrenIfNotExists();
+                    allChildrenData = storageAdapter.getChildren();
+                } else {
+                    document.body.innerHTML = '<h1>Error: No se encontraron datos de niños. Por favor, complete al menos un cuestionario.</h1>';
+                    return;
+                }
+            }
+            
+            // Filtrar para usar solo los perfiles que han completado el cuestionario
+            let completedChildren;
+            
+            if (isGuestMode) {
+                // Modo invitado: mostrar solo los perfiles de invitado (Alvaro y Luz)
+                completedChildren = allChildrenData.filter(child => child.ownerId === null);
+            } else {
+                // Modo con cuenta: mostrar los perfiles del usuario actual
+                if (session.currentUserId) {
+                    completedChildren = allChildrenData.filter(child => 
+                        child.ownerId === session.currentUserId
+                    );
+                } else {
+                    completedChildren = [];
+                }
+            }
+
+            if (completedChildren.length === 0) {
+                document.body.innerHTML = '<h1>No hay perfiles completados. Por favor, finalice al menos un cuestionario para continuar.</h1>';
+                return;
+            }
+
+            // Mostrar etiquetas de niños en la cabecera
+            const childrenTags = document.getElementById('childrenTags');
+            completedChildren.forEach(child => {
+                const childTag = document.createElement('span');
+                childTag.className = 'child-tag';
+                childTag.innerHTML = `<i class="fas fa-child"></i> ${child.name}`;
+                childrenTags.appendChild(childTag);
+            });
+            
+            // Configurar opciones de menú
+            const menuOptions = document.querySelectorAll('.menu-option');
+            let selectedMenuType = 'balanced';
+            
+            menuOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Quitar selección previa
+                    menuOptions.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Añadir selección actual
+                    this.classList.add('selected');
+                    selectedMenuType = this.getAttribute('data-type');
+                });
+            });
+            
+            // Cargar menú guardado previamente
+            const savedMenu = localStorage.getItem('familyDailyMenu');
+            if (savedMenu) {
+                renderMenu(JSON.parse(savedMenu));
+            } else {
+                // Mostrar menú de ejemplo inicial
+                const exampleMenu = generateExampleMenu(selectedMenuType);
+                renderMenu(exampleMenu);
+            }
+            
+            // Configurar botón de generar menú
+            const generateMenuBtn = document.getElementById('generateMenuBtn');
+            generateMenuBtn.addEventListener('click', function() {
+                generateMenu(selectedMenuType);
+            });
+            
+            // Función para generar menú
+            function generateMenu(menuType = 'balanced') {
+                const spinnerContainer = document.getElementById('spinnerContainer');
+                const mealsContainer = document.getElementById('mealsContainer');
+                
+                // Mostrar spinner
+                spinnerContainer.style.display = 'flex';
+                mealsContainer.style.display = 'none';
+                
+                // Simular llamada a API
+                setTimeout(() => {
+                    // Ocultar spinner
+                    spinnerContainer.style.display = 'none';
+                    mealsContainer.style.display = 'grid';
+                    
+                    // Generar menú de ejemplo
+                    const newMenu = generateExampleMenu(menuType);
+                    
+                    // Guardar menú
+                    localStorage.setItem('familyDailyMenu', JSON.stringify(newMenu));
+                    
+                    // Renderizar menú
+                    renderMenu(newMenu);
+                }, 2000);
+            }
+            
+            // Función para generar menú de ejemplo
+            function generateExampleMenu(menuType = 'balanced') {
+                // Base de recetas según tipo de menú
+                const recipesByType = {
+                    balanced: {
+                        desayuno: {
+                            nombreReceta: "Batido energético de espinacas y plátano",
+                            ingredientes: [
+                                {name: "1 plátano maduro", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "1 taza de espinacas frescas", iron: "Alto", vitaminC: "Medio"},
+                                {name: "1 taza de leche fortificada", iron: "Alto", vitaminC: "Bajo"},
+                                {name: "1 cucharada de avena", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 cucharadita de miel", iron: "Bajo", vitaminC: "Bajo"}
+                            ],
+                            preparacion: [
+                                "Pelar y cortar el plátano en rodajas.",
+                                "Lavar bien las espinacas.",
+                                "Colocar todos los ingredientes en la licuadora.",
+                                "Licuar hasta obtener una mezcla homogénea.",
+                                "Servir inmediatamente."
+                            ],
+                            beneficiosNiño: "Este batido es rico en hierro de las espinacas y vitamina C del plátano, que ayuda a absorber mejor el hierro. También proporciona energía para empezar el día.",
+                            alertaAlergenos: "Contiene lácteos. Si tus hijos son alérgicos a la leche, puedes sustituirla por bebida de almendras fortificada.",
+                            infoHierro: "Las espinacas son una excelente fuente de hierro no hemo, que se absorbe mejor cuando se combina con vitamina C."
+                        },
+                        mediaManana: {
+                            nombreReceta: "Yogur con frutas y granola",
+                            ingredientes: [
+                                {name: "1 taza de yogur natural", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "1/2 taza de frutas mixtas", iron: "Bajo", vitaminC: "Alto"},
+                                {name: "2 cucharadas de granola", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 cucharadita de semillas de chía", iron: "Medio", vitaminC: "Bajo"}
+                            ],
+                            preparacion: [
+                                "Colocar el yogur en un bol.",
+                                "Añadir las frutas mixtas cortadas en cubos.",
+                                "Espolvorear la granola y las semillas de chía por encima.",
+                                "Servir fresco."
+                            ],
+                            beneficiosNiño: "El yogur proporciona calcio y proteínas, las frutas aportan vitaminas y las semillas de chía son ricas en omega-3 y hierro. Este snack es ideal para mantener los niveles de energía estables.",
+                            alertaAlergenos: "Contiene lácteos y gluten. Verifica que tus hijos no tengan alergias a estos ingredientes.",
+                            infoHierro: "Las semillas de chía contienen hierro no hemo, que se absorbe mejor con la vitamina C de las frutas."
+                        },
+                        almuerzo: {
+                            nombreReceta: "Lentejas con arroz y pollo",
+                            ingredientes: [
+                                {name: "1 taza de lentejas", iron: "Alto", vitaminC: "Bajo"},
+                                {name: "1/2 taza de arroz integral", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "100g de pechuga de pollo", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 zanahoria", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "1 cebolla", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "2 dientes de ajo", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "Pimiento rojo", iron: "Bajo", vitaminC: "Muy Alto"},
+                                {name: "Aceite de oliva", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "Sal y pimienta", iron: "Bajo", vitaminC: "Bajo"}
+                            ],
+                            preparacion: [
+                                "Cocinar las lentejas en agua con sal hasta que estén tiernas.",
+                                "Cocinar el arroz integral según las instrucciones del paquete.",
+                                "Cortar el pollo en cubos y saltearlo en aceite de oliva con ajo picado.",
+                                "Añadir la cebolla, zanahoria y pimiento rojo picados y cocinar hasta que estén tiernos.",
+                                "Mezclar el pollo con las lentejas y servir acompañado de arroz."
+                            ],
+                            beneficiosNiño: "Las lentejas son una excelente fuente de hierro vegetal, y el pollo proporciona proteínas de alta calidad. Este plato es muy completo y nutritivo, ideal para el desarrollo.",
+                            alertaAlergenos: "Sin alérgenos comunes, pero siempre verifica que tus hijos no tengan alergias a los ingredientes.",
+                            infoHierro: "Las lentejas contienen hierro no hemo, cuya absorción se mejora significativamente cuando se consume con alimentos ricos en vitamina C como el pimiento rojo."
+                        },
+                        merienda: {
+                            nombreReceta: "Tostadas con aguacate y huevo",
+                            ingredientes: [
+                                {name: "2 rebanadas de pan integral", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1/2 aguacate", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "1 huevo", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 cucharadita de aceite de oliva", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "Tomate cherry", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "Sal, pimienta y limón al gusto", iron: "Bajo", vitaminC: "Alto"}
+                            ],
+                            preparacion: [
+                                "Tostar las rebanadas de pan integral.",
+                                "Cocinar el huevo al gusto (frito, revuelto o cocido).",
+                                "Machacar el aguacate con un poco de sal, pimienta y limón.",
+                                "Untar el aguacate sobre las tostadas y colocar el huevo encima.",
+                                "Acompañar con tomates cherry y rociar con un poco de aceite de oliva."
+                            ],
+                            beneficiosNiño: "El aguacate aporta grasas saludables, el huevo proporciona proteínas de alta calidad y el pan integral ofrece carbohidratos complejos. Esta combinación es ideal para mantener la saciedad y proporcionar nutrientes esenciales.",
+                            alertaAlergenos: "Contiene gluten y huevo. Si tus hijos son alérgicos, puedes usar pan sin gluten y omitir el huevo.",
+                            infoHierro: "El huevo contiene hierro hemo, que se absorbe más fácilmente. El limón aporta vitamina C que mejora la absorción del hierro del pan integral."
+                        },
+                        cena: {
+                            nombreReceta: "Salmón al horno con espárragos",
+                            ingredientes: [
+                                {name: "1 filete de salmón", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "200g de espárragos", iron: "Medio", vitaminC: "Medio"},
+                                {name: "1 limón", iron: "Bajo", vitaminC: "Alto"},
+                                {name: "2 cucharadas de aceite de oliva", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "1 diente de ajo", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "Pimientos rojos asados", iron: "Bajo", vitaminC: "Muy Alto"},
+                                {name: "Sal y pimienta", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "Eneldo fresco", iron: "Bajo", vitaminC: "Bajo"}
+                            ],
+                            preparacion: [
+                                "Precalentar el horno a 200°C.",
+                                "Lavar los espárragos y cortar los extremos duros.",
+                                "Colocar el salmón y los espárragos en una bandeja para horno.",
+                                "Añadir los pimientos rojos asados en tiras.",
+                                "Rociar con aceite de oliva, ajo picado, sal y pimienta.",
+                                "Exprimir el jugo de medio limón sobre el salmón.",
+                                "Hornear durante 15-20 minutos.",
+                                "Servir decorado con eneldo fresco y rodajas de limón."
+                            ],
+                            beneficiosNiño: "El salmón es rico en hierro y ácidos grasos omega-3, que son importantes para el desarrollo cerebral. Los espárragos y pimientos aportan fibra y vitamina C.",
+                            alertaAlergenos: "Contiene pescado. Si tus hijos son alérgicos al pescado, puedes sustituir el salmón por tofu o pollo.",
+                            infoHierro: "El salmón contiene hierro hemo, que se absorbe más fácilmente que el hierro de origen vegetal. La vitamina C de los pimientos y limón mejora aún más esta absorción."
+                        }
+                    },
+                    'iron-rich': {
+                        desayuno: {
+                            nombreReceta: "Huevos revueltos con espinacas y pimientos",
+                            ingredientes: [
+                                {name: "2 huevos", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 taza de espinacas frescas", iron: "Alto", vitaminC: "Medio"},
+                                {name: "1/2 pimiento rojo", iron: "Bajo", vitaminC: "Muy Alto"},
+                                {name: "1 cucharada de aceite de oliva", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "1 rebanada de pan integral fortificado", iron: "Alto", vitaminC: "Bajo"}
+                            ],
+                            preparacion: [
+                                "Lavar y picar las espinacas y el pimiento rojo.",
+                                "Calentar el aceite en una sartén y saltear el pimiento durante 2 minutos.",
+                                "Añadir las espinacas y cocinar hasta que se marchiten.",
+                                "Batir los huevos y añadirlos a la sartén.",
+                                "Cocinar revolviendo hasta que estén al gusto.",
+                                "Servir con la rebanada de pan integral fortificado."
+                            ],
+                            beneficiosNiño: "Este desayuno combina hierro hemo de los huevos con hierro no hemo de las espinacas y pan fortificado. El pimiento rojo aporta vitamina C que maximiza la absorción del hierro.",
+                            alertaAlergenos: "Contiene huevo y gluten. Si tus hijos son alérgicos, puedes usar pan sin gluten y omitir el huevo.",
+                            infoHierro: "Esta combinación es ideal para combatir la anemia, ya que proporciona tres tipos diferentes de hierro y vitamina C para mejorar su absorción."
+                        },
+                        mediaManana: {
+                            nombreReceta: "Batido de frutos rojos con semillas",
+                            ingredientes: [
+                                {name: "1 taza de frutos rojos (fresas, frambuesas)", iron: "Bajo", vitaminC: "Alto"},
+                                {name: "1 plátano", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "2 cucharadas de semillas de calabaza", iron: "Alto", vitaminC: "Bajo"},
+                                {name: "1 cucharada de semillas de chía", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 taza de leche fortificada", iron: "Alto", vitaminC: "Bajo"}
+                            ],
+                            preparacion: [
+                                "Lavar bien los frutos rojos.",
+                                "Colocar todos los ingredientes en la licuadora.",
+                                "Licuar hasta obtener una mezcla homogénea.",
+                                "Servir inmediatamente."
+                            ],
+                            beneficiosNiño: "Las semillas de calabaza son una de las mejores fuentes vegetales de hierro. Combinadas con la leche fortificada y los frutos rojos ricos en vitamina C, crean una bebida ideal para combatir la anemia.",
+                            alertaAlergenos: "Contiene lácteos. Si tus hijos son alérgicos a la leche, puedes sustituirla por bebida de almendras fortificada.",
+                            infoHierro: "Las semillas de calabaza contienen hierro no hemo, que se absorbe mejor gracias a la vitamina C de los frutos rojos."
+                        },
+                        almuerzo: {
+                            nombreReceta: "Hígado de pollo con puré de batata",
+                            ingredientes: [
+                                {name: "200g de hígado de pollo", iron: "Muy Alto", vitaminC: "Bajo"},
+                                {name: "2 batatas medianas", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "1 cebolla", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "1 pimiento verde", iron: "Bajo", vitaminC: "Alto"},
+                                {name: "2 cucharadas de aceite de oliva", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "Sal y pimienta", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "Jugo de naranja", iron: "Bajo", vitaminC: "Muy Alto"}
+                            ],
+                            preparacion: [
+                                "Pelar y cortar las batatas en cubos. Cocinar en agua con sal hasta que estén tiernas.",
+                                "Machacar las batatas cocidas con un poco de aceite de oliva hasta obtener un puré.",
+                                "Cortar la cebolla y el pimiento en juliana.",
+                                "Calentar aceite en una sartén y saltear la cebolla y el pimiento.",
+                                "Añadir el hígado de pollo cortado en trozos y cocinar hasta que esté dorado.",
+                                "Servir el hígado acompañado del puré de batata y rociar con un poco de jugo de naranja."
+                            ],
+                            beneficiosNiño: "El hígado de pollo es una de las fuentes más concentradas de hierro hemo, que se absorbe fácilmente. La batata aporta betacaroteno y el jugo de naranja proporciona vitamina C para maximizar la absorción del hierro.",
+                            alertaAlergenos: "Sin alérgenos comunes, pero siempre verifica que tus hijos no tengan alergias a los ingredientes.",
+                            infoHierro: "El hígado contiene hierro hemo, la forma más fácil de absorber para el cuerpo. Una porción de 100g puede proporcionar más del 100% de las necesidades diarias de hierro para un niño."
+                        },
+                        merienda: {
+                            nombreReceta: "Barritas de sésamo y pasas",
+                            ingredientes: [
+                                {name: "1/2 taza de tahini (pasta de sésamo)", iron: "Alto", vitaminC: "Bajo"},
+                                {name: "1/4 taza de pasas", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "2 cucharadas de miel", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "1/4 taza de avena", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 cucharada de semillas de chía", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "Cáscara de naranja rallada", iron: "Bajo", vitaminC: "Alto"}
+                            ],
+                            preparacion: [
+                                "Mezclar el tahini, la miel y la avena en un bol.",
+                                "Añadir las pasas, las semillas de chía y la cáscara de naranja rallada.",
+                                "Mezclar bien hasta obtener una masa homogénea.",
+                                "Extender la masa en una bandeja forrada con papel de horno.",
+                                "Cortar en barritas y refrigerar durante al menos 1 hora antes de consumir."
+                            ],
+                            beneficiosNiño: "El tahini (pasta de sésamo) es excepcionalmente rico en hierro. Combinado con las semillas de chía y la cáscara de naranja rica en vitamina C, estas barritas son un snack delicioso y nutritivo para combatir la anemia.",
+                            alertaAlergenos: "Contiene sésamo y gluten. Si tus hijos son alérgicos, puedes usar pasta de girasol en lugar de tahini y avena sin gluten.",
+                            infoHierro: "El sésamo es una de las mejores fuentes vegetales de hierro, superando incluso a las lentejas en contenido por porción."
+                        },
+                        cena: {
+                            nombreReceta: "Albóndigas de lentejas con espinacas",
+                            ingredientes: [
+                                {name: "1 taza de lentejas cocidas", iron: "Alto", vitaminC: "Bajo"},
+                                {name: "1 taza de espinacas frescas", iron: "Alto", vitaminC: "Medio"},
+                                {name: "1/2 cebolla", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "2 dientes de ajo", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "1 huevo", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1/2 taza de pan rallado", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 tomate", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "1 pimiento verde", iron: "Bajo", vitaminC: "Alto"},
+                                {name: "Aceite de oliva", iron: "Bajo", vitaminC: "Bajo"}
+                            ],
+                            preparacion: [
+                                "Picar finamente la cebolla y el ajo. Saltear en aceite hasta que estén dorados.",
+                                "En un bol, mezclar las lentejas cocidas con la cebolla, el ajo y las espinacas picadas.",
+                                "Añadir el huevo y el pan rallado. Mezclar bien y formar albóndigas.",
+                                "Cocinar las albóndigas en una sartén con un poco de aceite hasta que estén doradas por todos lados.",
+                                "Preparar una salsa con tomate y pimiento verde picados, cocinados en aceite.",
+                                "Añadir las albóndigas a la salsa y cocinar durante 10 minutos a fuego bajo."
+                            ],
+                            beneficiosNiño: "Esta receta combina dos fuentes excelentes de hierro: las lentejas y las espinacas. El pimiento verde aporta vitamina C que mejora la absorción del hierro no hemo de estos vegetales.",
+                            alertaAlergenos: "Contiene huevo y gluten. Si tus hijos son alérgicos, puedes usar pan rallado sin gluten y un sustituto de huevo.",
+                            infoHierro: "Las lentejas y espinacas proporcionan hierro no hemo, que se absorbe mejor gracias a la vitamina C del pimiento verde y el tomate."
+                        }
+                    },
+                    vegetarian: {
+                        desayuno: {
+                            nombreReceta: "Tofu revuelto con espinacas y tomate",
+                            ingredientes: [
+                                {name: "150g de tofu firme", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 taza de espinacas frescas", iron: "Alto", vitaminC: "Medio"},
+                                {name: "1 tomate", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "1 cucharadita de cúrcuma", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "1 cucharada de levadura nutricional", iron: "Alto", vitaminC: "Bajo"},
+                                {name: "1 rebanada de pan integral fortificado", iron: "Alto", vitaminC: "Bajo"}
+                            ],
+                            preparacion: [
+                                "Desmenuzar el tofu con las manos hasta que tenga una textura similar a huevos revueltos.",
+                                "Calentar un poco de aceite en una sartén y añadir el tofu desmenuzado.",
+                                "Añadir la cúrcuma, la levadura nutricional, sal y pimienta. Cocinar durante 3-4 minutos.",
+                                "Añadir las espinacas y el tomate picado. Cocinar hasta que las espinacas se marchiten.",
+                                "Servir con la rebanada de pan integral fortificado."
+                            ],
+                            beneficiosNiño: "Esta alternativa vegana a los huevos revueltos combina tofu con espinacas ricas en hierro y levadura nutricional fortificada. El tomate aporta vitamina C para mejorar la absorción del hierro.",
+                            alertaAlergenos: "Contiene gluten y soja. Si tus hijos son alérgicos, puedes usar pan sin gluten y omitir el tofu.",
+                            infoHierro: "La levadura nutricional es una excelente fuente de hierro vegetal, especialmente las variedades fortificadas."
+                        },
+                        mediaManana: {
+                            nombreReceta: "Smoothie bowl de frutas y semillas",
+                            ingredientes: [
+                                {name: "1 plátano congelado", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "1/2 taza de frambuesas", iron: "Bajo", vitaminC: "Alto"},
+                                {name: "1/2 taza de espinacas baby", iron: "Alto", vitaminC: "Medio"},
+                                {name: "2 cucharadas de semillas de chía", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 cucharada de semillas de calabaza", iron: "Alto", vitaminC: "Bajo"},
+                                {name: "1/2 taza de bebida de almendras fortificada", iron: "Alto", vitaminC: "Bajo"}
+                            ],
+                            preparacion: [
+                                "Colocar todos los ingredientes en la licuadora.",
+                                "Licuar hasta obtener una mezcla espesa pero cremosa.",
+                                "Verter en un bol y decorar con frutas adicionales, semillas y un poco de granola."
+                            ],
+                            beneficiosNiño: "Este smoothie bowl combina espinacas ricas en hierro con semillas de calabaza y bebida fortificada. Las frambuesas aportan vitamina C que mejora la absorción del hierro vegetal.",
+                            alertaAlergenos: "Contiene frutos secos. Si tus hijos son alérgicos, puedes usar otras semillas como las de girasol.",
+                            infoHierro: "Las semillas de calabaza son una de las mejores fuentes vegetales de hierro, superando incluso a algunas carnes en contenido por porción."
+                        },
+                        almuerzo: {
+                            nombreReceta: "Curry de lentejas y espinacas",
+                            ingredientes: [
+                                {name: "1 taza de lentejas rojas", iron: "Alto", vitaminC: "Bajo"},
+                                {name: "2 tazas de espinacas frescas", iron: "Alto", vitaminC: "Medio"},
+                                {name: "1 cebolla", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "2 dientes de ajo", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "1 trozo de jengibre", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "1 lata de leche de coco", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "2 cucharadas de curry en polvo", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 pimiento rojo", iron: "Bajo", vitaminC: "Muy Alto"},
+                                {name: "Jugo de limón", iron: "Bajo", vitaminC: "Alto"}
+                            ],
+                            preparacion: [
+                                "Picar finamente la cebolla, el ajo y el jengibre.",
+                                "Calentar un poco de aceite en una olla y saltear las verduras hasta que estén doradas.",
+                                "Añadir el curry en polvo y cocinar durante 1 minuto.",
+                                "Incorporar las lentejas rojas y cubrir con agua. Llevar a ebullición y luego reducir el fuego.",
+                                "Cocinar durante 15-20 minutos hasta que las lentejas estén tiernas.",
+                                "Añadir la leche de coco, el pimiento rojo en tiras y las espinacas. Cocinar durante 5 minutos más.",
+                                "Exprimir jugo de limón antes de servir."
+                            ],
+                            beneficiosNiño: "Este curry combina lentejas y espinacas, ambas excelentes fuentes de hierro vegetal. El pimiento rojo y el limón aportan vitamina C que mejora significativamente la absorción del hierro no hemo.",
+                            alertaAlergenos: "Contiene frutos secos (cocina). Si tus hijos son alérgicos, puedes usar otras especias en lugar del curry.",
+                            infoHierro: "Las lentejas rojas cocinan más rápido que otras variedades y retienen bien su contenido de hierro."
+                        },
+                        merienda: {
+                            nombreReceta: "Hummus con vegetales crudos",
+                            ingredientes: [
+                                {name: "1 taza de garbanzos cocidos", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "2 cucharadas de tahini", iron: "Alto", vitaminC: "Bajo"},
+                                {name: "1 diente de ajo", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "Jugo de limón", iron: "Bajo", vitaminC: "Alto"},
+                                {name: "1 cucharadita de comino", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "Pimientos rojos y amarillos", iron: "Bajo", vitaminC: "Muy Alto"},
+                                {name: "Zanahorias baby", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "Pepino", iron: "Bajo", vitaminC: "Bajo"}
+                            ],
+                            preparacion: [
+                                "Colocar los garbanzos cocidos, el tahini, el ajo, el jugo de limón y el comino en un procesador de alimentos.",
+                                "Procesar hasta obtener una pasta suave. Si es necesario, añadir un poco de agua para facilitar el proceso.",
+                                "Cortar los vegetales en bastones.",
+                                "Servir el hummus acompañado de los vegetales crudos."
+                            ],
+                            beneficiosNiño: "El hummus combina garbanzos con tahini, creando una fuente excelente de hierro vegetal. Los pimientos aportan vitamina C que mejora la absorción del hierro, mientras que los vegetales crudos conservan mejor sus nutrientes.",
+                            alertaAlergenos: "Contiene sésamo y gluten. Si tus hijos son alérgicos, puedes usar pasta de girasol en lugar de tahini.",
+                            infoHierro: "El tahini (pasta de sésamo) es excepcionalmente rico en hierro, superando incluso a las lentejas en contenido por porción."
+                        },
+                        cena: {
+                            nombreReceta: "Tacos de frijoles negros con aguacate",
+                            ingredientes: [
+                                {name: "1 taza de frijoles negros cocidos", iron: "Alto", vitaminC: "Bajo"},
+                                {name: "1 aguacate", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "1 tomate", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "1/2 cebolla morada", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "Jugo de lima", iron: "Bajo", vitaminC: "Alto"},
+                                {name: "1 cucharadita de comino", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "Tortillas de maíz", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "Cilantro fresco", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "Pimientos morrones", iron: "Bajo", vitaminC: "Alto"}
+                            ],
+                            preparacion: [
+                                "Calentar los frijoles negros con el comino y un poco de agua hasta que estén calientes.",
+                                "Machacar ligeramente los frijoles para crear una consistencia de puré espeso.",
+                                "Cortar el aguacate, el tomate y la cebolla en cubos pequeños.",
+                                "Mezclar el aguacate, el tomate, la cebolla, el cilantro picado y el jugo de lima para hacer un guacamole.",
+                                "Calentar las tortillas de maíz.",
+                                "Rellenar las tortillas con los frijoles negros, el guacamole y los pimientos morrones en tiras."
+                            ],
+                            beneficiosNiño: "Los frijoles negros son una excelente fuente de hierro vegetal. Combinados con el aguacate y los pimientos morrones ricos en vitamina C, estos tacos ofrecen una comida completa y nutritiva.",
+                            alertaAlergenos: "Sin alérgenos comunes, pero siempre verifica que tus hijos no tengan alergias a los ingredientes.",
+                            infoHierro: "Los frijoles negros contienen hierro no hemo, que se absorbe mejor gracias a la vitamina C de los pimientos morrones y el jugo de lima."
+                        }
+                    },
+                    quick: {
+                        desayuno: {
+                            nombreReceta: "Avena instantánea con frutas y semillas",
+                            ingredientes: [
+                                {name: "1/2 taza de avena instantánea", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 taza de leche fortificada", iron: "Alto", vitaminC: "Bajo"},
+                                {name: "1/2 plátano en rodajas", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "1 cucharada de semillas de chía", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 cucharada de frutos secos", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "Fresas", iron: "Bajo", vitaminC: "Alto"}
+                            ],
+                            preparacion: [
+                                "Mezclar la avena instantánea con la leche fortificada en un bol apto para microondas.",
+                                "Calentar en el microondas durante 1-2 minutos.",
+                                "Añadir el plátano en rodajas, las fresas, las semillas de chía y los frutos secos por encima.",
+                                "Mezclar bien y servir."
+                            ],
+                            beneficiosNiño: "Este desayuno rápido combina avena con leche fortificada para una dosis doble de hierro. Las fresas aportan vitamina C que mejora la absorción del hierro, y las semillas de chía añaden omega-3.",
+                            alertaAlergenos: "Contiene lácteos y frutos secos. Si tus hijos son alérgicos, puedes usar bebida vegetal fortificada y omitir los frutos secos.",
+                            infoHierro: "La avena fortificada y la leche fortificada proporcionan hierro de fácil absorción, ideal para un desayuno rápido y nutritivo."
+                        },
+                        mediaManana: {
+                            nombreReceta: "Barra de granola casera rápida",
+                            ingredientes: [
+                                {name: "1/2 taza de avena", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "2 cucharadas de mantequilla de maní", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 cucharada de miel", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "1 cucharada de semillas de chía", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 cucharada de pasas", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "Cáscara de naranja rallada", iron: "Bajo", vitaminC: "Alto"}
+                            ],
+                            preparacion: [
+                                "Mezclar todos los ingredientes en un bol hasta obtener una masa pegajosa.",
+                                "Extender la masa en un molde rectangular forrado con papel de horno.",
+                                "Presionar bien y refrigerar durante 30 minutos.",
+                                "Cortar en barritas y conservar en un recipiente hermético."
+                            ],
+                            beneficiosNiño: "Estas barras de granola caseras combinan avena con semillas de chía y pasas, creando un snack rico en hierro. La cáscara de naranja aporta vitamina C que mejora la absorción del hierro.",
+                            alertaAlergenos: "Contiene frutos secos y gluten. Si tus hijos son alérgicos, puedes usar mantequilla de girasol y avena sin gluten.",
+                            infoHierro: "La avena y las semillas de chía proporcionan hierro no hemo, que se absorbe mejor gracias a la vitamina C de la cáscara de naranja."
+                        },
+                        almuerzo: {
+                            nombreReceta: "Wrap de atún y vegetales",
+                            ingredientes: [
+                                {name: "1 lata de atún en agua", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 tortilla de trigo integral", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "2 cucharadas de mayonesa", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "1/4 taza de apio picado", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "1/4 taza de pimiento rojo picado", iron: "Bajo", vitaminC: "Muy Alto"},
+                                {name: "Hojas de lechuga", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "Jugo de limón", iron: "Bajo", vitaminC: "Alto"}
+                            ],
+                            preparacion: [
+                                "Escurrir el atún y mezclarlo con la mayonesa, el apio picado y el jugo de limón.",
+                                "Extender la mezcla de atún sobre la tortilla integral.",
+                                "Añadir el pimiento rojo picado y las hojas de lechuga.",
+                                "Enrollar la tortilla formando un wrap.",
+                                "Cortar por la mitad y servir."
+                            ],
+                            beneficiosNiño: "Este wrap rápido combina atún con hierro hemo y tortilla integral con hierro no hemo. El pimiento rojo y el jugo de limón aportan vitamina C que mejora la absorción del hierro.",
+                            alertaAlergenos: "Contiene gluten y pescado. Si tus hijos son alérgicos, puedes usar tortillas de maíz y sustituir el atún por pollo o tofu.",
+                            infoHierro: "El atún proporciona hierro hemo, que se absorbe fácilmente. Combinado con la vitamina C del pimiento rojo, se maximiza la absorción del hierro de la tortilla integral."
+                        },
+                        merienda: {
+                            nombreReceta: "Yogur griego con frutas y granola",
+                            ingredientes: [
+                                {name: "1 taza de yogur griego", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "1/2 taza de frutas mixtas", iron: "Bajo", vitaminC: "Alto"},
+                                {name: "2 cucharadas de granola fortificada", iron: "Alto", vitaminC: "Bajo"},
+                                {name: "1 cucharada de semillas de girasol", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1 cucharadita de miel", iron: "Bajo", vitaminC: "Bajo"}
+                            ],
+                            preparacion: [
+                                "Colocar el yogur griego en un bol.",
+                                "Añadir las frutas mixtas cortadas en cubos.",
+                                "Espolvorear la granola fortificada y las semillas de girasol por encima.",
+                                "Rociar con un poco de miel y servir."
+                            ],
+                            beneficiosNiño: "Este snack rápido combina yogur con granola fortificada, creando una fuente excelente de hierro. Las frutas aportan vitamina C que mejora la absorción del hierro, y las semillas de girasol añaden grasas saludables.",
+                            alertaAlergenos: "Contiene lácteos, frutos secos y gluten. Si tus hijos son alérgicos, puedes usar alternativas sin estos alérgenos.",
+                            infoHierro: "La granola fortificada es una excelente fuente de hierro de fácil absorción, ideal para un snack rápido y nutritivo."
+                        },
+                        cena: {
+                            nombreReceta: "Pasta con salsa de tomate y lentejas",
+                            ingredientes: [
+                                {name: "1 taza de pasta de trigo integral", iron: "Medio", vitaminC: "Bajo"},
+                                {name: "1/2 taza de lentejas cocidas", iron: "Alto", vitaminC: "Bajo"},
+                                {name: "1 taza de salsa de tomate", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "1/4 taza de cebolla picada", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "1 diente de ajo picado", iron: "Bajo", vitaminC: "Medio"},
+                                {name: "1 cucharadita de orégano", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "Queso parmesano rallado", iron: "Bajo", vitaminC: "Bajo"},
+                                {name: "Pimientos morrones en tiras", iron: "Bajo", vitaminC: "Alto"}
+                            ],
+                            preparacion: [
+                                "Cocinar la pasta según las instrucciones del paquete.",
+                                "Mientras tanto, calentar un poco de aceite en una sartén y saltear la cebolla y el ajo hasta que estén dorados.",
+                                "Añadir la salsa de tomate, las lentejas cocidas y el orégano. Cocinar durante 5 minutos.",
+                                "Incorporar los pimientos morrones en tiras y cocinar 2 minutos más.",
+                                "Escurrir la pasta y mezclar con la salsa.",
+                                "Servir con queso parmesano rallado por encima."
+                            ],
+                            beneficiosNiño: "Esta cena rápida combina pasta integral con lentejas ricas en hierro. Los pimientos morrones y la salsa de tomate aportan vitamina C que mejora la absorción del hierro no hemo de las lentejas.",
+                            alertaAlergenos: "Contiene gluten y lácteos. Si tus hijos son alérgicos, puedes usar pasta sin gluten y queso vegano.",
+                            infoHierro: "Las lentejas son una excelente fuente de hierro vegetal, que se absorbe mejor gracias a la vitamina C de los pimientos morrones y la salsa de tomate."
+                        }
+                    }
+                };
+                
+                // Devolver menú según el tipo seleccionado
+                return recipesByType[menuType] || recipesByType.balanced;
+            }
+            
+            // Renderizar menú
+            function renderMenu(menu) {
+                const mealsContainer = document.getElementById('mealsContainer');
+                mealsContainer.innerHTML = '';
+                
+                if (!menu || Object.keys(menu).length === 0) {
+                    mealsContainer.innerHTML = '<p style="text-align: center; color: var(--gray); grid-column: 1 / -1;">No hay menú generado aún. ¡Genera tu primer menú!</p>';
+                    return;
+                }
+                
+                // Configuración de comidas
+                const mealsConfig = [
+                    { key: 'desayuno', title: 'Desayuno', icon: 'fa-coffee', class: 'breakfast' },
+                    { key: 'mediaManana', title: 'Media Mañana', icon: 'fa-apple-alt', class: 'midmorning' },
+                    { key: 'almuerzo', title: 'Almuerzo', icon: 'fa-hamburger', class: 'lunch' },
+                    { key: 'merienda', title: 'Merienda', icon: 'fa-cookie-bite', class: 'snack' },
+                    { key: 'cena', title: 'Cena', icon: 'fa-moon', class: 'dinner' }
+                ];
+                
+                mealsConfig.forEach(meal => {
+                    const mealData = menu[meal.key];
+                    if (!mealData) return;
+                    
+                    const card = document.createElement('div');
+                    card.classList.add('meal-card');
+                    
+                    // Procesar ingredientes para resaltar los ricos en hierro y vitamina C
+                    let ingredientsHtml = '';
+                    if (mealData.ingredientes && Array.isArray(mealData.ingredientes)) {
+                        ingredientsHtml = mealData.ingredientes.map(ing => {
+                            let ironClass = ing.iron === 'Alto' || ing.iron === 'Muy Alto' ? 'iron-rich' : '';
+                            let vitaminCClass = ing.vitaminC === 'Alto' || ing.vitaminC === 'Muy Alto' ? 'vitamin-c-rich' : '';
+                            
+                            if (typeof ing === 'string') {
+                                return `<li>${ing}</li>`;
+                            } else {
+                                return `<li>${ing.name} <span class="${ironClass}">Hierro: ${ing.iron}</span> <span class="${vitaminCClass}">Vitamina C: ${ing.vitaminC}</span></li>`;
+                            }
+                        }).join('');
+                    } else if (mealData.ingredientes) {
+                        ingredientsHtml = mealData.ingredientes.map(ing => `<li>${ing}</li>`).join('');
+                    }
+                    
+                    card.innerHTML = `
+                        <div class="meal-header ${meal.class}-header">
+                            <h3 class="meal-title">
+                                <i class="fas ${meal.icon}"></i> ${meal.title}
+                            </h3>
+                            <button class="btn-copy" data-meal="${meal.key}">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        <div class="meal-body">
+                            <h4 class="recipe-name">${mealData.nombreReceta}</h4>
+                            <div class="meal-content">
+                                <div class="meal-section">
+                                    <h5 class="section-subtitle">
+                                        <i class="fas fa-list"></i> Ingredientes
+                                    </h5>
+                                    <ul class="ingredient-list">
+                                        ${ingredientsHtml}
+                                    </ul>
+                                </div>
+                                <div class="meal-section">
+                                    <h5 class="section-subtitle">
+                                        <i class="fas fa-tasks"></i> Preparación
+                                    </h5>
+                                    <ol class="steps-list">
+                                        ${mealData.preparacion.map(step => `<li>${step}</li>`).join('')}
+                                    </ol>
+                                </div>
+                            </div>
+                            ${mealData.infoHierro ? `
+                                <div class="iron-info">
+                                    <h5 class="section-subtitle">
+                                        <i class="fas fa-heartbeat"></i> Información sobre Hierro
+                                    </h5>
+                                    <p>${mealData.infoHierro}</p>
+                                </div>
+                            ` : ''}
+                            <div class="benefits-box">
+                                <h5 class="section-subtitle">
+                                    <i class="fas fa-heartbeat"></i> Beneficios para los Niños
+                                </h5>
+                                <p>${mealData.beneficiosNiño}</p>
+                            </div>
+                            ${mealData.alertaAlergenos ? `
+                                <div class="allergy-box">
+                                    <h5 class="section-subtitle">
+                                        <i class="fas fa-exclamation-triangle"></i> Alerta de Alérgenos
+                                    </h5>
+                                    <p>${mealData.alertaAlergenos}</p>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                    
+                    mealsContainer.appendChild(card);
+                });
+                
+                // Configurar botones de copiar
+                document.querySelectorAll('.btn-copy').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const mealKey = this.getAttribute('data-meal');
+                        const mealData = menu[mealKey];
+                        
+                        // Obtener título de la comida
+                        const mealTitle = mealsConfig.find(m => m.key === mealKey).title;
+                        
+                        // Crear texto para copiar
+                        let textToCopy = `*${mealTitle}: ${mealData.nombreReceta}*\n\n`;
+                        textToCopy += `*Ingredientes:*\n`;
+                        
+                        if (mealData.ingredientes && Array.isArray(mealData.ingredientes)) {
+                            mealData.ingredientes.forEach(ing => {
+                                if (typeof ing === 'string') {
+                                    textToCopy += `- ${ing}\n`;
+                                } else {
+                                    textToCopy += `- ${ing.name} (Hierro: ${ing.iron}, Vitamina C: ${ing.vitaminC})\n`;
+                                }
+                            });
+                        } else if (mealData.ingredientes) {
+                            mealData.ingredientes.forEach(ing => {
+                                textToCopy += `- ${ing}\n`;
+                            });
+                        }
+                        
+                        textToCopy += `\n*Preparación:*\n`;
+                        mealData.preparacion.forEach((step, i) => {
+                            textToCopy += `${i + 1}. ${step}\n`;
+                        });
+                        
+                        if (mealData.infoHierro) {
+                            textToCopy += `\n*Información sobre Hierro:*\n${mealData.infoHierro}\n`;
+                        }
+                        
+                        textToCopy += `\n*Beneficios para los Niños:*\n${mealData.beneficiosNiño}\n`;
+                        if (mealData.alertaAlergenos) {
+                            textToCopy += `\n*Alerta de Alérgenos:*\n${mealData.alertaAlergenos}`;
+                        }
+                        
+                        // Copiar al portapapeles
+                        navigator.clipboard.writeText(textToCopy).then(() => {
+                            // Mostrar confirmación
+                            const modal = document.getElementById('confirmModal');
+                            const modalBody = document.getElementById('modalBody');
+                            modalBody.textContent = '¡Receta copiada al portapapeles!';
+                            modal.style.display = 'flex';
+                            
+                            // Configurar botones del modal
+                            document.getElementById('modalCancel').style.display = 'none';
+                            document.getElementById('modalConfirm').textContent = 'Aceptar';
+                            document.getElementById('modalConfirm').onclick = function() {
+                                modal.style.display = 'none';
+                                document.getElementById('modalCancel').style.display = 'block';
+                                document.getElementById('modalConfirm').textContent = 'Confirmar';
+                            };
+                        }).catch(err => {
+                            console.error('Error al copiar al portapapeles: ', err);
+                            alert('Error al copiar la receta. Por favor, inténtalo de nuevo.');
+                        });
+                    });
+                });
+            }
+            
+            // Configurar modal
+            const modal = document.getElementById('confirmModal');
+            const modalClose = document.getElementById('modalClose');
+            const modalCancel = document.getElementById('modalCancel');
+            const modalConfirm = document.getElementById('modalConfirm');
+            
+            modalClose.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            modalCancel.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+            
+            // Cerrar modal al hacer clic fuera
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Función para mostrar notificaciones toast
+            function showToast(message, type = 'info') {
+                const toastContainer = document.createElement('div');
+                toastContainer.className = 'toast-container';
+                toastContainer.style.position = 'fixed';
+                toastContainer.style.top = '20px';
+                toastContainer.style.right = '20px';
+                toastContainer.style.zIndex = '1050';
+                
+                const toastId = 'toast-' + Date.now();
+                
+                const toastHtml = `
+                    <div id="${toastId}" class="custom-toast toast-${type}" style="
+                        background: white;
+                        border-radius: 10px;
+                        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                        padding: 15px 20px;
+                        margin-bottom: 10px;
+                        display: flex;
+                        align-items: center;
+                        animation: slideIn 0.3s ease;
+                        ${type === 'success' ? 'border-left: 5px solid var(--success-green);' : 
+                          type === 'error' ? 'border-left: 5px solid var(--danger-red);' : 
+                          'border-left: 5px solid var(--accent-cyan);'}
+                    ">
+                        <div class="me-2">
+                            ${type === 'success' ? '<i class="fas fa-check-circle text-success"></i>' : 
+                              type === 'error' ? '<i class="fas fa-exclamation-circle text-danger"></i>' : 
+                              '<i class="fas fa-info-circle text-info"></i>'}
+                        </div>
+                        <div class="flex-grow-1">${message}</div>
+                        <button type="button" class="btn-close ms-2" onclick="document.getElementById('${toastId}').remove()"></button>
+                    </div>
+                `;
+                
+                toastContainer.innerHTML = toastHtml;
+                document.body.appendChild(toastContainer);
+                
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    const toast = document.getElementById(toastId);
+                    if (toast) {
+                        toast.remove();
+                        if (toastContainer.children.length === 0) {
+                            document.body.removeChild(toastContainer);
+                        }
+                    }
+                }, 5000);
+            }
+
+            // Función para obtener parámetros de la URL
+            function getURLParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+
+            // Función para crear niños de ejemplo si no existen
+            function createGuestChildrenIfNotExists() {
+                let childrenData = storageAdapter.getChildren();
+                
+                // Verificar si ya existen los niños de ejemplo
+                const hasAlvaro = childrenData.some(child => child.name === 'Alvaro');
+                const hasLuz = childrenData.some(child => child.name === 'Luz');
+                
+                if (!hasAlvaro) {
+                    childrenData.push({
+                        id: 'alvaro-' + Date.now(),
+                        name: 'Alvaro',
+                        dob: '2017-08-10',
+                        sex: 'male',
+                        avatarCustomization: '1',
+                        theme: 'default',
+                        ownerId: null,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString(),
+                        progressPercent: 100,
+                        deletedAt: null,
+                        version: 1
+                    });
+                }
+                
+                if (!hasLuz) {
+                    childrenData.push({
+                        id: 'luz-' + Date.now(),
+                        name: 'Luz',
+                        dob: '2019-12-05',
+                        sex: 'female',
+                        avatarCustomization: '2',
+                        theme: 'default',
+                        ownerId: null,
+                        createdAt: new Date().toISOString(),
+                        updatedAt: new Date().toISOString(),
+                        progressPercent: 100,
+                        deletedAt: null,
+                        version: 1
+                    });
+                }
+                
+                storageAdapter.saveChildren(childrenData);
+                
+                // Crear respuestas para los perfiles predefinidos
+                const responses = storageAdapter.getResponses();
+                
+                if (!responses['alvaro-' + Date.now()]) {
+                    responses['alvaro-' + Date.now()] = {};
+                    for (let i = 1; i <= 50; i++) {
+                        responses['alvaro-' + Date.now()][`q${i}`] = {
+                            type: 'select',
+                            value: i % 5 === 0 ? 'Opción 5' : `Opción ${i % 5}`,
+                            timestamp: new Date().toISOString(),
+                            version: 1
+                        };
+                    }
+                }
+                
+                if (!responses['luz-' + Date.now()]) {
+                    responses['luz-' + Date.now()] = {};
+                    for (let i = 1; i <= 50; i++) {
+                        responses['luz-' + Date.now()][`q${i}`] = {
+                            type: 'select',
+                            value: i % 5 === 0 ? 'Opción 5' : `Opción ${i % 5}`,
+                            timestamp: new Date().toISOString(),
+                            version: 1
+                        };
+                    }
+                }
+                
+                storageAdapter.saveResponses(responses);
+            }
+        });
+    </script>
+</body>
+</html>

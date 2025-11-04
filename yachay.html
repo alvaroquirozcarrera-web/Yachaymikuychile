@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Familiar - Yachay Mikuy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
+
+    <style>
+        :root {
+            --primary-blue: #2c5aa0;
+            --light-blue: #5d8cc4;
+            --dark-blue: #1a3a6e;
+            --success-green: #28a745;
+            --success-green-dark: #218838;
+            --accent-orange: #ff9800;
+            --accent-orange-dark: #e08e0b;
+            --accent-purple: #6f42c1;
+            --accent-purple-dark: #5a32a3;
+            --accent-teal: #20c997;
+            --accent-teal-dark: #1aa27d;
+            --accent-pink: #d63384;
+            --accent-pink-dark: #b02a6e;
+            --accent-cyan: #0dcaf0;
+            --accent-cyan-dark: #0baccc;
+            --gray: #6c757d;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --shadow-color: rgba(40, 50, 70, 0.1);
+            --danger-red: #dc3545;
+            --danger-red-dark: #c82333;
+            
+            /* Variables para el footer y modales */
+            --text-dark: #212529;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.08); 
+            --radius: 12px;
+            --transition: all 0.3s ease-in-out;
+            --accent-red-footer: #e63946;
+
+            /* Variables de Intro.js (Guía) */
+            --primary-blue-guide: #1a4b8c; 
+            --accent-color-guide: #2196F3;
+            --medium-gray-guide: #dee2e6;
+        }
+
+        /* --- 1.1. ESTILOS PERSONALIZADOS PARA LA GUÍA (INTRO.JS) --- */
+        .introjs-tooltip {
+            font-family: 'Montserrat', sans-serif; /* Usar la fuente de esta página */
+            background-color: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: none;
+            color: var(--text-dark);
+            max-width: 350px;
+            padding: 20px;
+        }
+        .introjs-tooltiptext {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        .introjs-tooltipbuttons {
+            border-top: 1px solid var(--medium-gray-guide);
+            padding-top: 15px;
+            margin-top: 15px;
+            text-align: right;
+        }
+        .introjs-button {
+            background: linear-gradient(to right, var(--primary-blue-guide), var(--accent-color-guide));
+            color: var(--white);
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            padding: 8px 20px;
+            transition: var(--transition);
+            text-shadow: none;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .introjs-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: var(--white);
+        }
+        .introjs-skipbutton {
+            background: transparent;
+            color: #6c757d;
+            font-weight: 600;
+            text-shadow: none;
+            padding: 8px 20px;
+        }
+        .introjs-skipbutton:hover {
+            background: var(--light-gray);
+            color: var(--text-dark);
+        }
+        .introjs-disabled, .introjs-disabled:hover {
+            background: var(--medium-gray-guide);
+            color: #888;
+            transform: none;
+            box-shadow: none;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .introjs-arrow.top { border-bottom-color: var(--white); }
+        .introjs-arrow.bottom { border-top-color: var(--white); }
+        .introjs-arrow.left { border-right-color: var(--white); }
+        .introjs-arrow.right { border-left-color: var(--white); }
+        /* --- FIN ESTILOS GUÍA --- */
+
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10%, 90% { opacity: 0.6; }
+            100% { transform: translateY(-120vh) rotate(720deg); opacity: 0; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .food-animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .food-icon {
+            position: absolute;
+            bottom: -150px;
+            font-size: 2rem;
+            opacity: 0;
+            animation: float 25s infinite linear;
+            color: var(--primary-blue); /* Fallback, will be overridden by JS */
+        }
+        
+        .top-bar, .container, .footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: var(--white);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-bar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar .logo i {
+            margin-right: 10px;
+            color: var(--accent-orange);
+        }
+
+        .btn-back-top {
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-back-top:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .btn-back-top:active {
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            padding-top: 20px;
+            flex: 1;
+        }
+
+        .group-header {
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-color);
+            padding: 30px 40px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 8px solid var(--accent-purple);
+            background: linear-gradient(-45deg, #ffffff, #fdfdff, #f3f7fc, #ffffff);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        .group-header-content {
+            text-align: center;
+            flex: 1;
+        }
+
+        .group-header-icon {
+            font-size: 3rem;
+            color: var(--accent-purple);
+            margin-bottom: 15px;
+        }
+
+        .group-header h1 {
+            color: var(--dark-blue);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .group-header p {
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .group-header-message {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: var(--dark-blue);
+            margin-top: 15px;
+            opacity: 0.8;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 15px;
+        }
+
+        .children-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .child-tag {
+            background-color: rgba(93, 140, 196, 0.1);
+            color: var(--primary-blue);
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .child-avatar-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .child-tag:hover {
+            background-color: rgba(93, 140, 196, 0.2);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .btn-exit {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, var(--danger-red), #e85d75);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-exit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+            background: linear-gradient(45deg, var(--danger-red-dark), var(--danger-red));
+        }
+
+        .btn-exit:active {
+            transform: translateY(0);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .dashboard-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-color);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease-in-out;
+            border-top: 5px solid transparent;
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+            transition: all 0.4s ease;
+        }
+        
+        .dashboard-card:nth-child(1) { animation-delay: 0.1s; }
+        .dashboard-card:nth-child(2) { animation-delay: 0.2s; }
+        .dashboard-card:nth-child(3) { animation-delay: 0.3s; }
+        .dashboard-card:nth-child(4) { animation-delay: 0.4s; }
+        .dashboard-card:nth-child(5) { animation-delay: 0.5s; }
+        .dashboard-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(40, 50, 70, 0.15);
+        }
+
+        .dashboard-card:hover::after {
+            transform: translate(20px, -20px) scale(1.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .card-description {
+            color: var(--gray);
+            font-weight: 400;
+            margin-bottom: 25px;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-content {
+            margin-top: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(111, 66, 193, 0.1);
+            color: var(--accent-purple);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .region-selector, .btn-action {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .region-selector {
+            border: 2px solid #ddd;
+            background-color: var(--light-gray);
+            color: var(--dark-blue);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-5'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+            margin-bottom: 15px;
+        }
+
+        .btn-action {
+            border: none;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn-action:active {
+            transform: translateY(0) scale(0.98);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .card-pantry { border-top-color: var(--success-green); }
+        .card-pantry .card-icon { background: linear-gradient(45deg, var(--success-green), #58c271); }
+        .card-pantry .btn-action { background: linear-gradient(45deg, var(--success-green), #58c271); }
+
+        .card-region { border-top-color: var(--accent-orange); }
+        .card-region .card-icon { background: linear-gradient(45deg, var(--accent-orange), #ffb74d); }
+        .card-region .btn-action { background: linear-gradient(45deg, var(--accent-orange), #ffb74d); }
+        
+        .card-wellness { border-top-color: var(--accent-purple); }
+        .card-wellness .card-icon { background: linear-gradient(45deg, var(--accent-purple), #9575cd); }
+        .card-wellness .btn-action { background: linear-gradient(45deg, var(--accent-purple), #9575cd); }
+
+        .card-academic { border-top-color: var(--accent-teal); }
+        .card-academic .card-icon { background: linear-gradient(45deg, var(--accent-teal), #4dd9b4); }
+        .card-academic .btn-action { background: linear-gradient(45deg, var(--accent-teal), #4dd9b4); }
+        
+        .card-games { border-top-color: var(--accent-pink); }
+        .card-games .card-icon { background: linear-gradient(45deg, var(--accent-pink), #f06292); }
+        .card-games .btn-action { background: linear-gradient(45deg, var(--accent-pink), #f06292); }
+
+        .card-daily { border-top-color: var(--accent-cyan); }
+        .card-daily .card-icon { background: linear-gradient(45deg, var(--accent-cyan), #4dd0e1); }
+        .card-daily .btn-action { background: linear-gradient(45deg, var(--accent-cyan), #4dd0e1); }
+        
+        .footer { background-color: var(--primary-blue); color: var(--white); padding: 40px 20px 10px; margin-top: auto; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; padding-bottom: 20px; }
+        .footer-section h3 { font-size: 1.4rem; margin-bottom: 15px; font-weight: 600; border-bottom: 2px solid var(--accent-red-footer); padding-bottom: 5px; display: inline-block; }
+        .social-links a { color: var(--white); font-size: 1.5rem; margin-right: 15px; transition: var(--transition); }
+        .social-links a:hover { color: var(--accent-red-footer); transform: scale(1.1); }
+        .footer-section p { margin-bottom: 10px; font-size: 0.95rem; }
+        .footer-section p i { margin-right: 10px; color: var(--accent-red-footer); }
+        .footer-links { list-style: none; padding: 0; }
+        .footer-links li { margin-bottom: 8px; }
+        .footer-links a { color: var(--white); text-decoration: none; font-size: 0.95rem; transition: var(--transition); display: block; }
+        .footer-links a:hover { color: var(--accent-red-footer); padding-left: 5px; }
+        .footer-links a i { margin-right: 10px; }
+        .footer-bottom { max-width: 1200px; margin: 0 auto; text-align: center; padding: 15px 0 0; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.85rem; font-weight: 300; }
+        
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .modal.active { opacity: 1; visibility: visible; }
+        .modal-content { background-color: var(--white); color: var(--text-dark); padding: 30px; border-radius: var(--radius); max-width: 800px; width: 90%; max-height: 95vh; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); transform: translateY(-50px); transition: transform 0.3s ease; margin: 20px auto; display: flex; flex-direction: column; }
+        .modal.active .modal-content { transform: translateY(0); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 20px; flex-shrink: 0; }
+        .close-modal { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray); transition: var(--transition); }
+        .close-modal:hover { color: var(--accent-red-footer); transform: rotate(90deg); }
+        .modal-body { line-height: 1.6; font-size: 0.95rem; max-height: 70vh; overflow-y: auto; padding-right: 15px; margin-right: -15px; flex-grow: 1; }
+        .modal-body h3 { color: var(--primary-blue); margin-top: 20px; margin-bottom: 10px; font-weight: 600; font-size: 1.2rem; }
+        .modal-body i { margin-right: 8px; color: var(--accent-red-footer); }
+        .content-section { margin-bottom: 20px; padding: 15px; border-left: 3px solid var(--accent-red-footer); background-color: var(--light-gray); border-radius: 0 5px 5px 0; }
+        .content-section ul { padding-left: 20px; }
+        .content-section li { list-style: disc; margin-bottom: 5px; }
+        .highlight-box { background-color: #ffe5e8; padding: 15px; border-radius: var(--radius); border: 1px solid var(--accent-red-footer); margin-top: 30px; }
+        .child-details-modal .modal-content { max-width: 600px; }
+        .child-detail-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+        .child-detail-label { font-weight: 600; color: var(--dark-blue); }
+        .child-detail-value { color: var(--gray); }
+        .responses-summary { margin-top: 20px; }
+        .responses-summary h4 { color: var(--primary-blue); margin-bottom: 15px; }
+        .response-item { background-color: #f8f9fa; padding: 10px; border-radius: 8px; margin-bottom: 10px; }
+        .response-question { font-weight: 600; margin-bottom: 5px; }
+        .response-answer { color: var(--gray); }
+        .toast-container { position: fixed; top: 80px; right: 20px; z-index: 1050; }
+        .custom-toast { background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); padding: 15px 20px; margin-bottom: 10px; display: flex; align-items: center; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .toast-success { border-left: 5px solid var(--success-green); }
+        .toast-error { border-left: 5px solid var(--danger-red); }
+        .toast-info { border-left: 5px solid var(--accent-cyan); }
+
+
+        /* --- INICIO: ESTILOS DEL CHATBOT --- */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1030;
+        }
+        .chat-fab {
+            background: var(--primary-blue);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .chat-fab:hover {
+            transform: scale(1.1);
+            background: var(--light-blue);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-in-out;
+        }
+        .chat-window.active {
+            transform: scale(1);
+        }
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header h5 {
+            margin: 0;
+            font-weight: 700;
+        }
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        .close-chat:hover {
+            opacity: 1;
+        }
+        .chat-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background-color: #f9f9f9;
+        }
+        .chat-message {
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 80%;
+            line-height: 1.4;
+            font-size: 0.9rem;
+        }
+        .chat-message.bot {
+            background: var(--light-gray);
+            color: var(--text-dark);
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
+        .chat-message.user {
+            background: var(--primary-blue);
+            color: var(--white);
+            border-bottom-right-radius: 4px;
+            align-self: flex-end;
+        }
+        .chat-input {
+            display: flex;
+            border-top: 1px solid #ddd;
+            padding: 10px;
+            background: var(--white);
+        }
+        .chat-input input {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+        .chat-input input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 0.2rem rgba(44, 90, 160, 0.25);
+        }
+        .chat-input button {
+            background: var(--primary-blue);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .chat-input button:hover {
+            background: var(--light-blue);
+        }
+        /* --- FIN: ESTILOS DEL CHATBOT --- */
+
+
+        @media (max-width: 768px) {
+            .container { padding: 20px; padding-top: 10px; }
+            .top-bar { padding: 12px 15px; }
+            .top-bar .logo { font-size: 1.2rem; }
+            .btn-back-top { padding: 8px 15px; font-size: 0.8rem; }
+            .group-header { padding: 25px; flex-direction: column; gap: 20px; }
+            .group-header h1 { font-size: 2rem; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .btn-exit { align-self: center; }
+
+            /* AÑADIDO: Estilos Chatbot para móvil */
+            .chat-window {
+                width: 90vw;
+                height: 70vh;
+                bottom: 80px;
+                right: 5vw;
+                transform-origin: bottom center;
+            }
+            .chatbot-container {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="food-animation-container" id="foodContainer"></div>
+
+    <div class="top-bar">
+        <div class="logo">
+            <i class="fas fa-apple-alt"></i>
+            Yachay Mikuy
+        </div>
+        <a href="index1.html#perfiles-de-tus-hijos" class="btn-back-top">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+    </div>
+
+    <div class="container">
+        <header class="group-header">
+            <div class="group-header-content">
+                <div class="group-header-icon"><i class="fas fa-users"></i></div>
+                <h1>Panel de Planificación Familiar</h1>
+                <p>Gestionando el bienestar de:</p>
+                <div class="children-list" id="childrenListContainer">
+                </div>
+                <p class="group-header-message" id="dynamicMessage"></p>
+            </div>
+            <a href="#" id="exitButton" class="btn-exit">
+                <i class="fas fa-sign-out-alt"></i> Salir
+            </a>
+        </header>
+
+        <main class="dashboard-grid">
+            <div class="dashboard-card card-pantry">
+                <div class="profile-indicator">
+                    <i class="fas fa-users"></i> Panel familiar
+                </div>
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-shopping-basket"></i></div>
+                    <h2 class="card-title">Comida con Despensa</h2>
+                </div>
+                <p class="card-description">Genere planes de comidas semanales para toda la familia, optimizando los ingredientes que ya tiene disponibles en casa.</p>
+                <div class="card-content">
+                    <a href="#" id="pantryLink" class="btn-action">
+                        <i class="fas fa-utensils"></i> Empezar Planificación
+                    </a>
+                </div>
+            </div>
+
+            <div class="dashboard-card card-region">
+                <div class="profile-indicator">
+                    <i class="fas fa-users"></i> Panel familiar
+                </div>
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <h2 class="card-title">Comida por Región</h2>
+                </div>
+                <p class="card-description">Descubra platos nutritivos y dietas balanceadas basadas en los alimentos típicos y de temporada de cada departamento del Perú.</p>
+                <div class="card-content">
+                    <select id="regionSelector" class="region-selector" name="departamento">
+                        <option value="">Seleccione un departamento</option>
+                    </select>
+                    <button id="regionButton" class="btn-action">
+                        <i class="fas fa-search-location"></i> Generar Plan Regional
+                    </button>
+                </div>
+            </div>
+
+            <div class="dashboard-card card-wellness">
+                <div class="profile-indicator">
+                    <i class="fas fa-users"></i> Panel familiar
+                </div>
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-brain"></i></div>
+                    <h2 class="card-title">Bienestar Psicológico</h2>
+                </div>
+                <p class="card-description">Acceda a consejos prácticos y actividades diseñadas para fomentar el desarrollo emocional y la salud mental de sus hijos.</p>
+                <div class="card-content">
+                    <a href="#" id="wellnessLink" class="btn-action">
+                        <i class="fas fa-lightbulb"></i> Ver Recomendaciones
+                    </a>
+                </div>
+            </div>
+
+            <div class="dashboard-card card-academic">
+                <div class="profile-indicator">
+                    <i class="fas fa-users"></i> Panel familiar
+                </div>
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-book-reader"></i></div>
+                    <h2 class="card-title">Apoyo Académico</h2>
+                </div>
+                <p class="card-description">Encuentre estrategias, recursos y recomendaciones para potenciar el rendimiento escolar y los hábitos de estudio de la familia.</p>
+                <div class="card-content">
+                    <a href="#" id="academicLink" class="btn-action">
+                        <i class="fas fa-graduation-cap"></i> Explorar Estrategias
+                    </a>
+                </div>
+            </div>
+            
+            <div class="dashboard-card card-games">
+                <div class="profile-indicator">
+                    <i class="fas fa-users"></i> Panel familiar
+                </div>
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-puzzle-piece"></i></div>
+                    <h2 class="card-title">Jugando es Divertido</h2>
+                </div>
+                <p class="card-description">Explore una selección de juegos educativos y actividades lúdicas para estimular la mente y la creatividad de sus hijos.</p>
+                <div class="card-content">
+                    <a href="#" id="gamesLink" class="btn-action">
+                        <i class="fas fa-gamepad"></i> Descubrir Juegos
+                    </a>
+                </div>
+            </div>
+            
+            <div class="dashboard-card card-daily">
+                <div class="profile-indicator">
+                    <i class="fas fa-users"></i> Panel familiar
+                </div>
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-plate-wheat"></i></div>
+                    <h2 class="card-title">Platos del Día</h2>
+                </div>
+                <p class="card-description">Reciba tres recomendaciones diarias de platos balanceados y nutritivos (desayuno, almuerzo y cena) para toda la familia.</p>
+                <div class="card-content">
+                    <a href="#" id="dailyLink" class="btn-action">
+                        <i class="fas fa-calendar-day"></i> Consultar Sugerencias
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="chatbot-container">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h5><i class="fas fa-robot"></i> Asistente Yachay</h5>
+                <button class="close-chat" id="closeChatBtn">&times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="chat-message bot">
+                    ¡Hola! Soy el asistente de Yachay Mikuy. ¿En qué puedo ayudarte hoy?
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Escribe tu pregunta...">
+                <button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <div class="chat-fab" id="chatFab">
+            <i class="fas fa-comments"></i>
+        </div>
+    </div>
+
+
+    <footer class="footer">
+      <div class="footer-content">
+          <div class="footer-section">
+              <h3>Redes Sociales</h3>
+              <div class="social-links">
+                    <a href="https://facebook.com/yachaymikuy" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/company/yachay-mikuy/posts/?feedView=all" target="_blank" title="linkedin"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://instagram.com/yachaymikuy" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtu.be/La15HNlOpEM" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/51918072862" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+              </div>
+          </div>
+          <div class="footer-section">
+              <h3>Contacto</h3>
+              <p><i class="fas fa-envelope"></i> yachay.mikuy@gmail.com</p>
+              <p><i class="fas fa-phone"></i> +51 918 072 862</p>
+              <p><i class="fas fa-map-marker-alt"></i> Lima - Perú</p>
+          </div>
+          <div class="footer-section">
+              <h3>Enlaces Útiles</h3>
+              <ul class="footer-links">
+                  <li><a href="#" id="aboutLink"><i class="fas fa-info-circle"></i> Acerca de Nosotros</a></li>
+                  <li><a href="#" id="servicesLink"><i class="fas fa-concierge-bell"></i> Servicios</a></li>
+                  <li><a href="#" id="faqLink"><i class="fas fa-question-circle"></i> Preguntas Frecuentes</a></li>
+                  <li><a href="#" id="privacyLink"><i class="fas fa-shield-alt"></i> Política de Privacidad</a></li>
+                  <li><a href="#" id="termsLink"><i class="fas fa-file-contract"></i> Términos y Condiciones</a></li>
+              </ul>
+          </div>
+      </div>
+      <div class="footer-bottom">&copy; 2025 Yachay Mikuy. Todos los derechos reservados.</div>
+    </footer>
+
+    <div id="actionModalContainer"></div>
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
+
+    <script>
+        // === INICIO: LÓGICA DE INACTIVIDAD ===
+        let inactivityTimer;
+
+        function handleInactivity() {
+            console.log("Inactividad de 2 minutos detectada. Cerrando sesión y redirigiendo.");
+            logout(); // Cierra la sesión
+            window.location.href = 'index.html'; // Redirige a la página de inicio
+        }
+
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            // El timeout es de 2 minutos (120000 milisegundos)
+            inactivityTimer = setTimeout(handleInactivity, 120000);
+        }
+        // === FIN: LÓGICA DE INACTIVIDAD ===
+
+        // === INICIO: LÓGICA DE SESIÓN ===
+        function logout() {
+            const session = storageAdapter.getSession();
+            session.currentUserId = null;
+            session.exploringAsGuest = false;
+            storageAdapter.saveSession(session);
+            console.log("Sesión cerrada.");
+        }
+        // === FIN: LÓGICA DE SESIÓN ===
+
+        // --- INICIO: LÓGICA DE LA GUÍA INTERACTIVA (Intro.js) ---
+        function startGuidedTour() {
+            // Evitar que se inicie una guía si ya hay una activa
+            if (document.querySelector('.introjs-overlay')) {
+                return;
+            }
+
+            // MODIFICADO: Pasos detallados para los 6 módulos
+            const steps = [
+                {
+                    element: '.group-header',
+                    intro: '¡Bienvenido al <b>Panel Familiar</b>! Aquí verás un resumen de los perfiles que estás gestionando.'
+                },
+                {
+                    element: '#childrenListContainer',
+                    intro: 'Estos son los perfiles de tus hijos. Puedes hacer clic en cualquiera para ver un <b>resumen rápido</b> de sus datos y respuestas.'
+                },
+                {
+                    element: '.card-pantry',
+                    intro: '<b>1. Comida con Despensa:</b> Usa esta opción para generar un plan de comidas semanal basado en los ingredientes que ya tienes en casa. ¡Es genial para ahorrar!'
+                },
+                {
+                    element: '.card-region',
+                    intro: '<b>2. Comida por Región:</b> ¿No sabes qué cocinar? Selecciona un departamento y obtén un plan basado en alimentos de temporada y platos típicos de esa zona.'
+                },
+                {
+                    element: '.card-wellness',
+                    intro: '<b>3. Bienestar Psicológico:</b> La nutrición también es mental. Encuentra consejos y actividades para la salud emocional de tu familia aquí.'
+                },
+                {
+                    element: '.card-academic',
+                    intro: '<b>4. Apoyo Académico:</b> Encuentra estrategias y recursos para potenciar el rendimiento escolar y los hábitos de estudio de la familia.'
+                },
+                {
+                    element: '.card-games',
+                    intro: '<b>5. Jugando es Divertido:</b> Explora juegos educativos y actividades lúdicas para estimular la mente y la creatividad de tus hijos.'
+                },
+                {
+                    element: '.card-daily',
+                    intro: '<b>6. Platos del Día:</b> Recibe tres recomendaciones diarias (desayuno, almuerzo y cena) de platos balanceados para toda la familia.'
+                },
+                {
+                    element: '#exitButton',
+                    intro: 'Usa este botón para <b>Cerrar Sesión</b> de forma segura y volver a la pantalla de inicio.'
+                },
+                {
+                    element: '.top-bar .btn-back-top',
+                    intro: 'Y si quieres volver al panel de perfiles (la pantalla anterior), solo haz clic aquí en <b>Volver</b>.'
+                }
+            ];
+
+            if (steps.length > 0) {
+                introJs().setOptions({
+                    steps: steps,
+                    nextLabel: 'Siguiente &rarr;',
+                    prevLabel: '&larr; Anterior',
+                    doneLabel: '¡Entendido!',
+                    skipLabel: 'x',
+                    showBullets: false,
+                    exitOnOverlayClick: false,
+                    tooltipClass: 'custom-intro-tooltip' // Re-usando la clase de estilo
+                }).start();
+            }
+        }
+        // --- FIN: LÓGICA DE LA GUÍA INTERACTIVA ---
+
+
+        // --- INICIO: LÓGICA DEL CHATBOT ---
+        
+        // MODIFICADO: Base de conocimiento ampliada
+        const chatKnowledgeBase = {
+            // Conocimiento General (de la app)
+            saludos: { keywords: ['hola', 'buenos dias', 'buenas tardes', 'buenas noches', 'saludos'], response: '¡Hola! Soy el asistente virtual de Yachay Mikuy. ¿En qué puedo ayudarte hoy? Puedes preguntarme sobre nuestros servicios o sobre las funciones de esta página.' },
+            acerca: { keywords: ['acerca de', 'quienes son', 'mision', 'vision', 'equipo', 'yachay mikuy'], response: '<b>Nuestra Misión:</b> Reducir la anemia infantil en más del 60% en Latinoamérica con soluciones personalizadas y accesibles.<br><b>Nuestra Visión:</b> Ser la plataforma líder que transforma la nutrición infantil en Latinoamérica.' },
+            servicios: { keywords: ['servicios', 'que hacen', 'ia', 'plan', 'mikuycito'], response: 'Ofrecemos <b>Planes Personalizados con IA</b> para procesar la información de cada niño y generar un plan único. También usamos <b>Gamificación con "Mikuycito"</b>, un aliado interactivo con juegos y recompensas para hacer el proceso divertido.' },
+            precios: { keywords: ['precio', 'costo', 'cuanto cuesta', 'precios'], response: 'Creemos que la salud no debe ser un lujo. Nuestros precios son:<br><ul><li><b>Público General:</b> $5 mensuales.</li><li><b>Áreas Vulnerables:</b> $3 mensuales.</li></ul>Además, contamos con funciones gratuitas para todos.' },
+            faq_diferencia: { keywords: ['diferente', 'diferencia', 'competencia'], response: 'A diferencia de soluciones genéricas, nosotros no ofrecemos una solución única. Entendemos que la anemia es multidimensional, por eso creamos planes 100% personalizados que se adaptan a la realidad local de cada familia.' },
+            faq_edades: { keywords: ['edad', 'edades', 'para quien es'], response: 'Nuestra plataforma está diseñada principalmente para niños de 0 a 13 años, una etapa crucial para el desarrollo físico y cognitivo.' },
+            privacidad: { keywords: ['privacidad', 'datos', 'seguro', 'seguridad'], response: 'La seguridad de tus datos es nuestra máxima prioridad. Cumplimos con todas las normativas y usamos encriptación. Requerimos consentimiento parental explícito y los tutores tienen control total sobre la información para rectificarla o eliminarla.' },
+            terminos: { keywords: ['terminos', 'condiciones', 'legal', 'medico'], response: 'Es importante recordar que Yachay Mikuy es una herramienta de apoyo y educación. <b>No reemplaza el diagnóstico o consejo de un profesional médico cualificado.</b> Siempre consulta a tu pediatra antes de realizar cambios significativos en la dieta.' },
+
+            // --- AÑADIDO: Conocimiento Específico de esta Página (yachay.html) ---
+            despensa: {
+                keywords: ['despensa', 'comida con despensa', 'ingredientes', 'lista de compras'],
+                response: 'Puedes encontrar la función <b>Comida con Despensa</b> aquí en el panel. Te permite generar planes de comidas semanales optimizando los ingredientes que ya tienes en casa. ¡Es genial para ahorrar!'
+            },
+            region: {
+                keywords: ['region', 'regional', 'departamento', 'comida por region', 'piura', 'lima'],
+                response: 'El módulo <b>Comida por Región</b> te permite descubrir platos nutritivos basados en los alimentos de temporada de un departamento específico del Perú. ¡Solo selecciónalo de la lista en la tarjeta naranja!'
+            },
+            bienestar: {
+                keywords: ['bienestar', 'psicologico', 'emocional', 'salud mental', 'estres'],
+                response: 'La tarjeta de <b>Bienestar Psicológico</b> (la de color morado) te da acceso a consejos y actividades para fomentar el desarrollo emocional y la salud mental de tus hijos.'
+            },
+            academico: {
+                keywords: ['academico', 'apoyo academico', 'colegio', 'estudios', 'tareas'],
+                response: 'En <b>Apoyo Académico</b> (la tarjeta color turquesa), encontrarás estrategias y recursos para potenciar el rendimiento escolar y los hábitos de estudio de la familia.'
+            },
+            juegos: {
+                keywords: ['juegos', 'jugando', 'divertido', 'gamificacion', 'entretenimiento'],
+                response: 'La sección <b>Jugando es Divertido</b> (la tarjeta rosada) tiene una selección de juegos educativos y actividades lúdicas para estimular la mente y la creatividad de tus hijos.'
+            },
+            platos_dia: {
+                keywords: ['platos del dia', 'diario', 'hoy', 'sugerencias', 'desayuno', 'almuerzo', 'cena'],
+                response: 'En <b>Platos del Día</b> (la tarjeta celeste), recibirás tres recomendaciones diarias (desayuno, almuerzo y cena) de platos balanceados y nutritivos para toda la familia.'
+            }
+        };
+
+
+        function normalizeText(text) {
+            return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function getBotResponse(userInput) {
+            const normalizedInput = normalizeText(userInput);
+            for (const key in chatKnowledgeBase) {
+                const entry = chatKnowledgeBase[key];
+                for (const keyword of entry.keywords) {
+                    if (normalizedInput.includes(normalizeText(keyword))) {
+                        return entry.response;
+                    }
+                }
+            }
+            return 'No entendí tu pregunta. Intenta reformularla. Puedo responder sobre: Acerca de Yachay, Servicios, Precios, y las 6 funciones de esta página (despensa, región, bienestar, etc.).';
+        }
+
+        function addChatMessage(message, sender) {
+            const chatBody = document.getElementById('chatBody');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}`;
+            messageDiv.innerHTML = message;
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function clearChat() {
+            const chatBody = document.getElementById('chatBody');
+            chatBody.innerHTML = '<div class="chat-message bot">¡Hola! Soy el asistente de Yachay Mikuy. ¿En qué puedo ayudarte hoy?</div>';
+            chatBody.scrollTop = 0;
+        }
+
+        function handleSendMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const message = chatInput.value.trim();
+            if (message === '') return;
+            addChatMessage(message, 'user');
+            chatInput.value = '';
+            setTimeout(() => {
+                const botResponse = getBotResponse(message);
+                addChatMessage(botResponse, 'bot');
+            }, 500);
+        }
+
+        function setupChatbotListeners() {
+            const chatFab = document.getElementById('chatFab');
+            const chatWindow = document.getElementById('chatWindow');
+            const closeChatBtn = document.getElementById('closeChatBtn');
+            const chatSendBtn = document.getElementById('chatSendBtn');
+            const chatInput = document.getElementById('chatInput');
+
+            chatFab.addEventListener('click', () => {
+                const isActive = chatWindow.classList.toggle('active');
+                if (!isActive) {
+                    clearChat();
+                }
+            });
+            
+            closeChatBtn.addEventListener('click', () => {
+                chatWindow.classList.remove('active');
+                clearChat();
+            });
+
+            chatSendBtn.addEventListener('click', handleSendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleSendMessage();
+                }
+            });
+        }
+        // --- FIN: LÓGICA DEL CHATBOT ---
+
+
+        const storageAdapter = { getUsers: function() { const users = localStorage.getItem('yachay_users'); return users ? JSON.parse(users) : []; }, saveUsers: function(users) { localStorage.setItem('yachay_users', JSON.stringify(users)); }, getChildren: function() { const children = localStorage.getItem('yachay_children'); return children ? JSON.parse(children) : []; }, saveChildren: function(children) { localStorage.setItem('yachay_children', JSON.stringify(children)); }, getResponses: function() { const responses = localStorage.getItem('yachay_responses'); return responses ? JSON.parse(responses) : {}; }, saveResponses: function(responses) { localStorage.setItem('yachay_responses', JSON.stringify(responses)); }, getSession: function() { const session = localStorage.getItem('yachay_session'); return session ? JSON.parse(session) : { currentUserId: null, exploringAsGuest: false, lastActiveAt: null }; }, saveSession: function(session) { localStorage.setItem('yachay_session', JSON.stringify(session)); }, getAuditLog: function() { const auditLog = localStorage.getItem('yachay_auditLog'); return auditLog ? JSON.parse(auditLog) : []; }, saveAuditLog: function(auditLog) { localStorage.setItem('yachay_auditLog', JSON.stringify(auditLog)); } };
+        function syncChildDeletionAcrossPages(childId, action) { const syncData = { childId: childId, action: action, timestamp: new Date().toISOString() }; localStorage.setItem('yachay_sync_action', JSON.stringify(syncData)); if ('BroadcastChannel' in window) { const channel = new BroadcastChannel('yachay_sync'); channel.postMessage(syncData); } }
+        function showToast(message, type = 'info') { const toastContainer = document.getElementById('toastContainer'); const toastId = 'toast-' + Date.now(); const toastHtml = ` <div id="${toastId}" class="custom-toast toast-${type}"> <div class="me-2"> ${type === 'success' ? '<i class="fas fa-check-circle text-success"></i>' : type === 'error' ? '<i class="fas fa-exclamation-circle text-danger"></i>' : '<i class="fas fa-info-circle text-info"></i>'} </div> <div class="flex-grow-1">${message}</div> <button type="button" class="btn-close ms-2" onclick="document.getElementById('${toastId}').remove()"></button> </div> `; toastContainer.insertAdjacentHTML('beforeend', toastHtml); setTimeout(() => { const toast = document.getElementById(toastId); if (toast) toast.remove(); }, 5000); }
+        function calculateAge(dob) { const birthDate = new Date(dob); const today = new Date(); let age = today.getFullYear() - birthDate.getFullYear(); const monthDiff = today.getMonth() - birthDate.getMonth(); if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) { age--; } return age; }
+        function getURLParameter(name) { const urlParams = new URLSearchParams(window.location.search); return urlParams.get(name); }
+
+        function createFoodAnimation() {
+            const container = document.getElementById('foodContainer');
+            if (!container) return;
+            const foodIcons = ['fas fa-apple-alt', 'fas fa-carrot', 'fas fa-lemon', 'fas fa-pepper-hot', 'fas fa-seedling', 'fas fa-leaf', 'fas fa-fish', 'fas fa-egg', 'fas fa-bread-slice', 'fas fa-cheese', 'fas fa-drumstick-bite', 'fas fa-ice-cream', 'fas fa-pizza-slice', 'fas fa-cookie', 'fas fa-bacon', 'fas fa-stroopwafel', 'fas fa-hotdog', 'fas fa-candy-cane', 'fas fa-shrimp', 'fas fa-burger', 'fas fa-blender', 'fas fa-mug-hot', 'fas fa-plate-wheat', 'fas fa-bottle-water'];
+            const colors = [
+                '#FF4500', '#FFD700', '#3CB371', '#1E90FF', '#9370DB', '#FF8C00', '#20B2AA', '#DC143C', '#FFDAB9', 
+                '#4682B4', '#6B8E23', '#FF69B4', '#FF7F50', '#8A2BE2', '#00CED1', '#FF1493', '#FF4B00', '#32CD32', 
+                '#00BFFF', '#FF6347'
+            ];
+            const iconCount = 35;
+            for (let i = 0; i < iconCount; i++) {
+                const iconEl = document.createElement('i');
+                const randomIcon = foodIcons[Math.floor(Math.random() * foodIcons.length)];
+                iconEl.className = `${randomIcon} food-icon`;
+                iconEl.style.left = `${Math.random() * 98}vw`;
+                iconEl.style.animationDuration = `${Math.random() * 20 + 25}s`;
+                iconEl.style.animationDelay = `-${Math.random() * 25}s`;
+                iconEl.style.fontSize = `${Math.random() * 1.2 + 1.3}rem`;
+                iconEl.style.color = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(iconEl);
+            }
+        }
+        
+        function displayDynamicMessage() {
+            const messages = [
+                "Una familia que come unida, crece saludable y feliz.",
+                "La buena nutrición es la base para un futuro brillante.",
+                "Invertir en la alimentación de hoy es construir la salud de mañana.",
+                "Cada comida saludable es un acto de amor para su familia.",
+                "El bienestar familiar comienza en la cocina y se fortalece en la mesa."
+            ];
+            const messageContainer = document.getElementById('dynamicMessage');
+            if(messageContainer) {
+                const randomIndex = Math.floor(Math.random() * messages.length);
+                messageContainer.textContent = `"${messages[randomIndex]}"`;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // === INICIAR TEMPORIZADOR DE INACTIVIDAD Y EVENT LISTENERS ===
+            resetInactivityTimer();
+            window.addEventListener('mousemove', resetInactivityTimer);
+            window.addEventListener('mousedown', resetInactivityTimer);
+            window.addEventListener('keypress', resetInactivityTimer);
+            window.addEventListener('touchmove', resetInactivityTimer);
+            window.addEventListener('scroll', resetInactivityTimer, true);
+            
+            // --- AÑADIDO: Iniciar Chatbot y Guía ---
+            setupChatbotListeners();
+            setTimeout(startGuidedTour, 500); // 500ms de retraso para que cargue la página
+            
+            // === MANEJO DEL BOTÓN SALIR ===
+            document.getElementById('exitButton').addEventListener('click', function(e) {
+                e.preventDefault(); // Previene la navegación inmediata
+                logout(); // Cierra la sesión
+                showToast('Cerrando sesión...', 'info');
+                setTimeout(() => {
+                    window.location.href = 'index.html'; // Redirige a index.html
+                }, 1500);
+            });
+
+            createFoodAnimation();
+            displayDynamicMessage();
+
+            const syncAction = localStorage.getItem('yachay_sync_action'); if (syncAction) { const syncData = JSON.parse(syncAction); const actionTime = new Date(syncData.timestamp); const now = new Date(); if ((now - actionTime) < 5000) { const session = storageAdapter.getSession(); const guestMode = getURLParameter('guest') === 'true'; let childrenToShow; if (guestMode || session.exploringAsGuest) { childrenToShow = storageAdapter.getChildren().filter(child => child.ownerId === null); } else if (session.currentUserId) { childrenToShow = storageAdapter.getChildren().filter(child => child.ownerId === session.currentUserId); } if (childrenToShow.some(child => child.id === syncData.childId)) { if (syncData.action === 'soft-delete' || syncData.action === 'permanent-delete') { showToast('Un perfil ha sido eliminado', 'info'); setTimeout(() => { location.reload(); }, 2000); } } } localStorage.removeItem('yachay_sync_action'); }
+            if ('BroadcastChannel' in window) { const channel = new BroadcastChannel('yachay_sync'); channel.onmessage = function(event) { const syncData = event.data; const session = storageAdapter.getSession(); const guestMode = getURLParameter('guest') === 'true'; let childrenToShow; if (guestMode || session.exploringAsGuest) { childrenToShow = storageAdapter.getChildren().filter(child => child.ownerId === null); } else if (session.currentUserId) { childrenToShow = storageAdapter.getChildren().filter(child => child.ownerId === session.currentUserId); } if (childrenToShow.some(child => child.id === syncData.childId)) { if (syncData.action === 'soft-delete' || syncData.action === 'permanent-delete') { showToast('Un perfil ha sido eliminado', 'info'); setTimeout(() => { location.reload(); }, 2000); } } }; }
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const guestMode = urlParams.get('guest') === 'true';
+            const session = storageAdapter.getSession();
+            let isGuestMode = guestMode || session.exploringAsGuest;
+            let allChildrenData = storageAdapter.getChildren();
+            
+            if (!allChildrenData || allChildrenData.length === 0) { if (isGuestMode) { createGuestChildrenIfNotExists(); allChildrenData = storageAdapter.getChildren(); } else { document.body.innerHTML = '<h1>Error: No se encontraron datos de niños. Por favor, complete al menos un cuestionario.</h1>'; return; } }
+            
+            let completedChildren;
+            if (isGuestMode) { completedChildren = allChildrenData.filter(child => child.ownerId === null); } else { if (session.currentUserId) { completedChildren = allChildrenData.filter(child => child.ownerId === session.currentUserId); } else { completedChildren = []; } }
+            if (completedChildren.length === 0) { document.body.innerHTML = '<h1>No hay perfiles completados. Por favor, finalice al menos un cuestionario para continuar.</h1>'; return; }
+            
+            const childrenListContainer = document.getElementById('childrenListContainer');
+            const avatarColors = ['#e67e22', '#2980b9', '#8e44ad', '#27ae60', '#c0392b', '#16a085'];
+            completedChildren.forEach((child, index) => {
+                const childTag = document.createElement('div');
+                childTag.className = 'child-tag';
+                const avatar = document.createElement('div');
+                avatar.className = 'child-avatar-icon';
+                avatar.textContent = child.name.charAt(0).toUpperCase();
+                avatar.style.backgroundColor = avatarColors[index % avatarColors.length];
+                const nameSpan = document.createElement('span');
+                nameSpan.textContent = child.name;
+                childTag.appendChild(avatar);
+                childTag.appendChild(nameSpan);
+                childTag.addEventListener('click', () => showChildDetails(child));
+                childrenListContainer.appendChild(childTag);
+            });
+            
+            const guestParam = isGuestMode ? '?guest=true' : '';
+            document.getElementById('pantryLink').href = `nino1.html${guestParam}`; document.getElementById('wellnessLink').href = `nino3.html${guestParam}`; document.getElementById('academicLink').href = `nino4.html${guestParam}`; document.getElementById('gamesLink').href = `nino5.html${guestParam}`; document.getElementById('dailyLink').href = `nino6.html${guestParam}`;
+            
+            const departments = ["Amazonas", "Áncash", "Apurímac", "Arequipa", "Ayacucho", "Cajamarca", "Callao", "Cusco", "Huancavelica", "Huánuco", "Ica", "Junín", "La Libertad", "Lambayeque", "Lima", "Loreto", "Madre de Dios", "Moquegua", "Pasco", "Piura", "Puno", "San Martín", "Tacna", "Tumbes", "Ucayali"];
+            const regionSelector = document.getElementById('regionSelector');
+            departments.forEach(dept => { const option = document.createElement('option'); option.value = dept.toLowerCase().replace(/á/g, 'a').replace(/\s+/g, '-'); option.textContent = dept; regionSelector.appendChild(option); });
+            
+            const regionButton = document.getElementById('regionButton');
+            regionButton.addEventListener('click', function() { const selectedDepartment = regionSelector.value; if (selectedDepartment) { window.location.href = `nino2.html?departamento=${selectedDepartment}&${isGuestMode ? 'guest=true' : ''}`; } else { showToast('Por favor, seleccione un departamento.', 'info'); } });
+            
+            function showChildDetails(child) { const responses = storageAdapter.getResponses(); const childResponses = responses[child.id] || {}; const modalHtml = ` <div class="modal active child-details-modal"> <div class="modal-content"> <div class="modal-header"> <h2>Detalles de ${child.name}</h2> <button class="close-modal">&times;</button> </div> <div class="modal-body"> <div class="child-detail-item"> <span class="child-detail-label">Edad:</span> <span class="child-detail-value">${calculateAge(child.dob)} años</span> </div> <div class="child-detail-item"> <span class="child-detail-label">Fecha de nacimiento:</span> <span class="child-detail-value">${new Date(child.dob).toLocaleDateString()}</span> </div> <div class="child-detail-item"> <span class="child-detail-label">Sexo:</span> <span class="child-detail-value">${child.sex === 'male' ? 'Masculino' : child.sex === 'female' ? 'Femenino' : 'Otro'}</span> </div> <div class="child-detail-item"> <span class="child-detail-label">Progreso del cuestionario:</span> <span class="child-detail-value">${child.progressPercent}%</span> </div> <div class="responses-summary"> <h4>Resumen de respuestas importantes:</h4> ${getImportantResponses(childResponses)} </div> </div> </div> </div> `; document.getElementById('actionModalContainer').innerHTML = modalHtml; document.querySelector('.close-modal').addEventListener('click', function() { document.getElementById('actionModalContainer').innerHTML = ''; }); document.querySelector('.modal').addEventListener('click', function(e) { if (e.target === this) { document.getElementById('actionModalContainer').innerHTML = ''; } }); }
+            function getImportantResponses(childResponses) { const importantQuestions = { 'q1': 'Peso actual', 'q2': 'Estatura actual', 'q13': 'Desayuno habitual', 'q15': 'Almuerzo habitual', 'q17': 'Porciones de fruta al día', 'q21': 'Consumo de agua', 'q28': 'Actividad física', 'q34': 'Horas de sueño' }; let html = ''; for (const [questionId, questionLabel] of Object.entries(importantQuestions)) { if (childResponses[questionId]) { html += ` <div class="response-item"> <div class="response-question">${questionLabel}:</div> <div class="response-answer">${childResponses[questionId].value}</div> </div> `; } } if (html === '') { html = '<p>No hay respuestas relevantes registradas.</p>'; } return html; }
+            function createGuestChildrenIfNotExists() { let childrenData = storageAdapter.getChildren(); const hasAlvaro = childrenData.some(child => child.id === 'guest-alvaro'); const hasLuz = childrenData.some(child => child.id === 'guest-luz'); if (!hasAlvaro) { childrenData.push({ id: 'guest-alvaro', name: 'Alvaro', dob: '2017-08-10', sex: 'male', avatarCustomization: '1', theme: 'default', ownerId: null, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), progressPercent: 100, deletedAt: null, version: 1 }); } if (!hasLuz) { childrenData.push({ id: 'guest-luz', name: 'Luz', dob: '2019-12-05', sex: 'female', avatarCustomization: '2', theme: 'default', ownerId: null, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString(), progressPercent: 100, deletedAt: null, version: 1 }); } storageAdapter.saveChildren(childrenData); const responses = storageAdapter.getResponses(); if (!responses['guest-alvaro']) { responses['guest-alvaro'] = {}; for (let i = 1; i <= 50; i++) { responses['guest-alvaro'][`q${i}`] = { type: 'select', value: 'Respuesta de ejemplo', timestamp: new Date().toISOString(), version: 1 }; } } if (!responses['guest-luz']) { responses['guest-luz'] = {}; for (let i = 1; i <= 50; i++) { responses['guest-luz'][`q${i}`] = { type: 'select', value: 'Respuesta de ejemplo', timestamp: new Date().toISOString(), version: 1 }; } } storageAdapter.saveResponses(responses); }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const actionModalContainer = document.getElementById('actionModalContainer');
+            const ui = {
+                openModal: (content) => { 
+                    actionModalContainer.innerHTML = content;
+                    const modal = actionModalContainer.querySelector('.modal');
+                    if (modal) {
+                        setTimeout(() => modal.classList.add('active'), 10);
+                    }
+                },
+                closeModal: () => { 
+                    const modal = actionModalContainer.querySelector('.modal');
+                    if (modal) {
+                        modal.classList.remove('active');
+                        setTimeout(() => actionModalContainer.innerHTML = '', 300);
+                    }
+                }
+            };
+            
+            const templates = {
+                aboutModal: () => ` <div class="modal"> <div class="modal-content"> <div class="modal-header"> <h2>Acerca de Yachay Mikuy</h2> <button class="close-modal">&times;</button> </div> <div class="modal-body"> <div class="content-section"> <h3><i class="fas fa-bullseye"></i> Nuestra Misión</h3> <p>Reducir la prevalencia de anemia y malnutrición en niños de 6 a 13 años mediante planes de alimentación personalizados, adaptados culturalmente y económicamente a la realidad de las familias peruanas.</p> </div> <div class="content-section"> <h3><i class="fas fa-eye"></i> Nuestra Visión</h3> <p>Convertirnos en la plataforma digital líder en nutrición infantil en Perú, contribuyendo al desarrollo humano y social del país a través de hábitos alimentarios saludables.</p> </div> <div class="content-section"> <h3><i class="fas fa-users"></i> Nuestro Equipo</h3> <p>Contamos con un equipo multidisciplinario de profesionales de la salud, nutricionistas, desarrolladores de software y expertos en educación, comprometidos con mejorar la nutrición infantil en el país.</p> </div> <div class="content-section"> <h3><i class="fas fa-chart-line"></i> Impacto</h3> <p>Según estudios del INEI (2023), la anemia infantil afecta a más del 40% de niños menores de 3 años en algunas regiones del Perú. Nuestro proyecto busca reducir esta cifra mediante intervenciones personalizadas y seguimiento continuo.</p> </div> <div class="highlight-box"> <h3 style="margin-top:0;"><i class="fas fa-award"></i> Reconocimientos</h3> <p>Proyecto seleccionado por la Universidad de Piura como iniciativa de impacto social en el programa de Ingeniería Industrial y de Sistemas.</p> </div> </div> </div> </div>`,
+                servicesModal: () => ` <div class="modal"> <div class="modal-content"> <div class="modal-header"> <h2>Nuestros Servicios</h2> <button class="close-modal">&times;</button> </div> <div class="modal-body"> <div class="content-section"> <h3><i class="fas fa-utensils"></i> Planes de Alimentación Personalizados</h3> <p>Desarrollamos planes nutricionales adaptados a las necesidades específicas de cada niño, considerando:</p> <ul> <li>Edad y estado de salud</li> <li>Disponibilidad de alimentos locales</li> <li>Hábitos culturales y preferencias familiares</li> <li>Capacidad económica del hogar</li> </ul> </div> <div class="content-section"> <h3><i class="fas fa-chart-line"></i> Seguimiento Nutricional</h3> <p>Monitoreamos el progreso de cada niño a través de:</p> <ul> <li>Registro diario de consumo alimentario</li> <li>Evaluación periódica de indicadores de salud</li> <li>Ajustes automáticos según resultados obtenidos</li> <li>Reportes mensuales para padres y tutores</li> </ul> </div> <div class="content-section"> <h3><i class="fas fa-graduation-cap"></i> Educación Nutricional</h3> <p>Ofrecemos material educativo en múltiples formatos:</p> <ul> <li>Recetas prácticas con ingredientes locales</li> <li>Videos tutoriales de preparación</li> <li>Guías informativas sobre nutrientes esenciales</li> <li>Consejos para mejorar hábitos alimentarios</li> </ul> </div> <div class="content-section"> <h3><i class="fas fa-users"></i> Comunidad de Apoyo</h3> <p>Conectamos a las familias con:</p> <ul> <li>Nutricionistas y profesionales de la salud</li> <li>Otras familias que comparten experiencias</li> <li>Foros de discusión y consejos prácticos</li> <li>Eventos virtuales de capacitación</li> </ul> </div> <div class="highlight-box"> <h3 style="margin-top:0;"><i class="fas fa-mobile-alt"></i> Accesibilidad</h3> <p>Nuestra plataforma funciona en modo offline y cuenta con versión ligera para zonas con conectividad limitada.</p> </div> </div> </div> </div>`,
+                faqModal: () => ` <div class="modal"> <div class="modal-content"> <div class="modal-header"> <h2>Preguntas Frecuentes</h2> <button class="close-modal">&times;</button> </div> <div class="modal-body"> <div class="content-section"> <h3><i class="fas fa-question-circle"></i> ¿Qué es Yachay Mikuy?</h3> <p>Yachay Mikuy es una plataforma digital que ofrece planes de alimentación personalizados para combatir la anemia infantil en Perú, combinando tecnología, educación y nutrición culturalmente adaptada.</p> </div> <div class="content-section"> <h3><i class="fas fa-child"></i> ¿Para qué edades está diseñada la plataforma?</h3> <p>Nuestra plataforma está diseñada para niños de 0 a 13 años, etapa crucial en el desarrollo donde los hábitos alimentarios se consolidan y se pueden prevenir deficiencias nutricionales a largo plazo.</p> </div> <div class="content-section"> <h3><i class="fas fa-user-plus"></i> ¿Cómo puedo registrarme?</h3> <p>Puedes registrarte haciendo clic en el botón "Comenzar Ahora" en nuestra página principal y completando el formulario con tus datos personales. El proceso es rápido y seguro.</p> </div> <div class="content-section"> <h3><i class="fas fa-shield-alt"></i> ¿Es seguro compartir los datos de mis hijos?</h3> <p>Sí, implementamos medidas avanzadas de protección de datos, incluyendo cifrado, consentimiento parental explícito y cumplimiento con normativas de protección de datos.</p> </div> <div class="content-section"> <h3><i class="fas fa-dollar-sign"></i> ¿Qué costo tiene el servicio?</h3> <p>Ofrecemos diferentes planes de suscripción, incluyendo un plan básico accesible, un plan premium y subsidios para familias vulnerables mediante alianzas estratégicas.</p> </div> <div class="highlight-box"> <h3 style="margin-top:0;"><i class="fas fa-hands-helping"></i> ¿Cómo obtengo ayuda?</h3> <p>Puedes contactarnos a través del chat en vivo en la aplicación, correo electrónico, o WhatsApp. Nuestro equipo de soporte está listo para ayudarte.</p> </div> </div> </div> </div>`,
+                privacyModal: () => ` <div class="modal"> <div class="modal-content"> <div class="modal-header"> <h2>Política de Privacidad</h2> <button class="close-modal">&times;</button> </div> <div class="modal-body"> <div class="content-section"> <h3><i class="fas fa-info-circle"></i> Información que Recopilamos</h3> <p>Recopilamos información personal (nombre, contacto) y de salud (edad, peso, historial médico) de manera responsable y con su consentimiento para personalizar la experiencia.</p> </div> <div class="content-section"> <h3><i class="fas fa-cogs"></i> Uso de la Información</h3> <p>Utilizamos su información exclusivamente para proporcionar planes de alimentación personalizados, realizar seguimiento nutricional y mejorar nuestros servicios. No compartimos sus datos con terceros sin su consentimiento explícito.</p> </div> <div class="content-section"> <h3><i class="fas fa-user-shield"></i> Derechos de los Usuarios</h3> <p>Usted tiene derecho a acceder, rectificar, cancelar y oponerse al tratamiento de sus datos personales en cualquier momento. Para ejercer estos derechos, puede contactarnos a través de yachay.mikuy@gmail.com.</p> </div> <div class="highlight-box"> <h3 style="margin-top:0;"><i class="fas fa-exclamation-triangle"></i> Importante</h3> <p>Esta política se actualiza periódicamente. Le notificaremos cualquier cambio significativo a través de su correo electrónico registrado.</p> </div> </div> </div> </div>`,
+                termsModal: () => ` <div class="modal"> <div class="modal-content"> <div class="modal-header"> <h2>Términos y Condiciones</h2> <button class="close-modal">&times;</button> </div> <div class="modal-body"> <div class="content-section"> <h3><i class="fas fa-check-circle"></i> Aceptación de los Términos</h3> <p>Al utilizar la plataforma Yachay Mikuy, usted acepta estos términos y condiciones en su totalidad. Si no está de acuerdo, no debe utilizar nuestros servicios.</p> </div> <div class="content-section"> <h3><i class="fas fa-heart"></i> Descargo de Responsabilidad Médica</h3> <p>Yachay Mikuy es una herramienta de apoyo y educación nutricional. <strong>No reemplaza el diagnóstico, consejo o tratamiento de un profesional médico cualificado.</strong> Siempre consulte a su pediatra antes de realizar cambios en la dieta de su hijo.</p> </div> <div class="content-section"> <h3><i class="fas fa-user-check"></i> Responsabilidades del Usuario</h3> <p>Usted se compromete a proporcionar información veraz, mantener la confidencialidad de su cuenta y seguir las recomendaciones de manera responsable.</p> </div> <div class="content-section"> <h3><i class="fas fa-copyright"></i> Propiedad Intelectual</h3> <p>Todo el contenido, algoritmos y la marca Yachay Mikuy son propiedad de sus creadores y están protegidos por las leyes de propiedad intelectual.</p> </div> <div class="highlight-box"> <h3 style="margin-top:0;"><i class="fas fa-sync-alt"></i> Modificaciones</h3> <p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Las modificaciones entrarán en vigor desde su publicación en la plataforma.</p> </div> </div> </div> </div>`
+            };
+
+            document.body.addEventListener('click', (e) => {
+                const link = e.target.closest('a');
+                if (link) {
+                    if (link.id === 'aboutLink') { e.preventDefault(); ui.openModal(templates.aboutModal()); }
+                    else if (link.id === 'servicesLink') { e.preventDefault(); ui.openModal(templates.servicesModal()); }
+                    else if (link.id === 'faqLink') { e.preventDefault(); ui.openModal(templates.faqModal()); }
+                    else if (link.id === 'privacyLink') { e.preventDefault(); ui.openModal(templates.privacyModal()); }
+                    else if (link.id === 'termsLink') { e.preventDefault(); ui.openModal(templates.termsModal()); }
+                }
+                if (e.target.matches('.modal') || e.target.matches('.close-modal')) {
+                    ui.closeModal();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

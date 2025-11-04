@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Familiar - Yachay Mikuy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-blue: #2c5aa0; --light-blue: #5d8cc4; --dark-blue: #1a3a6e;
+            --success-green: #28a745; --accent-orange: #ff9800; --accent-purple: #6f42c1;
+            --accent-pink: #d63384; --gray: #6c757d; --light-gray: #f8f9fa; --white: #ffffff;
+            --shadow-color: rgba(40, 50, 70, 0.1); --danger-red: #dc3545;
+            --iron-red: #e74c3c; --vitamin-c-orange: #f39c12;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        body { background-image: linear-gradient(120deg, #f5f9ff 0%, #e6f0fa 100%); color: #333; line-height: 1.6; min-height: 100vh; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+        .header { background: var(--white); border-radius: 20px; box-shadow: 0 8px 30px var(--shadow-color); padding: 25px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; border-left: 8px solid var(--primary-blue); }
+        .header-content { display: flex; align-items: center; gap: 20px; }
+        .header-icon { font-size: 2.5rem; color: var(--primary-blue); animation: bounce 2s infinite; }
+        .header-title h1 { color: var(--dark-blue); font-size: 2rem; font-weight: 800; margin-bottom: 5px; font-family: 'Fredoka', cursive; }
+        .header-title p { color: var(--gray); font-size: 1.1rem; }
+        .children-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+        .child-tag { background-color: rgba(93, 140, 196, 0.1); color: var(--primary-blue); padding: 5px 12px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; }
+        .header-actions { display: flex; gap: 15px; }
+        .btn { padding: 10px 20px; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: all 0.3s ease; border: none; }
+        .btn-primary { background: linear-gradient(45deg, var(--accent-orange), #e08e0b); color: var(--white); box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4); }
+        .btn-danger { background: linear-gradient(45deg, var(--danger-red), #e85d75); color: var(--white); box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3); }
+        .btn-danger:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4); }
+        .btn-success { background: linear-gradient(45deg, var(--success-green), #218838); color: var(--white); }
+        
+        .main-nav-tabs { display: flex; background: var(--white); border-radius: 15px; box-shadow: 0 5px 20px var(--shadow-color); margin-bottom: 30px; padding: 5px; }
+        .main-nav-tab { flex: 1; padding: 15px; text-align: center; cursor: pointer; color: var(--gray); font-weight: 600; transition: all 0.3s ease; border-radius: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .main-nav-tab.active { background: linear-gradient(45deg, var(--primary-blue), var(--light-blue)); color: var(--white); box-shadow: 0 4px 15px rgba(44, 90, 160, 0.3); transform: translateY(-2px); }
+        .main-tab-content { display: none; animation: fadeIn 0.5s; }
+        .main-tab-content.active { display: block; }
+        
+        .section-card { background: white; border-radius: 20px; padding: 25px; margin-bottom: 30px; box-shadow: 0 8px 30px var(--shadow-color); }
+        .section-title { font-size: 1.8rem; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; font-family: 'Fredoka', cursive; }
+        
+        /* Anemia Section */
+        .anemia-section { border-left: 10px solid var(--iron-red); }
+        .anemia-title { color: var(--iron-red); }
+        .anemia-intro-text { font-size: 1.1rem; color: #555; margin-bottom: 25px; }
+        .multidimensional-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+        .dimension-card { background: #fafafa; padding: 20px; border-radius: 15px; border-left: 5px solid; }
+        .dimension-card h4 { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .charts-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .chart-card { background: #fafafa; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px var(--shadow-color); height: 350px; }
+        
+        /* Foods Section */
+        .recommended-foods { border-left: 10px solid var(--success-green); }
+        .avoid-foods { border-left: 10px solid var(--danger-red); }
+        .recommended-title { color: var(--success-green); }
+        .avoid-title { color: var(--danger-red); }
+        .food-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 20px; }
+        .food-card { border-radius: 15px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,0.05); transition: all 0.3s ease; cursor: pointer; border: 1px solid #eee; position: relative; }
+        .food-card:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .food-image { height: 120px; position: relative; }
+        .food-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
+        .food-card-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
+        .food-card:hover .food-card-overlay { opacity: 1; }
+        .food-info { padding: 15px; text-align: center; }
+        .food-name { font-weight: 600; margin-bottom: 8px; font-size: 1rem; }
+        .food-benefit { font-size: 0.8rem; color: var(--success-green); }
+        .avoid-reason { font-size: 0.8rem; color: var(--danger-red); }
+
+        /* Recipes Section - ESTILOS COPIADOS DEL CÓDIGO FUNCIONAL */
+        .pantry-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px; }
+        .pantry-card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 8px 30px var(--shadow-color); }
+        .pantry-card h3 { margin-bottom: 15px; color: var(--dark-blue); font-weight: 700; }
+        .manual-input { display: flex; gap: 10px; margin-bottom: 15px; }
+        .ingredient-input { flex: 1; padding: 12px 15px; border: 2px solid #ddd; border-radius: 10px; font-size: 1rem; }
+        .ingredients-list-container { display: flex; flex-wrap: wrap; gap: 10px; padding: 10px; background: #f0f8ff; border-radius: 10px; min-height: 40px; margin-bottom: 15px; }
+        .food-item-tag { display: inline-flex; align-items: center; background: var(--success-green); color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem; animation: fadeIn 0.3s; }
+        .food-item-tag button { background: none; border: none; color: white; margin-left: 8px; cursor: pointer; font-size: 1rem; }
+        #pantry-image-preview-Recetas { max-width: 150px; border-radius: 10px; margin-top: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .file-input { display: none; }
+        .pantry-actions { display: flex; gap: 10px; margin-top: 20px; }
+        .meal-buttons { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .btn-meal { padding: 15px; border: none; border-radius: 10px; font-size: 1rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: all 0.3s ease; color: var(--white); }
+        .btn-breakfast { background: linear-gradient(45deg, var(--accent-orange), #e08e0b); }
+        .btn-lunch { background: linear-gradient(45deg, var(--success-green), #218838); }
+        .btn-dinner { background: linear-gradient(45deg, var(--accent-purple), #5a32a3); }
+        .btn-dessert { background: linear-gradient(45deg, var(--accent-pink), #b02a6e); }
+        .recipes-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .recipe-card { background: white; border-radius: 20px; padding: 25px; box-shadow: 0 8px 30px var(--shadow-color); animation: fadeIn 0.5s; border-left: 5px solid; display: flex; flex-direction: column; }
+        .recipe-card h3 { color: var(--primary-blue); margin-bottom: 15px; }
+        .recipe-card h4 { margin-top: 15px; margin-bottom: 10px; }
+        .recipe-card ul, .recipe-card ol { margin-left: 20px; flex-grow: 1; }
+        .recipe-info-box { border-left: 4px solid; padding: 15px; border-radius: 0 10px 10px 0; margin-bottom: 15px; font-size: 0.9rem; }
+        .tips-box { background-color: rgba(40, 167, 69, 0.08); border-color: var(--success-green); }
+        .benefits-box { background-color: rgba(93, 140, 196, 0.08); border-color: var(--primary-blue); }
+        .allergy-box { background-color: rgba(220, 53, 69, 0.08); border-color: var(--danger-red); }
+        
+        .spinner-container { display: none; justify-content: center; align-items: center; min-height: 200px; }
+        .spinner { width: 50px; height: 50px; border: 5px solid rgba(44, 90, 160, 0.2); border-radius: 50%; border-top-color: var(--primary-blue); animation: spin 1s ease-in-out infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 100; justify-content: center; align-items: center; }
+        .modal-content { background-color: var(--white); border-radius: 15px; padding: 30px; max-width: 500px; width: 90%; animation: fadeIn 0.3s ease; }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; }
+        .development-message { background: linear-gradient(135deg, #fff3cd, #ffeaa7); border: 1px solid #ffeeba; color: #856404; padding: 15px; border-radius: 10px; margin: 20px 0; text-align: center; font-weight: bold; }
+        
+        @media (max-width: 992px) { 
+            .pantry-grid, .recipes-container { grid-template-columns: 1fr; } 
+        }
+        @media (max-width: 768px) {
+            .header { flex-direction: column; gap: 15px; text-align: center; }
+            .main-nav-tab { flex-direction: column; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <div class="header-icon"><i class="fas fa-seedling"></i></div>
+                <div class="header-title">
+                    <h1>Panel Familiar</h1>
+                    <div id="childrenTags" class="children-tags"></div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <a href="yachay.html" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Volver</a>
+                <button id="logout-btn" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Salir</button>
+            </div>
+        </header>
+
+        <nav class="main-nav-tabs">
+            <div class="main-nav-tab active" data-tab="anemia"><i class="fas fa-heartbeat"></i> <span>Anemia</span></div>
+            <div class="main-nav-tab" data-tab="alimentos"><i class="fas fa-utensils"></i> <span>Alimentos</span></div>
+            <div class="main-nav-tab" data-tab="recetas"><i class="fas fa-book-open"></i> <span>Recetas</span></div>
+        </nav>
+
+        <div id="anemia-tab" class="main-tab-content active">
+             <section class="section-card anemia-section">
+                <h2 class="section-title anemia-title"><i class="fas fa-hand-holding-medical"></i> La Anemia: Un Reto Superable</h2>
+                <p class="anemia-intro-text">La anemia afecta a <strong>2 de cada 5 niños en Perú</strong>. No es solo cansancio; es un obstáculo que puede frenar el desarrollo. Con una nutrición inteligente, podemos cambiar esta historia.</p>
+                <div class="multidimensional-section">
+                    <div class="dimension-card" style="border-color: var(--success-green);"><h4 style="color: var(--success-green);"><i class="fas fa-leaf"></i> Nutricional</h4><p>Requiere un equilibrio de hierro, vitaminas y proteínas para un futuro fuerte.</p></div>
+                    <div class="dimension-card" style="border-color: var(--primary-blue);"><h4 style="color: var(--primary-blue);"><i class="fas fa-brain"></i> Psicológico</h4><p>Un entorno positivo y la motivación familiar son claves en la recuperación.</p></div>
+                    <div class="dimension-card" style="border-color: var(--accent-orange);"><h4 style="color: var(--accent-orange);"><i class="fas fa-child-reaching"></i> Cognitivo</h4><p>Una nutrición adecuada es vital para potenciar el desarrollo motor y cerebral.</p></div>
+                </div>
+                <div class="charts-container" style="margin-top: 30px;">
+                    <div class="chart-card"><h4>Fuentes Clave de Hierro</h4><canvas id="paretoChart"></canvas></div>
+                    <div class="chart-card"><h4>Seguimiento Nutricional</h4><canvas id="controlChart"></canvas></div>
+                </div>
+            </section>
+        </div>
+
+        <div id="alimentos-tab" class="main-tab-content">
+            <section class="section-card recommended-foods">
+                <h2 class="section-title recommended-title"><i class="fas fa-check-circle"></i> Alimentos para Potenciar</h2>
+                <div class="food-grid">
+                    <div class="food-card" data-title="Hígado de Pollo" data-description="Un superalimento contra la anemia. Es la fuente más concentrada de hierro hemo, que el cuerpo absorbe con eficiencia excepcional." data-tip="Cocínalo a la plancha con cebolla o en un paté suave. Una pequeña porción una vez por semana es suficiente.">
+                        <div class="food-image"><img src="https://picsum.photos/seed/liver/200/150" alt="Hígado"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
+                        <div class="food-info"><div class="food-name">Hígado de Pollo</div><div class="food-benefit"><i class="fas fa-star"></i> Hierro de alta potencia</div></div>
+                    </div>
+                    <div class="food-card" data-title="Carne de Res Magra" data-description="Excelente fuente de hierro hemo, zinc y vitamina B12, cruciales para la producción de glóbulos rojos." data-tip="Prepara albóndigas o tiritas salteadas con pimientos para un extra de vitamina C.">
+                        <div class="food-image"><img src="https://picsum.photos/seed/beef/200/150" alt="Carne"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
+                        <div class="food-info"><div class="food-name">Carne de Res Magra</div><div class="food-benefit"><i class="fas fa-drumstick-bite"></i> Fácil absorción</div></div>
+                    </div>
+                    <div class="food-card" data-title="Lentejas" data-description="Las reinas de las legumbres. Repletas de hierro vegetal, fibra y proteínas que brindan energía sostenida." data-tip="Combínalas siempre con una fuente de vitamina C: un chorrito de limón al servir o una naranja de postre.">
+                        <div class="food-image"><img src="https://picsum.photos/seed/lentils/200/150" alt="Lentejas"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
+                        <div class="food-info"><div class="food-name">Lentejas</div><div class="food-benefit"><i class="fas fa-seedling"></i> Poder vegetal</div></div>
+                    </div>
+                    <div class="food-card" data-title="Espinacas" data-description="Famosas por su contenido de hierro, también aportan ácido fólico, vital para la formación de células sanguíneas." data-tip="El hierro de las espinacas se absorbe mejor al cocinarlas. Añádelas a tortillas, cremas o batidos.">
+                        <div class="food-image"><img src="https://picsum.photos/seed/spinach/200/150" alt="Espinacas"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
+                        <div class="food-info"><div class="food-name">Espinacas</div><div class="food-benefit"><i class="fas fa-leaf"></i> Hierro y Ácido Fólico</div></div>
+                    </div>
+                    <div class="food-card" data-title="Brócoli" data-description="Este vegetal es un dos por uno: contiene hierro y una gran cantidad de vitamina C, facilitando su propia absorción." data-tip="Cocínalo al vapor para preservar sus nutrientes. Sírvelo como acompañamiento o en purés.">
+                        <div class="food-image"><img src="https://picsum.photos/seed/broccoli/200/150" alt="Brócoli"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
+                        <div class="food-info"><div class="food-name">Brócoli</div><div class="food-benefit"><i class="fas fa-lemon"></i> Hierro + Vitamina C</div></div>
+                    </div>
+                    <div class="food-card" data-title="Huevo" data-description="La yema del huevo es una fuente conveniente y económica de hierro, además de aportar proteínas de alta calidad." data-tip="Sírvelo cocido, en tortilla o revuelto. Acompáñalo con una rebanada de tomate para añadir vitamina C.">
+                        <div class="food-image"><img src="https://picsum.photos/seed/egg/200/150" alt="Huevo"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
+                        <div class="food-info"><div class="food-name">Huevo</div><div class="food-benefit"><i class="fas fa-egg"></i> Nutrición completa</div></div>
+                    </div>
+                </div>
+            </section>
+             <section class="section-card avoid-foods">
+                <h2 class="section-title avoid-title"><i class="fas fa-times-circle"></i> Alimentos a Limitar</h2>
+                <div class="food-grid">
+                    <div class="food-card" data-title="Té y Café" data-description="Contienen taninos que actúan como 'ladrones' de hierro, inhibiendo su absorción en el intestino." data-tip="Evita que el niño consuma estas bebidas, especialmente durante o después de las comidas principales.">
+                        <div class="food-image"><img src="https://picsum.photos/seed/tea/200/150" alt="Té"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
+                        <div class="food-info"><div class="food-name">Té y Café</div><div class="avoid-reason"><i class="fas fa-ban"></i> Bloquean el hierro</div></div>
+                    </div>
+                     <div class="food-card" data-title="Gaseosas y Refrescos" data-description="Estas bebidas azucaradas contienen fosfatos que interfieren con la absorción del hierro y no aportan ningún nutriente valioso." data-tip="Elimina estas bebidas de la dieta. Ofrecen una falsa sensación de saciedad que quita el apetito para alimentos nutritivos.">
+                        <div class="food-image"><img src="https://picsum.photos/seed/soda/200/150" alt="Gaseosas"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
+                        <div class="food-info"><div class="food-name">Gaseosas y Refrescos</div><div class="avoid-reason"><i class="fas fa-exclamation-triangle"></i> Interfieren con nutrientes</div></div>
+                    </div>
+                    <div class="food-card" data-title="Leche en Exceso" data-description="Un consumo excesivo de leche (más de 3 vasos al día) puede interferir con la absorción de hierro y desplazar otros alimentos." data-tip="La leche es importante, pero no debe ser la bebida principal en las comidas. Ofrece la cantidad recomendada para su edad.">
+                        <div class="food-image"><img src="https://picsum.photos/seed/milk/200/150" alt="Leche"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
+                        <div class="food-info"><div class="food-name">Leche en Exceso</div><div class="avoid-reason"><i class="fas fa-info-circle"></i> Limita la absorción</div></div>
+                    </div>
+                     <div class="food-card" data-title="Alimentos Procesados" data-description="Suelen ser bajos en nutrientes como el hierro y altos en sodio, grasas y aditivos que el niño no necesita." data-tip="Basa la alimentación en productos frescos y naturales. Lee las etiquetas y elige opciones con pocos ingredientes.">
+                        <div class="food-image"><img src="https://picsum.photos/seed/processed/200/150" alt="Procesados"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
+                        <div class="food-info"><div class="food-name">Alimentos Procesados</div><div class="avoid-reason"><i class="fas fa-industry"></i> Bajo valor nutricional</div></div>
+                    </div>
+                    <div class="food-card" data-title="Cereales sin Preparar" data-description="Los cereales integrales y legumbres contienen fitatos que pueden reducir la absorción de hierro. ¡Pero hay solución!" data-tip="Remoja las legumbres y cereales integrales (como la avena) durante la noche para reducir los fitatos.">
+                        <div class="food-image"><img src="https://picsum.photos/seed/wholegrain/200/150" alt="Cereales"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
+                        <div class="food-info"><div class="food-name">Cereales sin Preparar</div><div class="avoid-reason"><i class="fas fa-hourglass-half"></i> Contienen inhibidores</div></div>
+                    </div>
+                     <div class="food-card" data-title="Golosinas y Snacks" data-description="Aportan calorías vacías, quitando el apetito del niño para las comidas principales que sí contienen hierro." data-tip="Ofrece frutas frescas, trocitos de queso o yogur natural como snacks. Reserva las golosinas para ocasiones especiales.">
+                        <div class="food-image"><img src="https://picsum.photos/seed/candy/200/150" alt="Golosinas"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
+                        <div class="food-info"><div class="food-name">Golosinas y Snacks</div><div class="avoid-reason"><i class="fas fa-cookie-bite"></i> Desplazan comidas reales</div></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="recetas-tab" class="main-tab-content">
+             <section class="pantry-grid">
+                <div class="pantry-card">
+                    <h3><i class="fas fa-pen-to-square"></i> Añadir a Despensa</h3>
+                    <div class="manual-input">
+                        <input type="text" id="ingredientInputRecetas" class="ingredient-input" placeholder="Ej: Lentejas, pollo...">
+                        <button id="addIngredientBtnRecetas" class="btn btn-primary" style="background: var(--success-green);"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <label for="fileInputRecetas" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 10px; background: var(--accent-purple);"><i class="fas fa-camera"></i> Subir Foto</label>
+                    <input type="file" id="fileInputRecetas" class="file-input" accept="image/*">
+                </div>
+                 <div class="pantry-card">
+                    <h3><i class="fas fa-shopping-basket"></i> Mi Despensa Actual</h3>
+                    <div class="ingredients-list-container" id="ingredientsListRecetas"></div>
+                    <div id="pantry-image-container-Recetas"></div>
+                    <div class="pantry-actions">
+                        <button id="savePantryBtnRecetas" class="btn btn-success" style="flex: 2;"><i class="fas fa-save"></i> Guardar Despensa</button>
+                        <button id="clearPantryBtnRecetas" class="btn btn-danger"><i class="fas fa-trash"></i> Limpiar Despensa</button>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="section-card">
+                <h2 class="section-title"><i class="fas fa-magic-wand-sparkles"></i> Generar Recetas</h2>
+                <div class="meal-buttons">
+                    <button class="btn-meal btn-breakfast" data-meal="desayuno"><i class="fas fa-coffee"></i> Desayuno</button>
+                    <button class="btn-meal btn-lunch" data-meal="almuerzo"><i class="fas fa-hamburger"></i> Almuerzo</button>
+                    <button class="btn-meal btn-dinner" data-meal="cena"><i class="fas fa-moon"></i> Cena</button>
+                    <button class="btn-meal btn-dessert" data-meal="postre"><i class="fas fa-ice-cream"></i> Postre</button>
+                </div>
+                 <div class="spinner-container" id="spinnerContainerRecetas"><div class="spinner"></div></div>
+                 <div id="recipe-dev-message" style="display: none;"></div>
+                <div class="recipes-container" id="recipes-container"></div>
+            </section>
+        </div>
+    </div>
+
+    <div id="food-modal" class="modal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3 id="modal-title" style="font-family: 'Fredoka', cursive;"></h3>
+                <button id="modal-close" class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="modal-description"></p>
+                <div class="recipe-info-box tips-box" style="margin-bottom: 0;">
+                    <strong><i class="fas fa-lightbulb"></i> Consejo:</strong> <span id="modal-tip"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- DATOS GLOBALES Y DE EJEMPLO ---
+            const sampleRecipes = {
+                desayuno: [
+                    { name: "Batido Súper Guerrero", ingredients: ["1/2 plátano", "1/4 taza de avena", "1 taza de espinacas", "1/2 taza de leche", "4 fresas"], steps: ["Lava bien las espinacas y fresas.", "Coloca todo en la licuadora.", "Licúa hasta que esté homogéneo.", "Sirve inmediatamente."], chefTip: "Añade semillas de chía para un extra de fibra y omega-3.", nutriBenefit: "El hierro de las espinacas y avena se potencia con la vitamina C de las fresas.", allergenAlert: "Contiene lácteos." },
+                    { name: "Torrejas de Quinua y Manzana", ingredients: ["1/2 taza de quinua cocida", "1 huevo", "1/4 de manzana rallada", "Pizca de canela"], steps: ["Mezcla la quinua, huevo, manzana y canela.", "Forma pequeñas torrejas y cocínalas.", "Dora 2-3 minutos por lado."], chefTip: "Acompáñalas con miel o puré de frutas.", nutriBenefit: "La quinua y el huevo aportan hierro y proteínas.", allergenAlert: "Contiene huevo." },
+                    { name: "Huevos Revueltos con Tomate", ingredients: ["2 huevos", "1/2 tomate picado", "Aceite de oliva", "Orégano"], steps: ["Sofríe el tomate.", "Bate los huevos y viértelos sobre el tomate.", "Revuelve hasta que estén cocidos.", "Espolvorea orégano."], chefTip: "Añade queso fresco o espinacas.", nutriBenefit: "El hierro de la yema se absorbe mejor con la vitamina C del tomate.", allergenAlert: "Contiene huevo." }
+                ],
+                 almuerzo: [
+                    { name: "Guiso Power de Lentejas", ingredients: ["1/2 taza de lentejas", "cebolla", "zanahoria", "pimiento rojo", "papa"], steps: ["Sofríe la cebolla, zanahoria y pimiento.", "Añade las lentejas y la papa.", "Cubre con agua y cocina a fuego lento."], chefTip: "Sirve con un chorrito de limón.", nutriBenefit: "Las lentejas son una fuente increíble de hierro vegetal.", allergenAlert: "Libre de alérgenos comunes." },
+                    { name: "Tiritas de Hígado Saltado", ingredients: ["100g de hígado de pollo", "cebolla roja", "tomate", "vinagre", "perejil"], steps: ["Sella las tiritas de hígado.", "Añade la cebolla y saltea.", "Incorpora el tomate, vinagre y saltea.", "Espolvorea perejil."], chefTip: "La cocción rápida mantiene el hígado suave.", nutriBenefit: "El hígado es el rey del hierro hemo.", allergenAlert: "Asegúrate de que el hígado sea fresco." },
+                    { name: "Pescado al Vapor con Brócoli", ingredients: ["1 filete de pescado blanco", "brócoli", "limón", "eneldo"], steps: ["Coloca el pescado y brócoli en una vaporera.", "Cocina al vapor durante 10-12 minutos.", "Sírvelo inmediatamente."], chefTip: "Puedes añadir zanahoria.", nutriBenefit: "El brócoli aporta hierro y vitamina C.", allergenAlert: "Contiene pescado." }
+                ],
+                cena: [
+                     { name: "Crema de Espinacas y Papa", ingredients: ["1 taza de espinacas", "1 papa pequeña", "1/4 de cebolla", "1 taza de caldo"], steps: ["Sofríe la cebolla.", "Añade la papa y el caldo, cocina hasta que esté suave.", "Agrega las espinacas por 1 minuto.", "Licúa todo."], chefTip: "Añade un chorrito de leche para hacerla más cremosa.", nutriBenefit: "Una forma deliciosa de que los niños coman espinacas.", allergenAlert: "Puede contener lácteos." },
+                    { name: "Tortilla de Acelga", ingredients: ["5 hojas de acelga cocida", "2 huevos", "queso parmesano", "nuez moscada"], steps: ["Exprime bien la acelga cocida.", "Bate los huevos y mézclalos con la acelga y queso.", "Cocina la tortilla por ambos lados."], chefTip: "Ideal para que los niños la coman con las manos.", nutriBenefit: "La acelga es rica en hierro.", allergenAlert: "Contiene huevo y lácteos." },
+                    { name: "Arroz Tapado de Sangrecita", ingredients: ["1/4 taza de sangrecita de pollo", "cebolla roja", "ajo molido", "arroz cocido"], steps: ["Prepara un aderezo con cebolla y ajo.", "Incorpora la sangrecita y cocínala.", "En un molde, coloca una capa de arroz, el guiso y tapa con más arroz.", "Desmolda."], chefTip: "Acompaña con ensalada de cebolla y tomate.", nutriBenefit: "La sangrecita es rica en hierro.", allergenAlert: "Plato de origen peruano." }
+                ],
+                postre: [
+                    { name: "Mousse de Chocolate y Palta", ingredients: ["1 palta madura", "2 cdas de cacao en polvo", "1 cda de miel", "1/4 taza de leche"], steps: ["Licúa la palta con el cacao, miel y leche.", "Refrigera por 1 hora.", "Sirve frío, decorado con fresas."], chefTip: "El sabor del chocolate enmascara por completo el de la palta.", nutriBenefit: "Rico en hierro del cacao y grasas saludables.", allergenAlert: "Puede contener lácteos." },
+                    { name: "Galletas de Avena y Lentejas", ingredients: ["1/2 taza de puré de lentejas", "1 taza de avena", "1 plátano maduro", "1/4 taza de pasas"], steps: ["Mezcla todos los ingredientes.", "Forma pequeñas galletas en una bandeja.", "Hornea por 15-20 minutos a 180°C."], chefTip: "Son ideales para la lonchera.", nutriBenefit: "Combina el hierro de las lentejas y la avena.", allergenAlert: "Asegúrate que la avena sea libre de gluten si es necesario." },
+                    { name: "Helado de Remolacha y Fresa", ingredients: ["1/2 remolacha cocida", "1 taza de fresas congeladas", "1/2 plátano congelado", "jugo de naranja"], steps: ["Procesa todos los ingredientes hasta obtener una textura cremosa.", "Sirve inmediatamente."], chefTip: "Si no tienes procesador, licúa y luego congela.", nutriBenefit: "La remolacha es conocida por su aporte de hierro.", allergenAlert: "Postre natural, vegano." }
+                ]
+            };
+            
+            // --- INICIALIZACIÓN PRINCIPAL ---
+            let inactivityTimer;
+            let ingredients = []; // Cambiado de ingredientsRecetas a ingredients como en el código funcional
+
+            initializeApp();
+
+            function initializeApp() {
+                const session = JSON.parse(localStorage.getItem('yachay_session') || '{}');
+                if (!session.currentUserId && !session.exploringAsGuest) {
+                    window.location.href = 'index.html';
+                    return; 
+                }
+                
+                setupInactivityTimer();
+                loadChildData();
+                initializeTabs();
+                renderCharts();
+                initializeFoodModals();
+                initializePantry(); // Sin sufijo
+                initializeRecipeGeneration();
+                initializeLogoutButton();
+            }
+
+            // --- LÓGICA DE INACTIVIDAD ---
+            function setupInactivityTimer() {
+                const logout = () => {
+                    localStorage.removeItem('yachay_session');
+                    window.location.href = 'index.html';
+                };
+                const resetTimer = () => {
+                    clearTimeout(inactivityTimer);
+                    inactivityTimer = setTimeout(logout, 60000);
+                };
+                ['load', 'mousemove', 'mousedown', 'keypress', 'scroll', 'touchstart'].forEach(event => window.addEventListener(event, resetTimer));
+            }
+
+            function loadChildData() {
+                const session = JSON.parse(localStorage.getItem('yachay_session') || '{}');
+                const allChildren = JSON.parse(localStorage.getItem('yachay_children') || '[]');
+                const childrenTags = document.getElementById('childrenTags');
+                childrenTags.innerHTML = '';
+
+                let childrenToShow = [];
+                if (session.exploringAsGuest) {
+                    childrenToShow = allChildren.filter(child => child.ownerId === null);
+                } else if (session.currentUserId) {
+                    childrenToShow = allChildren.filter(child => child.ownerId === session.currentUserId);
+                }
+
+                if (childrenToShow.length > 0) {
+                     childrenToShow.forEach(child => {
+                        const childTag = document.createElement('span');
+                        childTag.className = 'child-tag';
+                        childTag.innerHTML = `<i class="fas fa-child"></i> ${child.name}`;
+                        childrenTags.appendChild(childTag);
+                    });
+                } else {
+                    childrenTags.innerHTML = '<span class="child-tag">No hay niños registrados</span>';
+                }
+            }
+
+            function initializeTabs() {
+                const tabs = document.querySelectorAll('.main-nav-tab');
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        tabs.forEach(t => t.classList.remove('active'));
+                        document.querySelectorAll('.main-tab-content').forEach(c => c.classList.remove('active'));
+                        this.classList.add('active');
+                        document.getElementById(`${this.dataset.tab}-tab`).classList.add('active');
+                    });
+                });
+            }
+            
+            function renderCharts() {
+                if(document.getElementById('paretoChart') && document.getElementById('controlChart')) {
+                    const paretoCtx = document.getElementById('paretoChart').getContext('2d');
+                    new Chart(paretoCtx, { type: 'bar', data: { labels: ['Hígado', 'Carnes', 'Lentejas', 'Espinacas'], datasets: [{ label: 'Aporte de Hierro', data: [9.0, 3.5, 3.3, 2.7], backgroundColor: 'rgba(231, 76, 60, 0.7)' }] }, options: { responsive: true, maintainAspectRatio: false } });
+                    const controlCtx = document.getElementById('controlChart').getContext('2d');
+                    new Chart(controlCtx, { type: 'line', data: { labels: ['Lunes', 'Martes', 'Miérc', 'Jueves', 'Viernes'], datasets: [{ label: 'Consumo (mg)', data: [7, 8, 6, 9, 7.5], borderColor: 'rgba(44, 90, 160, 1)', tension: 0.1 }, { label: 'Recomendado (mg)', data: [8, 8, 8, 8, 8], borderColor: 'rgba(255, 152, 0, 1)', borderDash: [5, 5] }] }, options: { responsive: true, maintainAspectRatio: false } });
+                }
+            }
+
+            function initializeFoodModals() {
+                const foodModal = document.getElementById('food-modal');
+                document.querySelectorAll('.food-card, .avoid-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        document.getElementById('modal-title').innerText = card.dataset.title;
+                        document.getElementById('modal-description').innerText = card.dataset.description;
+                        document.getElementById('modal-tip').innerText = card.dataset.tip;
+                        foodModal.style.display = 'flex';
+                    });
+                });
+                document.getElementById('modal-close').onclick = () => foodModal.style.display = 'none';
+                window.onclick = (event) => { if (event.target == foodModal) foodModal.style.display = "none"; };
+            }
+
+            // --- LÓGICA DE DESPENSA (COPIADA Y ADAPTADA DEL CÓDIGO FUNCIONAL) ---
+            function initializePantry() {
+                const session = JSON.parse(localStorage.getItem('yachay_session') || '{}');
+                const pantryKey = session.currentUserId ? `familyPantry_${session.currentUserId}` : 'familyPantry_guest';
+                
+                const savedPantry = localStorage.getItem(pantryKey);
+                if (savedPantry) {
+                    const pantryData = JSON.parse(savedPantry);
+                    ingredients = pantryData.manualIngredients || [];
+                    if (pantryData.imageUrl) {
+                        document.getElementById('pantry-image-container-Recetas').innerHTML = `<img src="${pantryData.imageUrl}" id="pantry-image-preview-Recetas" alt="Vista previa">`;
+                    }
+                }
+                renderPantry();
+
+                document.getElementById('addIngredientBtnRecetas').addEventListener('click', () => {
+                    const input = document.getElementById('ingredientInputRecetas');
+                    const value = input.value.trim();
+                    if (value && !ingredients.includes(value)) {
+                        ingredients.push(value);
+                        renderPantry();
+                        input.value = '';
+                    }
+                });
+
+                document.getElementById('ingredientInputRecetas').addEventListener('keypress', e => { if (e.key === 'Enter') document.getElementById('addIngredientBtnRecetas').click(); });
+
+                document.getElementById('fileInputRecetas').addEventListener('change', (event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const container = document.getElementById('pantry-image-container-Recetas');
+                            container.innerHTML = `<img src="${e.target.result}" id="pantry-image-preview-Recetas" alt="Vista previa">`;
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                });
+            
+                document.getElementById('savePantryBtnRecetas').addEventListener('click', () => {
+                    const imgSrc = document.getElementById('pantry-image-preview-Recetas')?.src || null;
+                    const pantryData = {
+                        manualIngredients: ingredients,
+                        imageUrl: imgSrc
+                    };
+                    localStorage.setItem(pantryKey, JSON.stringify(pantryData));
+                    alert('¡Despensa guardada con éxito!');
+                });
+
+                document.getElementById('clearPantryBtnRecetas').addEventListener('click', () => {
+                    if (confirm('¿Estás seguro de que quieres borrar todos los ingredientes y la foto de tu despensa?')) {
+                        ingredients = [];
+                        document.getElementById('pantry-image-container-Recetas').innerHTML = '';
+                        localStorage.removeItem(pantryKey);
+                        renderPantry();
+                    }
+                });
+            }
+
+            function renderPantry() {
+                const listContainer = document.getElementById('ingredientsListRecetas');
+                listContainer.innerHTML = '';
+                if (ingredients.length === 0) {
+                    listContainer.innerHTML = `<p style="color: #999;">Aquí aparecerán tus ingredientes...</p>`;
+                } else {
+                    ingredients.forEach((ing, index) => {
+                        const item = document.createElement('div');
+                        item.className = 'food-item-tag';
+                        item.innerHTML = `<span>${ing}</span><button data-index="${index}">&times;</button>`;
+                        listContainer.appendChild(item);
+                    });
+                }
+                listContainer.querySelectorAll('button').forEach(btn => btn.addEventListener('click', (e) => {
+                    ingredients.splice(e.target.dataset.index, 1);
+                    renderPantry();
+                }));
+            }
+
+            // --- LÓGICA DE RECETAS (COPIADA Y ADAPTADA) ---
+            function initializeRecipeGeneration() {
+                document.querySelectorAll('.btn-meal').forEach(btn => btn.addEventListener('click', () => generateRecipes(btn.dataset.meal)));
+            }
+           
+            function generateRecipes(mealType) {
+                const loader = document.getElementById('spinnerContainerRecetas');
+                const container = document.getElementById('recipes-container');
+                const devMessage = document.getElementById('recipe-dev-message');
+            
+                container.innerHTML = '';
+                devMessage.style.display = 'none';
+                loader.style.display = 'flex';
+
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    const recipesToDisplay = sampleRecipes[mealType];
+                    recipesToDisplay.forEach(recipe => {
+                        const card = document.createElement('div');
+                        card.className = 'recipe-card';
+                        card.style.borderColor = mealType === 'desayuno' ? 'var(--accent-orange)' : mealType === 'almuerzo' ? 'var(--success-green)' : mealType === 'cena' ? 'var(--accent-purple)' : 'var(--accent-pink)';
+                        card.innerHTML = `
+                            <h3><i class="fas fa-utensils"></i> ${recipe.name}</h3>
+                            <h4><i class="fas fa-list-check"></i> Ingredientes:</h4><ul>${recipe.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+                            <h4><i class="fas fa-shoe-prints"></i> Pasos:</h4><ol>${recipe.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+                            <div class="recipe-info-box benefits-box"><p><strong>Beneficio:</strong> ${recipe.nutriBenefit}</p></div>
+                            <div class="recipe-info-box tips-box"><p><strong>Consejo:</strong> ${recipe.chefTip}</p></div>
+                            <div class="recipe-info-box allergy-box"><p><strong>Alérgenos:</strong> ${recipe.allergenAlert}</p></div>
+                        `;
+                        container.appendChild(card);
+                    });
+                    devMessage.innerHTML = `<div class="development-message">IA en desarrollo. ¡Estas son 3 ideas nutritivas para inspirarte!</div>`;
+                    devMessage.style.display = 'block';
+                }, 1500);
+            }
+
+            function initializeLogoutButton() {
+                 document.getElementById('logout-btn').addEventListener('click', () => {
+                    localStorage.removeItem('yachay_session');
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
