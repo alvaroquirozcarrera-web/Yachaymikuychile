@@ -45,6 +45,11 @@
             --primary-blue-guide: #1a4b8c; 
             --accent-color-guide: #2196F3;
             --medium-gray-guide: #dee2e6;
+            
+            /* Variables para el chatbot (cambiadas a rojo) */
+            --chatbot-primary: #dc3545;
+            --chatbot-dark: #c82333;
+            --chatbot-light: #e85d75;
         }
 
         /* --- 1.1. ESTILOS PERSONALIZADOS PARA LA GUÍA (INTRO.JS) --- */
@@ -570,7 +575,7 @@
         .toast-info { border-left: 5px solid var(--accent-cyan); }
 
 
-        /* --- INICIO: ESTILOS DEL CHATBOT --- */
+        /* --- INICIO: ESTILOS DEL CHATBOT (MODIFICADOS A ROJO) --- */
         .chatbot-container {
             position: fixed;
             bottom: 30px;
@@ -578,7 +583,7 @@
             z-index: 1030;
         }
         .chat-fab {
-            background: var(--primary-blue);
+            background: var(--chatbot-primary); /* Cambiado a rojo */
             color: white;
             width: 60px;
             height: 60px;
@@ -593,8 +598,8 @@
         }
         .chat-fab:hover {
             transform: scale(1.1);
-            background: var(--light-blue);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            background: var(--chatbot-dark); /* Cambiado a rojo oscuro */
+            box-shadow: 0 10px 30px rgba(220, 53, 69, 0.4); /* Sombra rojiza */
         }
         .chat-window {
             position: absolute;
@@ -616,7 +621,7 @@
             transform: scale(1);
         }
         .chat-header {
-            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            background: linear-gradient(135deg, var(--chatbot-primary), var(--chatbot-light)); /* Cambiado a rojo */
             color: white;
             padding: 15px 20px;
             display: flex;
@@ -662,7 +667,7 @@
             align-self: flex-start;
         }
         .chat-message.user {
-            background: var(--primary-blue);
+            background: var(--chatbot-primary); /* Cambiado a rojo */
             color: var(--white);
             border-bottom-right-radius: 4px;
             align-self: flex-end;
@@ -682,11 +687,11 @@
             outline: none;
         }
         .chat-input input:focus {
-            border-color: var(--primary-blue);
-            box-shadow: 0 0 0 0.2rem rgba(44, 90, 160, 0.25);
+            border-color: var(--chatbot-primary); /* Cambiado a rojo */
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25); /* Cambiado a rojo */
         }
         .chat-input button {
-            background: var(--primary-blue);
+            background: var(--chatbot-primary); /* Cambiado a rojo */
             border: none;
             color: white;
             width: 40px;
@@ -698,7 +703,7 @@
             transition: var(--transition);
         }
         .chat-input button:hover {
-            background: var(--light-blue);
+            background: var(--chatbot-dark); /* Cambiado a rojo oscuro */
         }
         /* --- FIN: ESTILOS DEL CHATBOT --- */
 

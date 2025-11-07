@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comida por Región - YachayMikuy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.3.0/introjs.min.css">
     <style>
         :root {
             --primary-color: #8E44AD;
@@ -664,6 +665,156 @@
             gap: 3px;
         }
 
+        /* Chatbot Styles */
+        .chat-fab {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .chat-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 350px;
+            height: 450px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background-color: var(--danger-color);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            word-wrap: break-word;
+        }
+
+        .message.bot {
+            background-color: #f1f1f1;
+            align-self: flex-start;
+        }
+
+        .message.user {
+            background-color: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+        }
+
+        .chat-input-container {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .chat-send {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-suggestions {
+            padding: 10px 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .suggestion-btn {
+            background-color: #f1f1f1;
+            border: none;
+            border-radius: 15px;
+            padding: 5px 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background-color 0.2s;
+        }
+
+        .suggestion-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        /* Intro.js Custom Styles */
+        .introjs-overlay {
+            background-color: white !important;
+            opacity: 1 !important;
+        }
+
+        .introjs-tooltip {
+            min-width: 250px;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -717,6 +868,13 @@
                 width: 100%;
                 height: 150px;
             }
+
+            .chat-container {
+                width: 90%;
+                height: 70%;
+                right: 5%;
+                bottom: 70px;
+            }
         }
 
         @media (min-width: 769px) {
@@ -729,7 +887,7 @@
 <body>
     <div class="overlay"></div>
     <div class="container">
-        <div class="header">
+        <div class="header" data-intro="Bienvenido a YachayMikuy. Esta es la cabecera principal donde puedes navegar entre secciones." data-step="1">
             <h1><i class="fas fa-map-marked-alt"></i> Comida por Región</h1>
             <div class="header-buttons">
                 <a href="#" id="backToProfile" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver al Perfil</a>
@@ -738,7 +896,7 @@
         </div>
 
         <!-- Sección de Anemia -->
-        <div class="anemia-section">
+        <div class="anemia-section" data-intro="Aquí encontrarás información importante sobre la anemia y cómo prevenirla con una alimentación adecuada." data-step="2">
             <h2 class="anemia-title"><i class="fas fa-heartbeat"></i> ¿Qué es la Anemia y cómo prevenirla?</h2>
             <div class="anemia-content">
                 <div class="anemia-text">
@@ -764,7 +922,7 @@
             </div>
         </div>
 
-        <div class="region-selector">
+        <div class="region-selector" data-intro="Usa este selector para elegir una región y descubrir recetas tradicionales adaptadas para combatir la anemia." data-step="3">
             <h2 class="selector-title"><i class="fas fa-map"></i> Explora Sabores Regionales</h2>
             <div class="selector-group">
                 <label for="region-select">Selecciona un departamento:</label>
@@ -802,7 +960,7 @@
             </div>
         </div>
 
-        <div class="regional-banner" id="regional-banner">
+        <div class="regional-banner" id="regional-banner" data-intro="Este banner muestra información sobre la región seleccionada y datos curiosos sobre su gastronomía." data-step="4">
             <h2 id="banner-title">Sabores de Lima para <span id="child-name">...</span></h2>
             <p>Descubre recetas tradicionales adaptadas para combatir la anemia</p>
             <div class="fun-fact" id="fun-fact">
@@ -812,7 +970,7 @@
         </div>
 
         <!-- Sección de Combos Regionales -->
-        <div class="regional-combos">
+        <div class="regional-combos" data-intro="Aquí encontrarás combos regionales especialmente diseñados para combatir la anemia con ingredientes ricos en hierro." data-step="5">
             <h2 class="combos-title"><i class="fas fa-star"></i> Combos Regionales contra la Anemia</h2>
             <div class="combo-card">
                 <div class="combo-image">
@@ -858,7 +1016,7 @@
 
         <div class="loader" id="loader"></div>
 
-        <div class="recipes-container" id="recipes-container"></div>
+        <div class="recipes-container" id="recipes-container" data-intro="Aquí se mostrarán las recetas regionales adaptadas para combatir la anemia. Cada receta incluye ingredientes, preparación y beneficios nutricionales." data-step="6"></div>
     </div>
 
     <!-- Footer para móviles -->
@@ -884,6 +1042,33 @@
     <!-- Toast container -->
     <div class="toast-container" id="toastContainer"></div>
 
+    <!-- Chatbot -->
+    <button class="chat-fab" id="chat-fab">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header">
+            <h3>Asistente YachayMikuy</h3>
+            <button class="chat-close" id="chat-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot">¡Hola! Soy tu asistente de YachayMikuy. ¿En qué puedo ayudarte hoy?</div>
+        </div>
+        <div class="chat-suggestions" id="chat-suggestions">
+            <!-- Los botones de sugerencia se generarán dinámicamente -->
+        </div>
+        <div class="chat-input-container">
+            <input type="text" class="chat-input" id="chat-input" placeholder="Escribe tu pregunta...">
+            <button class="chat-send" id="chat-send">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.3.0/intro.min.js"></script>
     <script>
         // Datos de ejemplo para recetas regionales iniciales (Lima)
         const sampleLimaRecipes = [
@@ -1309,6 +1494,146 @@
             });
         }
 
+        // Función para iniciar la guía interactiva
+        function startInteractiveGuide() {
+            introJs().setOptions({
+                overlayOpacity: 1,
+                showProgress: true,
+                showBullets: false,
+                exitOnOverlayClick: false,
+                exitOnEsc: false,
+                nextLabel: 'Siguiente',
+                prevLabel: 'Anterior',
+                skipLabel: 'Saltar',
+                doneLabel: 'Finalizar'
+            }).start();
+        }
+
+        // Función para inicializar el chatbot
+        function initChatbot() {
+            const chatFab = document.getElementById('chat-fab');
+            const chatContainer = document.getElementById('chat-container');
+            const chatClose = document.getElementById('chat-close');
+            const chatInput = document.getElementById('chat-input');
+            const chatSend = document.getElementById('chat-send');
+            const chatMessages = document.getElementById('chat-messages');
+            const chatSuggestions = document.getElementById('chat-suggestions');
+            
+            // Base de conocimientos del chatbot
+            const chatKnowledgeBase = {
+                "anemia": "La anemia es una condición donde el cuerpo no tiene suficientes glóbulos rojos sanos para transportar oxígeno adecuadamente. En los niños, puede causar fatiga, debilidad y problemas de desarrollo. La prevención incluye una dieta rica en hierro y vitamina C.",
+                "hierro": "El hierro es un mineral esencial para la producción de hemoglobina, que transporta oxígeno en la sangre. Fuentes buenas de hierro incluyen carnes rojas, legumbres, espinacas y alimentos fortificados.",
+                "vitamina c": "La vitamina C ayuda al cuerpo a absorber el hierro de origen vegetal. Fuentes excelentes incluyen cítricos, fresas, kiwi, pimientos y brócoli.",
+                "recetas": "En esta página encontrarás recetas regionales adaptadas para combatir la anemia. Cada receta incluye ingredientes ricos en hierro y consejos para maximizar la absorción de nutrientes.",
+                "regiones": "Perú tiene una increíble diversidad gastronómica. Cada región tiene platos tradicionales que pueden adaptarse para ser nutritivos y ayudar a prevenir la anemia. Usa el selector de regiones para descubrir recetas de diferentes departamentos.",
+                "combos": "Los combos regionales están diseñados para combinar alimentos ricos en hierro con fuentes de vitamina C, maximizando la absorción de nutrientes. Por ejemplo, el Combo Nutritivo Limeño combina tallarines verdes (ricos en hierro) con jugo de naranja (rico en vitamina C).",
+                "lima": "Lima es conocida por su cocina criolla que fusiona influencias indígenas, españolas, africanas y asiáticas. Platos como la causa limeña, tallarines verdes y lomo saltado pueden adaptarse para ser nutritivos y combatir la anemia.",
+                "default": "Ok, no estoy seguro de entender tu pregunta. ¿Por qué pruebas una de las sugerencias de abajo?"
+            };
+            
+            // Lista de sugerencias para el chatbot
+            const suggestionOptions = [
+                "¿Qué es la anemia?",
+                "¿Cómo prevenir la anemia?",
+                "¿Qué alimentos tienen hierro?",
+                "¿Por qué es importante la vitamina C?",
+                "¿Qué recetas recomiendas?",
+                "¿Qué platos típicos de Lima?",
+                "¿Qué son los combos regionales?",
+                "¿Cómo funciona el selector de regiones?"
+            ];
+            
+            // Función para generar botones de sugerencia aleatorios
+            function generateRandomSuggestions() {
+                chatSuggestions.innerHTML = '';
+                
+                // Obtener 3-4 sugerencias aleatorias
+                const shuffled = [...suggestionOptions].sort(() => 0.5 - Math.random());
+                const selected = shuffled.slice(0, 3 + Math.floor(Math.random() * 2));
+                
+                selected.forEach(suggestion => {
+                    const btn = document.createElement('button');
+                    btn.className = 'suggestion-btn';
+                    btn.textContent = suggestion;
+                    btn.addEventListener('click', () => {
+                        chatInput.value = suggestion;
+                        sendMessage();
+                    });
+                    chatSuggestions.appendChild(btn);
+                });
+            }
+            
+            // Generar sugerencias iniciales
+            generateRandomSuggestions();
+            
+            // Función para enviar un mensaje
+            function sendMessage() {
+                const message = chatInput.value.trim();
+                if (!message) return;
+                
+                // Añadir mensaje del usuario
+                const userMessage = document.createElement('div');
+                userMessage.className = 'message user';
+                userMessage.textContent = message;
+                chatMessages.appendChild(userMessage);
+                
+                // Limpiar input
+                chatInput.value = '';
+                
+                // Simular respuesta del bot
+                setTimeout(() => {
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'message bot';
+                    
+                    // Buscar respuesta en la base de conocimientos
+                    let response = chatKnowledgeBase.default;
+                    const lowerMessage = message.toLowerCase();
+                    
+                    for (const key in chatKnowledgeBase) {
+                        if (lowerMessage.includes(key)) {
+                            response = chatKnowledgeBase[key];
+                            break;
+                        }
+                    }
+                    
+                    botMessage.textContent = response;
+                    chatMessages.appendChild(botMessage);
+                    
+                    // Generar nuevas sugerencias aleatorias
+                    generateRandomSuggestions();
+                    
+                    // Scroll al final
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+                }, 500);
+                
+                // Scroll al final
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Event listeners
+            chatFab.addEventListener('click', () => {
+                chatContainer.style.display = 'flex';
+                chatFab.style.display = 'none';
+            });
+            
+            chatClose.addEventListener('click', () => {
+                chatContainer.style.display = 'none';
+                chatFab.style.display = 'flex';
+                
+                // Limpiar historial de conversación
+                chatMessages.innerHTML = '<div class="message bot">¡Hola! Soy tu asistente de YachayMikuy. ¿En qué puedo ayudarte hoy?</div>';
+                generateRandomSuggestions();
+            });
+            
+            chatSend.addEventListener('click', sendMessage);
+            
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        }
+
         // Función de inicialización
         function init() {
             // --- INICIO DE VERIFICACIÓN DE SINCRONIZACIÓN AL CARGAR ---
@@ -1370,9 +1695,15 @@
             
             // Inicializar componentes
             initMobileFooter();
+            initChatbot();
             
             // Inicializar recetas de ejemplo
             initializeSampleRecipes();
+            
+            // Iniciar la guía interactiva
+            setTimeout(() => {
+                startInteractiveGuide();
+            }, 1000);
             
             // Event listeners
             document.getElementById('generate-plan').addEventListener('click', generateRegionalRecipes);
@@ -1382,6 +1713,10 @@
                 const selectedRegion = this.value;
                 if (selectedRegion) {
                     updateRegionalBanner(selectedRegion);
+                    // Reiniciar la guía cuando se cambia de región
+                    setTimeout(() => {
+                        startInteractiveGuide();
+                    }, 500);
                 }
             });
         }

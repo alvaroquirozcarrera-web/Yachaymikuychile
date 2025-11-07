@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienestar Psicológico - YachayMikuy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css" integrity="sha512-6gN1iE0ND0B8sKg0HcR3iPCU/bA1AYi1TuaGkyQVO2cO/vAyWeS9gaVvsgS5R2SjNnNHDnS0HjKzL/xQBbPnrQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <style>
         :root {
             --primary-color: #9C27B0;
@@ -741,6 +744,222 @@
             color: var(--dark-color);
             line-height: 1.5;
         }
+        
+        /* 1. 🤖 Estilos del Chatbot Flotante */
+        .chat-fab {
+            position: fixed;
+            bottom: 80px; /* Ajustado para no chocar con el footer móvil */
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--danger-color); /* Color rojo solicitado */
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 1040;
+            transition: transform 0.3s ease;
+        }
+        .chat-fab:hover {
+            transform: scale(1.1);
+        }
+        .chat-widget {
+            position: fixed;
+            bottom: 150px;
+            right: 20px;
+            width: 350px;
+            max-width: 90%;
+            height: 500px;
+            max-height: 70vh;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            z-index: 1039;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+        .chat-widget.open {
+            transform: scale(1);
+        }
+        .chat-header {
+            background-color: var(--danger-color); /* Color rojo solicitado */
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .close-chat-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+        .close-chat-btn:hover {
+            opacity: 1;
+        }
+        .chat-history {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+        }
+        .chat-message {
+            margin-bottom: 15px;
+            display: flex;
+        }
+        .chat-message .avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background-color: #ddd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        .chat-message .avatar-user {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        .chat-message .avatar-bot {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        .chat-message .message-content {
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 80%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            word-wrap: break-word;
+        }
+        .chat-message.user {
+            justify-content: flex-end;
+        }
+        .chat-message.user .message-content {
+            background-color: var(--info-color);
+            color: white;
+            border-top-right-radius: 0;
+        }
+        .chat-message.user .avatar {
+            margin-right: 0;
+            margin-left: 10px;
+        }
+        .chat-message.bot .message-content {
+            background-color: #ECECEC;
+            color: var(--dark-color);
+            border-top-left-radius: 0;
+        }
+        /* Botones de sugerencia */
+        .chat-suggestions {
+            padding: 10px 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .suggestion-btn {
+            background-color: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .suggestion-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .chat-input-area {
+            display: flex;
+            border-top: 1px solid #ddd;
+            padding: 10px;
+        }
+        #chat-input {
+            flex-grow: 1;
+            border: none;
+            padding: 10px;
+            border-radius: 20px;
+            background-color: #f4f4f4;
+        }
+        #chat-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--info-color);
+        }
+        #chat-send-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #chat-send-btn:hover {
+            background-color: var(--dark-blue);
+        }
+
+        /* 2. 🗺️ Estilos Guía Interactiva (Intro.js) - Fondo Blanco Sólido */
+        .introjs-tooltip {
+            background-color: white !important;
+            color: var(--dark-color) !important;
+            border: 2px solid var(--primary-color);
+        }
+        .introjs-arrow.top { border-bottom-color: white !important; }
+        .introjs-arrow.bottom { border-top-color: white !important; }
+        .introjs-arrow.left { border-right-color: white !important; }
+        .introjs-arrow.right { border-left-color: white !important; }
+
+        .introjs-tooltiptext {
+            color: var(--dark-color) !important;
+        }
+        .introjs-prevbutton, .introjs-nextbutton {
+            background-color: var(--primary-color) !important;
+            color: white !important;
+            text-shadow: none !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+        .introjs-prevbutton:hover, .introjs-nextbutton:hover {
+            background-color: var(--dark-blue) !important;
+        }
+        .introjs-donebutton {
+             background-color: var(--success-color) !important;
+             color: white !important;
+             text-shadow: none !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+        .introjs-skipbutton {
+            color: var(--danger-color) !important;
+            font-weight: bold;
+        }
+
 
         @media (max-width: 768px) {
             .container {
@@ -785,6 +1004,19 @@
             .mobile-footer {
                 display: flex;
             }
+            
+            /* Chatbot responsivo */
+             .chat-fab {
+                bottom: 70px; /* Ajuste para footer móvil */
+            }
+             .chat-widget {
+                width: 95%;
+                height: 80vh;
+                max-height: 80vh;
+                bottom: 70px;
+                right: 2.5%;
+                transform-origin: bottom center;
+            }
         }
 
         @media (min-width: 769px) {
@@ -805,7 +1037,6 @@
             </div>
         </div>
 
-        <!-- Sección de Anemia y Bienestar Emocional -->
         <div class="anemia-wellness-section">
             <h2 class="anemia-wellness-title"><i class="fas fa-heartbeat"></i> Anemia y Bienestar Emocional</h2>
             <div class="anemia-wellness-content">
@@ -869,7 +1100,6 @@
             </div>
         </div>
 
-        <!-- Sección de Consejos para la Anemia -->
         <div class="anemia-tips-section">
             <h2 class="anemia-tips-title"><i class="fas fa-lightbulb"></i> Consejos para Apoyar el Bienestar Emocional</h2>
             <div class="anemia-tips-grid">
@@ -942,7 +1172,6 @@
         </div>
     </div>
 
-    <!-- Footer para móviles -->
     <div class="mobile-footer">
         <a href="#" id="mobileBackToProfile">
             <i class="fas fa-arrow-left"></i>
@@ -962,8 +1191,26 @@
         </a>
     </div>
 
-    <!-- Toast container -->
     <div class="toast-container" id="toastContainer"></div>
+    
+    <div class="chat-fab" id="chat-fab">
+        <i class="fas fa-robot"></i>
+    </div>
+    <div class="chat-widget" id="chat-widget">
+        <div class="chat-header">
+            <h3><i class="fas fa-robot"></i> Asistente YachayMikuy</h3>
+            <button id="close-chat-btn" class="close-chat-btn">&times;</button>
+        </div>
+        <div class="chat-history" id="chat-history">
+            </div>
+        <div class="chat-suggestions" id="chat-suggestions">
+            </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Escribe tu pregunta...">
+            <button id="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js" integrity="sha512-f2X/H1iBdv3g9iKNYUokGjN/ZWnS/A+NnIuPEe0Svsx/gKnJkK/s9iC8NGn9FSMfGg/Yphh7SjPcaY6vXQA7GA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         // Datos de ejemplo para consejos iniciales
@@ -1406,6 +1653,254 @@
                 window.location.href = 'index1.html';
             });
         }
+        
+        // --- 1. 🤖 INICIO LÓGICA DEL CHATBOT ---
+
+        // Base de conocimiento específica para esta página
+        const chatKnowledgeBase = {
+            // Saludos y general
+            "hola": "¡Hola! Soy el asistente de YachayMikuy. Estoy aquí para ayudarte a entender esta sección de 'Bienestar Psicológico'. ¿En qué puedo ayudarte?",
+            "gracias": "¡De nada! Estoy aquí para ayudarte a ti y a tu familia.",
+            "adiós": "¡Hasta pronto! Que tengas un día tranquilo y nutritivo.",
+            "qué es yachaymikuy": "YachayMikuy es una aplicación diseñada para ayudarte a combatir la anemia infantil en Perú, usando recetas nutritivas, seguimiento y consejos de bienestar.",
+
+            // Contenido de la página
+            "qué es esta página": "Esta página te ayuda a entender la importante conexión entre la anemia y el bienestar psicológico del niño. También te da consejos prácticos para manejar sus emociones.",
+            "relación anemia y emociones": "La sección 'Anemia y Bienestar Emocional' lo explica. La fatiga causada por la anemia puede hacer que el niño esté más irritable, le cueste concentrarse y tenga menos interés en jugar. ¡Comer bien (Hierro + Vitamina C) también ayuda a sentirse bien!",
+            "efectos de la anemia": "Además de lo físico, la anemia puede causar fatiga emocional, problemas de concentración, cambios de humor (como irritabilidad) y menos ganas de socializar o jugar.",
+            "consejos generales": "La página te da 3 consejos iniciales muy buenos: 'Refuerzo Positivo' (celebrar sus logros), 'Creatividad con Alimentos' (hacer la comida divertida) y 'Técnicas de Relajación' (enseñarle a respirar).",
+
+            // Interacción
+            "cómo generar consejos": "¡Es muy fácil! En la sección '¿Cómo se siente tu hijo hoy?', escribe en el cuadro de texto lo que observaste (ej: 'está frustrado' o 'no quiere comer') y presiona el botón 'Generar Consejos'.",
+            "para qué es el cuadro de texto": "Es para que describas el estado de ánimo o una situación específica de tu hijo. Al presionar 'Generar Consejos', la app te dará ideas y técnicas personalizadas para esa situación.",
+            "qué son los consejos de ejemplo": "Son técnicas que puedes usar ahora mismo. Por ejemplo, la 'Respiración del Volcán' o 'El Frasco de la Calma' son geniales para la ansiedad. 'Dibuja tus Emociones' es perfecto para que exprese lo que siente.",
+
+            // Favoritos
+            "cómo guardo un consejo": "¡Fácil! En cada tarjeta de consejo que aparezca, verás una estrella (⭐). Solo haz clic en ella para guardarla en tu sección de 'Consejos Favoritos'.",
+            "dónde veo mis favoritos": "Tus consejos guardados aparecerán en la sección 'Consejos Favoritos', justo debajo del generador de consejos, para que puedas acceder a ellos rápidamente.",
+            "cómo borrar favoritos": "Puedes borrar todos tus consejos guardados a la vez presionando el botón 'Limpiar Favoritos'. Si quieres borrar solo uno, ve a la sección de favoritos y presiona la 'X' en la tarjeta del consejo.",
+            
+            // Navegación
+            "cómo vuelvo al perfil": "Puedes usar el botón 'Volver al Perfil' en la parte de arriba, o el ícono de 'Volver' o 'Perfil' en la barra de navegación de abajo (en móviles).",
+            "cómo salgo": "Para salir, puedes presionar el botón rojo 'Salir' en la cabecera, o el ícono 'Salir' en la barra de navegación de abajo (en móviles)."
+        };
+
+
+        const chatFab = document.getElementById('chat-fab');
+        const chatWidget = document.getElementById('chat-widget');
+        const closeChatBtn = document.getElementById('close-chat-btn');
+        const chatHistory = document.getElementById('chat-history');
+        const chatInput = document.getElementById('chat-input');
+        const chatSendBtn = document.getElementById('chat-send-btn');
+        const chatSuggestions = document.getElementById('chat-suggestions');
+
+        function addMessageToChat(message, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}`;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'avatar';
+            avatar.innerHTML = sender === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+            avatar.classList.add(sender === 'user' ? 'avatar-user' : 'avatar-bot');
+            
+            const content = document.createElement('div');
+            content.className = 'message-content';
+            content.textContent = message;
+            
+            if (sender === 'user') {
+                messageDiv.appendChild(content);
+                messageDiv.appendChild(avatar);
+            } else {
+                messageDiv.appendChild(avatar);
+                messageDiv.appendChild(content);
+            }
+            
+            chatHistory.appendChild(messageDiv);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        // Función para obtener sugerencias aleatorias (Req 1. Botones Dinámicos)
+        function renderRandomSuggestions() {
+            chatSuggestions.innerHTML = '';
+            const allKeys = Object.keys(chatKnowledgeBase);
+            const suggestions = [];
+            
+            // Filtrar para no incluir saludos básicos
+            const filteredKeys = allKeys.filter(k => !["hola", "gracias", "adiós", "qué es yachaymikuy"].includes(k));
+            
+            // Tomar 3 sugerencias aleatorias
+            while (suggestions.length < 3 && filteredKeys.length > 0) {
+                const randomIndex = Math.floor(Math.random() * filteredKeys.length);
+                const randomKey = filteredKeys.splice(randomIndex, 1)[0];
+                suggestions.push(randomKey);
+            }
+            
+            suggestions.forEach(key => {
+                const btn = document.createElement('button');
+                btn.className = 'suggestion-btn';
+                // Capitalizar la primera letra para el botón
+                btn.textContent = key.charAt(0).toUpperCase() + key.slice(1) + '?';
+                btn.onclick = () => {
+                    chatInput.value = key;
+                    handleChatSend();
+                };
+                chatSuggestions.appendChild(btn);
+            });
+        }
+
+        function getChatbotResponse(userInput) {
+            const normalizedInput = userInput.toLowerCase().trim()
+                .replace(/[¿?¡!]/g, '') // Quitar puntuación
+                .replace("dame ", "")
+                .replace("info de ", "")
+                .replace("sobre ", "")
+                .replace("explícame ", "");
+
+            // Buscar coincidencias en la base de conocimiento
+            let bestMatch = null;
+            let bestMatchScore = 0;
+
+            for (const key in chatKnowledgeBase) {
+                const keywords = key.split(' ');
+                let score = 0;
+                
+                // Coincidencia exacta
+                if (normalizedInput.includes(key)) {
+                    score = 100; // Alta prioridad
+                } else {
+                    // Coincidencia de palabras clave
+                    keywords.forEach(word => {
+                        if (normalizedInput.includes(word)) {
+                            score++;
+                        }
+                    });
+                }
+
+                if (score > bestMatchScore) {
+                    bestMatchScore = score;
+                    bestMatch = chatKnowledgeBase[key];
+                }
+            }
+            
+            // Req 1. Respuesta por Defecto
+            if (bestMatchScore > 0) {
+                return bestMatch;
+            } else {
+                return "Ok, no he entendido bien tu pregunta. Puedes usar uno de los botones de sugerencia para explorar.";
+            }
+        }
+
+        function handleChatSend() {
+            const userInput = chatInput.value;
+            if (userInput.trim() === "") return;
+            
+            addMessageToChat(userInput, 'user');
+            chatInput.value = "";
+            
+            // Simular respuesta del bot
+            setTimeout(() => {
+                const botResponse = getChatbotResponse(userInput);
+                addMessageToChat(botResponse, 'bot');
+                // Req 1. Botones Dinámicos: Cambiar después de cada respuesta
+                renderRandomSuggestions();
+            }, 500);
+        }
+
+        function clearChatHistory() {
+            chatHistory.innerHTML = '';
+            addMessageToChat("¡Hola! Soy tu asistente. ¿Cómo puedo ayudarte con el bienestar emocional de tu hijo?", 'bot');
+            renderRandomSuggestions();
+        }
+
+        function initChatbot() {
+            chatFab.addEventListener('click', () => {
+                chatWidget.classList.toggle('open');
+                chatFab.style.display = 'none';
+            });
+            
+            closeChatBtn.addEventListener('click', () => {
+                chatWidget.classList.remove('open');
+                chatFab.style.display = 'flex';
+                // Req 1. Limpieza: Borrar historial al cerrar
+                clearChatHistory();
+            });
+            
+            chatSendBtn.addEventListener('click', handleChatSend);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleChatSend();
+                }
+            });
+            
+            // Cargar mensaje inicial y sugerencias
+            clearChatHistory();
+        }
+        // --- FIN LÓGICA DEL CHATBOT ---
+
+
+        // --- 2. 🗺️ INICIO LÓGICA DE GUÍA INTERACTIVA (INTRO.JS) ---
+
+        function startGeneralPageTour() {
+            // Req 2. Activación: Se llama CADA VEZ, sin localStorage.
+            
+            const intro = introJs();
+            intro.setOptions({
+                steps: [
+                    {
+                        element: document.querySelector('.header'),
+                        title: '👋 ¡Bienvenido a Bienestar Psicológico!',
+                        intro: 'Esta es la cabecera. Desde aquí puedes ver el título de la sección y volver a tu perfil o salir de la app.'
+                    },
+                    {
+                        element: document.querySelector('.anemia-wellness-section'),
+                        title: '💡 Anemia y Emociones',
+                        intro: 'Esta sección es clave. Explica cómo la anemia (que causa fatiga y falta de concentración) puede afectar las emociones y el estado de ánimo de tu hijo.'
+                    },
+                    {
+                        element: document.querySelector('.anemia-tips-section'),
+                        title: '🧠 Consejos Generales',
+                        intro: 'Aquí tienes algunos consejos base muy importantes para apoyar a tu hijo, como usar el refuerzo positivo y la creatividad con la comida.'
+                    },
+                    {
+                        element: document.querySelector('.interaction-section'),
+                        title: '💬 ¿Cómo se siente hoy?',
+                        intro: '¡Esta es la parte interactiva! Escribe aquí cómo se siente tu hijo hoy o qué situación emocional observaste (ej: "está frustrado", "triste", etc.).'
+                    },
+                    {
+                        element: document.getElementById('generate-tips'),
+                        title: '🚀 Generar Consejos',
+                        intro: 'Luego de escribir, presiona este botón para generar consejos personalizados que te ayuden a manejar esa emoción específica.'
+                    },
+                    {
+                        element: document.getElementById('tips-container'),
+                        title: '📝 Tus Consejos',
+                        intro: 'Los consejos que generes (o los de ejemplo) aparecerán aquí. ¡Puedes guardarlos como favoritos!'
+                    },
+                    {
+                        element: document.getElementById('favorites-section'),
+                        title: '⭐ Consejos Favoritos',
+                        intro: 'Si guardas algún consejo haciendo clic en la estrella (⭐), aparecerá aquí para que puedas revisarlo fácilmente cuando lo necesites.'
+                    },
+                    {
+                        element: document.getElementById('chat-fab'),
+                        title: '🤖 ¿Necesitas Ayuda?',
+                        intro: 'Si tienes alguna pregunta sobre esta sección o cómo usarla, ¡haz clic en este botón rojo para chatear conmigo!',
+                        position: 'left'
+                    }
+                ],
+                nextLabel: 'Siguiente &rarr;',
+                prevLabel: '&larr; Anterior',
+                doneLabel: '¡Entendido!',
+                tooltipClass: 'custom-intro-tooltip',
+                showProgress: true,
+                showBullets: false
+            });
+
+            intro.start();
+        }
+
+        // --- FIN LÓGICA DE GUÍA INTERACTIVA ---
+        
 
         // Función de inicialización
         function init() {
@@ -1468,6 +1963,16 @@
             
             // Inicializar componentes
             initMobileFooter();
+            
+            // --- NUEVAS INICIALIZACIONES ---
+            // 1. 🤖 Inicializar el Chatbot
+            initChatbot();
+            
+            // 2. 🗺️ Iniciar la Guía Interactiva
+            // Req 2. Activación: Se llama CADA VEZ que se carga la página.
+            // Req 2. Guía por Secciones: Esta página NO tiene tabs, por lo tanto, se lanza el tour general.
+            startGeneralPageTour();
+            // --- FIN NUEVAS INICIALIZACIONES ---
             
             // Inicializar consejos de ejemplo
             initializeSampleTips();

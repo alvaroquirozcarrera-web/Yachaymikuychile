@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css" rel="stylesheet">
     
     <style>
@@ -42,32 +41,68 @@
         
         body {
             font-family: 'Nunito', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
         }
         
-        /* Estilos del Header */
+        /* Estilos del Header - Modificado */
         .header {
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-color));
+            background-color: var(--primary-blue); /* Color azul oscuro sólido */
             color: white;
-            padding: 15px 0;
+            padding: 0;
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             z-index: 1000;
             position: fixed;
             width: 100%;
             top: 0;
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid rgba(255,255,255,0.1);
+            height: 80px; /* Aumentado para acomodar el logo más grande */
+        }
+        
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Centrado del contenido */
+            height: 100%;
+            padding: 0 20px;
+        }
+        
+        .logo-container {
+            height: 80px; /* Altura igual a la del header */
+            width: 80px; /* Ancho igual a la altura para mantener circular */
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover {
+            transform: scale(1.05); /* Ligera animación al pasar el cursor */
+        }
+        
+        .logo-container img {
+            height: 90%; /* 90% del alto del contenedor para que sea grande pero se vea completo */
+            width: 90%; /* 90% del ancho del contenedor */
+            object-fit: contain; /* Contain para mantener la resolución y que se vea completo */
+            padding: 0; /* Sin padding */
+            display: block; /* Block para mejor centrado */
         }
         
         .logo {
             font-size: 2rem;
-            font-weight: 900;
+            font-weight: 800;
             display: flex;
             align-items: center;
+            height: 80px; /* Altura fija para la barra */
+            padding: 5px 0; /* Pequeño padding para dar espacio */
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-left: 15px; /* Espacio entre logo y texto */
         }
         
         .logo i {
@@ -83,12 +118,29 @@
             100% { transform: scale(1); }
         }
         
+        /* Ajustes para dispositivos móviles */
+        @media (max-width: 768px) {
+            .header {
+                height: 60px; /* Altura reducida para móviles */
+            }
+            
+            .logo-container {
+                height: 60px; /* Altura de imagen igual a la del header */
+                width: 60px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+                height: 60px;
+            }
+        }
+        
         /* Estilos del Footer */
         .footer { 
             background: linear-gradient(135deg, var(--primary-blue), var(--accent-color)); 
             color: rgba(255,255,255,0.9); 
             padding: 2.5rem 5%; 
-            margin-top: 3rem;
+            margin-top: 0; /* Eliminado el margen superior para reducir espacio */
             position: relative;
             overflow: hidden;
         }
@@ -191,68 +243,69 @@
             z-index: 2;
         }
         
-        /* Estilos específicos para esta página */
+        /* Estilos específicos para esta página - Modificados */
         .main-content {
-            margin-top: 70px;
-            padding-bottom: 30px;
+            margin-top: 80px; /* Ajustado a la nueva altura del header */
+            padding-bottom: 0; /* Eliminado el padding inferior para reducir espacio */
         }
         
-        .hero-section {
-            background: linear-gradient(135deg, rgba(26, 75, 140, 0.95), rgba(33, 150, 243, 0.95)), 
-                        url('https://images.unsplash.com/photo-1494537176433-7a3c4ef2046f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80');
+        /* Sección con imagen de fondo - Mejorada */
+        .section-with-bg {
+            position: relative;
+            padding: 60px 0; /* Reducido el padding vertical para reducir espacio */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
             color: white;
-            padding: 60px 0;
-            text-align: center;
-            position: relative;
             overflow: hidden;
         }
         
-        .hero-section::before {
+        /* Reducir padding específicamente para la sección de alimentos */
+        .section-with-bg:nth-of-type(4) {
+            padding: 40px 0; /* Padding aún más reducido para la sección de alimentos */
+        }
+        
+        .section-with-bg::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></svg>');
-            background-size: 20px 20px;
-            opacity: 0.3;
-            animation: movePattern 20s linear infinite;
+            background: rgba(0, 0, 0, 0.5); /* Reducido el overlay para mejorar visibilidad de las imágenes */
+            z-index: 1;
         }
         
-        @keyframes movePattern {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(20px, 20px); }
-        }
-        
-        .hero-content {
-            position: relative;
+        /* Añadido filtro para mejorar la apariencia de las imágenes */
+        .section-with-bg::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3));
             z-index: 2;
+            pointer-events: none;
         }
         
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: 900;
-            margin-bottom: 15px;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
-            animation: titleGlow 2s ease-in-out infinite alternate;
+        .section-content {
+            position: relative;
+            z-index: 3; /* Incrementado para asegurar que el contenido esté por encima de los overlays */
         }
         
-        @keyframes titleGlow {
-            from { text-shadow: 3px 3px 6px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.3); }
-            to { text-shadow: 3px 3px 6px rgba(0,0,0,0.4), 0 0 30px rgba(255,255,255,0.6); }
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7); /* Aumentada la sombra para mejorar legibilidad */
         }
         
-        .hero-subtitle {
-            font-size: 1.4rem;
-            margin-bottom: 25px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+        .section-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
             font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Aumentada la sombra para mejorar legibilidad */
         }
         
         .btn-hero {
@@ -297,85 +350,44 @@
             color: white;
         }
         
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 800;
+        /* Estilos para tarjetas */
+        .card-custom {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+            height: 100%;
+        }
+        
+        .card-custom:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .card-title-custom {
+            font-size: 1.3rem;
+            font-weight: 700;
             color: var(--primary-blue);
             margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-red), var(--secondary-color));
-            border-radius: 2px;
-            animation: titleUnderline 2s ease-in-out infinite;
+        .card-text-custom {
+            color: var(--text-dark);
+            font-size: 0.95rem;
         }
         
-        @keyframes titleUnderline {
-            0%, 100% { width: 80px; }
-            50% { width: 120px; }
-        }
-        
-        .stats-section {
-            padding: 50px 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stats-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><polygon points="30,10 35,20 45,20 37,28 40,38 30,32 20,38 23,28 15,20 25,20" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: 60px 60px;
-            animation: floatStars 30s linear infinite;
-        }
-        
-        @keyframes floatStars {
-            0% { transform: translateY(0) rotate(0deg); }
-            100% { transform: translateY(-100px) rotate(360deg); }
-        }
-        
+        /* Estilos para estadísticas */
         .stat-card {
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.9);
             text-align: center;
             padding: 25px 15px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             transition: all 0.4s ease;
             height: 100%;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .stat-card:hover::before {
-            opacity: 1;
+            margin-bottom: 20px;
         }
         
         .stat-card:hover {
@@ -404,377 +416,15 @@
             font-weight: 600;
         }
         
-        .problem-section {
-            padding: 50px 0;
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-        }
-        
-        .food-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            transition: all 0.4s ease;
-            height: 100%;
-            position: relative;
-        }
-        
-        .food-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--accent-red), var(--secondary-color), var(--primary-color));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-        
-        .food-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .food-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        
-        .food-img {
-            height: 180px;
-            width: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        
-        .food-card:hover .food-img {
-            transform: scale(1.1);
-        }
-        
-        .food-content {
-            padding: 20px;
-            position: relative;
-        }
-        
-        .food-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 10px;
-        }
-        
-        .food-description {
-            color: var(--text-dark);
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-        }
-        
-        .food-nutrients {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 15px;
-        }
-        
-        .nutrient {
-            text-align: center;
-            padding: 10px 5px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 12px;
-            flex: 1;
-            margin: 0 3px;
-            transition: all 0.3s ease;
-        }
-        
-        .nutrient:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .nutrient-name {
-            font-size: 0.75rem;
-            color: var(--text-dark);
-            font-weight: 600;
-        }
-        
-        .nutrient-value {
-            font-weight: 800;
-            color: var(--accent-red);
-            font-size: 0.9rem;
-        }
-        
-        .awards-section {
-            padding: 50px 0;
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-        }
-        
-        .award-card {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.4s ease;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .award-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 6px;
-            height: 100%;
-            background: linear-gradient(to bottom, var(--primary-blue), var(--accent-color), var(--accent-red));
-        }
-        
-        .award-card::after {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(26, 75, 140, 0.1) 0%, transparent 70%);
-            transition: all 0.5s ease;
-        }
-        
-        .award-card:hover::after {
-            top: -25%;
-            right: -25%;
-        }
-        
-        .award-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        
-        .award-icon {
-            font-size: 2.5rem;
-            background: linear-gradient(45deg, var(--accent-red), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            animation: iconFloat 3s ease-in-out infinite;
-        }
-        
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .award-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 10px;
-        }
-        
-        .award-achievement {
-            font-weight: 700;
-            color: var(--accent-red);
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-        
-        .award-competencies {
-            color: var(--text-dark);
-            font-size: 0.9rem;
-        }
-        
-        .solution-section {
-            padding: 50px 0;
-            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
-        }
-        
-        .feature-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px 20px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.4s ease;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(26, 75, 140, 0.05) 0%, rgba(33, 150, 243, 0.05) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            background: linear-gradient(45deg, var(--primary-blue), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 20px;
-            animation: iconRotate 4s linear infinite;
-        }
-        
-        @keyframes iconRotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .feature-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-        }
-        
-        .feature-description {
-            color: var(--text-dark);
-            font-size: 0.95rem;
-        }
-        
-        .cta-section {
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-color));
-            color: white;
-            padding: 60px 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
-            background-size: 100px 100px;
-            animation: moveCircles 15s linear infinite;
-        }
-        
-        @keyframes moveCircles {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(100px, 100px); }
-        }
-        
-        .cta-content {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .cta-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .cta-subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            font-weight: 600;
-        }
-        
-        .btn-cta {
-            background: linear-gradient(45deg, var(--accent-red), #ff6b6b);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 18px 45px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            transition: all 0.4s ease;
-            box-shadow: 0 8px 25px rgba(230, 57, 70, 0.5);
-            text-decoration: none;
-            display: inline-block;
-            margin: 10px;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            z-index: 1000;
-            cursor: pointer;
-        }
-        
-        .btn-cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn-cta:hover::before {
-            left: 100%;
-        }
-        
-        .btn-cta:hover {
-            background: linear-gradient(45deg, #d62828, var(--accent-red));
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(230, 57, 70, 0.7);
-            color: white;
-        }
-        
-        .btn-cta-outline {
-            background: transparent;
-            color: white;
-            border: 3px solid white;
-            border-radius: 50px;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            transition: all 0.4s ease;
-            text-decoration: none;
-            display: inline-block;
-            margin: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            z-index: 1000;
-            cursor: pointer;
-        }
-        
-        .btn-cta-outline:hover {
-            background: white;
-            color: var(--primary-blue);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(255,255,255,0.3);
-        }
-        
-        /* Team Section */
-        .team-section {
-            padding: 50px 0;
-            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
-        }
-        
+        /* Estilos para tarjetas de equipo */
         .team-member {
-            background: white;
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             transition: all 0.4s ease;
             height: 100%;
-            position: relative;
+            margin-bottom: 20px;
         }
         
         .team-member:hover {
@@ -853,106 +503,92 @@
             transform: translateY(-3px);
         }
         
-        /* Impact Section */
-        .impact-section {
-            padding: 50px 0;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-        
-        .impact-card {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        /* Estilos para tarjetas de alimentos - Corregidos */
+        .food-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             transition: all 0.4s ease;
             height: 100%;
-            position: relative;
-            overflow: hidden;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
         }
         
-        .impact-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        .food-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        
+        .food-img-container {
+            position: relative;
             width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--accent-red), var(--secondary-color), var(--primary-color));
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-        
-        .impact-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .impact-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-        }
-        
-        .impact-icon {
-            font-size: 2.5rem;
-            background: linear-gradient(45deg, var(--accent-red), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            animation: iconFloat 3s ease-in-out infinite;
-        }
-        
-        .impact-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 10px;
-        }
-        
-        .impact-description {
-            color: var(--text-dark);
-            font-size: 0.95rem;
-        }
-        
-        /* Community Section */
-        .community-section {
-            padding: 50px 0;
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-        
-        .community-card {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: all 0.4s ease;
-            height: 100%;
-            position: relative;
+            height: 200px; /* Altura fija para todas las imágenes */
             overflow: hidden;
         }
         
-        .community-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        .food-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Asegura que todas las imágenes cubran el espacio */
+            transition: transform 0.5s ease;
         }
         
-        .community-icon {
-            font-size: 2.5rem;
-            background: linear-gradient(45deg, var(--primary-blue), var(--accent-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-            animation: iconRotate 4s linear infinite;
+        .food-card:hover .food-img {
+            transform: scale(1.05);
         }
         
-        .community-title {
+        .food-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .food-title {
             font-size: 1.3rem;
             font-weight: 700;
             color: var(--primary-blue);
             margin-bottom: 10px;
         }
         
-        .community-description {
+        .food-description {
             color: var(--text-dark);
+            margin-bottom: 15px;
             font-size: 0.95rem;
+            flex-grow: 1;
+        }
+        
+        .food-nutrients {
+            display: flex;
+            justify-content: center;
+            margin-top: auto;
+        }
+        
+        .nutrient {
+            text-align: center;
+            padding: 10px 15px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .nutrient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .nutrient-name {
+            font-size: 0.75rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+        
+        .nutrient-value {
+            font-weight: 800;
+            color: var(--accent-red);
+            font-size: 0.9rem;
         }
         
         /* Floating elements */
@@ -1029,23 +665,21 @@
         
         /* Responsive adjustments */
         @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; }
-            .hero-subtitle { font-size: 1.1rem; }
             .section-title { font-size: 2rem; }
+            .section-subtitle { font-size: 1.1rem; }
             .stat-number { font-size: 2.5rem; }
-            .cta-title { font-size: 2rem; }
-            .btn-hero, .btn-cta { padding: 15px 30px; font-size: 1.1rem; }
+            .btn-hero { padding: 15px 30px; font-size: 1.1rem; }
             .floating-know-more { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.9rem; }
         }
 
-        /* === ESTILOS: CHATBOT === */
+        /* === ESTILOS: CHATBOT (ACTUALIZADO A ROJO) === */
         #chatbot-toggle {
             position: fixed;
             bottom: 30px;
             left: 30px;
             width: 60px;
             height: 60px;
-            background: linear-gradient(45deg, var(--primary-blue), var(--accent-color));
+            background: linear-gradient(45deg, var(--accent-red), #ff6b6b); /* Cambiado a rojo */
             color: var(--white);
             border-radius: 50%;
             display: flex;
@@ -1061,7 +695,7 @@
         }
         #chatbot-toggle:hover {
             transform: scale(1.1);
-            box-shadow: 0 10px 30px rgba(26, 75, 140, 0.5);
+            box-shadow: 0 10px 30px rgba(230, 57, 70, 0.5); /* Sombra roja al pasar el cursor */
         }
 
         #chatbot-window {
@@ -1081,7 +715,7 @@
         }
 
         .chatbot-header {
-            background: linear-gradient(135deg, var(--primary-blue), var(--accent-color));
+            background: linear-gradient(135deg, var(--accent-red), #ff6b6b); /* Cambiado a rojo */
             color: var(--white);
             padding: 1rem;
             display: flex;
@@ -1094,18 +728,27 @@
             display: flex; 
             align-items: center;
         }
-        /* --- ¡CAMBIO AQUÍ! (Icono del header más llamativo) --- */
         .chatbot-header-icon {
             margin-right: 10px;
-            font-size: 1.2rem; /* Ligeramente más grande que el texto */
+            font-size: 1.2rem;
         }
         
         #chatbot-close {
             background: none; border: none; color: var(--white);
             font-size: 1.25rem; cursor: pointer; opacity: 0.8;
             transition: var(--transition);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        #chatbot-close:hover { opacity: 1; transform: rotate(90deg); }
+        #chatbot-close:hover { 
+            opacity: 1; 
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
 
         #chat-messages {
             flex: 1; padding: 1rem; overflow-y: auto;
@@ -1115,9 +758,8 @@
             padding: 10px 15px; border-radius: 18px;
             max-width: 80%; line-height: 1.4; font-size: 0.95rem;
         }
-        /* --- ¡CAMBIO AQUÍ! (Color de fondo para el bot) --- */
         .chat-message.bot {
-            background: rgba(33, 150, 243, 0.1); /* Fondo celeste suave */
+            background: rgba(230, 57, 70, 0.1); /* Fondo rojo suave */
             color: var(--text-dark);
             border-bottom-left-radius: 4px; align-self: flex-start;
         }
@@ -1131,12 +773,13 @@
             display: flex; flex-wrap: wrap; gap: 5px;
         }
         #chat-suggestions button {
-            background: var(--white); border: 1px solid var(--primary-blue);
-            color: var(--primary-blue); border-radius: 50px;
+            background: var(--white); border: 1px solid var(--accent-red); /* Borde rojo */
+            color: var(--accent-red); /* Texto rojo */
+            border-radius: 50px;
             font-size: 0.8rem; padding: 4px 10px;
             cursor: pointer; transition: var(--transition);
         }
-        #chat-suggestions button:hover { background: var(--primary-blue); color: var(--white); }
+        #chat-suggestions button:hover { background: var(--accent-red); color: var(--white); } /* Fondo rojo al pasar el cursor */
 
         .chat-input-area {
             display: flex; border-top: 1px solid var(--medium-gray);
@@ -1147,11 +790,11 @@
             padding: 0.5rem; font-family: 'Nunito', sans-serif;
         }
         #chat-send {
-            background: none; border: none; color: var(--primary-blue);
+            background: none; border: none; color: var(--accent-red); /* Color rojo */
             font-size: 1.25rem; cursor: pointer;
             padding: 0.5rem; transition: var(--transition);
         }
-        #chat-send:hover { color: var(--accent-red); }
+        #chat-send:hover { color: var(--primary-blue); }
         
         
         /* === 🎨 NUEVO DISEÑO: TEMA DEL TOUR GUIADO === */
@@ -1298,9 +941,19 @@
         .close-modal { 
             background: none; border: none; font-size: 1.5rem; 
             cursor: pointer; color: var(--dark-color); 
-            transition: var(--transition); 
+            transition: var(--transition);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .close-modal:hover { color: var(--accent-red); transform: rotate(90deg); }
+        .close-modal:hover { 
+            color: var(--accent-red); 
+            transform: rotate(90deg);
+            background-color: rgba(230, 57, 70, 0.1);
+        }
         
         /* Estilos para contenido de modales */
         .content-section { margin-bottom: 1.5rem; }
@@ -1325,32 +978,32 @@
     <i class="fas fa-child floating-element floating-element-3"></i>
     
     <header class="header">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <div class="logo">
-                        <i class="fas fa-apple-alt"></i>
-                        Yachay Mikuy
-                    </div>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <div id="userMenu" class="d-none">
-                        <span id="userName" class="me-3"></span>
-                        <button id="logoutBtn" class="btn btn-light btn-sm">
-                            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
-                        </button>
-                    </div>
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="logo.png" alt="Yachay Mikuy Logo">
+            </div>
+            <div class="logo">
+                <i class=""></i>
+                Yachay Mikuy
+            </div>
+            <div class="ms-auto">
+                <div id="userMenu" class="d-none">
+                    <span id="userName" class="me-3"></span>
+                    <button id="logoutBtn" class="btn btn-light btn-sm">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+                    </button>
                 </div>
             </div>
         </div>
     </header>
 
     <main class="main-content">
-        <section class="hero-section">
-            <div class="container">
-                <div class="hero-content" data-aos="fade-up">
-                    <h1 class="hero-title">Yachay Mikuy</h1>
-                    <p class="hero-subtitle">Combatiendo la anemia infantil en Perú con planes de alimentación personalizados y adaptados culturalmente</p>
+        <!-- Sección 1: Hero -->
+        <section class="section-with-bg" style="background-image: url('foto.jpg');">
+            <div class="container section-content">
+                <div class="text-center" data-aos="fade-up">
+                    <h1 class="section-title">Yachay Mikuy</h1>
+                    <p class="section-subtitle">Combatiendo la anemia infantil en Perú con planes de alimentación personalizados y adaptados culturalmente</p>
                     <div class="d-flex justify-content-center">
                         <a href="index1.html#login" class="btn-hero" onclick="forceLogin(event)">Comenzar Ahora</a>
                     </div>
@@ -1358,11 +1011,12 @@
             </div>
         </section>
 
-        <section class="stats-section">
-            <div class="container">
+        <!-- Sección 2: Estadísticas -->
+        <section class="section-with-bg" style="background-image: url('foto1.jpg');">
+            <div class="container section-content">
                 <div class="text-center mb-4">
-                    <h2 class="section-title text-white" data-aos="fade-up">La Realidad de la Anemia en Perú</h2>
-                    <p class="lead text-white" data-aos="fade-up" data-aos-delay="100">Las estadísticas nos motivan a actuar</p>
+                    <h2 class="section-title" data-aos="fade-up">La Realidad de la Anemia en Perú</h2>
+                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Las estadísticas nos motivan a actuar</p>
                 </div>
                 <div class="row g-3">
                     <div class="col-md-3 col-6" data-aos="fade-up" data-aos-delay="100">
@@ -1393,16 +1047,20 @@
             </div>
         </section>
 
-        <section class="problem-section">
-            <div class="container">
+
+        <!-- Sección 3: Alimentos -->
+        <section class="section-with-bg" style="background-image: url('foto2.jpg');">
+            <div class="container section-content">
                 <div class="text-center mb-4">
                     <h2 class="section-title" data-aos="fade-up">Alimentos Clave contra la Anemia</h2>
-                    <p class="lead" data-aos="fade-up" data-aos-delay="100">Descubre cómo los alimentos peruanos pueden combatir la anemia</p>
+                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Descubre cómo los alimentos peruanos pueden combatir la anemia</p>
                 </div>
                 <div class="row g-3">
                     <div class="col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="100">
                         <div class="food-card">
-                            <img src="https://www.lavanguardia.com/uploads/2020/11/05/5fb28177d1c94.jpeg" alt="Hígado de pollo" class="food-img">
+                            <div class="food-img-container">
+                                <img src="https://www.lavanguardia.com/uploads/2020/11/05/5fb28177d1c94.jpeg" alt="Hígado de pollo" class="food-img">
+                            </div>
                             <div class="food-content">
                                 <h3 class="food-title">Hígado</h3>
                                 <p class="food-description">Fuente de hierro hemínico</p>
@@ -1417,7 +1075,9 @@
                     </div>
                     <div class="col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="200">
                         <div class="food-card">
-                            <img src="https://foods.pe/wp-content/uploads/2021/10/kiwicha-planta-foods-superalimentos-peruanos-681x1024.jpg" alt="Kiwicha" class="food-img">
+                            <div class="food-img-container">
+                                <img src="https://foods.pe/wp-content/uploads/2021/10/kiwicha-planta-foods-superalimentos-peruanos-681x1024.jpg" alt="Kiwicha" class="food-img">
+                            </div>
                             <div class="food-content">
                                 <h3 class="food-title">Kiwicha</h3>
                                 <p class="food-description">Superfood andino</p>
@@ -1432,7 +1092,9 @@
                     </div>
                     <div class="col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="300">
                         <div class="food-card">
-                            <img src="https://vamosacomerrico.com/wp-content/uploads/2019/04/beneficios-lentejas.jpg" alt="Lentejas" class="food-img">
+                            <div class="food-img-container">
+                                <img src="https://vamosacomerrico.com/wp-content/uploads/2019/04/beneficios-lentejas.jpg" alt="Lentejas" class="food-img">
+                            </div>
                             <div class="food-content">
                                 <h3 class="food-title">Lentejas</h3>
                                 <p class="food-description">Proteína vegetal</p>
@@ -1447,7 +1109,9 @@
                     </div>
                     <div class="col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="400">
                         <div class="food-card">
-                            <img src="https://www.primeraedicion.com.ar/wp-content/uploads/2021/07/cacao.jpg" alt="Cacao" class="food-img">
+                            <div class="food-img-container">
+                                <img src="https://www.primeraedicion.com.ar/wp-content/uploads/2021/07/cacao.jpg" alt="Cacao" class="food-img">
+                            </div>
                             <div class="food-content">
                                 <h3 class="food-title">Cacao</h3>
                                 <p class="food-description">Antioxidantes</p>
@@ -1462,7 +1126,9 @@
                     </div>
                     <div class="col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="500">
                         <div class="food-card">
-                            <img src="https://image.freepik.com/foto-gratis/filete-pescado-crudo-tilapia-tabla-cortar-limon-especias-mesa-oscura_78677-2408.jpg" alt="Pescado" class="food-img">
+                            <div class="food-img-container">
+                                <img src="https://image.freepik.com/foto-gratis/filete-pescado-crudo-tilapia-tabla-cortar-limon-especias-mesa-oscura_78677-2408.jpg" alt="Pescado" class="food-img">
+                            </div>
                             <div class="food-content">
                                 <h3 class="food-title">Pescado</h3>
                                 <p class="food-description">Omega-3</p>
@@ -1477,7 +1143,9 @@
                     </div>
                     <div class="col-md-4 col-lg-2" data-aos="fade-up" data-aos-delay="600">
                         <div class="food-card">
-                            <img src="https://cienciauanl.uanl.mx/wp-content/uploads/2015/01/quinuapropiedades.jpg" alt="Quinua" class="food-img">
+                            <div class="food-img-container">
+                                <img src="https://cienciauanl.uanl.mx/wp-content/uploads/2015/01/quinuapropiedades.jpg" alt="Quinua" class="food-img">
+                            </div>
                             <div class="food-content">
                                 <h3 class="food-title">Quinua</h3>
                                 <p class="food-description">Proteína completa</p>
@@ -1494,11 +1162,12 @@
             </div>
         </section>
 
-        <section class="team-section">
-            <div class="container">
+        <!-- Sección 4: Equipo -->
+        <section class="section-with-bg" style="background-image: url('foto3.jpg');">
+            <div class="container section-content">
                 <div class="text-center mb-4">
                     <h2 class="section-title" data-aos="fade-up">Nuestro Equipo</h2>
-                    <p class="lead" data-aos="fade-up" data-aos-delay="100">Profesionales comprometidos con la nutrición infantil</p>
+                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Profesionales comprometidos con la nutrición infantil</p>
                 </div>
                 <div class="row g-4">
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
@@ -1549,219 +1218,225 @@
                             </div>
                         </div>
                     </div>
-
+                </div>
+            </div>
         </section>
 
-        <section class="awards-section">
-            <div class="container">
+        <!-- Sección 5: Logros -->
+        <section class="section-with-bg" style="background-image: url('foto4.jpg');">
+            <div class="container section-content">
                 <div class="text-center mb-4">
                     <h2 class="section-title" data-aos="fade-up">Nuestros Logros</h2>
-                    <p class="lead" data-aos="fade-up" data-aos-delay="100">Reconocimientos que validan nuestro impacto</p>
+                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Reconocimientos que validan nuestro impacto</p>
                 </div>
                 <div class="row g-3">
                     <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="award-card">
-                            <div class="award-icon">
-                                <i class="fas fa-trophy"></i>
+                        <div class="card-custom text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-trophy" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--accent-red), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="award-title">Hult Prize UNMSM</h3>
-                            <p class="award-achievement">Finalista (Top 4)</p>
-                            <p class="award-competencies">Diseño de negocios de alto impacto social</p>
+                            <h3 class="card-title-custom">Hult Prize UNMSM</h3>
+                            <p class="card-text-custom fw-bold">Finalista (Top 4)</p>
+                            <p class="card-text-custom">Diseño de negocios de alto impacto social</p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="award-card">
-                            <div class="award-icon">
-                                <i class="fas fa-globe"></i>
+                        <div class="card-custom text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-globe" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--accent-red), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="award-title">Babson Global</h3>
-                            <p class="award-achievement">Top 10 mundial</p>
-                            <p class="award-competencies">Visión de negocio global</p>
+                            <h3 class="card-title-custom">Babson Global</h3>
+                            <p class="card-text-custom fw-bold">Top 10 mundial</p>
+                            <p class="card-text-custom">Visión de negocio global</p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                        <div class="award-card">
-                            <div class="award-icon">
-                                <i class="fas fa-rocket"></i>
+                        <div class="card-custom text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-rocket" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--accent-red), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="award-title">Jump Chile 2025</h3>
-                            <p class="award-achievement">Top 100 Latinoamérica</p>
-                            <p class="award-competencies">Lean Startup y validación</p>
+                            <h3 class="card-title-custom">Jump Chile 2025</h3>
+                            <p class="card-text-custom fw-bold">Top 100 Latinoamérica</p>
+                            <p class="card-text-custom">Lean Startup y validación</p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
-                        <div class="award-card">
-                            <div class="award-icon">
-                                <i class="fas fa-medal"></i>
+                        <div class="card-custom text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-medal" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--accent-red), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="award-title">Bootcamp UDEP</h3>
-                            <p class="award-achievement">3er lugar</p>
-                            <p class="award-competencies">Design Thinking</p>
+                            <h3 class="card-title-custom">Bootcamp UDEP</h3>
+                            <p class="card-text-custom fw-bold">3er lugar</p>
+                            <p class="card-text-custom">Design Thinking</p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
-                        <div class="award-card">
-                            <div class="award-icon">
-                                <i class="fas fa-graduation-cap"></i>
+                        <div class="card-custom text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-graduation-cap" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--accent-red), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="award-title">Aspire Leaders</h3>
-                            <p class="award-achievement">Programa Harvard</p>
-                            <p class="award-competencies">Liderazgo</p>
+                            <h3 class="card-title-custom">Aspire Leaders</h3>
+                            <p class="card-text-custom fw-bold">Programa Harvard</p>
+                            <p class="card-text-custom">Liderazgo</p>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
-                        <div class="award-card">
-                            <div class="award-icon">
-                                <i class="fas fa-star"></i>
+                        <div class="card-custom text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-star" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--accent-red), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="award-title">Santander X</h3>
-                            <p class="award-achievement">Participante Destacado</p>
-                            <p class="award-competencies">Modelos de negocio</p>
+                            <h3 class="card-title-custom">Santander X</h3>
+                            <p class="card-text-custom fw-bold">Participante Destacado</p>
+                            <p class="card-text-custom">Modelos de negocio</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="impact-section">
-            <div class="container">
+        <!-- Sección 6: Impacto -->
+        <section class="section-with-bg" style="background-image: url('foto5.jpg');">
+            <div class="container section-content">
                 <div class="text-center mb-4">
-                    <h2 class="section-title text-white" data-aos="fade-up">Impacto Regional y Global</h2>
-                    <p class="lead text-white" data-aos="fade-up" data-aos-delay="100">La anemia infantil es un problema que nos afecta a todos</p>
+                    <h2 class="section-title" data-aos="fade-up">Impacto Regional y Global</h2>
+                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">La anemia infantil es un problema que nos afecta a todos</p>
                 </div>
                 <div class="row g-3">
                     <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-                        <div class="impact-card">
-                            <div class="impact-icon">
-                                <i class="fas fa-globe-americas"></i>
+                        <div class="card-custom">
+                            <div class="mb-3">
+                                <i class="fas fa-globe-americas" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--accent-red), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="impact-title">América Latina</h3>
-                            <p class="impact-description">En América Latina, más de 13 millones de niños menores de 5 años sufren de anemia, afectando su desarrollo cognitivo y físico.</p>
+                            <h3 class="card-title-custom">América Latina</h3>
+                            <p class="card-text-custom">En América Latina, más de 13 millones de niños menores de 5 años sufren de anemia, afectando su desarrollo cognitivo y físico.</p>
                         </div>
                     </div>
                     <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
-                        <div class="impact-card">
-                            <div class="impact-icon">
-                                <i class="fas fa-globe"></i>
+                        <div class="card-custom">
+                            <div class="mb-3">
+                                <i class="fas fa-globe" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--accent-red), var(--secondary-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="impact-title">Mundial</h3>
-                            <p class="impact-description">A nivel mundial, la OMS estima que 560 millones de niños menores de 5 años sufren anemia, principalmente en países en desarrollo.</p>
+                            <h3 class="card-title-custom">Mundial</h3>
+                            <p class="card-text-custom">A nivel mundial, la OMS estima que 560 millones de niños menores de 5 años sufren anemia, principalmente en países en desarrollo.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="solution-section">
-            <div class="container">
+        <!-- Sección 7: Solución -->
+        <section class="section-with-bg" style="background-image: url('foto6.jpg');">
+            <div class="container section-content">
                 <div class="text-center mb-4">
                     <h2 class="section-title" data-aos="fade-up">Nuestra Solución</h2>
-                    <p class="lead" data-aos="fade-up" data-aos-delay="100">Tecnología adaptada a la realidad peruana</p>
+                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Tecnología adaptada a la realidad peruana</p>
                 </div>
                 <div class="row g-3">
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-mobile-alt"></i>
+                        <div class="card-custom text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-mobile-alt" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--primary-blue), var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="feature-title">Plataforma Digital</h3>
-                            <p class="feature-description">Funciona incluso en zonas con conectividad limitada</p>
+                            <h3 class="card-title-custom">Plataforma Digital</h3>
+                            <p class="card-text-custom">Funciona incluso en zonas con conectividad limitada</p>
                         </div>
                     </div>
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-utensils"></i>
+                        <div class="card-custom text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-utensils" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--primary-blue), var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="feature-title">Planes Personalizados</h3>
-                            <p class="feature-description">Adaptados a cada niño y su contexto cultural</p>
+                            <h3 class="card-title-custom">Planes Personalizados</h3>
+                            <p class="card-text-custom">Adaptados a cada niño y su contexto cultural</p>
                         </div>
                     </div>
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-chart-line"></i>
+                        <div class="card-custom text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-chart-line" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--primary-blue), var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="feature-title">Seguimiento Continuo</h3>
-                            <p class="feature-description">Monitoreo con alertas automáticas</p>
+                            <h3 class="card-title-custom">Seguimiento Continuo</h3>
+                            <p class="card-text-custom">Monitoreo con alertas automáticas</p>
                         </div>
                     </div>
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-book-open"></i>
+                        <div class="card-custom text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-book-open" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--primary-blue), var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="feature-title">Educación Nutricional</h3>
-                            <p class="feature-description">Recetas con ingredientes locales</p>
+                            <h3 class="card-title-custom">Educación Nutricional</h3>
+                            <p class="card-text-custom">Recetas con ingredientes locales</p>
                         </div>
                     </div>
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-users"></i>
+                        <div class="card-custom text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-users" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--primary-blue), var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="feature-title">Comunidad de Apoyo</h3>
-                            <p class="feature-description">Conexión con profesionales y familias</p>
+                            <h3 class="card-title-custom">Comunidad de Apoyo</h3>
+                            <p class="card-text-custom">Conexión con profesionales y familias</p>
                         </div>
                     </div>
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
-                        <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-heart"></i>
+                        <div class="card-custom text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-heart" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--primary-blue), var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="feature-title">Enfoque Cultural</h3>
-                            <p class="feature-description">Valorizando productos andinos</p>
+                            <h3 class="card-title-custom">Enfoque Cultural</h3>
+                            <p class="card-text-custom">Valorizando productos andinos</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="community-section">
-            <div class="container">
+        <!-- Sección 8: Comunidad -->
+        <section class="section-with-bg" style="background-image: url('foto7.jpg');">
+            <div class="container section-content">
                 <div class="text-center mb-4">
-                    <h2 class="section-title text-white" data-aos="fade-up">Comunidad Yachay Mikuy</h2>
-                    <p class="lead text-white" data-aos="fade-up" data-aos-delay="100">Juntos transformamos la nutrición infantil</p>
+                    <h2 class="section-title" data-aos="fade-up">Comunidad Yachay Mikuy</h2>
+                    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Juntos transformamos la nutrición infantil</p>
                 </div>
                 <div class="row g-3">
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                        <div class="community-card">
-                            <div class="community-icon">
-                                <i class="fas fa-users"></i>
+                        <div class="card-custom">
+                            <div class="mb-3">
+                                <i class="fas fa-users" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--primary-blue), var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="community-title">Padres y Cuidadores</h3>
-                            <p class="community-description">Más de 5,000 familias ya confían en nuestros planes nutricionales personalizados.</p>
+                            <h3 class="card-title-custom">Padres y Cuidadores</h3>
+                            <p class="card-text-custom">Más de 5,000 familias ya confían en nuestros planes nutricionales personalizados.</p>
                         </div>
                     </div>
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                        <div class="community-card">
-                            <div class="community-icon">
-                                <i class="fas fa-user-md"></i>
+                        <div class="card-custom">
+                            <div class="mb-3">
+                                <i class="fas fa-user-md" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--primary-blue), var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="community-title">Profesionales de la Salud</h3>
-                            <p class="community-description">Médicos y nutricionistas que recomiendan nuestra plataforma a sus pacientes.</p>
+                            <h3 class="card-title-custom">Profesionales de la Salud</h3>
+                            <p class="card-text-custom">Médicos y nutricionistas que recomiendan nuestra plataforma a sus pacientes.</p>
                         </div>
                     </div>
                     <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                        <div class="community-card">
-                            <div class="community-icon">
-                                <i class="fas fa-school"></i>
+                        <div class="card-custom">
+                            <div class="mb-3">
+                                <i class="fas fa-school" style="font-size: 2.5rem; background: linear-gradient(45deg, var(--primary-blue), var(--accent-color)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;"></i>
                             </div>
-                            <h3 class="community-title">Instituciones Educativas</h3>
-                            <p class="community-description">Colegios y centros educativos que implementan nuestros programas.</p>
+                            <h3 class="card-title-custom">Instituciones Educativas</h3>
+                            <p class="card-text-custom">Colegios y centros educativos que implementan nuestros programas.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="cta-section">
-            <div class="container">
-                <div class="cta-content" data-aos="fade-up">
-                    <h2 class="cta-title">Únete a la lucha contra la anemia infantil</h2>
-                    <p class="cta-subtitle">Juntos podemos transformar la nutrición de miles de niños en Perú</p>
+        <!-- Sección 9: CTA -->
+        <section class="section-with-bg" style="background-image: url('foto8.jpg');">
+            <div class="container section-content">
+                <div class="text-center" data-aos="fade-up">
+                    <h2 class="section-title">Únete a la lucha contra la anemia infantil</h2>
+                    <p class="section-subtitle">Juntos podemos transformar la nutrición de miles de niños en Perú</p>
                     <div class="d-flex justify-content-center">
-                        <a href="index1.html#login" class="btn-cta" onclick="forceLogin(event)">Comenzar Ahora</a>
+                        <a href="index1.html#login" class="btn-hero" onclick="forceLogin(event)">Comenzar Ahora</a>
                     </div>
                 </div>
             </div>
@@ -1790,7 +1465,6 @@
             <button id="chat-send"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
-
 
     <footer class="footer">
         <div class="footer-content">
@@ -1828,7 +1502,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
 
     <script>
@@ -1971,7 +1644,7 @@
                                         <li>Cifrado de extremo a extremo</li>
                                         <li>Consentimiento parental explícito</li>
                                         <li>Cumplimiento con normativas de protección de datos</li>
-                                        <li>Acceso restringido solo a personal autorizado</li>
+                                        <li>Acceso                                        <li>Acceso restringido solo a personal autorizado</li>
                                     </ul>
                                 </div>
                                 <div class="content-section">
@@ -2448,55 +2121,55 @@
                         },
                         { 
                             title: 'Paso 2 de 11',
-                            element: document.querySelector('.hero-section'), 
+                            element: document.querySelector('.section-with-bg'), 
                             intro: 'Aquí encontrarás el título principal y nuestro lema. ¡Puedes hacer clic en "Comenzar Ahora" para registrarte!',
                             position: 'floating'
                         },
                         { 
                             title: 'Paso 3 de 11',
-                            element: document.querySelector('.stats-section'), 
+                            element: document.querySelectorAll('.section-with-bg')[1], 
                             intro: 'Esta sección te muestra las estadísticas más impactantes sobre la anemia en Perú.',
                             position: 'floating'
                         },
                         { 
                             title: 'Paso 4 de 11',
-                            element: document.querySelector('.problem-section'), 
+                            element: document.querySelectorAll('.section-with-bg')[2], 
                             intro: 'Descubre los alimentos clave de nuestra región que usamos para combatir la anemia.',
                             position: 'floating'
                         },
                         { 
                             title: 'Paso 5 de 11',
-                            element: document.querySelector('.team-section'), 
+                            element: document.querySelectorAll('.section-with-bg')[3], 
                             intro: '¡Conoce al equipo multidisciplinario detrás de Yachay Mikuy!',
                             position: 'floating'
                         },
                         { 
                             title: 'Paso 6 de 11',
-                            element: document.querySelector('.awards-section'), 
+                            element: document.querySelectorAll('.section-with-bg')[4], 
                             intro: 'Estos son algunos de los reconocimientos y logros que ha obtenido nuestro proyecto.',
                             position: 'floating'
                         },
                         { 
                             title: 'Paso 7 de 11',
-                            element: document.querySelector('.impact-section'), 
+                            element: document.querySelectorAll('.section-with-bg')[5], 
                             intro: 'Entiende la magnitud del problema de la anemia a nivel regional y global.',
                             position: 'floating'
                         },
                         { 
                             title: 'Paso 8 de 11',
-                            element: document.querySelector('.solution-section'), 
+                            element: document.querySelectorAll('.section-with-bg')[6], 
                             intro: 'Te explicamos cómo funciona nuestra solución tecnológica y sus características principales.',
                             position: 'floating'
                         },
                         { 
                             title: 'Paso 9 de 11',
-                            element: document.querySelector('.community-section'), 
+                            element: document.querySelectorAll('.section-with-bg')[7], 
                             intro: 'Nuestra comunidad incluye padres, profesionales de la salud e instituciones.',
                             position: 'floating'
                         },
                         { 
                             title: 'Paso 10 de 11',
-                            element: document.querySelector('.cta-section'), 
+                            element: document.querySelectorAll('.section-with-bg')[8], 
                             intro: 'Desde aquí también puedes unirte a nuestra plataforma.',
                             position: 'floating'
                         },
@@ -2531,6 +2204,5 @@
 
         });
     </script>
-    
 </body>
 </html>

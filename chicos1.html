@@ -6,6 +6,9 @@
     <title>Cocina Inteligente contra la Anemia - Yachay Mikuy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
+
     <style>
         :root {
             --primary-color: #4CAF50; --secondary-color: #FFC107; --accent-color: #FF5722;
@@ -15,7 +18,87 @@
             --iron-color: #B22222; --vitamin-c-color: #FF8C00;
             --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Variables para el footer y modales */
+            --text-dark: #212529;
+            --radius: 12px;
+            --accent-red: #e63946;
+            --danger-red-dark: #c82333; /* Para hover del chat rojo */
+            --accent-pink: #d63384; /* Para gradiente del chat rojo */
+            --white: #ffffff; /* Asegurado */
+            --light-gray: #f8f9fa; /* Para botones de sugerencia */
+
+            /* Variables de Intro.js (Guía) */
+            --primary-blue-guide: #1a4b8c; 
+            --accent-color-guide: #2196F3;
+            --medium-gray-guide: #dee2e6;
         }
+
+        /* --- 1.1. ESTILOS PERSONALIZADOS PARA LA GUÍA (INTRO.JS) --- */
+        .introjs-tooltip {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--white) !important; /* CORREGIDO: Fondo sólido */
+            opacity: 1 !important; /* CORREGIDO: Opacidad sólida */
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: none;
+            color: var(--text-dark);
+            max-width: 350px;
+            padding: 20px;
+            z-index: 9999999 !important;
+        }
+        .introjs-tooltiptext {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+        .introjs-tooltipbuttons {
+            border-top: 1px solid var(--medium-gray-guide);
+            padding-top: 15px;
+            margin-top: 15px;
+            text-align: right;
+        }
+        .introjs-button {
+            background: linear-gradient(to right, var(--primary-blue-guide), var(--accent-color-guide));
+            color: var(--white);
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            padding: 8px 20px;
+            transition: var(--transition);
+            text-shadow: none;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .introjs-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: var(--white);
+        }
+        .introjs-skipbutton {
+            background: transparent;
+            color: #6c757d;
+            font-weight: 600;
+            text-shadow: none;
+            padding: 8px 20px;
+        }
+        .introjs-skipbutton:hover {
+            background: var(--light-gray);
+            color: var(--text-dark);
+        }
+        .introjs-disabled, .introjs-disabled:hover {
+            background: var(--medium-gray-guide);
+            color: #888;
+            transform: none;
+            box-shadow: none;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .introjs-arrow.top { border-bottom-color: var(--white); }
+        .introjs-arrow.bottom { border-top-color: var(--white); }
+        .introjs-arrow.left { border-right-color: var(--white); }
+        .introjs-arrow.right { border-left-color: var(--white); }
+        /* --- FIN ESTILOS GUÍA --- */
+
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f5f5f5; color: var(--dark-color); line-height: 1.6; padding-bottom: 80px; background-image: url('https://picsum.photos/seed/foodbg/1920/1080'); background-size: cover; background-attachment: fixed; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.9); z-index: -1; }
@@ -126,6 +209,164 @@
         .toast-error { border-left: 5px solid var(--danger-color); }
         .toast-info { border-left: 5px solid var(--info-color); }
         
+
+        /* --- INICIO: ESTILOS DEL CHATBOT (MODIFICADO A ROJO) --- */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1030;
+        }
+        .chat-fab {
+            background: var(--danger-color); /* MODIFICADO A ROJO */
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .chat-fab:hover {
+            transform: scale(1.1);
+            background: var(--danger-red-dark); /* MODIFICADO A ROJO OSCURO */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: scale(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-in-out;
+        }
+        .chat-window.active {
+            transform: scale(1);
+        }
+        .chat-header {
+            background: linear-gradient(135deg, var(--danger-color), var(--accent-pink)); /* MODIFICADO A ROJO/ROSA */
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chat-header h5 {
+            margin: 0;
+            font-weight: 700;
+        }
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+        .close-chat:hover {
+            opacity: 1;
+        }
+        .chat-body {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background-color: #f9f9f9;
+        }
+        .chat-message {
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 80%;
+            line-height: 1.4;
+            font-size: 0.9rem;
+        }
+        .chat-message.bot {
+            background: var(--light-gray);
+            color: var(--text-dark);
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
+        .chat-message.user {
+            background: var(--primary-blue); /* Se mantiene azul para el usuario */
+            color: var(--white);
+            border-bottom-right-radius: 4px;
+            align-self: flex-end;
+        }
+        
+        /* AÑADIDO: Estilos para Botones de Sugerencia */
+        .chat-suggestions {
+            padding: 10px 15px 5px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            border-bottom: 1px solid #eee; /* Separador */
+            background: #fdfdfd;
+        }
+        .suggestion-btn {
+            background-color: var(--light-gray);
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .suggestion-btn:hover {
+            background-color: #e2e6ea;
+            border-color: #ccc;
+        }
+        /* FIN AÑADIDO */
+
+        .chat-input {
+            display: flex;
+            /* border-top: 1px solid #ddd; */ /* Removido para unir con sugerencias */
+            padding: 10px;
+            background: var(--white);
+        }
+        .chat-input input {
+            flex: 1;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+        .chat-input input:focus {
+            border-color: var(--danger-color); /* MODIFICADO A ROJO */
+            box-shadow: 0 0 0 0.2rem rgba(244, 67, 54, 0.25); /* MODIFICADO A ROJO */
+        }
+        .chat-input button {
+            background: var(--danger-color); /* MODIFICADO A ROJO */
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .chat-input button:hover {
+            background: var(--danger-red-dark); /* MODIFICADO A ROJO OSCURO */
+        }
+        /* --- FIN: ESTILOS DEL CHATBOT --- */
+
         @media (max-width: 992px) {
             .pantry-grid { grid-template-columns: 1fr; }
             .recipes-container { grid-template-columns: 1fr; }
@@ -232,29 +473,29 @@
             <div class="avoid-foods">
                 <h2 class="section-title avoid-title"><i class="fas fa-times-circle"></i> Alimentos a Limitar para el Niño</h2>
                 <div class="food-grid">
-                    <div class="avoid-card" data-title="Té y Café" data-description="Contienen compuestos llamados taninos que actúan como 'ladrones' de hierro, inhibiendo su absorción en el intestino." data-tip="Evita que el niño consuma estas bebidas. Nunca deben acompañar las comidas principales. Prioriza siempre el agua.">
+                    <div class="food-card avoid-card" data-title="Té y Café" data-description="Contienen compuestos llamados taninos que actúan como 'ladrones' de hierro, inhibiendo su absorción en el intestino." data-tip="Evita que el niño consuma estas bebidas. Nunca deben acompañar las comidas principales. Prioriza siempre el agua.">
                         <div class="food-image"><img src="https://picsum.photos/seed/tea/200/150" alt="Té"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
-                        <div class="food-info"><div class="avoid-name">Té y Café</div><div class="avoid-reason"><i class="fas fa-ban"></i> Bloquean el hierro</div></div>
+                        <div class="food-info"><div class="food-name">Té y Café</div><div class="avoid-reason"><i class="fas fa-ban"></i> Bloquean el hierro</div></div>
                     </div>
-                    <div class="avoid-card" data-title="Gaseosas y Refrescos" data-description="Estas bebidas azucaradas contienen fosfatos que interfieren con la absorción del hierro. Además, no aportan ningún nutriente valioso." data-tip="Elimina estas bebidas de la dieta del niño. Ofrecen una falsa sensación de saciedad que le quita el apetito para alimentos nutritivos.">
+                    <div class="food-card avoid-card" data-title="Gaseosas y Refrescos" data-description="Estas bebidas azucaradas contienen fosfatos que interfieren con la absorción del hierro. Además, no aportan ningún nutriente valioso." data-tip="Elimina estas bebidas de la dieta del niño. Ofrecen una falsa sensación de saciedad que le quita el apetito para alimentos nutritivos.">
                         <div class="food-image"><img src="https://picsum.photos/seed/soda/200/150" alt="Gaseosas"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
-                        <div class="food-info"><div class="avoid-name">Gaseosas y Refrescos</div><div class="avoid-reason"><i class="fas fa-exclamation-triangle"></i> Interfieren con nutrientes</div></div>
+                        <div class="food-info"><div class="food-name">Gaseosas y Refrescos</div><div class="avoid-reason"><i class="fas fa-exclamation-triangle"></i> Interfieren con nutrientes</div></div>
                     </div>
-                    <div class="avoid-card" data-title="Leche en Exceso" data-description="Aunque es vital, un consumo excesivo de leche (más de 700ml al día) puede interferir con la absorción de hierro y desplazar otros alimentos." data-tip="La leche es importante, pero no debe ser la bebida principal en las comidas. Ofrece la cantidad recomendada para su edad.">
+                    <div class="food-card avoid-card" data-title="Leche en Exceso" data-description="Aunque es vital, un consumo excesivo de leche (más de 700ml al día) puede interferir con la absorción de hierro y desplazar otros alimentos." data-tip="La leche es importante, pero no debe ser la bebida principal en las comidas. Ofrece la cantidad recomendada para su edad.">
                         <div class="food-image"><img src="https://picsum.photos/seed/milk/200/150" alt="Leche"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
-                        <div class="food-info"><div class="avoid-name">Leche en Exceso</div><div class="avoid-reason"><i class="fas fa-info-circle"></i> Limita la absorción</div></div>
+                        <div class="food-info"><div class="food-name">Leche en Exceso</div><div class="avoid-reason"><i class="fas fa-info-circle"></i> Limita la absorción</div></div>
                     </div>
-                    <div class="avoid-card" data-title="Alimentos Procesados" data-description="Suelen ser bajos en nutrientes esenciales como el hierro y altos en sodio, grasas y aditivos que el niño no necesita." data-tip="Basa la alimentación en productos frescos y naturales. Lee las etiquetas y elige opciones con pocos ingredientes.">
+                    <div class="food-card avoid-card" data-title="Alimentos Procesados" data-description="Suelen ser bajos en nutrientes esenciales como el hierro y altos en sodio, grasas y aditivos que el niño no necesita." data-tip="Basa la alimentación en productos frescos y naturales. Lee las etiquetas y elige opciones con pocos ingredientes.">
                         <div class="food-image"><img src="https://picsum.photos/seed/processed/200/150" alt="Procesados"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
-                        <div class="food-info"><div class="avoid-name">Alimentos Procesados</div><div class="avoid-reason"><i class="fas fa-industry"></i> Bajo valor nutricional</div></div>
+                        <div class="food-info"><div class="food-name">Alimentos Procesados</div><div class="avoid-reason"><i class="fas fa-industry"></i> Bajo valor nutricional</div></div>
                     </div>
-                    <div class="avoid-card" data-title="Cereales sin Preparar" data-description="Los cereales integrales y legumbres contienen fitatos que pueden reducir la absorción de hierro. ¡Pero hay solución!" data-tip="Remoja las legumbres y cereales integrales (como la avena) durante la noche. Este simple paso reduce los fitatos y mejora la disponibilidad de nutrientes.">
+                    <div class="food-card avoid-card" data-title="Cereales sin Preparar" data-description="Los cereales integrales y legumbres contienen fitatos que pueden reducir la absorción de hierro. ¡Pero hay solución!" data-tip="Remoja las legumbres y cereales integrales (como la avena) durante la noche. Este simple paso reduce los fitatos y mejora la disponibilidad de nutrientes.">
                         <div class="food-image"><img src="https://picsum.photos/seed/wholegrain/200/150" alt="Cereales"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
-                        <div class="food-info"><div class="avoid-name">Cereales sin Preparar</div><div class="avoid-reason"><i class="fas fa-hourglass-half"></i> Contienen inhibidores</div></div>
+                        <div class="food-info"><div class="food-name">Cereales sin Preparar</div><div class="avoid-reason"><i class="fas fa-hourglass-half"></i> Contienen inhibidores</div></div>
                     </div>
-                     <div class="avoid-card" data-title="Golosinas y Snacks" data-description="Aportan una gran cantidad de azúcar y calorías vacías, quitando el apetito del niño para las comidas principales que sí contienen hierro." data-tip="Ofrece frutas frescas, trocitos de queso o yogur natural como snacks. Reserva las golosinas solo para ocasiones muy especiales.">
+                     <div class="food-card avoid-card" data-title="Golosinas y Snacks" data-description="Aportan una gran cantidad de azúcar y calorías vacías, quitando el apetito del niño para las comidas principales que sí contienen hierro." data-tip="Ofrece frutas frescas, trocitos de queso o yogur natural como snacks. Reserva las golosinas solo para ocasiones muy especiales.">
                         <div class="food-image"><img src="https://picsum.photos/seed/candy/200/150" alt="Golosinas"><div class="food-card-overlay"><i class="fas fa-search-plus"></i></div></div>
-                        <div class="food-info"><div class="avoid-name">Golosinas y Snacks</div><div class="avoid-reason"><i class="fas fa-cookie-bite"></i> Desplazan comidas reales</div></div>
+                        <div class="food-info"><div class="food-name">Golosinas y Snacks</div><div class="avoid-reason"><i class="fas fa-cookie-bite"></i> Desplazan comidas reales</div></div>
                     </div>
                 </div>
             </div>
@@ -301,6 +542,33 @@
         </div>
     </div>
     
+    <div class="chatbot-container">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h5><i class="fas fa-robot"></i> Asistente Yachay</h5>
+                <button class="close-chat" id="closeChatBtn">&times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="chat-message bot">
+                    ¡Hola! Soy el asistente de Yachay Mikuy. ¿En qué puedo ayudarte hoy?
+                </div>
+            </div>
+            <div class="chat-suggestions" id="chatSuggestions">
+                </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Escribe tu pregunta...">
+                <button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+        </div>
+        <div class="chat-fab" id="chatFab">
+            <i class="fas fa-comments"></i>
+        </div>
+    </div>
+
+    <footer class="footer" style="background-color: var(--primary-blue); color: white; padding: 30px 10px; text-align: center; margin-top: 30px; z-index: 1; position: relative;">
+        <p>&copy; 2025 Yachay Mikuy. Todos los derechos reservados.</p>
+    </footer>
+
     <div id="food-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header"><h3 id="modal-title"></h3><span class="close" id="modal-close">&times;</span></div>
@@ -313,214 +581,500 @@
     
     <div class="toast-container" id="toastContainer"></div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
+
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const sampleRecipes = {
-            desayuno: [
-                { name: "Batido Súper Guerrero", ingredients: ["1/2 plátano", "1/4 taza de avena", "1 taza de espinacas frescas", "1/2 taza de leche", "4 fresas"], steps: ["Lava bien las espinacas y fresas.", "Coloca todos los ingredientes en la licuadora.", "Licúa hasta obtener una mezcla homogénea y sin grumos.", "Sirve inmediatamente para aprovechar todos los nutrientes."], chefTip: "Puedes añadir una cucharadita de semillas de chía para un extra de fibra y omega-3. Si está muy espeso, añade un poco más de leche.", nutriBenefit: "El hierro de las espinacas y la avena se combina con la vitamina C de las fresas, creando una sinergia que multiplica la absorción de hierro y fortalece el sistema inmune.", allergenAlert: "Contiene lácteos. Usa leche de almendras para una versión sin lactosa." },
-                { name: "Torrejas de Quinua y Manzana", ingredients: ["1/2 taza de quinua cocida", "1 huevo", "1/4 de manzana rallada", "Pizca de canela", "Aceite de coco"], steps: ["En un bol, mezcla la quinua cocida con el huevo batido, la manzana rallada y la canela.", "Calienta un poco de aceite de coco en una sartén a fuego medio.", "Vierte pequeñas porciones de la mezcla para formar torrejas.", "Cocina 2-3 minutos por cada lado, hasta que estén doradas.", "Sirve tibio."], chefTip: "Puedes acompañarlas con un poco de miel de abeja (para mayores de 1 año) o puré de frutas.", nutriBenefit: "La quinua es una proteína completa que también aporta hierro. El huevo suma más hierro y nutrientes esenciales para el cerebro del niño.", allergenAlert: "Contiene huevo. Verifica que la quinua esté bien lavada para eliminar las saponinas." },
-                { name: "Huevos Revueltos con Tomate", ingredients: ["2 huevos", "1/2 tomate picado sin pepas", "1 cucharadita de aceite de oliva", "Una pizca de orégano"], steps: ["Calienta el aceite en una sartén y sofríe el tomate por un par de minutos.", "Bate los huevos en un bol y viértelos sobre el tomate.", "Revuelve constantemente con una espátula hasta que los huevos estén cocidos pero aún jugosos.", "Espolvorea una pizca de orégano antes de servir."], chefTip: "Puedes añadir trocitos de queso fresco o espinacas picadas para hacerlo aún más nutritivo.", nutriBenefit: "Un clásico potente: el hierro de la yema de huevo se absorbe mucho mejor gracias a la vitamina C del tomate. Simple, rápido y efectivo.", allergenAlert: "Contiene huevo. Es una excelente opción baja en carbohidratos." }
-            ],
-            almuerzo: [
-                { name: "Guiso Power de Lentejas", ingredients: ["1/2 taza de lentejas (remojadas)", "1/4 de cebolla", "1/2 zanahoria", "1/4 de pimiento rojo", "1 papa pequeña"], steps: ["Sofríe la cebolla, zanahoria y pimiento picados en una olla.", "Añade las lentejas escurridas y la papa en cubos.", "Cubre con agua o caldo y cocina a fuego lento hasta que todo esté tierno.", "Puedes licuar una parte para espesar el guiso."], chefTip: "Sirve con un chorrito de limón o al lado de una ensalada de tomate para maximizar la absorción de hierro.", nutriBenefit: "Las lentejas son una fuente increíble de hierro vegetal. El pimiento rojo no solo da sabor, sino que su vitamina C es crucial para que el cuerpo aproveche ese hierro.", allergenAlert: "Libre de alérgenos comunes. Un plato fundamental en la lucha contra la anemia." },
-                { name: "Tiritas de Hígado Saltado", ingredients: ["100g de hígado de pollo en tiritas", "1/4 de cebolla roja en juliana", "1/4 de tomate en juliana", "Chorrito de vinagre", "Perejil"], steps: ["Sella las tiritas de hígado en una sartén caliente con poco aceite.", "Añade la cebolla y saltea por un minuto.", "Incorpora el tomate, un chorrito de vinagre y saltea rápidamente.", "Retira del fuego y espolvorea perejil picado."], chefTip: "El secreto es una cocción muy rápida para que el hígado quede suave y no amargo. Sírvelo con arroz o puré.", nutriBenefit: "El hígado es el rey del hierro hemo, el que más fácilmente absorbe el cuerpo. Es un superalimento para reponer las reservas de hierro rápidamente.", allergenAlert: "Asegúrate de que el hígado sea fresco y de buena calidad." },
-                { name: "Pescado al Vapor con Brócoli", ingredients: ["1 filete de pescado blanco", "3-4 arbolitos de brócoli", "Rodajas de limón", "Hierbas aromáticas (eneldo, perejil)"], steps: ["Coloca el filete de pescado en un plato con las rodajas de limón y hierbas.", "Pon los arbolitos de brócoli al lado.", "Cocina todo al vapor durante 10-12 minutos, hasta que el pescado esté cocido.", "Sírvelo inmediatamente."], chefTip: "El vapor es el mejor método para conservar los nutrientes. Puedes añadir otras verduras como zanahoria en bastones.", nutriBenefit: "El brócoli es un alimento estrella: aporta hierro y, a la vez, muchísima vitamina C. Esta combinación perfecta asegura una excelente nutrición.", allergenAlert: "Contiene pescado. Ideal para una cena ligera y altamente nutritiva." }
-            ],
-            cena: [
-                { name: "Crema de Espinacas y Papa", ingredients: ["1 taza de espinacas", "1 papa amarilla pequeña", "1/4 de cebolla", "1 taza de caldo de pollo o verduras"], steps: ["Sofríe la cebolla en una olla.", "Añade la papa en cubos y el caldo. Cocina hasta que la papa esté suave.", "Agrega las espinacas y cocina solo por 1 minuto para que no pierdan su color.", "Licúa todo hasta obtener una crema suave."], chefTip: "Puedes añadir un chorrito de leche o crema para hacerla más cremosa. Sírvela con crutones integrales.", nutriBenefit: "Una forma deliciosa y fácil de que los niños coman espinacas. El ácido fólico y el hierro de esta verdura son vitales para la sangre.", allergenAlert: "Puede contener lácteos si se añade leche/crema." },
-                { name: "Tortilla de Acelga", ingredients: ["4-5 hojas de acelga cocida y picada", "2 huevos", "1 cucharada de queso parmesano", "Pizca de nuez moscada"], steps: ["Exprime bien la acelga cocida para quitar el exceso de agua.", "En un bol, bate los huevos y mézclalos con la acelga, el queso y la nuez moscada.", "Cocina la tortilla en una sartén pequeña por ambos lados.", "Corta en triángulos para servir."], chefTip: "Ideal para que los niños la coman con las manos. Puedes hacerla en moldes de muffin en el horno.", nutriBenefit: "La acelga, prima de la espinaca, también es rica en hierro y vitaminas. Combinada con el huevo, se crea una cena ligera pero muy nutritiva.", allergenAlert: "Contiene huevo y lácteos." },
-                { name: "Arroz Tapado de Sangrecita", ingredients: ["1/4 taza de sangrecita de pollo cocida y graneada", "1/4 de cebolla roja picada", "Ajo molido", "Ají panca molido (opcional, sin picante)", "Arroz cocido"], steps: ["Prepara un aderezo con cebolla, ajo y ají panca.", "Incorpora la sangrecita y cocínala por unos minutos.", "En un molde pequeño, coloca una capa de arroz, una capa del guiso de sangrecita y tapa con más arroz.", "Desmolda en el plato."], chefTip: "Acompaña siempre con una pequeña ensalada de cebolla y tomate o un refresco de camu camu para la vitamina C.", nutriBenefit: "La sangrecita es uno de los alimentos más recomendados para combatir la anemia por su altísimo contenido de hierro de fácil absorción.", allergenAlert: "Plato de origen peruano, muy efectivo y económico." }
-            ],
-            postre: [
-                { name: "Mousse de Sangrecita con Chocolate", ingredients: ["100g de sangrecita cocida", "50g de chocolate bitter (>70% cacao)", "1/4 taza de leche", "Endulzante al gusto (opcional)"], steps: ["Derrite el chocolate a baño maría o en el microondas.", "Licúa la sangrecita cocida con la leche hasta que no queden grumos.", "Incorpora el chocolate derretido y sigue licuando hasta obtener una mezcla homogénea.", "Vierte en copas y refrigera por al menos 2 horas."], chefTip: "Decora con fresas o frambuesas. El sabor del chocolate enmascara por completo el de la sangrecita, ¡es un postre secreto!", nutriBenefit: "Una forma innovadora y deliciosa de darles a los niños los beneficios del hierro de la sangrecita. El cacao puro también aporta hierro y antioxidantes.", allergenAlert: "Puede contener lácteos." },
-                { name: "Galletas de Avena y Lentejas", ingredients: ["1/2 taza de puré de lentejas cocidas", "1 taza de avena", "1 plátano maduro hecho puré", "1/4 taza de pasas", "Canela en polvo"], steps: ["Precalienta el horno a 180°C.", "En un bol, mezcla todos los ingredientes hasta formar una masa pegajosa.", "Con una cuchara, forma pequeñas galletas en una bandeja para horno engrasada.", "Hornea por 15-20 minutos o hasta que los bordes estén dorados."], chefTip: "Asegúrate de que las lentejas estén bien cocidas y sin sal para el puré. Son ideales para la lonchera.", nutriBenefit: "¡Una galleta que combate la anemia! Combina el hierro de las lentejas y la avena en un formato que a los niños les encanta.", allergenAlert: "Asegúrate que la avena sea libre de gluten si es necesario." },
-                { name: "Helado de Remolacha y Fresa", ingredients: ["1/2 remolacha pequeña, cocida y en trozos", "1 taza de fresas congeladas", "1/2 plátano congelado", "Un chorrito de jugo de naranja"], steps: ["Asegúrate de que la fruta y la remolacha estén bien congeladas.", "Coloca todos los ingredientes en un procesador de alimentos o licuadora potente.", "Procesa hasta obtener una textura cremosa y suave, similar a un helado.", "Sirve inmediatamente."], chefTip: "Si no tienes procesador, puedes licuar y luego congelar por un par de horas, revolviendo ocasionalmente.", nutriBenefit: "La remolacha (betarraga) es conocida por su aporte de hierro y folatos. Las fresas y la naranja aportan la vitamina C necesaria para una absorción óptima.", allergenAlert: "Postre natural, vegano y libre de alérgenos comunes." }
-            ]
-        };
+        // --- INICIO: LÓGICA DE SESIÓN E INACTIVIDAD ---
+        let inactivityTimer;
 
-        let ingredients = [];
-        const childId = new URLSearchParams(window.location.search).get('childId');
-        if (!childId) { setTimeout(() => window.location.href = 'index.html', 2000); return; }
-        
-        function initializeApp() {
-            loadChildData();
-            renderCharts();
-            initializeFoodModals();
-            initializeTabs();
-            initializePantry();
-            initializeRecipeGeneration();
-            initializeLogout();
-        }
-
-        function loadChildData() {
-            const child = (JSON.parse(localStorage.getItem('yachay_children') || '[]')).find(c => c.id === childId);
-            if (child) {
-                document.querySelector('.header h1').innerHTML = `<i class="fas fa-carrot"></i> Cocina para ${child.name}`;
-                document.getElementById('backToProfile').href = `chicos.html?childId=${childId}`;
-            }
-        }
-
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `custom-toast toast-${type}`;
-            toast.innerHTML = `<div>${message}</div>`;
-            container.appendChild(toast);
-            setTimeout(() => toast.remove(), 4000);
-        }
-
-        function initializeTabs() {
-             document.querySelectorAll('.nav-tab').forEach(tab => tab.addEventListener('click', (e) => {
-                document.querySelectorAll('.nav-tab, .tab-content').forEach(el => el.classList.remove('active'));
-                const tabId = e.currentTarget.dataset.tab;
-                e.currentTarget.classList.add('active');
-                document.getElementById(`${tabId}-tab`).classList.add('active');
-            }));
-        }
-
-        function initializePantry() {
-            const savedPantry = localStorage.getItem(`pantry_${childId}`);
-            if (savedPantry) {
-                const pantryData = JSON.parse(savedPantry);
-                ingredients = pantryData.manualIngredients || [];
-                if (pantryData.imageUrl) {
-                    document.getElementById('pantry-image-container').innerHTML = `<img src="${pantryData.imageUrl}" id="pantry-image-preview" alt="Vista previa de despensa">`;
-                }
-            }
-            renderPantry();
-
-            document.getElementById('add-ingredient').addEventListener('click', () => {
-                const input = document.getElementById('ingredient-input');
-                const value = input.value.trim();
-                if (value && !ingredients.includes(value)) {
-                    ingredients.push(value);
-                    renderPantry();
-                    input.value = '';
-                }
-            });
-
-            document.getElementById('photo-upload').addEventListener('change', (event) => {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        const container = document.getElementById('pantry-image-container');
-                        container.innerHTML = `<img src="${e.target.result}" id="pantry-image-preview" alt="Vista previa de despensa">`;
-                    }
-                    reader.readAsDataURL(file);
-                    showToast('Foto cargada. La IA la analizará pronto.', 'info');
-                }
-            });
+        function logoutAndRedirect() {
+            console.log("Inactividad detectada. Cerrando sesión y redirigiendo.");
+            const session = storageAdapter.getSession();
+            session.currentUserId = null;
+            session.exploringAsGuest = false;
+            storageAdapter.saveSession(session);
             
-            document.getElementById('save-pantry').addEventListener('click', () => {
-                const imgSrc = document.getElementById('pantry-image-preview')?.src || null;
-                const pantryData = {
-                    manualIngredients: ingredients,
-                    imageUrl: imgSrc
-                };
-                localStorage.setItem(`pantry_${childId}`, JSON.stringify(pantryData));
-                showToast('Despensa guardada con éxito', 'success');
-            });
-
-            document.getElementById('clear-pantry-btn').addEventListener('click', () => {
-                if (confirm('¿Estás seguro de que quieres borrar todos los ingredientes y la foto de tu despensa?')) {
-                    ingredients = [];
-                    document.getElementById('pantry-image-container').innerHTML = '';
-                    localStorage.removeItem(`pantry_${childId}`);
-                    renderPantry();
-                    showToast('Despensa limpiada.', 'info');
-                }
-            });
-        }
-
-        function renderPantry() {
-            const listContainer = document.getElementById('ingredients-list');
-            listContainer.innerHTML = '';
-            if (ingredients.length === 0) {
-                 listContainer.innerHTML = `<p style="color: #999;">Aquí aparecerán tus ingredientes...</p>`;
-            } else {
-                ingredients.forEach((ing, index) => {
-                    const item = document.createElement('div');
-                    item.className = 'food-item-tag';
-                    item.innerHTML = `<span>${ing}</span><button data-index="${index}">&times;</button>`;
-                    listContainer.appendChild(item);
-                });
-            }
-            listContainer.querySelectorAll('button').forEach(btn => btn.addEventListener('click', (e) => {
-                ingredients.splice(e.target.dataset.index, 1);
-                renderPantry();
-            }));
-        }
-
-        function initializeRecipeGeneration() {
-            document.querySelectorAll('.recipe-buttons .btn').forEach(btn => btn.addEventListener('click', () => generateRecipes(btn.dataset.meal)));
-        }
-        
-        function generateRecipes(mealType) {
-            const loader = document.getElementById('loader');
-            const container = document.getElementById('recipes-container');
-            const devMessage = document.getElementById('recipe-dev-message');
+            showToast('Sesión cerrada por inactividad.', 'info');
             
-            container.innerHTML = '';
-            devMessage.style.display = 'none';
-            loader.style.display = 'block';
-
             setTimeout(() => {
-                loader.style.display = 'none';
-                const recipesToDisplay = sampleRecipes[mealType];
-                recipesToDisplay.forEach(recipe => {
-                    const card = document.createElement('div');
-                    card.className = 'recipe-card';
-                    card.style.borderColor = mealType === 'desayuno' ? 'var(--primary-color)' : mealType === 'almuerzo' ? 'var(--warning-color)' : mealType === 'cena' ? 'var(--info-color)' : 'var(--secondary-color)';
-                    card.innerHTML = `
-                        <h3><i class="fas fa-utensils"></i> ${recipe.name}</h3>
-                        <h4><i class="fas fa-list-check"></i> Ingredientes:</h4><ul>${recipe.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
-                        <h4><i class="fas fa-shoe-prints"></i> Pasos:</h4><ol>${recipe.steps.map(s => `<li>${s}</li>`).join('')}</ol>
-                        <div class="recipe-detail recipe-tip"><i class="fas fa-lightbulb"></i><div><strong>Consejo del Chef:</strong> ${recipe.chefTip}</div></div>
-                        <div class="recipe-detail recipe-benefit"><i class="fas fa-heart-pulse"></i><div><strong>Beneficio Nutricional:</strong> ${recipe.nutriBenefit}</div></div>
-                        <div class="recipe-detail recipe-alert"><i class="fas fa-triangle-exclamation"></i><div><strong>Alérgenos:</strong> ${recipe.allergenAlert}</div></div>
-                    `;
-                    container.appendChild(card);
-                });
-                devMessage.innerHTML = `<div class="development-message">IA en desarrollo. ¡Estas son 3 ideas nutritivas para inspirarte!</div>`;
-                devMessage.style.display = 'block';
+                window.location.href = 'index.html';
             }, 1500);
         }
 
-        function initializeFoodModals() {
-            const foodModal = document.getElementById('food-modal');
-            const modalClose = document.getElementById('modal-close');
-            document.querySelectorAll('.food-card, .avoid-card').forEach(card => {
-                card.addEventListener('click', () => {
-                    document.getElementById('modal-title').innerText = card.dataset.title;
-                    document.getElementById('modal-description').innerText = card.dataset.description;
-                    document.getElementById('modal-tip').innerText = card.dataset.tip;
-                    foodModal.style.display = 'block';
-                });
-            });
-            modalClose.onclick = () => foodModal.style.display = 'none';
-            window.onclick = (event) => { if (event.target == foodModal) { foodModal.style.display = "none"; }};
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(logoutAndRedirect, 60000); // 1 minuto
         }
+        // --- FIN: LÓGICA DE SESIÓN E INACTIVIDAD ---
 
-        function initializeLogout() {
-            document.getElementById('logout-btn').addEventListener('click', () => {
-                localStorage.removeItem('yachay_session');
-                showToast('Cerrando sesión...', 'info');
-                setTimeout(() => window.location.href = 'index.html', 1500);
-            });
-        }
-
-        function renderCharts() {
-            if(window.myParetoChart) window.myParetoChart.destroy();
-            if(window.myControlChart) window.myControlChart.destroy();
-            const paretoCtx = document.getElementById('paretoChart').getContext('2d');
-            window.myParetoChart = new Chart(paretoCtx, { type: 'bar', data: { labels: ['Hígado', 'Carnes Rojas', 'Lentejas', 'Espinacas', 'Huevo'], datasets: [{ label: 'Aporte de Hierro (mg por porción)', data: [9.0, 3.5, 3.3, 2.7, 1.2], backgroundColor: 'rgba(178, 34, 34, 0.7)' }] }, options: { responsive: true, maintainAspectRatio: false } });
-            const controlCtx = document.getElementById('controlChart').getContext('2d');
-            window.myControlChart = new Chart(controlCtx, { type: 'line', data: { labels: ['Lunes', 'Martes', 'Miérc', 'Jueves', 'Viernes'], datasets: [{ label: 'Consumo Actual (mg)', data: [7, 8, 6, 9, 7.5], borderColor: 'rgba(3, 169, 244, 1)', tension: 0.1 }, { label: 'Recomendado (mg)', data: [8, 8, 8, 8, 8], borderColor: 'rgba(255, 152, 0, 1)', borderDash: [5, 5] }] }, options: { responsive: true, maintainAspectRatio: false } });
-        }
         
-        initializeApp();
-    });
+        // --- INICIO: LÓGICA DE LA GUÍA INTERACTIVA (Intro.js) ---
+        
+        function startAnemiaGuide() {
+            if (document.querySelector('.introjs-overlay')) return;
+            const intro = introJs();
+            intro.setOptions({
+                steps: [
+                    { element: '.header h1', intro: '¡Bienvenido a la <b>Cocina Inteligente</b>! Esta sección está dedicada a ayudarte a preparar comidas nutritivas para tu hijo.' },
+                    { element: '.nav-tabs', intro: 'Aquí puedes navegar por tres secciones: <b>Anemia</b> (para aprender), <b>Alimentos</b> (qué usar) y <b>Recetas</b> (cómo prepararlo).' },
+                    { element: '#anemia-tab .anemia-section', intro: 'Esta es la pestaña <b>Anemia</b>. Aquí encontrarás un resumen del desafío y gráficos sobre las fuentes de hierro y el seguimiento nutricional.' },
+                    { element: '#anemia-tab .charts-container', intro: 'Estos gráficos te ayudan a entender qué alimentos son más potentes y cómo va el progreso.' }
+                ],
+                nextLabel: 'Siguiente &rarr;', prevLabel: '&larr; Anterior', doneLabel: '¡Entendido!', skipLabel: 'x',
+                showBullets: false, exitOnOverlayClick: false, tooltipClass: 'custom-intro-tooltip'
+            });
+            // REMOVIDO: localStorage.setItem
+            intro.start();
+        }
+
+        function startFoodsGuide() {
+            if (document.querySelector('.introjs-overlay')) return;
+            const intro = introJs();
+            intro.setOptions({
+                steps: [
+                    { element: '#foods-tab .recommended-foods', intro: '¡Estás en <b>Alimentos</b>! Aquí verás una lista de "Alimentos para Potenciar" (como hígado, lentejas) que son claves contra la anemia.' },
+                    { element: '#foods-tab .avoid-foods', intro: 'Justo debajo, verás los "Alimentos a Limitar", ya que pueden dificultar la absorción de hierro (como el té o las gaseosas).' },
+                    { element: '#foods-tab .food-card', intro: 'Puedes hacer clic en cualquier tarjeta de alimento para obtener más <b>descripción y consejos</b>.' }
+                ],
+                nextLabel: 'Siguiente &rarr;', prevLabel: '&larr; Anterior', doneLabel: '¡Entendido!', skipLabel: 'x',
+                showBullets: false, exitOnOverlayClick: false, tooltipClass: 'custom-intro-tooltip'
+            });
+            // REMOVIDO: localStorage.setItem
+            intro.start();
+        }
+
+        function startRecipesGuide() {
+            if (document.querySelector('.introjs-overlay')) return;
+            const intro = introJs();
+            intro.setOptions({
+                steps: [
+                    { element: '#recipes-tab .pantry-card:first-child', intro: '¡Bienvenido a <b>Recetas</b>! Aquí es donde ocurre la magia. Primero, añade los ingredientes que tienes en tu despensa, ya sea escribiéndolos o subiendo una foto.' },
+                    { element: '#recipes-tab .pantry-card:last-child', intro: 'Tus ingredientes guardados aparecerán aquí.' },
+                    { element: '#recipes-tab .recipe-buttons', intro: 'Una vez tengas tus ingredientes listos, elige un tipo de comida (Desayuno, Almuerzo, etc.) y la IA te generará recetas nutritivas.' }
+                ],
+                nextLabel: 'Siguiente &rarr;', prevLabel: '&larr; Anterior', doneLabel: '¡Entendido!', skipLabel: 'x',
+                showBullets: false, exitOnOverlayClick: false, tooltipClass: 'custom-intro-tooltip'
+            });
+            // REMOVIDO: localStorage.setItem
+            intro.start();
+        }
+        // --- FIN: LÓGICA DE LA GUÍA INTERACTIVA ---
+
+
+        // --- INICIO: LÓGICA DEL CHATBOT ---
+        
+        const chatKnowledgeBase = {
+            // Conocimiento General
+            saludos: { keywords: ['hola', 'buenos dias', 'buenas tardes', 'buenas noches', 'saludos'], response: '¡Hola! Soy el asistente virtual de Yachay Mikuy. ¿En qué puedo ayudarte hoy? Puedes preguntarme sobre las 3 pestañas de esta página: Anemia, Alimentos o Recetas.' },
+            acerca: { keywords: ['acerca de', 'quienes son', 'mision', 'vision', 'equipo', 'yachay mikuy'], response: '<b>Nuestra Misión:</b> Reducir la anemia infantil en más del 60% en Latinoamérica con soluciones personalizadas y accesibles.' },
+            servicios: { keywords: ['servicios', 'que hacen', 'ia', 'plan', 'mikuycito'], response: 'Ofrecemos <b>Planes Personalizados con IA</b> para procesar la información de cada niño y generar un plan único.' },
+            precios: { keywords: ['precio', 'costo', 'cuanto cuesta', 'precios'], response: 'El acceso a Yachay Mikuy es gestionado a través de planes accesibles. ¡La salud no debe ser un lujo!' },
+            privacidad: { keywords: ['privacidad', 'datos', 'seguro', 'seguridad'], response: 'La seguridad de tus datos es nuestra máxima prioridad. Cumplimos con todas las normativas y usamos encriptación.' },
+
+            // Conocimiento Específico de "Cocina Inteligente"
+            anemia_tab: {
+                keywords: ['anemia', 'grafico', 'seguimiento', 'que es la anemia', 'dimensiones'],
+                response: "Puedes ver toda la información sobre la anemia en la pestaña <b>'Anemia'</b>. Allí encontrarás gráficos sobre las fuentes de hierro y las dimensiones del problema (nutricional, psicológico, etc.)."
+            },
+            alimentos_tab: {
+                keywords: ['alimentos', 'que comer', 'evitar', 'higado', 'lentejas', 'gaseosa', 'te'],
+                response: "Ve a la pestaña <b>'Alimentos'</b>. Allí encontrarás dos listas: 'Alimentos para Potenciar' (los que ayudan) y 'Alimentos a Limitar' (los que perjudican la absorción de hierro)."
+            },
+            recetas_tab: {
+                keywords: ['receta', 'recetas', 'despensa', 'generar comida', 'tengo pollo', 'subir foto', 'ingredientes'],
+                response: "¡Claro! Ve a la pestaña <b>'Recetas'</b>. Primero, añade los ingredientes que tienes en tu despensa (escribiendo o con una foto). Luego, presiona los botones de 'Desayuno', 'Almuerzo' o 'Cena' para que la IA te cree un plato nutritivo."
+            },
+            desayuno: {
+                keywords: ['desayuno'],
+                response: "Puedes generar recetas para el desayuno en la pestaña <b>'Recetas'</b>. Solo añade tus ingredientes y presiona el botón 'Desayuno'."
+            },
+            almuerzo: {
+                keywords: ['almuerzo'],
+                response: "Puedes generar recetas para el almuerzo en la pestaña <b>'Recetas'</b>. Solo añade tus ingredientes y presiona el botón 'Almuerzo'."
+            },
+            cena: {
+                keywords: ['cena'],
+                response: "Puedes generar recetas para la cena en la pestaña <b>'Recetas'</b>. Solo añade tus ingredientes y presiona el botón 'Cena'."
+            }
+        };
+
+        // AÑADIDO: Pool de sugerencias y función de shuffle
+        const allSuggestions = [
+            "¿Qué es la anemia?",
+            "¿Qué alimentos debo usar?",
+            "¿Qué alimentos evito?",
+            "¿Cómo creo una receta?",
+            "¿Cómo uso la despensa?",
+            "Dame ideas de desayuno",
+            "Dame ideas de almuerzo",
+            "¿Qué gráficos hay?",
+            "¿Qué es el hierro hemo?"
+        ];
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+        // FIN AÑADIDO
+
+        function normalizeText(text) {
+            return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        function getBotResponse(userInput) {
+            const normalizedInput = normalizeText(userInput);
+            for (const key in chatKnowledgeBase) {
+                const entry = chatKnowledgeBase[key];
+                for (const keyword of entry.keywords) {
+                    if (normalizedInput.includes(normalizeText(keyword))) {
+                        return entry.response;
+                    }
+                }
+            }
+            return 'No entendí tu pregunta. Intenta reformularla o usa uno de los botones de sugerencia.';
+        }
+
+        function addChatMessage(message, sender) {
+            const chatBody = document.getElementById('chatBody');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${sender}`;
+            messageDiv.innerHTML = message;
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function clearChat() {
+            const chatBody = document.getElementById('chatBody');
+            chatBody.innerHTML = '<div class="chat-message bot">¡Hola! Soy el asistente de Yachay Mikuy. ¿En qué puedo ayudarte hoy?</div>';
+            chatBody.scrollTop = 0;
+            showDynamicSuggestions(); // Mostrar botones al limpiar
+        }
+
+        // MODIFICADO: Función centralizada para enviar mensajes
+        function sendChatMessage(message) {
+            const chatInput = document.getElementById('chatInput');
+            const messageText = message.trim();
+            
+            if (messageText === '') return;
+            
+            addChatMessage(messageText, 'user');
+            if (chatInput) chatInput.value = ''; // Limpiar el input si se usó
+            
+            setTimeout(() => {
+                const botResponse = getBotResponse(messageText);
+                addChatMessage(botResponse, 'bot');
+                showDynamicSuggestions(); // Mostrar NUEVOS botones aleatorios
+            }, 500);
+        }
+
+        // MODIFICADO: Función para mostrar botones DINÁMICOS
+        function showDynamicSuggestions() {
+            const randomSuggestions = shuffleArray([...allSuggestions]).slice(0, 3); // Tomar 3 aleatorios
+            renderSuggestions(randomSuggestions);
+        }
+
+        // AÑADIDO: Función para renderizar botones
+        function renderSuggestions(suggestionsArray) {
+            const container = document.getElementById('chatSuggestions');
+            if (!container) return;
+            container.innerHTML = '';
+            suggestionsArray.forEach(text => {
+                const btn = document.createElement('button');
+                btn.className = 'suggestion-btn';
+                btn.textContent = text;
+                btn.onclick = () => sendChatMessage(text); // Al hacer clic, envía el texto
+                container.appendChild(btn);
+            });
+        }
+
+        function setupChatbotListeners() {
+            const chatFab = document.getElementById('chatFab');
+            const chatWindow = document.getElementById('chatWindow');
+            const closeChatBtn = document.getElementById('closeChatBtn');
+            const chatSendBtn = document.getElementById('chatSendBtn');
+            const chatInput = document.getElementById('chatInput');
+
+            if (!chatFab) return;
+
+            chatFab.addEventListener('click', () => {
+                const isActive = chatWindow.classList.toggle('active');
+                if (isActive) {
+                    showDynamicSuggestions(); // Mostrar botones al abrir
+                } else {
+                    clearChat();
+                }
+            });
+            
+            closeChatBtn.addEventListener('click', () => {
+                chatWindow.classList.remove('active');
+                clearChat();
+            });
+
+            chatSendBtn.addEventListener('click', () => sendChatMessage(chatInput.value));
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendChatMessage(e.target.value);
+                }
+            });
+        }
+        // --- FIN: LÓGICA DEL CHATBOT ---
+
+
+        // --- LÓGICA DE LA PÁGINA EXISTENTE ---
+        const storageAdapter = {
+            getUsers: () => JSON.parse(localStorage.getItem('yachay_users') || '[]'),
+            getChildren: () => JSON.parse(localStorage.getItem('yachay_children') || '[]'),
+            getSession: () => JSON.parse(localStorage.getItem('yachay_session') || '{"currentUserId":null,"exploringAsGuest":false}'),
+            saveSession: (session) => localStorage.setItem('yachay_session', JSON.stringify(session)),
+            saveChildren: (children) => localStorage.setItem('yachay_children', JSON.stringify(children)),
+            saveResponses: (responses) => localStorage.setItem('yachay_responses', JSON.stringify(responses))
+        };
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            resetInactivityTimer();
+            window.addEventListener('mousemove', resetInactivityTimer);
+            window.addEventListener('mousedown', resetInactivityTimer);
+            window.addEventListener('keypress', resetInactivityTimer);
+            window.addEventListener('touchmove', resetInactivityTimer);
+            window.addEventListener('scroll', resetInactivityTimer, true);
+
+            setupChatbotListeners();
+            
+            // MODIFICADO: Iniciar la primera guía (Anemia) CADA VEZ
+            setTimeout(startAnemiaGuide, 500);
+
+            const sampleRecipes = {
+                desayuno: [
+                    { name: "Batido Súper Guerrero", ingredients: ["1/2 plátano", "1/4 taza de avena", "1 taza de espinacas frescas", "1/2 taza de leche", "4 fresas"], steps: ["Lava bien las espinacas y fresas.", "Coloca todos los ingredientes en la licuadora.", "Licúa hasta obtener una mezcla homogénea y sin grumos.", "Sirve inmediatamente para aprovechar todos los nutrientes."], chefTip: "Puedes añadir una cucharadita de semillas de chía para un extra de fibra y omega-3. Si está muy espeso, añade un poco más de leche.", nutriBenefit: "El hierro de las espinacas y la avena se combina con la vitamina C de las fresas, creando una sinergia que multiplica la absorción de hierro y fortalece el sistema inmune.", allergenAlert: "Contiene lácteos. Usa leche de almendras para una versión sin lactosa." },
+                    { name: "Torrejas de Quinua y Manzana", ingredients: ["1/2 taza de quinua cocida", "1 huevo", "1/4 de manzana rallada", "Pizca de canela", "Aceite de coco"], steps: ["En un bol, mezcla la quinua cocida con el huevo batido, la manzana rallada y la canela.", "Calienta un poco de aceite de coco en una sartén a fuego medio.", "Vierte pequeñas porciones de la mezcla para formar torrejas.", "Cocina 2-3 minutos por cada lado, hasta que estén doradas.", "Sirve tibio."], chefTip: "Puedes acompañarlas con un poco de miel de abeja (para mayores de 1 año) o puré de frutas.", nutriBenefit: "La quinua es una proteína completa que también aporta hierro. El huevo suma más hierro y nutrientes esenciales para el cerebro del niño.", allergenAlert: "Contiene huevo. Verifica que la quinua esté bien lavada para eliminar las saponinas." },
+                    { name: "Huevos Revueltos con Tomate", ingredients: ["2 huevos", "1/2 tomate picado sin pepas", "1 cucharadita de aceite de oliva", "Una pizca de orégano"], steps: ["Calienta el aceite en una sartén y sofríe el tomate por un par de minutos.", "Bate los huevos en un bol y viértelos sobre el tomate.", "Revuelve constantemente con una espátula hasta que los huevos estén cocidos pero aún jugosos.", "Espolvorea una pizca de orégano antes de servir."], chefTip: "Puedes añadir trocitos de queso fresco o espinacas picadas para hacerlo aún más nutritivo.", nutriBenefit: "Un clásico potente: el hierro de la yema de huevo se absorbe mucho mejor gracias a la vitamina C del tomate. Simple, rápido y efectivo.", allergenAlert: "Contiene huevo. Es una excelente opción baja en carbohidratos." }
+                ],
+                almuerzo: [
+                    { name: "Guiso Power de Lentejas", ingredients: ["1/2 taza de lentejas (remojadas)", "1/4 de cebolla", "1/2 zanahoria", "1/4 de pimiento rojo", "1 papa pequeña"], steps: ["Sofríe la cebolla, zanahoria y pimiento picados en una olla.", "Añade las lentejas escurridas y la papa en cubos.", "Cubre con agua o caldo y cocina a fuego lento hasta que todo esté tierno.", "Puedes licuar una parte para espesar el guiso."], chefTip: "Sirve con un chorrito de limón o al lado de una ensalada de tomate para maximizar la absorción de hierro.", nutriBenefit: "Las lentejas son una fuente increíble de hierro vegetal. El pimiento rojo no solo da sabor, sino que su vitamina C es crucial para que el cuerpo aproveche ese hierro.", allergenAlert: "Libre de alérgenos comunes. Un plato fundamental en la lucha contra la anemia." },
+                    { name: "Tiritas de Hígado Saltado", ingredients: ["100g de hígado de pollo en tiritas", "1/4 de cebolla roja en juliana", "1/4 de tomate en juliana", "Chorrito de vinagre", "Perejil"], steps: ["Sella las tiritas de hígado en una sartén caliente con poco aceite.", "Añade la cebolla y saltea por un minuto.", "Incorpora el tomate, un chorrito de vinagre y saltea rápidamente.", "Retira del fuego y espolvorea perejil picado."], chefTip: "El secreto es una cocción muy rápida para que el hígado quede suave y no amargo. Sírvelo con arroz o puré.", nutriBenefit: "El hígado es el rey del hierro hemo, el que más fácilmente absorbe el cuerpo. Es un superalimento para reponer las reservas de hierro rápidamente.", allergenAlert: "Asegúrate de que el hígado sea fresco y de buena calidad." },
+                    { name: "Pescado al Vapor con Brócoli", ingredients: ["1 filete de pescado blanco", "3-4 arbolitos de brócoli", "Rodajas de limón", "Hierbas aromáticas (eneldo, perejil)"], steps: ["Coloca el filete de pescado en un plato con las rodajas de limón y hierbas.", "Pon los arbolitos de brócoli al lado.", "Cocina todo al vapor durante 10-12 minutos, hasta que el pescado esté cocido.", "Sírvelo inmediatamente."], chefTip: "El vapor es el mejor método para conservar los nutrientes. Puedes añadir otras verduras como zanahoria en bastones.", nutriBenefit: "El brócoli es un alimento estrella: aporta hierro y, a la vez, muchísima vitamina C. Esta combinación perfecta asegura una excelente nutrición.", allergenAlert: "Contiene pescado. Ideal para una cena ligera y altamente nutritiva." }
+                ],
+                cena: [
+                    { name: "Crema de Espinacas y Papa", ingredients: ["1 taza de espinacas", "1 papa amarilla pequeña", "1/4 de cebolla", "1 taza de caldo de pollo o verduras"], steps: ["Sofríe la cebolla en una olla.", "Añade la papa en cubos y el caldo. Cocina hasta que la papa esté suave.", "Agrega las espinacas y cocina solo por 1 minuto para que no pierdan su color.", "Licúa todo hasta obtener una crema suave."], chefTip: "Puedes añadir un chorrito de leche o crema para hacerla más cremosa. Sírvela con crutones integrales.", nutriBenefit: "Una forma deliciosa y fácil de que los niños coman espinacas. El ácido fólico y el hierro de esta verdura son vitales para la sangre.", allergenAlert: "Puede contener lácteos si se añade leche/crema." },
+                    { name: "Tortilla de Acelga", ingredients: ["4-5 hojas de acelga cocida y picada", "2 huevos", "1 cucharada de queso parmesano", "Pizca de nuez moscada"], steps: ["Exprime bien la acelga cocida para quitar el exceso de agua.", "En un bol, bate los huevos y mézclalos con la acelga, el queso y la nuez moscada.", "Cocina la tortilla en una sartén pequeña por ambos lados.", "Corta en triángulos para servir."], chefTip: "Ideal para que los niños la coman con las manos. Puedes hacerla en moldes de muffin en el horno.", nutriBenefit: "La acelga, prima de la espinaca, también es rica en hierro y vitaminas. Combinada con el huevo, se crea una cena ligera pero muy nutritiva.", allergenAlert: "Contiene huevo y lácteos." },
+                    { name: "Arroz Tapado de Sangrecita", ingredients: ["1/4 taza de sangrecita de pollo cocida y graneada", "1/4 de cebolla roja picada", "Ajo molido", "Ají panca molido (opcional, sin picante)", "Arroz cocido"], steps: ["Prepara un aderezo con cebolla, ajo y ají panca.", "Incorpora la sangrecita y cocínala por unos minutos.", "En un molde pequeño, coloca una capa de arroz, una capa del guiso de sangrecita y tapa con más arroz.", "Desmolda en el plato."], chefTip: "Acompaña siempre con una pequeña ensalada de cebolla y tomate o un refresco de camu camu para la vitamina C.", nutriBenefit: "La sangrecita es uno de los alimentos más recomendados para combatir la anemia por su altísimo contenido de hierro de fácil absorción.", allergenAlert: "Plato de origen peruano, muy efectivo y económico." }
+                ],
+                postre: [
+                    { name: "Mousse de Sangrecita con Chocolate", ingredients: ["100g de sangrecita cocida", "50g de chocolate bitter (>70% cacao)", "1/4 taza de leche", "Endulzante al gusto (opcional)"], steps: ["Derrite el chocolate a baño maría o en el microondas.", "Licúa la sangrecita cocida con la leche hasta que no queden grumos.", "Incorpora el chocolate derretido y sigue licuando hasta obtener una mezcla homogénea.", "Vierte en copas y refrigera por al menos 2 horas."], chefTip: "Decora con fresas o frambuesas. El sabor del chocolate enmascara por completo el de la sangrecita, ¡es un postre secreto!", nutriBenefit: "Una forma innovadora y deliciosa de darles a los niños los beneficios del hierro de la sangrecita. El cacao puro también aporta hierro y antioxidantes.", allergenAlert: "Puede contener lácteos." },
+                    { name: "Galletas de Avena y Lentejas", ingredients: ["1/2 taza de puré de lentejas cocidas", "1 taza de avena", "1 plátano maduro hecho puré", "1/4 taza de pasas", "Canela en polvo"], steps: ["Precalienta el horno a 180°C.", "En un bol, mezcla todos los ingredientes hasta formar una masa pegajosa.", "Con una cuchara, forma pequeñas galletas en una bandeja para horno engrasada.", "Hornea por 15-20 minutos o hasta que los bordes estén dorados."], chefTip: "Asegúrate de que las lentejas estén bien cocidas y sin sal para el puré. Son ideales para la lonchera.", nutriBenefit: "¡Una galleta que combate la anemia! Combina el hierro de las lentejas y la avena en un formato que a los niños les encanta.", allergenAlert: "Asegúrate que la avena sea libre de gluten si es necesario." },
+                    { name: "Helado de Remolacha y Fresa", ingredients: ["1/2 remolacha pequeña, cocida y en trozos", "1 taza de fresas congeladas", "1/2 plátano congelado", "Un chorrito de jugo de naranja"], steps: ["Asegúrate de que la fruta y la remolacha estén bien congeladas.", "Coloca todos los ingredientes en un procesador de alimentos o licuadora potente.", "Procesa hasta obtener una textura cremosa y suave, similar a un helado.", "Sirve inmediatamente."], chefTip: "Si no tienes procesador, puedes licuar y luego congelar por un par de horas, revolviendo ocasionalmente.", nutriBenefit: "La remolacha (betarraga) es conocida por su aporte de hierro y folatos. Las fresas y la naranja aportan la vitamina C necesaria para una absorción óptima.", allergenAlert: "Postre natural, vegano y libre de alérgenos comunes." }
+                ]
+            };
+
+            let ingredients = [];
+            const childId = new URLSearchParams(window.location.search).get('childId');
+            if (!childId) { 
+                showToast('ID de niño no encontrado. Redirigiendo...', 'error');
+                setTimeout(() => window.location.href = 'index.html', 2000); 
+                return; 
+            }
+            
+            function initializeApp() {
+                loadChildData();
+                renderCharts();
+                initializeFoodModals();
+                initializeTabs();
+                initializePantry();
+                initializeRecipeGeneration();
+                initializeLogout();
+            }
+
+            function loadChildData() {
+                const child = (JSON.parse(localStorage.getItem('yachay_children') || '[]')).find(c => c.id === childId);
+                if (child) {
+                    document.querySelector('.header h1').innerHTML = `<i class="fas fa-carrot"></i> Cocina para ${child.name}`;
+                    document.getElementById('backToProfile').href = `chicos.html?childId=${childId}`;
+                } else {
+                     showToast('Perfil de niño no válido. Redirigiendo...', 'error');
+                     setTimeout(() => window.location.href = 'index.html', 2000);
+                }
+            }
+
+            function showToast(message, type = 'info') {
+                const container = document.getElementById('toastContainer');
+                const toast = document.createElement('div');
+                toast.className = `custom-toast toast-${type}`;
+                const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-circle' : 'fa-info-circle';
+                toast.innerHTML = `<i class="fas ${icon}" style="margin-right: 10px; color: var(--${type}-color);"></i> <div>${message}</div>`;
+                container.appendChild(toast);
+                setTimeout(() => toast.remove(), 4000);
+            }
+
+            function initializeTabs() {
+                // MODIFICADO: Añadida lógica para guías por pestañas
+                 document.querySelectorAll('.nav-tab').forEach(tab => tab.addEventListener('click', (e) => {
+                    document.querySelectorAll('.nav-tab, .tab-content').forEach(el => el.classList.remove('active'));
+                    const tabId = e.currentTarget.dataset.tab;
+                    e.currentTarget.classList.add('active');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+
+                    // CORREGIDO: Mostrar la guía específica CADA VEZ que se hace clic
+                    if (tabId === 'foods') {
+                        startFoodsGuide();
+                    } else if (tabId === 'recipes') {
+                        startRecipesGuide();
+                    } else if (tabId === 'anemia') {
+                        startAnemiaGuide();
+                    }
+                 }));
+            }
+
+            function initializePantry() {
+                const savedPantry = localStorage.getItem(`pantry_${childId}`);
+                if (savedPantry) {
+                    const pantryData = JSON.parse(savedPantry);
+                    ingredients = pantryData.manualIngredients || [];
+                    if (pantryData.imageUrl) {
+                        document.getElementById('pantry-image-container').innerHTML = `<img src="${pantryData.imageUrl}" id="pantry-image-preview" alt="Vista previa de despensa">`;
+                    }
+                }
+                renderPantry();
+
+                document.getElementById('add-ingredient').addEventListener('click', () => {
+                    const input = document.getElementById('ingredient-input');
+                    const value = input.value.trim();
+                    if (value && !ingredients.includes(value)) {
+                        ingredients.push(value);
+                        renderPantry();
+                        input.value = '';
+                    } else if (ingredients.includes(value)) {
+                        showToast('Ese ingrediente ya está en la lista.', 'info');
+                    }
+                });
+
+                document.getElementById('photo-upload').addEventListener('change', (event) => {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const container = document.getElementById('pantry-image-container');
+                            container.innerHTML = `<img src="${e.target.result}" id="pantry-image-preview" alt="Vista previa de despensa">`;
+                        }
+                        reader.readAsDataURL(file);
+                        showToast('Foto cargada. La IA la analizará pronto.', 'info');
+                    }
+                });
+                
+                document.getElementById('save-pantry').addEventListener('click', () => {
+                    const imgSrc = document.getElementById('pantry-image-preview')?.src || null;
+                    const pantryData = {
+                        manualIngredients: ingredients,
+                        imageUrl: imgSrc
+                    };
+                    localStorage.setItem(`pantry_${childId}`, JSON.stringify(pantryData));
+                    showToast('Despensa guardada con éxito', 'success');
+                });
+
+                document.getElementById('clear-pantry-btn').addEventListener('click', () => {
+                    if (confirm('¿Estás seguro de que quieres borrar todos los ingredientes y la foto de tu despensa?')) {
+                        ingredients = [];
+                        document.getElementById('pantry-image-container').innerHTML = '';
+                        localStorage.removeItem(`pantry_${childId}`);
+                        renderPantry();
+                        showToast('Despensa limpiada.', 'info');
+                    }
+                });
+            }
+
+            function renderPantry() {
+                const listContainer = document.getElementById('ingredients-list');
+                listContainer.innerHTML = '';
+                if (ingredients.length === 0) {
+                     listContainer.innerHTML = `<p style="color: #999;">Aquí aparecerán tus ingredientes...</p>`;
+                } else {
+                    ingredients.forEach((ing, index) => {
+                        const item = document.createElement('div');
+                        item.className = 'food-item-tag';
+                        item.innerHTML = `<span>${ing}</span><button data-index="${index}">&times;</button>`;
+                        listContainer.appendChild(item);
+                    });
+                }
+                listContainer.querySelectorAll('button').forEach(btn => btn.addEventListener('click', (e) => {
+                    ingredients.splice(e.target.dataset.index, 1);
+                    renderPantry();
+                }));
+            }
+
+            function initializeRecipeGeneration() {
+                document.querySelectorAll('.recipe-buttons .btn').forEach(btn => btn.addEventListener('click', () => generateRecipes(btn.dataset.meal)));
+            }
+            
+            function generateRecipes(mealType) {
+                const loader = document.getElementById('loader');
+                const container = document.getElementById('recipes-container');
+                const devMessage = document.getElementById('recipe-dev-message');
+                
+                container.innerHTML = '';
+                devMessage.style.display = 'none';
+                loader.style.display = 'block';
+
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                    const recipesToDisplay = sampleRecipes[mealType];
+                    recipesToDisplay.forEach(recipe => {
+                        const card = document.createElement('div');
+                        card.className = 'recipe-card';
+                        card.style.borderColor = mealType === 'desayuno' ? 'var(--primary-color)' : mealType === 'almuerzo' ? 'var(--warning-color)' : mealType === 'cena' ? 'var(--info-color)' : 'var(--secondary-color)';
+                        card.innerHTML = `
+                            <h3><i class="fas fa-utensils"></i> ${recipe.name}</h3>
+                            <h4><i class="fas fa-list-check"></i> Ingredientes:</h4><ul>${recipe.ingredients.map(i => `<li>${i}</li>`).join('')}</ul>
+                            <h4><i class="fas fa-shoe-prints"></i> Pasos:</h4><ol>${recipe.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+                            <div class="recipe-detail recipe-tip"><i class="fas fa-lightbulb"></i><div><strong>Consejo del Chef:</strong> ${recipe.chefTip}</div></div>
+                            <div class="recipe-detail recipe-benefit"><i class="fas fa-heart-pulse"></i><div><strong>Beneficio Nutricional:</strong> ${recipe.nutriBenefit}</div></div>
+                            <div class="recipe-detail recipe-alert"><i class="fas fa-triangle-exclamation"></i><div><strong>Alérgenos:</strong> ${recipe.allergenAlert}</div></div>
+                        `;
+                        container.appendChild(card);
+                    });
+                    devMessage.innerHTML = `<div class="development-message">IA en desarrollo. ¡Estas son 3 ideas nutritivas para inspirarte!</div>`;
+                    devMessage.style.display = 'block';
+                }, 1500);
+            }
+
+            function initializeFoodModals() {
+                const foodModal = document.getElementById('food-modal');
+                const modalClose = document.getElementById('modal-close');
+                document.querySelectorAll('.food-card, .avoid-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        document.getElementById('modal-title').innerText = card.dataset.title;
+                        document.getElementById('modal-description').innerText = card.dataset.description;
+                        document.getElementById('modal-tip').innerText = card.dataset.tip;
+                        foodModal.style.display = 'block';
+                    });
+                });
+                modalClose.onclick = () => foodModal.style.display = 'none';
+                window.onclick = (event) => { if (event.target == foodModal) { foodModal.style.display = "none"; }};
+            }
+
+            function initializeLogout() {
+                document.getElementById('logout-btn').addEventListener('click', () => {
+                    const session = storageAdapter.getSession();
+                    session.currentUserId = null;
+                    session.exploringAsGuest = false;
+                    storageAdapter.saveSession(session);
+                    showToast('Cerrando sesión...', 'info');
+                    setTimeout(() => window.location.href = 'index.html', 1500);
+                });
+            }
+
+            function renderCharts() {
+                if(window.myParetoChart) window.myParetoChart.destroy();
+                if(window.myControlChart) window.myControlChart.destroy();
+                const paretoCtx = document.getElementById('paretoChart').getContext('2d');
+                window.myParetoChart = new Chart(paretoCtx, { type: 'bar', data: { labels: ['Hígado', 'Carnes Rojas', 'Lentejas', 'Espinacas', 'Huevo'], datasets: [{ label: 'Aporte de Hierro (mg por porción)', data: [9.0, 3.5, 3.3, 2.7, 1.2], backgroundColor: 'rgba(178, 34, 34, 0.7)' }] }, options: { responsive: true, maintainAspectRatio: false } });
+                const controlCtx = document.getElementById('controlChart').getContext('2d');
+                window.myControlChart = new Chart(controlCtx, { type: 'line', data: { labels: ['Lunes', 'Martes', 'Miérc', 'Jueves', 'Viernes'], datasets: [{ label: 'Consumo Actual (mg)', data: [7, 8, 6, 9, 7.5], borderColor: 'rgba(3, 169, 244, 1)', tension: 0.1 }, { label: 'Recomendado (mg)', data: [8, 8, 8, 8, 8], borderColor: 'rgba(255, 152, 0, 1)', borderDash: [5, 5] }] }, options: { responsive: true, maintainAspectRatio: false } });
+            }
+            
+            initializeApp();
+        });
     </script>
 </body>
 </html>
