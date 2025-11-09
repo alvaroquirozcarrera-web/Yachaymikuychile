@@ -41,61 +41,107 @@
             --transition: all 0.3s ease-in-out;
             --accent-red: #e63946;
 
-            /* Variables de Intro.js (Guía) */
-            --primary-blue-guide: #1a4b8c; 
-            --accent-color-guide: #2196F3;
+            /* Variables de Intro.js (Guía) - MODIFICADAS */
+            --primary-blue-guide: #2c5aa0; 
+            --accent-color-guide: #5d8cc4;
             --medium-gray-guide: #dee2e6;
         }
 
-        /* --- 1.1. ESTILOS PERSONALIZADOS PARA LA GUÍA (INTRO.JS) --- */
+        /* --- 1.1. ESTILOS PERSONALIZADOS PARA LA GUÍA (INTRO.JS) - MODIFICADOS --- */
+        .introjs-overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        
+        .introjs-helperLayer {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(44, 90, 160, 0.4);
+        }
+        
         .introjs-tooltip {
-            font-family: 'Montserrat', sans-serif; /* Usar la fuente de esta página */
+            font-family: 'Montserrat', sans-serif;
             background-color: var(--white);
             border-radius: var(--radius);
-            box-shadow: var(--shadow);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             border: none;
             color: var(--text-dark);
-            max-width: 350px;
-            padding: 20px;
+            max-width: 400px;
+            padding: 25px;
+            position: fixed;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            margin: 0 !important;
+            z-index: 1100000 !important;
         }
+        
         .introjs-tooltiptext {
-            font-size: 0.95rem;
+            font-size: 1rem;
             line-height: 1.6;
             font-weight: 400;
+            margin-bottom: 20px;
         }
+        
+        .introjs-tooltip-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-blue-guide);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .introjs-tooltip-title i {
+            color: var(--accent-color-guide);
+        }
+        
         .introjs-tooltipbuttons {
             border-top: 1px solid var(--medium-gray-guide);
             padding-top: 15px;
             margin-top: 15px;
             text-align: right;
+            display: flex;
+            justify-content: space-between;
         }
+        
         .introjs-button {
             background: linear-gradient(to right, var(--primary-blue-guide), var(--accent-color-guide));
             color: var(--white);
             border-radius: 50px;
             font-weight: 600;
             border: none;
-            padding: 8px 20px;
+            padding: 10px 20px;
             transition: var(--transition);
             text-shadow: none;
             font-family: 'Montserrat', sans-serif;
+            cursor: pointer;
+            font-size: 0.9rem;
         }
+        
         .introjs-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(44, 90, 160, 0.3);
             color: var(--white);
         }
+        
         .introjs-skipbutton {
             background: transparent;
-            color: #6c757d;
+            color: var(--gray);
             font-weight: 600;
             text-shadow: none;
-            padding: 8px 20px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--gray);
+            transition: var(--transition);
         }
+        
         .introjs-skipbutton:hover {
             background: var(--light-gray);
             color: var(--text-dark);
+            transform: translateY(-2px);
         }
+        
         .introjs-disabled, .introjs-disabled:hover {
             background: var(--medium-gray-guide);
             color: #888;
@@ -104,10 +150,45 @@
             opacity: 0.7;
             cursor: not-allowed;
         }
-        .introjs-arrow.top { border-bottom-color: var(--white); }
-        .introjs-arrow.bottom { border-top-color: var(--white); }
-        .introjs-arrow.left { border-right-color: var(--white); }
-        .introjs-arrow.right { border-left-color: var(--white); }
+        
+        /* Ocultar las flechas ya que el tooltip está centrado */
+        .introjs-arrow {
+            display: none;
+        }
+        
+        /* Estilo para el número de paso */
+        .introjs-tooltip .introjs-step-number {
+            background-color: var(--primary-blue-guide);
+            color: var(--white);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        
+        /* Estilos para dispositivos móviles */
+        @media (max-width: 768px) {
+            .introjs-tooltip {
+                max-width: 90%;
+                padding: 20px;
+                font-size: 0.9rem;
+            }
+            
+            .introjs-tooltipbuttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .introjs-button, .introjs-skipbutton {
+                width: 100%;
+                text-align: center;
+            }
+        }
         /* --- FIN ESTILOS GUÍA --- */
 
 
@@ -912,7 +993,7 @@
         }
         // --- FIN: LÓGICA DE SESIÓN E INACTIVIDAD ---
 
-        // --- INICIO: LÓGICA DE LA GUÍA INTERACTIVA (Intro.js) ---
+        // --- INICIO: LÓGICA DE LA GUÍA INTERACTIVA (Intro.js) - MODIFICADA ---
         function startGuidedTour() {
             if (document.querySelector('.introjs-overlay')) {
                 return;
@@ -922,39 +1003,39 @@
             const steps = [
                 {
                     element: '.profile-header',
-                    intro: 'Este es el <b>perfil individual</b> de tu hijo. Todas las recomendaciones en esta página están personalizadas para él o ella.'
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">1</span><i class="fas fa-user-circle"></i> Perfil Individual</div><div class="introjs-tooltiptext">Este es el <b>perfil individual</b> de tu hijo. Todas las recomendaciones en esta página están personalizadas para él o ella.</div>'
                 },
                 {
                     element: '.card-pantry',
-                    intro: '<b>1. Comida con Despensa:</b> Usa esta opción para generar un plan de comidas semanal basado en los ingredientes que ya tienes en casa. ¡Es genial para ahorrar!'
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">2</span><i class="fas fa-shopping-basket"></i> Comida con Despensa</div><div class="introjs-tooltiptext">Usa esta opción para generar un plan de comidas semanal basado en los ingredientes que ya tienes en casa. ¡Es genial para ahorrar!</div>'
                 },
                 {
                     element: '.card-region',
-                    intro: '<b>2. Comida por Región:</b> ¿No sabes qué cocinar? Selecciona un departamento y obtén un plan basado en alimentos de temporada y platos típicos de esa zona.'
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">3</span><i class="fas fa-map-marked-alt"></i> Comida por Región</div><div class="introjs-tooltiptext">¿No sabes qué cocinar? Selecciona un departamento y obtén un plan basado en alimentos de temporada y platos típicos de esa zona.</div>'
                 },
                 {
                     element: '.card-wellness',
-                    intro: '<b>3. Bienestar Psicológico:</b> La nutrición también es mental. Encuentra consejos y actividades para la salud emocional de tu hijo aquí.'
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">4</span><i class="fas fa-brain"></i> Bienestar Psicológico</div><div class="introjs-tooltiptext">La nutrición también es mental. Encuentra consejos y actividades para la salud emocional de tu hijo aquí.</div>'
                 },
                 {
                     element: '.card-academic',
-                    intro: '<b>4. Apoyo Académico:</b> Encuentra estrategias y recursos para potenciar el rendimiento escolar y los hábitos de estudio de tu hijo.'
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">5</span><i class="fas fa-book-reader"></i> Apoyo Académico</div><div class="introjs-tooltiptext">Encuentra estrategias y recursos para potenciar el rendimiento escolar y los hábitos de estudio de tu hijo.</div>'
                 },
                 {
                     element: '.card-games',
-                    intro: '<b>5. Jugando es Divertido:</b> Explora juegos educativos y actividades lúdicas para estimular la mente y la creatividad de tu hijo.'
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">6</span><i class="fas fa-puzzle-piece"></i> Jugando es Divertido</div><div class="introjs-tooltiptext">Explora juegos educativos y actividades lúdicas para estimular la mente y la creatividad de tu hijo.</div>'
                 },
                 {
                     element: '.card-daily',
-                    intro: '<b>6. Platos del Día:</b> Recibe tres recomendaciones diarias (desayuno, almuerzo y cena) de platos balanceados para tu hijo.'
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">7</span><i class="fas fa-plate-wheat"></i> Platos del Día</div><div class="introjs-tooltiptext">Recibe tres recomendaciones diarias (desayuno, almuerzo y cena) de platos balanceados para tu hijo.</div>'
                 },
                 {
                     element: '.btn-back-top',
-                    intro: 'Usa este botón para <b>Volver al Panel de Perfiles</b> (la pantalla anterior).'
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">8</span><i class="fas fa-arrow-left"></i> Volver a Perfiles</div><div class="introjs-tooltiptext">Usa este botón para <b>Volver al Panel de Perfiles</b> (la pantalla anterior).</div>'
                 },
                 {
                     element: '#logoutBtn',
-                    intro: 'Y aquí puedes <b>Cerrar Sesión</b> y volver a la pantalla de inicio.'
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">9</span><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</div><div class="introjs-tooltiptext">Y aquí puedes <b>Cerrar Sesión</b> y volver a la pantalla de inicio.</div>'
                 }
             ];
 
@@ -967,6 +1048,9 @@
                     skipLabel: 'x',
                     showBullets: false,
                     exitOnOverlayClick: false,
+                    tooltipPosition: 'center',
+                    positionPrecedence: ['center'],
+                    showStepNumbers: false,
                     tooltipClass: 'custom-intro-tooltip'
                 }).start();
             }
