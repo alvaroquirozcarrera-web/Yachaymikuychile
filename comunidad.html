@@ -732,6 +732,24 @@
         .char-counter.warning { color: var(--warning-color); }
         .char-counter.error { color: var(--danger-color); }
     </style>
+<script src="https://cdn.amplitude.com/script/6920c1655b8b9bdb97a94131ba1ebc36.js"></script>
+<script>
+  window.amplitude.add(window.sessionReplay.plugin({sampleRate: 1}));
+  window.amplitude.init('6920c1655b8b9bdb97a94131ba1ebc36', {
+    "fetchRemoteConfig": true,
+    "autocapture": {
+      "attribution": true,
+      "fileDownloads": true,
+      "formInteractions": true,
+      "pageViews": true,
+      "sessions": true,
+Z       "elementInteractions": true,
+      "networkTracking": true,
+      "webVitals": true,
+      "frustrationInteractions": true
+    }
+  });
+</script>
 </head>
 <body>
     <header>
