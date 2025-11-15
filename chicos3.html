@@ -15,7 +15,7 @@
             --accent-color: #E91E63;
             --light-color: #F9F9F9;
             --dark-color: #333;
-            --danger-color: #F44336;
+            --danger-color: #F44336; /* Color rojo */
             --warning-color: #FF9800;
             --success-color: #4CAF50;
             --info-color: #03A9F4;
@@ -317,14 +317,15 @@
             box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
         }
         
-        /* --- NUEVO --- Estilo para el botón cuando está cargando */
+        /* Estilo para el botón cuando está cargando */
         .generate-btn:disabled {
             background: #ccc;
             box-shadow: none;
             cursor: not-allowed;
+            transform: none; /* --- AÑADIDO --- Evita el hover effect */
         }
-
-        .generate-btn:hover {
+        
+        .generate-btn:not(:disabled):hover { /* --- MODIFICADO --- Solo aplica hover si NO está deshabilitado */
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
         }
@@ -335,7 +336,7 @@
 
         .tips-container {
             display: grid;
-            /* --- MODIFICADO --- Para mostrar 3 columnas por defecto */
+            /* Muestra 3 columnas en desktop */
             grid-template-columns: repeat(3, 1fr);
             gap: 25px;
         }
@@ -348,12 +349,16 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            animation: fadeIn 0.5s;
-            display: flex; /* --- NUEVO --- Para alinear contenido verticalmente */
-            flex-direction: column; /* --- NUEVO --- */
+            
+            /* --- MODIFICADO --- Animación de entrada */
+            opacity: 0; /* Empieza invisible */
+            animation: fadeIn 0.5s forwards; /* 'forwards' mantiene el estado final */
+            
+            display: flex; 
+            flex-direction: column; 
         }
         
-        .tip-card-content { /* --- NUEVO --- Contenedor para que el botón se vaya al fondo */
+        .tip-card-content { 
             flex-grow: 1;
         }
 
@@ -361,8 +366,9 @@
             transform: translateY(-5px);
         }
 
+        /* --- MODIFICADO --- Animación de salida */
         .tip-card.removing {
-            animation: fadeOut 0.5s forwards;
+            animation: fadeOut 0.4s forwards;
         }
 
         .tip-card::before {
@@ -439,13 +445,13 @@
             padding: 8px 15px;
             cursor: pointer;
             font-size: 0.9rem;
-            margin-top: 15px; /* Se mantiene en la parte inferior */
+            margin-top: 15px; 
             display: flex;
             align-items: center;
             gap: 5px;
             transition: all 0.3s ease;
-            align-self: flex-start; /* --- NUEVO --- Para que no ocupe todo el ancho */
-            margin-left: 10px; /* --- NUEVO --- Alineado con el texto */
+            align-self: flex-start; 
+            margin-left: 10px; 
         }
 
         .copy-tip-btn:hover {
@@ -460,11 +466,11 @@
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
-            margin: 20px auto 0; /* --- MODIFICADO --- quitado margin-bottom */
+            margin: 20px auto 0; 
             display: none;
         }
         
-        /* --- NUEVO --- Estilo para el mensaje de IA */
+        /* Estilo para el mensaje de IA */
         .ia-message {
             text-align: center;
             color: var(--secondary-color);
@@ -480,15 +486,29 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
+        
+        /* --- MODIFICADO --- Animación de entrada */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
         }
 
+        /* --- MODIFICADO --- Animación de salida */
         @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(-10px); }
+            from { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+            to { 
+                opacity: 0; 
+                transform: translateY(-20px); 
+            }
         }
 
         .notification {
@@ -731,6 +751,8 @@
             overflow: hidden;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
+            opacity: 1; /* Asegura que estos no se animen */
+            animation: none; /* Asegura que estos no se animen */
         }
 
         .anemia-tip-card:hover {
@@ -776,11 +798,11 @@
         /* 1. 🤖 Estilos del Chatbot Flotante */
         .chat-fab {
             position: fixed;
-            bottom: 80px; /* Ajustado para no chocar con el footer móvil */
+            bottom: 80px; 
             right: 20px;
             width: 60px;
             height: 60px;
-            background-color: var(--danger-color); /* Color rojo solicitado */
+            background-color: var(--danger-color); /* --- COLOR ROJO --- */
             color: white;
             border-radius: 50%;
             display: flex;
@@ -818,7 +840,7 @@
             transform: scale(1);
         }
         .chat-header {
-            background-color: var(--danger-color); /* Color rojo solicitado */
+            background-color: var(--danger-color); /* --- COLOR ROJO --- */
             color: white;
             padding: 15px;
             display: flex;
@@ -871,7 +893,7 @@
             color: white;
         }
         .chat-message .avatar-bot {
-            background-color: var(--danger-color);
+            background-color: var(--danger-color); /* --- COLOR ROJO --- */
             color: white;
         }
         .chat-message .message-content {
@@ -1010,7 +1032,7 @@
             }
 
             .tips-container {
-                /* --- MODIFICADO --- Se asegura que sea 1 columna en móvil */
+                /* 1 columna en móvil */
                 grid-template-columns: 1fr;
             }
 
@@ -1048,7 +1070,7 @@
             }
         }
         
-        /* --- NUEVO --- Media query para tablets (entre móvil y desktop) */
+        /* Media query para tablets */
         @media (min-width: 769px) and (max-width: 991px) {
             .tips-container {
                 grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablets */
@@ -1301,7 +1323,7 @@
             }
         ];
         
-        // --- NUEVO --- Array con los 18 consejos psicológicos
+        // --- Array con los 18 consejos psicológicos ---
         const allPsychologicalTips = [
             {
                 titulo: "Validación Emocional",
@@ -1395,7 +1417,7 @@
             }
         ];
         
-        // --- NUEVO --- Índice para la paginación de consejos
+        // Índice para la paginación de consejos
         let currentTipIndex = 0;
 
 
@@ -1405,7 +1427,7 @@
         let tips = []; // Esta variable ahora manejará los tips mostrados actualmente
         let favoriteTips = [];
 
-        // Storage Adapter - Para facilitar migración a backend
+        // Storage Adapter
         const storageAdapter = {
             // Users
             getUsers: function() {
@@ -1455,19 +1477,13 @@
 
         // --- INICIO DE FUNCIONES DE SINCRONIZACIÓN ---
         
-        // Función para sincronizar la eliminación/restauración entre páginas
         function syncChildDeletionAcrossPages(childId, action) {
-            // action puede ser 'soft-delete', 'restore' o 'permanent-delete'
             const syncData = {
                 childId: childId,
                 action: action,
                 timestamp: new Date().toISOString()
             };
-            
-            // Guardar en localStorage para que otras páginas puedan detectar cambios
             localStorage.setItem('yachay_sync_action', JSON.stringify(syncData));
-            
-            // Notificar a otras pestañas abiertas usando BroadcastChannel
             if ('BroadcastChannel' in window) {
                 const channel = new BroadcastChannel('yachay_sync');
                 channel.postMessage(syncData);
@@ -1495,7 +1511,6 @@
             
             toastContainer.insertAdjacentHTML('beforeend', toastHtml);
             
-            // Auto remove after 5 seconds
             setTimeout(() => {
                 const toast = document.getElementById(toastId);
                 if (toast) toast.remove();
@@ -1526,11 +1541,9 @@
             const headerTitle = document.querySelector('.header h1');
             headerTitle.innerHTML = `<i class="fas fa-brain"></i> Bienestar Psicológico para ${childData.name}`;
             
-            // Actualizar enlace de volver al perfil
             const backToProfileLink = document.getElementById('backToProfile');
             backToProfileLink.href = `chicos.html?childId=${childId}`;
             
-            // Actualizar enlaces del footer móvil
             const mobileBackToProfile = document.getElementById('mobileBackToProfile');
             const mobileProfile = document.getElementById('mobileProfile');
             
@@ -1560,7 +1573,7 @@
             showToast(message, type);
         }
 
-        // --- MODIFICADO --- Función para generar consejos psicológicos
+        // --- FUNCIÓN MEJORADA --- para generar consejos psicológicos
         function generateTips() {
             const textarea = document.getElementById('mood-description');
             const loader = document.getElementById('loader');
@@ -1570,57 +1583,63 @@
             // 1. Limpiar textarea
             textarea.value = '';
             
-            // 2. Mostrar loader y mensaje de IA
+            // 2. Mostrar loader, mensaje de IA y deshabilitar botón
             loader.style.display = 'block';
             iaMessage.innerHTML = '<i class="fas fa-cogs"></i> IA en desarrollo...';
             iaMessage.style.display = 'block';
-            
-            // Deshabilitar botón
             generateBtn.disabled = true;
 
-            // 3. Simular carga
+            // 3. Iniciar el desvanecimiento de los consejos antiguos
+            //    Se llama a updateTips con un array vacío para que los elimine.
+            updateTips([]); 
+
+            // 4. Simular carga (2 segundos)
             setTimeout(() => {
-                // 4. Ocultar loader y mensaje de IA
+                // 5. Ocultar loader y mensaje de IA
                 loader.style.display = 'none';
                 iaMessage.style.display = 'none';
                 
-                // Habilitar botón
-                generateBtn.disabled = false;
-
-                // 5. Calcular y mostrar los 6 consejos
+                // 6. Calcular y mostrar los 6 consejos nuevos
                 const startIndex = currentTipIndex;
                 const endIndex = startIndex + 6;
                 const tipsToShow = allPsychologicalTips.slice(startIndex, endIndex);
 
-                // 6. Actualizar el índice para la próxima vez
+                // 7. Actualizar el índice para la próxima vez
                 currentTipIndex = (endIndex) % allPsychologicalTips.length; // Loop
                 
-                // 7. Renderizar los nuevos consejos
+                // 8. Renderizar los nuevos consejos (ahora sí, con datos)
                 updateTips(tipsToShow);
+                
+                // 9. Habilitar el botón
+                generateBtn.disabled = false;
 
-            }, 2000); // Simulación de 2 segundos
+            }, 2000); // 2 segundos de simulación
         }
 
-        // Función para mostrar mensaje de desarrollo (YA NO SE USA, SE REEMPLAZÓ POR generateTips)
-        function showDevelopmentMessage() {
-            // ... (código anterior)
-        }
 
         // Función para actualizar los consejos
         function updateTips(newTips) {
             const tipsContainer = document.getElementById('tips-container');
             
-            // Eliminar los consejos existentes con animación
-            const existingCards = document.querySelectorAll('.tip-card');
-            existingCards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('removing');
-                }, index * 100);
-            });
+            // 1. Obtener tarjetas existentes
+            const existingCards = document.querySelectorAll('#tips-container .tip-card');
             
-            // Añadir los nuevos consejos después de que se completen las animaciones
-            const animationTime = existingCards.length > 0 ? (existingCards.length * 100 + 500) : 0;
+            let animationTime = 0;
+
+            if (existingCards.length > 0) {
+                // 2. Si hay tarjetas, añadir clase para desvanecer
+                existingCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.classList.add('removing');
+                    }, index * 50); // Desvanecimiento escalonado ligero
+                });
+                
+                // 3. Calcular tiempo total de desvanecimiento
+                animationTime = (existingCards.length * 50) + 400; // 400ms dura la anim 'fadeOut'
+            }
             
+            
+            // 4. Añadir los nuevos consejos después de que se completen las animaciones
             setTimeout(() => {
                 tips = newTips; // Actualiza la variable global 'tips' con los nuevos
                 renderTips(); // Renderiza los nuevos tips
@@ -1636,7 +1655,11 @@
                 const card = document.createElement('div');
                 card.className = 'tip-card';
                 
-                // Verificar si este consejo está en favoritos
+                // --- MÁS DINÁMICO ---
+                // 5. Añadir retraso a la animación de entrada
+                card.style.animationDelay = `${index * 100}ms`; // 100ms de retraso entre tarjetas
+                
+                
                 const isFavorite = favoriteTips.some(fav => fav.titulo === tip.titulo && fav.descripcion === tip.descripcion);
                 
                 card.innerHTML = `
@@ -1674,30 +1697,23 @@
 
         // Función para alternar un consejo como favorito
         function toggleFavorite(index) {
-            const tip = tips[index]; // Obtiene el tip del array 'tips' actual
-            
-            // Buscar el botón correspondiente
+            const tip = tips[index]; 
             const favoriteBtn = document.querySelectorAll('.favorite-btn')[index];
             
-            // Verificar si ya está en favoritos
             const existingIndex = favoriteTips.findIndex(fav => fav.titulo === tip.titulo && fav.descripcion === tip.descripcion);
             
             if (existingIndex !== -1) {
-                // Si ya está en favoritos, eliminarlo
                 favoriteTips.splice(existingIndex, 1);
                 if (favoriteBtn) favoriteBtn.classList.remove('active');
                 showToast('Consejo eliminado de favoritos', 'info');
             } else {
-                // Si no está en favoritos, añadirlo
                 favoriteTips.push({...tip});
                 if (favoriteBtn) favoriteBtn.classList.add('active');
                 showToast('Consejo añadido a favoritos', 'success');
             }
             
-            // Guardar los favoritos actualizados
             saveFavoriteTips();
             
-            // Actualizar la sección de favoritos
             if (favoriteTips.length > 0) {
                 document.getElementById('favorites-section').style.display = 'block';
                 renderFavoriteTips();
@@ -1731,7 +1747,6 @@
                 favoritesContainer.appendChild(card);
             });
             
-            // Añadir event listeners a los botones de eliminar favoritos
             document.querySelectorAll('.remove-favorite-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const index = parseInt(this.getAttribute('data-index'));
@@ -1743,32 +1758,32 @@
         // Función para obtener una sugerencia de juego según el título del consejo
         function getGameSuggestion(tipTitle) {
             const suggestions = {
-                "Técnica de Respiración del Volcán": "Juego a soplar plumas: Coloca una pluma en una superficie y sopla suavemente para moverla. Esto ayuda a practicar la respiración controlada de forma lúdica.",
-                "El Frasco de la Calma": "Crea juntos un frasco de la calma personalizado con colores y purpurina que a tu hijo le gusten. El proceso creativo en sí mismo es terapéutico.",
-                "Dibuja tus Emociones": "Juego de las emociones con plastilina: Crea figuras que representen diferentes emociones usando plastilina de colores. Luego, pueden crear historias con ellas.",
-                "Cuentos Terapéuticos": "Crea un cuento personalizado donde tu hijo sea el héroe que supera un desafío similar al que enfrenta. Pueden ilustrarlo juntos.",
-                "El Rincón de la Serenidad": "Diseña y decora juntos el rincón de la serenidad. Deja que tu hijo elija los colores, cojines y objetos que le ayuden a sentirse tranquilo.",
-                "Juego de Roles": "Usa marionetas o títeres para representar situaciones difíciles. Los títeres permiten expresar emociones de forma más segura y menos directa.",
+                "Técnica de Respiración del Volcán": "Juego a soplar plumas: Coloca una pluma en una superficie y sopla suavemente para moverla.",
+                "El Frasco de la Calma": "Crea juntos un frasco de la calma personalizado con colores y purpurina que a tu hijo le gusten.",
+                "Dibuja tus Emociones": "Juego de las emociones con plastilina: Crea figuras que representen diferentes emociones.",
+                "Cuentos Terapéuticos": "Crea un cuento personalizado donde tu hijo sea el héroe que supera un desafío.",
+                "El Rincón de la Serenidad": "Diseña y decora juntos el rincón de la serenidad. Deja que tu hijo elija los colores.",
+                "Juego de Roles": "Usa marionetas o títeres para representar situaciones difíciles.",
                 
-                // --- NUEVO --- Sugerencias para los nuevos tips
-                "Validación Emocional": "Juego del 'Termómetro Emocional'. Dibuja un termómetro y ponle caras (triste, normal, feliz, enojado). Pídele que señale cómo se siente y hablen de ello.",
-                "Paciencia en la Comida": "Juego de 'El Avión Ciego'. Con los ojos vendados (si se anima), dale a probar un bocado pequeño. La intriga puede ganar a la resistencia.",
+                // Sugerencias para los nuevos tips
+                "Validación Emocional": "Juego del 'Termómetro Emocional'. Dibuja un termómetro y ponle caras. Pídele que señale cómo se siente.",
+                "Paciencia en la Comida": "Juego de 'El Avión Ciego'. Con los ojos vendados, dale a probar un bocado pequeño. La intriga gana a la resistencia.",
                 "Metas Pequeñas": "Crea un 'Tablero de Logros'. Por cada nuevo alimento probado, pueden pegar un sticker de su personaje favorito.",
-                "Involúcrale en la Cocina": "Juego de 'El Pequeño Chef'. Dale un gorro y un mandil. Tareas simples como 'agregar las pasas' lo hacen sentir importante.",
-                "Comidas Familiares Positivas": "Juego de 'Lo Mejor del Día'. Cada miembro de la familia comparte una cosa buena que le pasó. Esto asocia la cena con momentos felices.",
-                "Conecta Comida y Energía": "Juego de la 'Gasolinera'. Explícale que el cuerpo es un carrito y la comida (hierro) es la gasolina para poder correr y jugar.",
-                "Descansos Activos Cortos": "Juego de 'Simón Dice' con movimientos rápidos: 'Simón dice salta como rana', 'Simón dice corre en tu sitio'.",
-                "Rutina de Sueño Sagrada": "Juego de 'Guardar el Día'. Antes de dormir, 'guarden' los juguetes y 'guarden' las preocupaciones en una 'caja imaginaria' para dormir tranquilos.",
-                "Escucha Activa": "Usa un 'Micrófono Mágico' (un objeto cualquiera). Solo quien tiene el micrófono puede hablar, y los demás deben escuchar atentamente.",
-                "El Poder del 'No' (Tuyo)": "Juego de 'El Catador de Alimentos'. Sírvele porciones diminutas de todo, y juega a que es un catador profesional que debe dar su opinión (aunque sea 'no me gusta').",
-                "Modela el Comportamiento": "Juego del 'Espejo'. Haz que te imite mientras comes y disfrutas un alimento. 'Ahora tú, haz una cara feliz comiendo la espinaca'.",
-                "Juegos de 'Olores'": "Prepara 'Cajas de Olores' con algodón y esencias (canela, vainilla, naranja) o alimentos (café, ajo). Jueguen a adivinar qué es.",
-                "Hidratación Importante": "Decoren juntos su botella de agua con stickers. Hagan 'brindis de agua' cada cierto tiempo durante el día.",
-                "Refuerzo de Autonomía": "Juego de 'El Menú del Restaurante'. Escribe dos opciones saludables en un papel y deja que 'ordene' su comida como en un restaurante.",
-                "Creatividad Visual": "Hagan 'Brochetas de Colores'. Insertar trozos de fruta (vitamina C) y queso en un palito. Comer en palito siempre es más divertido.",
-                "Manejo de la Frustración": "Juego de 'Estrujar la Rabia'. Dale una pelota antiestrés o un poco de plastilina para que la apriete con fuerza cuando se sienta frustrado.",
-                "Combinación Inteligente": "Juego de la 'Pareja Perfecta'. Dibuja un corazón de hierro y un corazón de Vitamina C. Jueguen a que son superhéroes que solo funcionan juntos.",
-                "Tiempo de Calidad": "Juego de 'Construir Juntos'. Usar bloques o legos para construir una torre. El objetivo es trabajar en equipo y disfrutar el proceso."
+                "Involúcrale en la Cocina": "Juego de 'El Pequeño Chef'. Dale un gorro y un mandil. Tareas simples lo hacen sentir importante.",
+                "Comidas Familiares Positivas": "Juego de 'Lo Mejor del Día'. Cada miembro de la familia comparte una cosa buena que le pasó.",
+                "Conecta Comida y Energía": "Juego de la 'Gasolinera'. Explícale que el cuerpo es un carrito y la comida (hierro) es la gasolina.",
+                "Descansos Activos Cortos": "Juego de 'Simón Dice' con movimientos rápidos: 'Simón dice salta como rana'.",
+                "Rutina de Sueño Sagrada": "Juego de 'Guardar el Día'. Antes de dormir, 'guarden' las preocupaciones en una 'caja imaginaria'.",
+                "Escucha Activa": "Usa un 'Micrófono Mágico' (un objeto). Solo quien tiene el micrófono puede hablar.",
+                "El Poder del 'No' (Tuyo)": "Juego de 'El Catador de Alimentos'. Sírvele porciones diminutas y juega a que es un catador profesional.",
+                "Modela el Comportamiento": "Juego del 'Espejo'. Haz que te imite mientras comes y disfrutas un alimento.",
+                "Juegos de 'Olores'": "Prepara 'Cajas de Olores' con algodón y esencias (canela, vainilla) o alimentos.",
+                "Hidratación Importante": "Decoren juntos su botella de agua con stickers. Hagan 'brindis de agua' durante el día.",
+                "Refuerzo de Autonomía": "Juego de 'El Menú del Restaurante'. Escribe dos opciones saludables y deja que 'ordene' su comida.",
+                "Creatividad Visual": "Hagan 'Brochetas de Colores'. Insertar trozos de fruta (vitamina C) y queso en un palito.",
+                "Manejo de la Frustración": "Juego de 'Estrujar la Rabia'. Dale una pelota antiestrés o plastilina para que la apriete con fuerza.",
+                "Combinación Inteligente": "Juego de la 'Pareja Perfecta'. Dibuja un corazón de hierro y uno de Vitamina C. Jueguen a que son superhéroes.",
+                "Tiempo de Calidad": "Juego de 'Construir Juntos'. Usar bloques o legos para construir una torre en equipo."
             };
             
             return suggestions[tipTitle] || "Visita la sección 'Jugando es Divertido' para encontrar juegos y actividades que complementen este consejo.";
@@ -1786,7 +1801,6 @@
             }
             
             // Actualizar el estado del botón de favoritos en la tarjeta correspondiente
-            // Busca el tip en el array 'tips' actual
             const tipIndexInCurrentView = tips.findIndex(t => t.titulo === removedTip.titulo && t.descripcion === removedTip.descripcion);
             if(tipIndexInCurrentView !== -1) {
                 const favoriteBtn = document.querySelectorAll('.favorite-btn')[tipIndexInCurrentView];
@@ -1804,7 +1818,6 @@
             saveFavoriteTips();
             document.getElementById('favorites-section').style.display = 'none';
             
-            // Actualizar el estado de todos los botones de favoritos
             document.querySelectorAll('.favorite-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
@@ -1815,7 +1828,6 @@
         // Función para copiar un consejo al portapapeles
         function copyTip(index) {
             const tip = tips[index];
-            
             const textToCopy = `${tip.titulo}\n\n${tip.descripcion}`;
             
             navigator.clipboard.writeText(textToCopy).then(() => {
@@ -1834,13 +1846,11 @@
 
         // Función para inicializar el footer móvil
         function initMobileFooter() {
-            // Enlace de inicio
             document.getElementById('mobileHome').addEventListener('click', function(e) {
                 e.preventDefault();
                 window.location.href = 'index1.html';
             });
             
-            // Enlace de salir
             document.getElementById('mobileExit').addEventListener('click', function(e) {
                 e.preventDefault();
                 window.location.href = 'index1.html';
@@ -1849,31 +1859,22 @@
         
         // --- 1. 🤖 INICIO LÓGICA DEL CHATBOT ---
 
-        // Base de conocimiento específica para esta página
         const chatKnowledgeBase = {
-            // Saludos y general
+            // ... (base de conocimiento sin cambios)
             "hola": "¡Hola! Soy el asistente de YachayMikuy. Estoy aquí para ayudarte a entender esta sección de 'Bienestar Psicológico'. ¿En qué puedo ayudarte?",
             "gracias": "¡De nada! Estoy aquí para ayudarte a ti y a tu familia.",
             "adiós": "¡Hasta pronto! Que tengas un día tranquilo y nutritivo.",
             "qué es yachaymikuy": "YachayMikuy es una aplicación diseñada para ayudarte a combatir la anemia infantil en Perú, usando recetas nutritivas, seguimiento y consejos de bienestar.",
-
-            // Contenido de la página
             "qué es esta página": "Esta página te ayuda a entender la importante conexión entre la anemia y el bienestar psicológico del niño. También te da consejos prácticos para manejar sus emociones.",
             "relación anemia y emociones": "La sección 'Anemia y Bienestar Emocional' lo explica. La fatiga causada por la anemia puede hacer que el niño esté más irritable, le cueste concentrarse y tenga menos interés en jugar. ¡Comer bien (Hierro + Vitamina C) también ayuda a sentirse bien!",
             "efectos de la anemia": "Además de lo físico, la anemia puede causar fatiga emocional, problemas de concentración, cambios de humor (como irritabilidad) y menos ganas de socializar o jugar.",
             "consejos generales": "La página te da 3 consejos iniciales muy buenos: 'Refuerzo Positivo' (celebrar sus logros), 'Creatividad con Alimentos' (hacer la comida divertida) y 'Técnicas de Relajación' (enseñarle a respirar).",
-
-            // Interacción
             "cómo generar consejos": "¡Es muy fácil! En la sección '¿Cómo se siente tu hijo hoy?', escribe en el cuadro de texto lo que observaste (ej: 'está frustrado' o 'no quiere comer') y presiona el botón 'Generar Consejos'.",
             "para qué es el cuadro de texto": "Es para que describas el estado de ánimo o una situación específica de tu hijo. Al presionar 'Generar Consejos', la app te dará ideas y técnicas personalizadas para esa situación. ¡Ahora cargará 6 nuevos consejos cada vez!",
             "qué son los consejos de ejemplo": "Son técnicas que puedes usar ahora mismo. Por ejemplo, la 'Respiración del Volcán' o 'El Frasco de la Calma' son geniales para la ansiedad. 'Dibuja tus Emociones' es perfecto para que exprese lo que siente.",
-
-            // Favoritos
             "cómo guardo un consejo": "¡Fácil! En cada tarjeta de consejo que aparezca, verás una estrella (⭐). Solo haz clic en ella para guardarla en tu sección de 'Consejos Favoritos'.",
             "dónde veo mis favoritos": "Tus consejos guardados aparecerán en la sección 'Consejos Favoritos', justo debajo del generador de consejos, para que puedas acceder a ellos rápidamente.",
             "cómo borrar favoritos": "Puedes borrar todos tus consejos guardados a la vez presionando el botón 'Limpiar Favoritos'. Si quieres borrar solo uno, ve a la sección de favoritos y presiona la 'X' en la tarjeta del consejo.",
-            
-            // Navegación
             "cómo vuelvo al perfil": "Puedes usar el botón 'Volver al Perfil' en la parte de arriba, o el ícono de 'Volver' o 'Perfil' en la barra de navegación de abajo (en móviles).",
             "cómo salgo": "Para salir, puedes presionar el botón rojo 'Salir' en la cabecera, o el ícono 'Salir' en la barra de navegación de abajo (en móviles)."
         };
@@ -1912,16 +1913,13 @@
             chatHistory.scrollTop = chatHistory.scrollHeight;
         }
 
-        // Función para obtener sugerencias aleatorias (Req 1. Botones Dinámicos)
         function renderRandomSuggestions() {
             chatSuggestions.innerHTML = '';
             const allKeys = Object.keys(chatKnowledgeBase);
             const suggestions = [];
             
-            // Filtrar para no incluir saludos básicos
             const filteredKeys = allKeys.filter(k => !["hola", "gracias", "adiós", "qué es yachaymikuy"].includes(k));
             
-            // Tomar 3 sugerencias aleatorias
             while (suggestions.length < 3 && filteredKeys.length > 0) {
                 const randomIndex = Math.floor(Math.random() * filteredKeys.length);
                 const randomKey = filteredKeys.splice(randomIndex, 1)[0];
@@ -1931,7 +1929,6 @@
             suggestions.forEach(key => {
                 const btn = document.createElement('button');
                 btn.className = 'suggestion-btn';
-                // Capitalizar la primera letra para el botón
                 btn.textContent = key.charAt(0).toUpperCase() + key.slice(1) + '?';
                 btn.onclick = () => {
                     chatInput.value = key;
@@ -1943,13 +1940,12 @@
 
         function getChatbotResponse(userInput) {
             const normalizedInput = userInput.toLowerCase().trim()
-                .replace(/[¿?¡!]/g, '') // Quitar puntuación
+                .replace(/[¿?¡!]/g, '') 
                 .replace("dame ", "")
                 .replace("info de ", "")
                 .replace("sobre ", "")
                 .replace("explícame ", "");
 
-            // Buscar coincidencias en la base de conocimiento
             let bestMatch = null;
             let bestMatchScore = 0;
 
@@ -1957,11 +1953,9 @@
                 const keywords = key.split(' ');
                 let score = 0;
                 
-                // Coincidencia exacta
                 if (normalizedInput.includes(key)) {
-                    score = 100; // Alta prioridad
+                    score = 100; 
                 } else {
-                    // Coincidencia de palabras clave
                     keywords.forEach(word => {
                         if (normalizedInput.includes(word)) {
                             score++;
@@ -1975,7 +1969,6 @@
                 }
             }
             
-            // Req 1. Respuesta por Defecto
             if (bestMatchScore > 0) {
                 return bestMatch;
             } else {
@@ -1990,11 +1983,9 @@
             addMessageToChat(userInput, 'user');
             chatInput.value = "";
             
-            // Simular respuesta del bot
             setTimeout(() => {
                 const botResponse = getChatbotResponse(userInput);
                 addMessageToChat(botResponse, 'bot');
-                // Req 1. Botones Dinámicos: Cambiar después de cada respuesta
                 renderRandomSuggestions();
             }, 500);
         }
@@ -2014,7 +2005,6 @@
             closeChatBtn.addEventListener('click', () => {
                 chatWidget.classList.remove('open');
                 chatFab.style.display = 'flex';
-                // Req 1. Limpieza: Borrar historial al cerrar
                 clearChatHistory();
             });
             
@@ -2025,7 +2015,6 @@
                 }
             });
             
-            // Cargar mensaje inicial y sugerencias
             clearChatHistory();
         }
         // --- FIN LÓGICA DEL CHATBOT ---
@@ -2034,8 +2023,6 @@
         // --- 2. 🗺️ INICIO LÓGICA DE GUÍA INTERACTIVA (INTRO.JS) ---
 
         function startGeneralPageTour() {
-            // Req 2. Activación: Se llama CADA VEZ, sin localStorage.
-            
             const intro = introJs();
             intro.setOptions({
                 steps: [
@@ -2098,15 +2085,12 @@
         // Función de inicialización
         function init() {
             // --- INICIO DE VERIFICACIÓN DE SINCRONIZACIÓN AL CARGAR ---
-            // Verificar si hay acciones de sincronización pendientes de otras pestañas
             const syncAction = localStorage.getItem('yachay_sync_action');
             if (syncAction) {
                 const syncData = JSON.parse(syncAction);
-                // Si la acción es reciente (menos de 5 segundos), la procesamos
                 const actionTime = new Date(syncData.timestamp);
                 const now = new Date();
                 if ((now - actionTime) < 5000) {
-                    // Si la acción afecta al niño actual, redirigimos
                     const currentChildId = getChildIdFromUrl();
                     if (currentChildId === syncData.childId) {
                         if (syncData.action === 'soft-delete' || syncData.action === 'permanent-delete') {
@@ -2117,16 +2101,13 @@
                         }
                     }
                 }
-                // Limpiamos la acción para no procesarla de nuevo
                 localStorage.removeItem('yachay_sync_action');
             }
 
-            // Configurar listener para sincronización en tiempo real con otras pestañas
             if ('BroadcastChannel' in window) {
                 const channel = new BroadcastChannel('yachay_sync');
                 channel.onmessage = function(event) {
                     const syncData = event.data;
-                    // Si recibimos un mensaje de sincronización, verificamos si afecta al niño actual
                     const currentChildId = getChildIdFromUrl();
                     if (currentChildId === syncData.childId) {
                         if (syncData.action === 'soft-delete' || syncData.action === 'permanent-delete') {
@@ -2140,7 +2121,6 @@
             }
             // --- FIN DE VERIFICACIÓN DE SINCRONIZACIÓN AL CARGAR ---
 
-            // Obtener el childId de la URL
             childId = getChildIdFromUrl();
             
             if (!childId) {
@@ -2148,24 +2128,14 @@
                 return;
             }
             
-            // Cargar los datos del niño
             if (!loadChildData()) {
                 showToast('No se encontraron datos del niño', 'error');
                 return;
             }
             
-            // Inicializar componentes
             initMobileFooter();
-            
-            // --- NUEVAS INICIALIZACIONES ---
-            // 1. 🤖 Inicializar el Chatbot
             initChatbot();
-            
-            // 2. 🗺️ Iniciar la Guía Interactiva
-            // Req 2. Activación: Se llama CADA VEZ que se carga la página.
-            // Req 2. Guía por Secciones: Esta página NO tiene tabs, por lo tanto, se lanza el tour general.
             startGeneralPageTour();
-            // --- FIN NUEVAS INICIALIZACIONES ---
             
             // Inicializar consejos de ejemplo
             initializeSampleTips();
