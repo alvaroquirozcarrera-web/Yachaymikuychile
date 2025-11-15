@@ -328,7 +328,7 @@
 
         .tips-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 25px;
         }
 
@@ -960,6 +960,45 @@
             font-weight: bold;
         }
 
+        /* Estilos para la sección de consejos generados */
+        .ai-development-message {
+            background-color: #e3f2fd;
+            border: 1px solid #bbdefb;
+            color: #0d47a1;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .ai-development-message.show {
+            display: flex;
+        }
+
+        .ai-loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .ai-loading.show {
+            display: block;
+        }
+
+        .ai-loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
 
         @media (max-width: 768px) {
             .container {
@@ -1174,6 +1213,17 @@
                     <i class="fas fa-lightbulb"></i> Generar Consejos
                 </button>
             </div>
+            
+            <!-- Mensaje de desarrollo de IA -->
+            <div class="ai-development-message" id="ai-development-message">
+                <i class="fas fa-robot"></i> IA en desarrollo - Generando consejos personalizados...
+            </div>
+            
+            <!-- Indicador de carga -->
+            <div class="ai-loading" id="ai-loading">
+                <div class="ai-loading-spinner"></div>
+                <p>Generando consejos psicológicos adaptados a la situación de tu hijo...</p>
+            </div>
         </div>
 
         <div class="loader" id="loader"></div>
@@ -1229,7 +1279,7 @@
             <button id="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js" integrity="sha512-f2X/H1iBdv3g9iKNYUokGjN/ZWnS/A+NnIuPEe0Svsx/gKnJkK/s9iC8NGn9FSMfGg/Yphh7SjPcaY6vXQA7GA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.js" integrity="sha512-f2X/H1iBdv3g9iKNYUokGjN/ZWnS/A+NnIuPEe0Svsx/gKnJkK/s9iC8NGn9FSMfGg/Yphh7SjPcaY6vXQA7GA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         // Datos de ejemplo para consejos iniciales
@@ -1266,11 +1316,106 @@
             }
         ];
 
+        // 18 consejos psicológicos relacionados con la anemia y salud infantil
+        const psychologicalTips = [
+            {
+                titulo: "Combinación de Alimentos",
+                descripcion: "Combina alimentos ricos en hierro con vitamina C para mejorar la absorción. Por ejemplo, sirve lentejas con pimientos o espinacas con tomate. Esto no solo combate la anemia sino que también enseña sobre nutrición de forma visual.",
+                icon: "fa-apple-alt"
+            },
+            {
+                titulo: "Juegos de Identificación",
+                descripcion: "Crea juegos donde tu hijo identifique alimentos 'energéticos' (ricos en hierro). Usa tarjetas con imágenes y haz una competencia de 'quién encuentra más alimentos que dan fuerza'. Esto crea una asociación positiva con estos alimentos.",
+                icon: "fa-search"
+            },
+            {
+                titulo: "Cocina en Familia",
+                descripcion: "Involucra a tu hijo en la preparación de comidas ricas en hierro. Los niños que participan en la cocina están más dispuestos a probar nuevos alimentos. Además, fortalece los vínculos familiares y mejora la autoestima.",
+                icon: "fa-utensils"
+            },
+            {
+                titulo: "Narrativa de Superhéroes",
+                descripcion: "Crea historias donde los personajes obtienen superpoderes al comer alimentos ricos en hierro. Tu hijo puede imaginar que obtiene 'poderes de concentración' al comer espinacas o 'fuerza súper' al comer lentejas.",
+                icon: "fa-mask"
+            },
+            {
+                titulo: "Rutinas Visuales",
+                descripcion: "Establece rutinas visuales para las comidas con pictogramas que incluyan alimentos ricos en hierro. Esto reduce la ansiedad ante lo desconocido y crea expectativas positivas sobre las comidas.",
+                icon: "fa-calendar-check"
+            },
+            {
+                titulo: "Premios No Alimenticios",
+                descripcion: "Recompensa el consumo de alimentos ricos en hierro con actividades especiales, no con dulces. Por ejemplo, tiempo extra de juego, una lectura juntos o una salida especial. Esto evita asociar solo alimentos 'poco saludables' como recompensa.",
+                icon: "fa-trophy"
+            },
+            {
+                titulo: "Jardín de Hierro",
+                descripcion: "Si tienes espacio, cultiven juntos vegetales ricos en hierro como espinacas o acelgas. Los niños que cultivan sus propios alimentos están más interesados en probarlos. Además, es una actividad física beneficiosa.",
+                icon: "fa-seedling"
+            },
+            {
+                titulo: "Degustación a Ciegas",
+                descripcion: "Organiza degustaciones a ciegas con diferentes alimentos ricos en hierro. Conviértelo en un juego divertido donde tu hijo adivina qué está comiendo. Esto reduce la resistencia a probar nuevos alimentos.",
+                icon: "fa-eye-slash"
+            },
+            {
+                titulo: "Libro de Recetas Personalizado",
+                descripcion: "Crea un libro de recetas simple con ilustraciones de tu hijo mostrando platos ricos en hierro que le gusten. Esto le da sentido de propiedad y orgullo por sus elecciones alimenticias.",
+                icon: "fa-book"
+            },
+            {
+                titulo: "Taller de Emociones y Nutrición",
+                descripcion: "Organiza sesiones breves donde conecten emociones con alimentos. Por ejemplo: 'Cuando te sientas cansado, tu cuerpo necesita alimentos con hierro como las lentejas'. Esto crea conciencia corporal y emocional.",
+                icon: "fa-heartbeat"
+            },
+            {
+                titulo: "Tabla de Progresos",
+                descripcion: "Crea una tabla visual donde tu hijo pueda marcar cada vez que prueba un alimento rico en hierro. Establece metas pequeñas y celebra los logros. Esto refuerza positivamente el comportamiento y mejora la autoconfianza.",
+                icon: "fa-chart-line"
+            },
+            {
+                titulo: "Amigos Imaginarios",
+                descripcion: "Inventa personajes que aman alimentos ricos en hierro. Tu hijo puede 'adoptar' a uno de estos amigos y querer comer como él. Esto externaliza la resistencia y hace el cambio más fácil.",
+                icon: "fa-ghost"
+            },
+            {
+                titulo: "Experimentos Culinarios",
+                descripcion: "Realiza 'experimentos' simples como cambiar el color de alimentos (ej: puré de papa con remolacha) para hacerlos más interesantes. La curiosidad puede vencer la resistencia a probar nuevos alimentos.",
+                icon: "fa-flask"
+            },
+            {
+                titulo: "Música y Comida",
+                descripcion: "Crea canciones sobre alimentos ricos en hierro. La música ayuda a memorizar información y crea asociaciones positivas. Pueden inventar una melodía simple sobre 'los alimentos que nos dan fuerza'.",
+                icon: "fa-music"
+            },
+            {
+                titulo: "Visitas Educativas",
+                descripcion: "Visita granjas o mercados locales donde tu hijo pueda ver alimentos frescos ricos en hierro. Conocer el origen de los alimentos aumenta la disposición a probarlos.",
+                icon: "fa-store"
+            },
+            {
+                titulo: "Arte con Comida",
+                descripcion: "Usa alimentos ricos en hierro como materiales artísticos. Por ejemplo, crear mosaicos con diferentes granos o 'pintar' con purés de vegetales. Esto familiariza a tu hijo con los alimentos de una manera no amenazante.",
+                icon: "fa-palette"
+            },
+            {
+                titulo: "Tiempo de Calma Post-Comida",
+                descripcion: "Establece un período de 10-15 minutos de relajación después de las comidas, practicando respiración profunda. Esto mejora la digestión y ayuda al cuerpo a absorber mejor los nutrientes, incluido el hierro.",
+                icon: "fa-spa"
+            },
+            {
+                titulo: "Diario de Bienestar",
+                descripcion: "Ayuda a tu hijo a llevar un simple diario visual donde registre cómo se siente antes y después de comer alimentos ricos en hierro. Esto le ayudará a conectar la nutrición con su bienestar físico y emocional.",
+                icon: "fa-journal-whills"
+            }
+        ];
+
         // Variables globales
         let childId = "";
         let childData = {};
         let tips = [];
         let favoriteTips = [];
+        let displayedTips = []; // Consejos que se han mostrado
 
         // Storage Adapter - Para facilitar migración a backend
         const storageAdapter = {
@@ -1429,32 +1574,58 @@
 
         // Función para generar consejos psicológicos
         function generateTips() {
-            // Mostrar mensaje de desarrollo
-            showDevelopmentMessage();
-        }
-
-        // Función para mostrar mensaje de desarrollo
-        function showDevelopmentMessage() {
-            const existingMessage = document.querySelector('.development-message');
-            if (existingMessage) {
-                existingMessage.remove();
-            }
+            // Mostrar indicador de carga
+            const aiLoading = document.getElementById('ai-loading');
+            const aiDevelopmentMessage = document.getElementById('ai-development-message');
+            const moodDescription = document.getElementById('mood-description');
             
-            const message = document.createElement('div');
-            message.className = 'development-message';
-            message.innerHTML = '<i class="fas fa-tools"></i> Funcionalidad en desarrollo. Próximamente podrás generar consejos psicológicos personalizados con IA.';
+            // Mostrar mensajes de carga
+            aiLoading.classList.add('show');
+            aiDevelopmentMessage.classList.add('show');
             
-            const tipsContainer = document.getElementById('tips-container');
-            tipsContainer.parentNode.insertBefore(message, tipsContainer);
+            // Limpiar el área de texto
+            moodDescription.value = '';
             
+            // Simular carga de 2 segundos
             setTimeout(() => {
-                message.style.animation = 'fadeOut 0.5s';
-                setTimeout(() => {
-                    if (message.parentNode) {
-                        message.parentNode.removeChild(message);
-                    }
-                }, 500);
-            }, 5000);
+                // Ocultar mensajes de carga
+                aiLoading.classList.remove('show');
+                aiDevelopmentMessage.classList.remove('show');
+                
+                // Obtener consejos que no se han mostrado aún
+                const remainingTips = psychologicalTips.filter(tip => 
+                    !displayedTips.some(displayed => displayed.titulo === tip.titulo)
+                );
+                
+                // Si ya se mostraron todos los consejos, reiniciar la lista
+                if (remainingTips.length === 0) {
+                    displayedTips = [];
+                    showToast('Has visto todos los consejos. Reiniciando la lista...', 'info');
+                }
+                
+                // Seleccionar 6 consejos aleatorios de los disponibles
+                const tipsToShow = [];
+                const availableTips = remainingTips.length > 0 ? remainingTips : psychologicalTips;
+                
+                // Copiar la lista para no modificar el original
+                const tempTips = [...availableTips];
+                
+                // Seleccionar 6 consejos aleatorios
+                for (let i = 0; i < 6 && tempTips.length > 0; i++) {
+                    const randomIndex = Math.floor(Math.random() * tempTips.length);
+                    tipsToShow.push(tempTips[randomIndex]);
+                    tempTips.splice(randomIndex, 1);
+                }
+                
+                // Agregar a la lista de mostrados
+                displayedTips = [...displayedTips, ...tipsToShow];
+                
+                // Actualizar los consejos
+                updateTips(tipsToShow);
+                
+                // Mostrar notificación
+                showToast('Se han generado 6 nuevos consejos psicológicos', 'success');
+            }, 2000);
         }
 
         // Función para actualizar los consejos
@@ -1586,12 +1757,24 @@
         // Función para obtener una sugerencia de juego según el título del consejo
         function getGameSuggestion(tipTitle) {
             const suggestions = {
-                "Técnica de Respiración del Volcán": "Juego a soplar plumas: Coloca una pluma en una superficie y sopla suavemente para moverla. Esto ayuda a practicar la respiración controlada de forma lúdica.",
-                "El Frasco de la Calma": "Crea juntos un frasco de la calma personalizado con colores y purpurina que a tu hijo le gusten. El proceso creativo en sí mismo es terapéutico.",
-                "Dibuja tus Emociones": "Juego de las emociones con plastilina: Crea figuras que representen diferentes emociones usando plastilina de colores. Luego, pueden crear historias con ellas.",
-                "Cuentos Terapéuticos": "Crea un cuento personalizado donde tu hijo sea el héroe que supera un desafío similar al que enfrenta. Pueden ilustrarlo juntos.",
-                "El Rincón de la Serenidad": "Diseña y decora juntos el rincón de la serenidad. Deja que tu hijo elija los colores, cojines y objetos que le ayuden a sentirse tranquilo.",
-                "Juego de Roles": "Usa marionetas o títeres para representar situaciones difíciles. Los títeres permiten expresar emociones de forma más segura y menos directa."
+                "Combinación de Alimentos": "Juego 'Combinación Perfecta': Haz tarjetas con alimentos ricos en hierro y otras con vitamina C. Tu hijo debe emparejarlos correctamente.",
+                "Juegos de Identificación": "Crea una 'Búsqueda del Tesoro' donde tu hijo debe encontrar todos los alimentos 'energéticos' que has escondido por la casa.",
+                "Cocina en Familia": "Organiza un 'Concurso de Chefs' donde cada miembro de la familia crea un plato diferente usando un ingrediente rico en hierro.",
+                "Narrativa de Superhéroes": "Crea un 'Libro de Superpoderes' donde tu hijo dibuje los superpoderes que obtiene al comer diferentes alimentos ricos en hierro.",
+                "Rutinas Visuales": "Haz un 'Tablero de Misiones Diarias' con pictogramas que representen las comidas y snacks ricos en hierro que debe consumir.",
+                "Premios No Alimenticios": "Crea una 'Rueda de Recompensas' con diferentes actividades especiales que tu hijo puede ganar al probar nuevos alimentos.",
+                "Jardín de Hierro": "Inicia un 'Diario de Jardín' donde tu hijo dibuje el crecimiento de las plantas y anote cuándo las cosechan y comen.",
+                "Degustación a Ciegas": "Organiza un 'Festival de Sabores' donde tu hijo debe adivinar qué alimento rico en hierro está probando.",
+                "Libro de Recetas Personalizado": "Crea un 'Club de Chefs' donde tu hijo puede invitar a amigos o familiares a cocinar las recetas de su libro.",
+                "Taller de Emociones y Nutrición": "Haz un 'Mapa de Emociones' donde tu hijo dibuje cómo se siente antes y después de comer diferentes alimentos.",
+                "Tabla de Progresos": "Diseña un 'Juego de la Oca' donde cada casilla representa un alimento rico en hierro probado y avanza en el tablero.",
+                "Amigos Imaginarios": "Crea títeres de los 'Amigos de los Alimentos Fuertes' y represente historias donde ellos comen alimentos ricos en hierro.",
+                "Experimentos Culinarios": "Organiza un 'Laboratorio de Cocina' donde tu hijo pueda experimentar con diferentes combinaciones de alimentos ricos en hierro.",
+                "Música y Comida": "Graben un 'Video Musical' donde canten y bailen la canción de los alimentos ricos en hierro.",
+                "Visitas Educativas": "Creen un 'Diario de Aventuras' donde tu hijo dibuje y escriba sobre las visitas a lugares donde se cultivan alimentos ricos en hierro.",
+                "Arte con Comida": "Organicen una 'Exposición de Arte Comestible' donde tu hijo muestre sus creaciones artísticas hechas con alimentos.",
+                "Tiempo de Calma Post-Comida": "Creen un 'Rincón de Relajación' con cojines y música suave donde puedan practicar la respiración después de las comidas.",
+                "Diario de Bienestar": "Diseñen un 'Códice de Emociones' donde tu hijo registre con símbolos y colores cómo se siente antes y después de comer."
             };
             
             return suggestions[tipTitle] || "Visita la sección 'Jugando es Divertido' para encontrar juegos y actividades que complementen este consejo.";
@@ -1697,7 +1880,7 @@
             // Favoritos
             "cómo guardo un consejo": "¡Fácil! En cada tarjeta de consejo que aparezca, verás una estrella (⭐). Solo haz clic en ella para guardarla en tu sección de 'Consejos Favoritos'.",
             "dónde veo mis favoritos": "Tus consejos guardados aparecerán en la sección 'Consejos Favoritos', justo debajo del generador de consejos, para que puedas acceder a ellos rápidamente.",
-            "cómo borrar favoritos": "Puedes borrar todos tus consejos guardados a la vez presionando el botón 'Limpiar Favoritos'. Si quieres borrar solo uno, ve a la sección de favoritos y presiona la 'X' en la tarjeta del consejo.",
+            "cómo borro favoritos": "Puedes borrar todos tus consejos guardados a la vez presionando el botón 'Limpiar Favoritos'. Si quieres borrar solo uno, ve a la sección de favoritos y presiona la 'X' en la tarjeta del consejo.",
             
             // Navegación
             "cómo vuelvo al perfil": "Puedes usar el botón 'Volver al Perfil' en la parte de arriba, o el ícono de 'Volver' o 'Perfil' en la barra de navegación de abajo (en móviles).",
@@ -2005,4 +2188,4 @@
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
-</html>
+</html> 
