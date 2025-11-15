@@ -977,7 +977,7 @@
         }
 
         .ai-development-message.show {
-            display: flex;
+            display: flex !important;
         }
 
         .ai-loading {
@@ -987,7 +987,7 @@
         }
 
         .ai-loading.show {
-            display: block;
+            display: block !important;
         }
 
         .ai-loading-spinner {
@@ -1574,23 +1574,36 @@
 
         // Función para generar consejos psicológicos
         function generateTips() {
-            // Mostrar indicador de carga
+            console.log("Función generateTips llamada");
+            
+            // Obtener elementos del DOM
             const aiLoading = document.getElementById('ai-loading');
             const aiDevelopmentMessage = document.getElementById('ai-development-message');
             const moodDescription = document.getElementById('mood-description');
             
+            console.log("Elementos del DOM:", { aiLoading, aiDevelopmentMessage, moodDescription });
+            
+            // Verificar que los elementos existan
+            if (!aiLoading || !aiDevelopmentMessage || !moodDescription) {
+                console.error("No se encontraron los elementos del DOM");
+                showToast("Error: No se encontraron los elementos necesarios", "error");
+                return;
+            }
+            
             // Mostrar mensajes de carga
-            aiLoading.classList.add('show');
-            aiDevelopmentMessage.classList.add('show');
+            console.log("Mostrando mensajes de carga");
+            aiLoading.style.display = 'block';
+            aiDevelopmentMessage.style.display = 'flex';
             
             // Limpiar el área de texto
             moodDescription.value = '';
             
             // Simular carga de 2 segundos
             setTimeout(() => {
+                console.log("Ocultando mensajes de carga");
                 // Ocultar mensajes de carga
-                aiLoading.classList.remove('show');
-                aiDevelopmentMessage.classList.remove('show');
+                aiLoading.style.display = 'none';
+                aiDevelopmentMessage.style.display = 'none';
                 
                 // Obtener consejos que no se han mostrado aún
                 const remainingTips = psychologicalTips.filter(tip => 
@@ -1620,6 +1633,8 @@
                 // Agregar a la lista de mostrados
                 displayedTips = [...displayedTips, ...tipsToShow];
                 
+                console.log("Consejos a mostrar:", tipsToShow);
+                
                 // Actualizar los consejos
                 updateTips(tipsToShow);
                 
@@ -1630,6 +1645,8 @@
 
         // Función para actualizar los consejos
         function updateTips(newTips) {
+            console.log("Actualizando consejos con:", newTips);
+            
             // Eliminar los consejos existentes con animación
             const existingCards = document.querySelectorAll('.tip-card');
             existingCards.forEach((card, index) => {
@@ -1647,6 +1664,8 @@
 
         // Función para renderizar los consejos
         function renderTips() {
+            console.log("Renderizando consejos:", tips);
+            
             const tipsContainer = document.getElementById('tips-container');
             tipsContainer.innerHTML = '';
             
@@ -2180,8 +2199,18 @@
             initializeSampleTips();
             
             // Event listeners
-            document.getElementById('generate-tips').addEventListener('click', generateTips);
-            document.getElementById('clear-favorites').addEventListener('click', clearAllFavorites);
+            const generateBtn = document.getElementById('generate-tips');
+            if (generateBtn) {
+                generateBtn.addEventListener('click', generateTips);
+                console.log("Event listener añadido al botón generar consejos");
+            } else {
+                console.error("No se encontró el botón generar consejos");
+            }
+            
+            const clearFavoritesBtn = document.getElementById('clear-favorites');
+            if (clearFavoritesBtn) {
+                clearFavoritesBtn.addEventListener('click', clearAllFavorites);
+            }
         }
 
         // Ejecutar la inicialización cuando el DOM esté cargado
