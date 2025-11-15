@@ -3,1341 +3,1444 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienestar Psicológico - YachayMikuy</title>
+    <title>Perfil del Niño - Yachay Mikuy</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         :root {
-            --primary: #6a11cb;
-            --secondary: #2575fc;
-            --accent: #ff6b6b;
-            --success: #4ecdc4;
-            --warning: #ffd93d;
-            --dark: #2c3e50;
-            --light: #f8f9fa;
-            --shadow: 0 4px 6px rgba(0,0,0,0.1);
-            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --primary-blue: #2c5aa0;
+            --light-blue: #5d8cc4;
+            --dark-blue: #1a3a6e;
+            --success-green: #28a745;
+            --success-green-dark: #218838;
+            --accent-orange: #ff9800;
+            --accent-orange-dark: #e08e0b;
+            --accent-purple: #6f42c1;
+            --accent-purple-dark: #5a32a3;
+            --accent-teal: #20c997;
+            --accent-teal-dark: #1aa27d;
+            --accent-pink: #d63384;
+            --accent-pink-dark: #b02a6e;
+            --accent-cyan: #0dcaf0;
+            --accent-cyan-dark: #0baccc;
+            --gray: #6c757d;
+            --light-gray: #f8f9fa;
+            --white: #ffffff;
+            --shadow-color: rgba(40, 50, 70, 0.1);
+            --danger-red: #dc3545;
+            --danger-red-dark: #c82333;
+            
+            /* Variables para el footer y modales */
+            --text-dark: #212529;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.08); 
+            --radius: 12px;
+            --transition: all 0.3s ease-in-out;
+            --accent-red: #e63946;
+
+            /* Variables de Intro.js (Guía) - DISEÑO CHIC */
+            --primary-guide: #6366f1;
+            --secondary-guide: #8b5cf6;
+            --accent-guide: #ec4899;
+            --bg-guide: #ffffff;
+            --text-guide: #1f2937;
+            --border-guide: #e5e7eb;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: var(--dark);
+        /* --- ESTILOS PERSONALIZADOS PARA LA GUÍA (INTRO.JS) - DISEÑO CHIC --- */
+        .introjs-overlay {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            backdrop-filter: blur(5px);
         }
-
-        /* Header */
-        .header {
-            background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(10px);
-            padding: 1rem 2rem;
-            box-shadow: var(--shadow);
-            position: sticky;
+        
+        .introjs-helperLayer {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.15) 50%, rgba(236, 72, 153, 0.15) 100%);
+            border-radius: 16px;
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3), 0 20px 40px rgba(0, 0, 0, 0.1);
+            animation: pulse-border 2s infinite;
+        }
+        
+        @keyframes pulse-border {
+            0%, 100% { box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3), 0 20px 40px rgba(0, 0, 0, 0.1); }
+            50% { box-shadow: 0 0 0 6px rgba(236, 72, 153, 0.4), 0 25px 50px rgba(0, 0, 0, 0.15); }
+        }
+        
+        .introjs-tooltip {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #fafbff 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(99, 102, 241, 0.1);
+            border: none;
+            color: var(--text-guide);
+            max-width: 380px;
+            padding: 0;
+            position: fixed !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            margin: 0 !important;
+            z-index: 1100000 !important;
+            overflow: hidden;
+            animation: slideInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        .introjs-tooltip::before {
+            content: '';
+            position: absolute;
             top: 0;
-            z-index: 1000;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-guide) 0%, var(--secondary-guide) 50%, var(--accent-guide) 100%);
+            animation: gradient-shift 3s ease infinite;
         }
-
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
+        
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -40%) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        
+        .introjs-tooltiptext {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            font-weight: 400;
+            margin: 0;
+            padding: 20px 20px 15px;
+        }
+        
+        .introjs-tooltip-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-guide) 0%, var(--secondary-guide) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 0;
+            padding: 18px 20px 15px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 12px;
+            position: relative;
         }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary);
-            text-decoration: none;
-            transition: transform 0.3s ease;
+        
+        .introjs-tooltip-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+            right: 20px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
         }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        .logo i {
-            font-size: 2rem;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            font-weight: 600;
-        }
-
-        .user-info i {
+        
+        .introjs-tooltip-title i {
+            background: linear-gradient(135deg, var(--primary-guide) 0%, var(--accent-guide) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-size: 1.2rem;
         }
-
-        .header-actions {
+        
+        .introjs-tooltip .introjs-step-number {
+            background: linear-gradient(135deg, var(--primary-guide) 0%, var(--secondary-guide) 100%);
+            color: var(--white);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
             display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.5rem 1.25rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .introjs-tooltipbuttons {
+            padding: 15px 20px 20px;
+            display: flex;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.02) 0%, rgba(236, 72, 153, 0.02) 100%);
+            border-top: 1px solid rgba(99, 102, 241, 0.08);
+        }
+        
+        .introjs-button {
+            background: linear-gradient(135deg, var(--primary-guide) 0%, var(--secondary-guide) 100%);
+            color: var(--white);
+            border-radius: 12px;
+            font-weight: 600;
+            border: none;
+            padding: 10px 18px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-shadow: none;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            font-size: 0.85rem;
+            flex: 1;
             position: relative;
             overflow: hidden;
         }
-
-        .btn::before {
+        
+        .introjs-button::before {
             content: '';
             position: absolute;
             top: 0;
             left: -100%;
             width: 100%;
             height: 100%;
-            background: rgba(255,255,255,0.2);
-            transition: left 0.3s ease;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
         }
-
-        .btn:hover::before {
+        
+        .introjs-button:hover::before {
             left: 100%;
         }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-        }
-
-        .btn-secondary {
-            background: var(--light);
-            color: var(--dark);
-            border: 2px solid #e0e0e0;
-        }
-
-        .btn-danger {
-            background: var(--accent);
-            color: white;
-        }
-
-        .btn:hover {
+        
+        .introjs-button:hover {
             transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
         }
-
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+        
+        .introjs-skipbutton {
+            background: transparent;
+            color: var(--gray);
+            font-weight: 500;
+            text-shadow: none;
+            padding: 10px 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border-guide);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Poppins', sans-serif;
+            flex: 1;
+            font-size: 0.85rem;
         }
-
-        /* Hero Section */
-        .hero {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-lg);
-            text-align: center;
+        
+        .introjs-skipbutton:hover {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+            color: var(--primary-guide);
+            border-color: rgba(99, 102, 241, 0.3);
+            transform: translateY(-1px);
         }
-
-        .hero h1 {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .hero p {
-            font-size: 1.1rem;
-            color: #666;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Info Cards */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .info-card {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
-        }
-
-        .info-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .info-card-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-        }
-
-        .info-card-icon i {
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .info-card h3 {
-            color: var(--primary);
-            margin-bottom: 0.75rem;
-        }
-
-        .info-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Generator Section */
-        .generator-section {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-lg);
-        }
-
-        .generator-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .generator-header h2 {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .input-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-
-        .input-group textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 1rem;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1rem;
-            resize: vertical;
-            transition: border-color 0.3s ease;
-        }
-
-        .input-group textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        .generate-btn {
-            width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .generate-btn:disabled {
+        
+        .introjs-disabled, .introjs-disabled:hover {
+            background: var(--border-guide);
+            color: #9ca3af;
+            transform: none;
+            box-shadow: none;
             opacity: 0.6;
             cursor: not-allowed;
         }
-
-        /* AI Development Message */
-        .ai-development-message {
-            background: linear-gradient(135deg, #fff9c4, #ffeb3b);
-            color: #f57f17;
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            text-align: center;
-            font-weight: 600;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            border: 2px solid #fbc02d;
-            animation: slideDown 0.5s ease;
+        
+        /* Ocultar completamente las flechas del tooltip */
+        .introjs-arrow {
+            display: none !important;
         }
-
-        .ai-development-message.active {
-            display: flex;
+        
+        /* Estilos para dispositivos móviles - DISEÑO CHIC */
+        @media (max-width: 768px) {
+            .introjs-tooltip {
+                max-width: 92%;
+                margin: 0 4% !important;
+                left: 50% !important;
+                right: auto !important;
+                width: auto !important;
+                transform: translate(-50%, -50%) !important;
+                top: 50% !important;
+                bottom: auto !important;
+                position: fixed !important;
+                border-radius: 20px;
+                animation: slideInUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+            
+            .introjs-tooltipbuttons {
+                flex-direction: row;
+                gap: 8px;
+            }
+            
+            .introjs-button, .introjs-skipbutton {
+                flex: 1;
+                padding: 12px 15px;
+                font-size: 0.9rem;
+            }
         }
+        /* --- FIN ESTILOS GUÍA CHIC --- */
 
-        .ai-development-message i {
-            font-size: 2rem;
-            animation: bounce 1s infinite;
-        }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes slideDown {
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(-20px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
-        /* Loading State */
-        .loading-state {
-            display: none;
-            text-align: center;
-            padding: 2rem;
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        .loading-state.active {
-            display: block;
+        /* --- INICIO: NUEVAS ANIMACIONES (FRUTAS Y GRADIENTE) --- */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10%, 90% { opacity: 0.7; }
+            100% { transform: translateY(-120vh) rotate(720deg); opacity: 0; }
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .food-animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
         }
 
-        /* Tips Grid */
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+        .food-icon {
+            position: absolute;
+            bottom: -150px;
+            font-size: 2rem;
+            opacity: 0;
+            animation: float 25s infinite linear;
+        }
+        /* --- FIN: NUEVAS ANIMACIONES --- */
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        .tip-card {
-            background: white;
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: var(--shadow);
-            position: relative;
-            transition: all 0.3s ease;
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .tip-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .tip-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .tip-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tip-icon i {
-            font-size: 1.2rem;
-            color: white;
-        }
-
-        .tip-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .tip-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-            transition: transform 0.2s ease;
-        }
-
-        .tip-btn:hover {
-            transform: scale(1.2);
-        }
-
-        .tip-btn.favorite {
-            color: #ccc;
-        }
-
-        .tip-btn.favorite.active {
-            color: var(--accent);
-        }
-
-        .tip-btn.copy {
-            color: var(--primary);
-        }
-
-        .tip-content h3 {
-            color: var(--primary);
-            margin-bottom: 0.75rem;
-            font-size: 1.2rem;
-        }
-
-        .tip-content p {
-            color: #666;
+        body {
+            background-color: #eef5ff;
+            color: #333;
             line-height: 1.6;
-        }
-
-        /* Favorites Section */
-        .favorites-section {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow);
-            display: none;
-        }
-
-        .favorites-section.active {
-            display: block;
-        }
-
-        .favorites-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .favorites-header h2 {
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Toast Notifications */
-        .toast-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 2000;
-        }
-
-        .toast {
-            background: white;
-            border-radius: 10px;
-            padding: 1rem 1.5rem;
-            margin-bottom: 1rem;
-            box-shadow: var(--shadow-lg);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            min-width: 300px;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        .toast.success {
-            border-left: 4px solid var(--success);
-        }
-
-        .toast.error {
-            border-left: 4px solid var(--accent);
-        }
-
-        .toast.info {
-            border-left: 4px solid var(--primary);
-        }
-
-        .toast i {
-            font-size: 1.5rem;
-        }
-
-        .toast.success i {
-            color: var(--success);
-        }
-
-        .toast.error i {
-            color: var(--accent);
-        }
-
-        .toast.info i {
-            color: var(--primary);
-        }
-
-        /* Chatbot */
-        .chat-fab {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 60px;
-            height: 60px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            box-shadow: var(--shadow-lg);
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .chat-fab:hover {
-            transform: scale(1.1);
-        }
-
-        .chat-widget {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 380px;
-            height: 500px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: var(--shadow-lg);
+            position: relative;
             display: flex;
             flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Asegurar que el contenido principal esté por encima del fondo animado */
+        .top-bar, .container, .footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        .top-bar {
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            color: var(--white);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-bar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .top-bar .logo i {
+            margin-right: 10px;
+            color: var(--accent-orange);
+        }
+
+        .btn-back-top {
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-back-top:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            padding-top: 20px;
+            flex: 1;
+        }
+
+        .profile-header {
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-color);
+            padding: 30px 40px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 8px solid var(--primary-blue);
+            /* MEJORA: Fondo animado */
+            background: linear-gradient(-45deg, #ffffff, #fdfdff, #f3f7fc, #ffffff);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        .profile-left {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .child-avatar {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-size: 3rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(44, 90, 160, 0.4);
+            animation: pulse 2.5s infinite ease-in-out;
+        }
+
+        .child-details h1 {
+            color: var(--dark-blue);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .child-details p {
+            color: var(--gray);
+            font-size: 1.2rem;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* NUEVO: Estilo para el mensaje de ánimo */
+        .profile-header-message {
+            font-family: 'Poppins', sans-serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--dark-blue);
+            opacity: 0.8;
+            margin-top: 8px;
+        }
+
+        .btn-exit {
+            padding: 12px 25px;
+            background: linear-gradient(45deg, var(--danger-red), #e85d75);
+            color: var(--white);
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-exit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+            background: linear-gradient(45deg, var(--danger-red-dark), var(--danger-red));
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .dashboard-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-color);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease-in-out;
+            border-top: 5px solid transparent;
+            animation: fadeIn 0.5s ease-out forwards;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        .dashboard-card:nth-child(1) { animation-delay: 0.1s; }
+        .dashboard-card:nth-child(2) { animation-delay: 0.2s; }
+        .dashboard-card:nth-child(3) { animation-delay: 0.3s; }
+        .dashboard-card:nth-child(4) { animation-delay: 0.4s; }
+        .dashboard-card:nth-child(5) { animation-delay: 0.5s; }
+        .dashboard-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .dashboard-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 40px rgba(40, 50, 70, 0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--white);
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark-blue);
+        }
+
+        .card-description {
+            color: var(--gray);
+            font-weight: 400;
+            margin-bottom: 25px;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-content {
+            margin-top: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .region-selector, .btn-action {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .region-selector {
+            border: 2px solid #ddd;
+            background-color: var(--light-gray);
+            color: var(--dark-blue);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-5'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+            margin-bottom: 15px;
+        }
+
+        .region-selector:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(44, 90, 160, 0.2);
+        }
+
+        .btn-action {
+            border: none;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        .card-pantry { border-top-color: var(--success-green); }
+        .card-pantry .card-icon { background: linear-gradient(45deg, var(--success-green), #58c271); }
+        .card-pantry .btn-action { background: linear-gradient(45deg, var(--success-green), #58c271); }
+        .card-pantry .btn-action:hover { background: linear-gradient(45deg, var(--success-green-dark), var(--success-green)); }
+
+        .card-region { border-top-color: var(--accent-orange); }
+        .card-region .card-icon { background: linear-gradient(45deg, var(--accent-orange), #ffb74d); }
+        .card-region .btn-action { background: linear-gradient(45deg, var(--accent-orange), #ffb74d); }
+        .card-region .btn-action:hover { background: linear-gradient(45deg, var(--accent-orange-dark), var(--accent-orange)); }
+        
+        .card-wellness { border-top-color: var(--accent-purple); }
+        .card-wellness .card-icon { background: linear-gradient(45deg, var(--accent-purple), #9575cd); }
+        .card-wellness .btn-action { background: linear-gradient(45deg, var(--accent-purple), #9575cd); }
+        .card-wellness .btn-action:hover { background: linear-gradient(45deg, var(--accent-purple-dark), var(--accent-purple)); }
+
+        .card-academic { border-top-color: var(--accent-teal); }
+        .card-academic .card-icon { background: linear-gradient(45deg, var(--accent-teal), #4dd9b4); }
+        .card-academic .btn-action { background: linear-gradient(45deg, var(--accent-teal), #4dd9b4); }
+        .card-academic .btn-action:hover { background: linear-gradient(45deg, var(--accent-teal-dark), var(--accent-teal)); }
+        
+        .card-games { border-top-color: var(--accent-pink); }
+        .card-games .card-icon { background: linear-gradient(45deg, var(--accent-pink), #f06292); }
+        .card-games .btn-action { background: linear-gradient(45deg, var(--accent-pink), #f06292); }
+        .card-games .btn-action:hover { background: linear-gradient(45deg, var(--accent-pink-dark), var(--accent-pink)); }
+
+        .card-daily { border-top-color: var(--accent-cyan); }
+        .card-daily .card-icon { background: linear-gradient(45deg, var(--accent-cyan), #4dd0e1); }
+        .card-daily .btn-action { background: linear-gradient(45deg, var(--accent-cyan), #4dd0e1); }
+        .card-daily .btn-action:hover { background: linear-gradient(45deg, var(--accent-cyan-dark), var(--accent-cyan)); }
+        
+        .profile-indicator {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(44, 90, 160, 0.1);
+            color: var(--primary-blue);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .footer { background-color: var(--primary-blue); color: var(--white); padding: 40px 20px 10px; margin-top: auto; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; padding-bottom: 20px; }
+        .footer-section h3 { font-size: 1.4rem; margin-bottom: 15px; font-weight: 600; border-bottom: 2px solid var(--accent-red); padding-bottom: 5px; display: inline-block; }
+        .social-links a { color: var(--white); font-size: 1.5rem; margin-right: 15px; transition: var(--transition); }
+        .social-links a:hover { color: var(--accent-red); transform: scale(1.1); }
+        .footer-section p { margin-bottom: 10px; font-size: 0.95rem; }
+        .footer-section p i { margin-right: 10px; color: var(--accent-red); }
+        .footer-links { list-style: none; }
+        .footer-links a { color: var(--white); text-decoration: none; font-size: 0.95rem; transition: var(--transition); display: block; }
+        .footer-links a:hover { color: var(--accent-red); padding-left: 5px; }
+        .footer-links a i { margin-right: 10px; }
+        .footer-bottom { max-width: 1200px; margin: 0 auto; text-align: center; padding: 15px 0 0; border-top: 1px solid rgba(255, 255, 255, 0.1); font-size: 0.85rem; font-weight: 300; }
+        
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.7); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s ease; }
+        .modal.active { opacity: 1; visibility: visible; }
+        .modal-content { background-color: var(--white); color: var(--text-dark); padding: 30px; border-radius: var(--radius); max-width: 800px; width: 90%; max-height: 95vh; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); transform: translateY(-50px); transition: transform 0.3s ease; margin: 20px auto; display: flex; flex-direction: column; }
+        .modal.active .modal-content { transform: translateY(0); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--dark-gray); padding-bottom: 15px; margin-bottom: 20px; flex-shrink: 0; }
+        .close-modal { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--dark-gray); transition: var(--transition); }
+        .close-modal:hover { color: var(--accent-red); transform: rotate(90deg); }
+        .modal-body { line-height: 1.6; font-size: 0.95rem; max-height: 70vh; overflow-y: auto; padding-right: 15px; margin-right: -15px; flex-grow: 1; }
+        .modal-body h3 { color: var(--primary-blue); margin-top: 20px; margin-bottom: 10px; font-weight: 600; font-size: 1.2rem; }
+        .modal-body i { margin-right: 8px; color: var(--accent-red); }
+        .content-section { margin-bottom: 20px; padding: 15px; border-left: 3px solid var(--accent-red); background-color: var(--light-gray); border-radius: 0 5px 5px 0; }
+        .content-section ul { padding-left: 20px; }
+        .content-section li { list-style: disc; margin-bottom: 5px; }
+        .highlight-box { background-color: #ffe5e8; padding: 15px; border-radius: var(--radius); border: 1px solid var(--accent-red); margin-top: 30px; }
+        .toast-container { position: fixed; top: 20px; right: 20px; z-index: 1050; }
+        .custom-toast { background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); padding: 15px 20px; margin-bottom: 10px; display: flex; align-items: center; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .toast-success { border-left: 5px solid var(--success-green); }
+        .toast-error { border-left: 5px solid var(--danger-red); }
+        .toast-info { border-left: 5px solid var(--accent-cyan); }
+        
+        /* --- INICIO: ESTILOS DEL CHATBOT --- */
+        .chatbot-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1030;
+        }
+        .chat-fab {
+            background: var(--primary-blue);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .chat-fab:hover {
+            transform: scale(1.1);
+            background: var(--light-blue);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .chat-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            height: 450px;
+            background: var(--white);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
             transform: scale(0);
             transform-origin: bottom right;
-            transition: transform 0.3s ease;
-            z-index: 999;
+            transition: transform 0.3s ease-in-out;
         }
-
-        .chat-widget.open {
+        .chat-window.active {
             transform: scale(1);
         }
-
         .chat-header {
-            background: var(--accent);
+            background: linear-gradient(135deg, var(--primary-blue), var(--light-blue));
             color: white;
-            padding: 1rem;
-            border-radius: 20px 20px 0 0;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
-        .chat-header h3 {
+        .chat-header h5 {
             margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+            font-weight: 700;
         }
-
-        .chat-close {
+        .close-chat {
             background: none;
             border: none;
             color: white;
-            font-size: 1.5rem;
+            font-size: 20px;
             cursor: pointer;
+            opacity: 0.8;
+            transition: var(--transition);
         }
-
+        .close-chat:hover {
+            opacity: 1;
+        }
         .chat-body {
             flex: 1;
-            padding: 1rem;
+            padding: 15px;
             overflow-y: auto;
-            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background-color: #f9f9f9;
         }
-
         .chat-message {
-            margin-bottom: 1rem;
-            display: flex;
-            gap: 0.5rem;
+            padding: 10px 15px;
+            border-radius: 18px;
+            max-width: 80%;
+            line-height: 1.4;
+            font-size: 0.9rem;
         }
-
+        .chat-message.bot {
+            background: var(--light-gray);
+            color: var(--text-dark);
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
         .chat-message.user {
-            justify-content: flex-end;
+            background: var(--primary-blue);
+            color: var(--white);
+            border-bottom-right-radius: 4px;
+            align-self: flex-end;
         }
-
-        .chat-avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .chat-message.user .chat-avatar {
-            background: var(--accent);
-        }
-
-        .chat-bubble {
-            max-width: 70%;
-            padding: 0.75rem 1rem;
-            border-radius: 15px;
-            background: white;
-        }
-
-        .chat-message.user .chat-bubble {
-            background: var(--accent);
-            color: white;
-        }
-
         .chat-input {
-            padding: 1rem;
-            border-top: 1px solid #e0e0e0;
             display: flex;
-            gap: 0.5rem;
+            border-top: 1px solid #ddd;
+            padding: 10px;
+            background: var(--white);
         }
-
         .chat-input input {
             flex: 1;
-            padding: 0.75rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 25px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            padding: 8px 15px;
+            font-size: 0.9rem;
             outline: none;
         }
-
+        .chat-input input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 0.2rem rgba(44, 90, 160, 0.25);
+        }
         .chat-input button {
-            background: var(--primary);
-            color: white;
+            background: var(--primary-blue);
             border: none;
-            border-radius: 50%;
+            color: white;
             width: 40px;
             height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+            font-size: 16px;
             cursor: pointer;
+            transition: var(--transition);
         }
+        .chat-input button:hover {
+            background: var(--light-blue);
+        }
+        /* --- FIN: ESTILOS DEL CHATBOT --- */
 
-        /* Responsive */
-        @media (max-width:768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
 
-            .hero h1 {
-                font-size: 2rem;
-            }
+        @media (max-width: 768px) {
+            .container { padding: 20px; padding-top: 10px; }
+            .top-bar { padding: 12px 15px; }
+            .top-bar .logo { font-size: 1.2rem; }
+            .btn-back-top { padding: 8px 15px; font-size: 0.8rem; }
+            .profile-header { flex-direction: column; text-align: center; gap: 15px; padding: 25px; }
+            .profile-left { flex-direction: column; text-align: center; }
+            .child-details h1 { font-size: 2rem; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .btn-exit { align-self: center; }
 
-            .tips-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .chat-widget {
-                width: calc(100vw - 2rem);
+            /* AÑADIDO: Estilos Chatbot para móvil */
+            .chat-window {
+                width: 90vw;
                 height: 70vh;
-                right: 1rem;
-                bottom: 1rem;
+                bottom: 80px;
+                right: 5vw;
+                transform-origin: bottom center;
             }
-
-            .chat-fab {
-                bottom: 1rem;
-                right: 1rem;
+            .chatbot-container {
+                bottom: 20px;
+                right: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <a href="#" class="logo">
-                <i class="fas fa-brain"></i>
-                <span>YachayMikuy</span>
+    <div class="food-animation-container" id="foodContainer"></div>
+    
+    <div class="top-bar">
+        <div class="logo">
+            <i class="fas fa-apple-alt"></i>
+            Yachay Mikuy
+        </div>
+        <a href="index1.html#perfiles-de-tus-hijos" class="btn-back-top">
+            <i class="fas fa-arrow-left"></i> Volver a Perfiles
+        </a>
+    </div>
+
+    <div class="container">
+        <header class="profile-header">
+            <div class="profile-left">
+                <div class="child-avatar">
+                    <i class="fas fa-child"></i>
+                </div>
+                <div class="child-details">
+                    <h1 id="childName">Cargando perfil...</h1>
+                    <p>Edad: <span id="childAge">-</span> años</p>
+                    <p class="profile-header-message" id="dynamicMessage"></p>
+                </div>
+            </div>
+            <a href="#" id="logoutBtn" class="btn-exit">
+                <i class="fas fa-sign-out-alt"></i> Salir
             </a>
-            
-            <div class="user-info" id="user-info">
-                <i class="fas fa-user-circle"></i>
-                <span id="user-name">Usuario</span>
-            </div>
-            
-            <div class="header-actions">
-                <a href="#" class="btn btn-secondary" id="back-btn">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Volver</span>
-                </a>
-                <a href="#" class="btn btn-danger" id="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Salir</span>
-                </a>
-            </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Main Content -->
-    <main class="container">
-        <!-- Hero Section -->
-        <section class="hero">
-            <h1>Bienestar Psicológico Infantil</h1>
-            <p>Consejos personalizados para apoyar el desarrollo emocional de tu hijo y combatir los efectos de la anemia</p>
-        </section>
-
-        <!-- Info Cards -->
-        <section class="info-grid">
-            <div class="info-card">
-                <div class="info-card-icon">
-                    <i class="fas fa-heartbeat"></i>
+        <main class="dashboard-grid">
+            <div class="dashboard-card card-pantry">
+                <div class="profile-indicator">
+                    <i class="fas fa-user-circle"></i> Perfil específico
                 </div>
-                <h3>Anemia y Emociones</h3>
-                <p>La anemia puede afectar el estado de ánimo, causando irritabilidad, fatiga y dificultad de concentración en los niños.</p>
-            </div>
-            <div class="info-card">
-                <div class="info-card-icon">
-                    <i class="fas fa-lightbulb"></i>
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-shopping-basket"></i></div>
+                    <h2 class="card-title">Comida con Despensa</h2>
                 </div>
-                <h3>Consejos Personalizados</h3>
-                <p>Obtén recomendaciones psicológicas adaptadas a las necesidades específicas de tu hijo.</p>
-            </div>
-            <div class="info-card">
-                <div class="info-card-icon">
-                    <i class="fas fa-star"></i>
+                <p class="card-description">Genera un plan de comidas nutritivas utilizando los ingredientes que ya tienes en casa. Optimiza tus recursos.</p>
+                <div class="card-content">
+                    <a href="#" id="pantryLink" class="btn-action">
+                        <i class="fas fa-utensils"></i> Empezar
+                    </a>
                 </div>
-                <h3>Guarda tus Favoritos</h3>
-                <p>Guarda los consejos más útiles y accede a ellos rápidamente cuando los necesites.</p>
             </div>
-        </section>
 
-        <!-- Generator Section -->
-        <section class="generator-section">
-            <div class="generator-header">
-                <h2>Generador de Consejos</h2>
-                <p>Describe cómo se siente tu hijo y obtén consejos personalizados</p>
+            <div class="dashboard-card card-region">
+                <div class="profile-indicator">
+                    <i class="fas fa-user-circle"></i> Perfil específico
+                </div>
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-map-marked-alt"></i></div>
+                    <h2 class="card-title">Comida por Región</h2>
+                </div>
+                <p class="card-description">Descubre platos basados en alimentos típicos de cada departamento del Perú. Selecciona una región.</p>
+                <div class="card-content">
+                    <select id="regionSelector" class="region-selector" name="departamento">
+                        <option value="">Selecciona un departamento</option>
+                    </select>
+                    <button id="regionButton" class="btn-action">
+                        <i class="fas fa-search-location"></i> Generar
+                    </button>
+                </div>
+            </div>
+
+            <div class="dashboard-card card-wellness">
+                <div class="profile-indicator">
+                    <i class="fas fa-user-circle"></i> Perfil específico
+                </div>
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-brain"></i></div>
+                    <h2 class="card-title">Bienestar Psicológico</h2>
+                </div>
+                <p class="card-description">Accede a consejos y actividades para fomentar el desarrollo emocional y psicológico de tu hijo.</p>
+                <div class="card-content">
+                    <a href="#" id="wellnessLink" class="btn-action">
+                        <i class="fas fa-lightbulb"></i> Ver Recomendaciones
+                    </a>
+                </div>
+            </div>
+
+            <div class="dashboard-card card-academic">
+                <div class="profile-indicator">
+                    <i class="fas fa-user-circle"></i> Perfil específico
+                </div>
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-book-reader"></i></div>
+                    <h2 class="card-title">Apoyo Académico</h2>
+                </div>
+                <p class="card-description">Encuentra estrategias para potenciar el rendimiento académico y la concentración del niño.</p>
+                <div class="card-content">
+                    <a href="#" id="academicLink" class="btn-action">
+                        <i class="fas fa-graduation-cap"></i> Explorar Estrategias
+                    </a>
+                </div>
             </div>
             
-            <div class="input-group">
-                <label for="mood-input">¿Cómo se siente tu hijo hoy?</label>
-                <textarea id="mood-input" placeholder="Ej: Hoy se sintió frustrado porque no pudo armar su juguete, está cansado o no quiere comer..."></textarea>
+            <div class="dashboard-card card-games">
+                <div class="profile-indicator">
+                    <i class="fas fa-user-circle"></i> Perfil específico
+                </div>
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-puzzle-piece"></i></div>
+                    <h2 class="card-title">Jugando es Divertido</h2>
+                </div>
+                <p class="card-description">Descubre una selección de juegos educativos diseñados para estimular la mente y creatividad de tu hijo.</p>
+                <div class="card-content">
+                    <a href="#" id="gamesLink" class="btn-action">
+                        <i class="fas fa-gamepad"></i> Ver Juegos
+                    </a>
+                </div>
             </div>
             
-            <button class="generate-btn" id="generate-btn">
-                <i class="fas fa-magic"></i>
-                <span>Generar Consejos</span>
-            </button>
-            
-            <!-- AI Development Message -->
-            <div class="ai-development-message" id="ai-development-message">
-                <i class="fas fa-robot"></i>
-                <span><strong>IA en desarrollo</strong> - Estamos generando consejos personalizados para tu hijo...</span>
+            <div class="dashboard-card card-daily">
+                <div class="profile-indicator">
+                    <i class="fas fa-user-circle"></i> Perfil específico
+                </div>
+                <div class="card-header">
+                    <div class="card-icon"><i class="fas fa-plate-wheat"></i></div>
+                    <h2 class="card-title">Platos del Día</h2>
+                </div>
+                <p class="card-description">Recibe recomendaciones diarias de platos balanceados y deliciosos para asegurar su correcta nutrición.</p>
+                <div class="card-content">
+                    <a href="#" id="dailyLink" class="btn-action">
+                        <i class="fas fa-calendar-day"></i> Consultar
+                    </a>
+                </div>
             </div>
-            
-            <!-- Loading State -->
-            <div class="loading-state" id="loading-state">
-                <div class="spinner"></div>
-                <p>Generando consejos personalizados para tu hijo...</p>
-            </div>
-        </section>
-
-        <!-- Tips Grid -->
-        <section class="tips-grid" id="tips-grid">
-            <!-- Tips will be dynamically inserted here -->
-        </section>
-
-        <!-- Favorites Section -->
-        <section class="favorites-section" id="favorites-section">
-            <div class="favorites-header">
-                <h2>
-                    <i class="fas fa-star"></i>
-                    <span>Mis Consejos Favoritos</span>
-                </h2>
-                <button class="btn btn-secondary" id="clear-favorites">
-                    <i class="fas fa-trash"></i>
-                    <span>Limpiar</span>
-                </button>
-            </div>
-            <div class="tips-grid" id="favorites-grid">
-                <!-- Favorite tips will be inserted here -->
-            </div>
-        </section>
-    </main>
-
-    <!-- Toast Container -->
-    <div class="toast-container" id="toast-container"></div>
-
-    <!-- Chatbot -->
-    <div class="chat-fab" id="chat-fab">
-        <i class="fas fa-robot"></i>
+        </main>
     </div>
-    <div class="chat-widget" id="chat-widget">
-        <div class="chat-header">
-            <h3>
-                <i class="fas fa-robot"></i>
-                <span>Asistente YachayMikuy</span>
-            </h3>
-            <button class="chat-close" id="chat-close">
-                <i class="fas fa-times"></i>
-            </button>
+
+    <div class="chatbot-container">
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <h5><i class="fas fa-robot"></i> Asistente Yachay</h5>
+                <button class="close-chat" id="closeChatBtn">&times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="chat-message bot">
+                    ¡Hola! Soy el asistente de Yachay Mikuy. ¿En qué puedo ayudarte hoy?
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="Escribe tu pregunta...">
+                <button id="chatSendBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
         </div>
-        <div class="chat-body" id="chat-body">
-            <!-- Chat messages will be inserted here -->
-        </div>
-        <div class="chat-input">
-            <input type="text" id="chat-input" placeholder="Escribe tu pregunta...">
-            <button id="chat-send">
-                <i class="fas fa-paper-plane"></i>
-            </button>
+        <div class="chat-fab" id="chatFab">
+            <i class="fas fa-comments"></i>
         </div>
     </div>
+
+
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Redes Sociales</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com/yachaymikuy" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/yachaymikuy" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com/yachaymikuy" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/channel/yachaymikuy" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/51918072862" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <p><i class="fas fa-envelope"></i> yachay.mikuy@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +51 918 072 862</p>
+                <p><i class="fas fa-map-marker-alt"></i> Lima - Perú</p>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Útiles</h3>
+                <ul class="footer-links">
+                    <li><a href="#" id="aboutLink"><i class="fas fa-info-circle"></i> Acerca de Nosotros</a></li>
+                    <li><a href="#" id="servicesLink"><i class="fas fa-concierge-bell"></i> Servicios</a></li>
+                    <li><a href="#" id="faqLink"><i class="fas fa-question-circle"></i> Preguntas Frecuentes</a></li>
+                    <li><a href="#" id="privacyLink"><i class="fas fa-shield-alt"></i> Política de Privacidad</a></li>
+                    <li><a href="#" id="termsLink"><i class="fas fa-file-contract"></i> Términos y Condiciones</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2025 Yachay Mikuy. Todos los derechos reservados.</div>
+    </footer>
+
+    <div id="actionModalContainer"></div>
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/intro.min.js"></script>
 
     <script>
-        // Sistema de Usuarios y Niños
-        const userSystem = {
-            // Obtener usuario actual
-            getCurrentUser: function() {
-                const sessionData = localStorage.getItem('yachay_session');
-                if (sessionData) {
-                    const session = JSON.parse(sessionData);
-                    if (session.currentUserId) {
-                        const users = JSON.parse(localStorage.getItem('yachay_users') || '[]');
-                        return users.find(u => u.id === session.currentUserId);
-                    }
+        // --- INICIO: LÓGICA DE SESIÓN E INACTIVIDAD ---
+        let inactivityTimer;
+
+        // Función central para cerrar sesión y redirigir
+        function logoutAndRedirect() {
+            console.log("Inactividad de 1 minuto detectada. Cerrando sesión y redirigiendo.");
+            const session = storageAdapter.getSession();
+            session.currentUserId = null;
+            session.exploringAsGuest = false;
+            storageAdapter.saveSession(session); // Guardamos la sesión actualizada
+            
+            showToast('Sesión cerrada por inactividad.', 'info');
+            
+            // Esperamos un momento para que el toast sea visible antes de redirigir
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
+        }
+
+        // Función para reiniciar el temporizador de inactividad
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            // El timeout es de 1 minuto (60000 milisegundos)
+            inactivityTimer = setTimeout(logoutAndRedirect, 60000);
+        }
+        // --- FIN: LÓGICA DE SESIÓN E INACTIVIDAD ---
+
+        // --- INICIO: LÓGICA DE LA GUÍA INTERACTIVA (Intro.js) - DISEÑO CHIC ---
+        function startGuidedTour() {
+            if (document.querySelector('.introjs-overlay')) {
+                return;
+            }
+
+            // Pasos detallados para los 6 módulos
+            const steps = [
+                {
+                    element: '.profile-header',
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">1</span><i class="fas fa-user-circle"></i> Perfil Individual</div><div class="introjs-tooltiptext">Este es el <b>perfil individual</b> de tu hijo. Todas las recomendaciones en esta página están personalizadas para él o ella.</div>'
+                },
+                {
+                    element: '.card-pantry',
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">2</span><i class="fas fa-shopping-basket"></i> Comida con Despensa</div><div class="introjs-tooltiptext">Usa esta opción para generar un plan de comidas semanal basado en los ingredientes que ya tienes en casa. ¡Es genial para ahorrar!</div>'
+                },
+                {
+                    element: '.card-region',
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">3</span><i class="fas fa-map-marked-alt"></i> Comida por Región</div><div class="introjs-tooltiptext">¿No sabes qué cocinar? Selecciona un departamento y obtén un plan basado en alimentos de temporada y platos típicos de esa zona.</div>'
+                },
+                {
+                    element: '.card-wellness',
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">4</span><i class="fas fa-brain"></i> Bienestar Psicológico</div><div class="introjs-tooltiptext">La nutrición también es mental. Encuentra consejos y actividades para la salud emocional de tu hijo aquí.</div>'
+                },
+                {
+                    element: '.card-academic',
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">5</span><i class="fas fa-book-reader"></i> Apoyo Académico</div><div class="introjs-tooltiptext">Encuentra estrategias y recursos para potenciar el rendimiento escolar y los hábitos de estudio de tu hijo.</div>'
+                },
+                {
+                    element: '.card-games',
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">6</span><i class="fas fa-puzzle-piece"></i> Jugando es Divertido</div><div class="introjs-tooltiptext">Explora juegos educativos y actividades lúdicas para estimular la mente y la creatividad de tu hijo.</div>'
+                },
+                {
+                    element: '.card-daily',
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">7</span><i class="fas fa-plate-wheat"></i> Platos del Día</div><div class="introjs-tooltiptext">Recibe tres recomendaciones diarias (desayuno, almuerzo y cena) de platos balanceados para tu hijo.</div>'
+                },
+                {
+                    element: '.btn-back-top',
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">8</span><i class="fas fa-arrow-left"></i> Volver a Perfiles</div><div class="introjs-tooltiptext">Usa este botón para <b>Volver al Panel de Perfiles</b> (la pantalla anterior).</div>'
+                },
+                {
+                    element: '#logoutBtn',
+                    intro: '<div class="introjs-tooltip-title"><span class="introjs-step-number">9</span><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</div><div class="introjs-tooltiptext">Y aquí puedes <b>Cerrar Sesión</b> y volver a la pantalla de inicio.</div>'
                 }
-                return null;
-            },
-            
-            // Obtener todos los niños
-            getChildren: function() {
-                return JSON.parse(localStorage.getItem('yachay_children') || '[]');
-            },
-            
-            // Obtener niño por ID
-            getChildById: function(childId) {
-                const children = this.getChildren();
-                return children.find(c => c.id === childId);
-            },
-            
-            // Cerrar sesión
-            logout: function() {
-                localStorage.removeItem('yachay_session');
-                return true;
+            ];
+
+            if (steps.length > 0) {
+                introJs().setOptions({
+                    steps: steps,
+                    nextLabel: 'Siguiente →',
+                    prevLabel: '← Anterior',
+                    doneLabel: '¡Listo!',
+                    skipLabel: 'X',
+                    showBullets: false,
+                    exitOnOverlayClick: false,
+                    tooltipPosition: 'center',
+                    positionPrecedence: ['center'],
+                    showStepNumbers: false,
+                    tooltipClass: 'custom-intro-tooltip'
+                }).start();
             }
-        };
+        }
+        // --- FIN: LÓGICA DE LA GUÍA INTERACTIVA ---
 
-        // Database de consejos psicológicos
-        const psychologicalTips = [
-            {
-                id: 1,
-                title: "Respiración del Volcán",
-                description: "Enséñale a tu hijo a respirar profundamente imaginando que es un volcán. Inhala por la nariz contando hasta 4, sostén el aire y exhala como lava. Repite 3-5 veces para calmar la ansiedad.",
-                icon: "fa-wind"
-            },
-            {
-                id: 2,
-                title: "Frasco de la Calma",
-                description: "Crea un frasco con agua, purpurina y glicerina. Cuando tu hijo se sienta ansioso, agítalo y observen juntos cómo la purpurina se asienta lentamente.",
-                icon: "fa-prescription-bottle"
-            },
-            {
-                id: 3,
-                title: "Dibuja tus Emociones",
-                description: "Invita a tu hijo a dibujar lo que siente usando colores. Después, hablen sobre el dibujo. Esto ayuda a expresar sentimientos difíciles de verbalizar.",
-                icon: "fa-paint-brush"
-            },
-            {
-                id: 4,
-                title: "Cuentos Terapéuticos",
-                description: "Crea historias donde personajes enfrenten situaciones similares. Tu hijo puede encontrar soluciones para sus propias emociones sintiéndose comprendido.",
-                icon: "fa-book-open"
-            },
-            {
-                id: 5,
-                title: "Rincón de la Serenidad",
-                description: "Dedica un espacio con cojines, libros tranquilos y música suave. Cuando tu hijo se sienta abrumado, puede ir allí para calmarse por sí mismo.",
-                icon: "fa-couch"
-            },
-            {
-                id: 6,
-                title: "Juego de Roles",
-                description: "Practica situaciones difíciles intercambiando roles. Tu hijo puede ver la perspectiva de otros y desarrollar estrategias para manejar sus emociones.",
-                icon: "fa-theater-masks"
-            },
-            {
-                id:7,
-                title: "Combinación de Alimentos",
-                description: "Combina alimentos ricos en hierro con vitamina C. Sirve lentejas con pimientos o espinacas con tomate para mejorar la absorción y enseñar nutrición visualmente.",
-                icon: "fa-apple-alt"
-            },
-            {
-                id: 8,
-                title: "Cocina en Familia",
-                description: "Involucra a tu hijo en preparar comidas ricas en hierro. Los niños que cocinan están más dispuestos a probar nuevos alimentos y fortalece los vínculos.",
-                icon: "fa-utensils"
-            },
-            {
-                id: 9,
-                title: "Narrativa de Superhéroes",
-                description: "Crea historias donde personajes obtienen superpoderes al comer alimentos ricos en hierro. Tu hijo puede imaginar que obtiene 'poderes de concentración'.",
-                icon: "fa-mask"
-            },
-            {
-                id: 10,
-                title: "Tabla de Progresos",
-                description: "Crea una tabla visual donde tu hijo marque cada vez que prueba un alimento rico en hierro. Celebre los logros para reforzar positivamente el comportamiento.",
-                icon: "fa-chart-line"
-            },
-            {
-                id: 11,
-                title: "Tiempo de Calma Post-Comida",
-                description: "Establece 10-15 minutos de relajación después de comer. Practiquen respiración profunda para mejorar la digestión y absorción de nutrientes.",
-                icon: "fa-spa"
-            },
-            {
-                id: 12,
-                title: "Diario de Bienestar",
-                description: "Ayuda a tu hijo a llevar un diario visual registrando cómo se siente antes y después de comer alimentos ricos en hierro para conectar nutrición y emociones.",
-                icon: "fa-journal-whills"
-            },
-            {
-                id: 13,
-                title: "Juegos de Identificación",
-                description: "Crea juegos donde tu hijo identifique alimentos 'energéticos'. Usa tarjetas con imágenes y haz competencias de quién encuentra más alimentos que dan fuerza.",
-                icon: "fa-search"
-            },
-            {
-                id: 14,
-                title: "Premios No Alimenticios",
-                description: "Recompensa el consumo de alimentos ricos en hierro con actividades especiales: tiempo extra de juego, una lectura juntos o una salida especial.",
-                icon: "fa-trophy"
-            },
-            {
-                id: 15,
-                title: "Música y Alimentos",
-                description: "Crea canciones sobre alimentos ricos en hierro. La música ayuda a memorizar información y crea asociaciones positivas con estos alimentos.",
-                icon: "fa-music"
-            },
-            {
-                id: 16,
-                title: "Experimentos Culinarios",
-                description: "Realiza experimentos simples como cambiar el color de alimentos (puré de papa con remolacha) para hacerlos más interesantes y despertar la curiosidad.",
-                icon: "fa-flask"
-            },
-            {
-                id: 17,
-                title: "Visitas Educativas",
-                description: "Visita granjas o mercados locales donde tu hijo pueda ver alimentos frescos ricos en hierro. Conocer el origen aumenta la disposición a probarlos.",
-                icon: "fa-store"
-            },
-            {
-                id: 18,
-                title: "Amigos Imaginarios",
-                description: "Inventa personajes que aman alimentos ricos en hierro. Tu hijo puede 'adoptar' a uno de estos amigos y querer comer como él, facilitando el cambio.",
-                icon: "fa-ghost"
-            }
-        ];
 
-        // Estado de la aplicación
-        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-        let displayedTips = [];
-        let isGenerating = false;
-        let currentUser = null;
-        let currentChild = null;
-
-        // DOM Elements
-        const generateBtn = document.getElementById('generate-btn');
-        const moodInput = document.getElementById('mood-input');
-        const loadingState = document.getElementById('loading-state');
-        const aiDevelopmentMessage = document.getElementById('ai-development-message');
-        const tipsGrid = document.getElementById('tips-grid');
-        const favoritesSection = document.getElementById('favorites-section');
-        const favoritesGrid = document.getElementById('favorites-grid');
-        const clearFavoritesBtn = document.getElementById('clear-favorites');
-        const toastContainer = document.getElementById('toast-container');
-        const userInfo = document.getElementById('user-info');
-        const userName = document.getElementById('user-name');
-        const backBtn = document.getElementById('back-btn');
-        const logoutBtn = document.getElementById('logout-btn');
-
-        // Chatbot Elements
-        const chatFab = document.getElementById('chat-fab');
-        const chatWidget = document.getElementById('chat-widget');
-        const chatClose = document.getElementById('chat-close');
-        const chatBody = document.getElementById('chat-body');
-        const chatInput = document.getElementById('chat-input');
-        const chatSend = document.getElementById('chat-send');
-
-        // Base de conocimiento del chatbot
+        // --- INICIO: LÓGICA DEL CHATBOT ---
+        
+        // Base de conocimiento ampliada
         const chatKnowledgeBase = {
-            "hola": "¡Hola! Soy tu asistente de YachayMikuy. Estoy aquí para ayudarte con consejos sobre bienestar infantil y anemia.",
-            "consejos": "Puedes generar consejos personalizados describiendo cómo se siente tu hijo en el área de texto y haciendo clic en 'Generar Consejos'.",
-            "favoritos": "Para guardar un consejo como favorito, haz clic en la estrella ⭐ en la tarjeta del consejo. Puedes ver todos tus favoritos en la sección correspondiente.",
-            "anemia": "La anemia puede afectar el estado emocional de los niños causando fatiga, irritabilidad y dificultad de concentración. Una buena nutrición ayuda a combatirla.",
-            "emociones": "Es importante ayudar a los niños a identificar y expresar sus emociones. Usa técnicas como el dibujo, juegos de roles o cuentos terapéuticos."
+            // Conocimiento General (de la app)
+            saludos: { keywords: ['hola', 'buenos dias', 'buenas tardes', 'buenas noches', 'saludos'], response: '¡Hola! Soy el asistente virtual de Yachay Mikuy. ¿En qué puedo ayudarte hoy? Puedes preguntarme sobre nuestros servicios o sobre las funciones de esta página.' },
+            acerca: { keywords: ['acerca de', 'quienes son', 'mision', 'vision', 'equipo', 'yachay mikuy'], response: '<b>Nuestra Misión:</b> Reducir la anemia infantil en más del 60% en Latinoamérica con soluciones personalizadas y accesibles.<br><b>Nuestra Visión:</b> Ser la plataforma líder que transforma la nutrición infantil en Latinoamérica.' },
+            servicios: { keywords: ['servicios', 'que hacen', 'ia', 'plan', 'mikuycito'], response: 'Ofrecemos <b>Planes Personalizados con IA</b> para procesar la información de cada niño y generar un plan único. También usamos <b>Gamificación con "Mikuycito"</b>, un aliado interactivo con juegos y recompensas para hacer el proceso divertido.' },
+            precios: { keywords: ['precio', 'costo', 'cuanto cuesta', 'precios'], response: 'Creemos que la salud no debe ser un lujo. Nuestros precios son:<br><ul><li><b>Público General:</b> $5 mensuales.</li><li><b>Áreas Vulnerables:</b> $3 mensuales.</li></ul>Además, contamos con funciones gratuitas para todos.' },
+            faq_diferencia: { keywords: ['diferente', 'diferencia', 'competencia'], response: 'A diferencia de soluciones genéricas, nosotros no ofrecemos una solución única. Entendemos que la anemia es multidimensional, por eso creamos planes 100% personalizados que se adaptan a la realidad local de cada familia.' },
+            faq_edades: { keywords: ['edad', 'edades', 'para quien es'], response: 'Nuestra plataforma está diseñada principalmente para niños de 0 a 13 años, una etapa crucial para el desarrollo físico y cognitivo.' },
+            privacidad: { keywords: ['privacidad', 'datos', 'seguro', 'seguridad'], response: 'La seguridad de tus datos es nuestra máxima prioridad. Cumplimos con todas las normativas y usamos encriptación. Requerimos consentimiento parental explícito y los tutores tienen control total sobre la información para rectificarla o eliminarla.' },
+            terminos: { keywords: ['terminos', 'condiciones', 'legal', 'medico'], response: 'Es importante recordar que Yachay Mikuy es una herramienta de apoyo y educación. <b>No reemplaza el diagnóstico o consejo de un profesional médico cualificado.</b> Siempre consulta a tu pediatra antes de realizar cambios significativos en la dieta.' },
+
+            // --- AÑADIDO: Conocimiento Específico de esta Página (chicos.html) ---
+            despensa: {
+                keywords: ['despensa', 'ingredientes', 'comida con despensa', 'tarjeta verde'],
+                response: 'La tarjeta verde <b>Comida con Despensa</b> te permite generar un plan de comidas para tu hijo usando los ingredientes que ya tienes en casa.'
+            },
+            region: {
+                keywords: ['region', 'regional', 'departamento', 'comida por region', 'tarjeta naranja'],
+                response: 'La tarjeta naranja <b>Comida por Región</b> te da planes de comida basados en alimentos de temporada del departamento que elijas en el selector.'
+            },
+            bienestar: {
+                keywords: ['bienestar', 'psicologico', 'emocional', 'salud mental', 'tarjeta morada'],
+                response: 'Encuentra consejos para el <b>Bienestar Psicológico</b> (tarjeta morada) para fomentar el desarrollo emocional de tu hijo.'
+            },
+            academico: {
+                keywords: ['academico', 'apoyo academico', 'colegio', 'estudios', 'tarjeta turquesa'],
+                response: 'El módulo de <b>Apoyo Académico</b> (tarjeta turquesa) te da estrategias para potenciar el rendimiento escolar de tu hijo.'
+            },
+            juegos: {
+                keywords: ['juegos', 'jugando', 'divertido', 'tarjeta rosada'],
+                response: '¡Claro! La sección <b>Jugando es Divertido</b> (tarjeta rosada) tiene juegos educativos para estimular la mente de tu hijo.'
+            },
+            platos_dia: {
+                keywords: ['platos del dia', 'diario', 'sugerencias', 'desayuno', 'tarjeta celeste'],
+                response: 'La tarjeta <b>Platos del Día</b> (celeste) te da tres recomendaciones diarias (desayuno, almuerzo y cena) balanceadas para tu hijo.'
+            }
         };
 
-        // Inicialización
-        function init() {
-            loadUserData();
-            setupEventListeners();
-            updateFavoritesSection();
-            addChatMessage("¡Hola! Soy tu asistente. ¿En qué puedo ayudarte hoy?", 'bot');
+
+        function normalizeText(text) {
+            return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         }
 
-        // Cargar datos del usuario y niño
-        function loadUserData() {
-            // Obtener usuario actual
-            currentUser = userSystem.getCurrentUser();
-            
-            if (currentUser) {
-                userName.textContent = currentUser.name;
-                
-                // Obtener childId de la URL
-                const urlParams = new URLSearchParams(window.location.search);
-                const childId = urlParams.get('childId');
-                
-                if (childId) {
-                    currentChild = userSystem.getChildById(childId);
-                    if (currentChild) {
-                        userName.textContent = `${currentUser.name} - ${currentChild.name}`;
-                    } else {
-                        showToast('No se encontraron datos del niño', 'error');
+        function getBotResponse(userInput) {
+            const normalizedInput = normalizeText(userInput);
+            for (const key in chatKnowledgeBase) {
+                const entry = chatKnowledgeBase[key];
+                for (const keyword of entry.keywords) {
+                    if (normalizedInput.includes(normalizeText(keyword))) {
+                        return entry.response;
                     }
                 }
-            } else {
-                userName.textContent = "Invitado";
-                showToast("No has iniciado sesión. Algunas funciones pueden estar limitadas.", 'info');
             }
-        }
-
-        // Configurar event listeners
-        function setupEventListeners() {
-            generateBtn.addEventListener('click', generateTips);
-            clearFavoritesBtn.addEventListener('click', clearFavorites);
-            
-            // Navegación
-            backBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (currentChild) {
-                    window.location.href = `chicos.html?childId=${currentChild.id}`;
-                } else {
-                    window.location.href = 'index1.html';
-                }
-            });
-            
-            logoutBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                if (userSystem.logout()) {
-                    showToast('Sesión cerrada correctamente', 'success');
-                    setTimeout(() => {
-                        window.location.href = 'index1.html';
-                    }, 1500);
-                }
-            });
-            
-            // Chatbot events
-            chatFab.addEventListener('click', openChat);
-            chatClose.addEventListener('click', closeChat);
-            chatSend.addEventListener('click', sendChatMessage);
-            chatInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') sendChatMessage();
-            });
-        }
-
-        // Generar consejos
-        function generateTips() {
-            if (isGenerating) return;
-            
-            isGenerating = true;
-            generateBtn.disabled = true;
-            
-            // Mostrar mensaje de IA en desarrollo
-            aiDevelopmentMessage.classList.add('active');
-            
-            // Simular carga
-            setTimeout(() => {
-                aiDevelopmentMessage.classList.remove('active');
-                loadingState.classList.add('active');
-            }, 1000);
-            
-            // Simular procesamiento
-            setTimeout(() => {
-                const availableTips = psychologicalTips.filter(tip => 
-                    !displayedTips.includes(tip.id)
-                );
-                
-                // Si ya se mostraron todos, reiniciar
-                const tipsToUse = availableTips.length > 0 ? availableTips : psychologicalTips;
-                
-                // Seleccionar 6 consejos aleatorios
-                const selectedTips = [];
-                const tempTips = [...tipsToUse];
-                
-                for (let i = 0; i < 6 && tempTips.length > 0; i++) {
-                    const randomIndex = Math.floor(Math.random() * tempTips.length);
-                    selectedTips.push(tempTips[randomIndex]);
-                    displayedTips.push(tempTips[randomIndex].id);
-                    tempTips.splice(randomIndex, 1);
-                }
-                
-                // Mostrar consejos
-                renderTips(selectedTips);
-                
-                // Limpiar input
-                moodInput.value = '';
-                
-                // Ocultar loading
-                loadingState.classList.remove('active');
-                generateBtn.disabled = false;
-                isGenerating = false;
-                
-                showToast('Se han generado 6 nuevos consejos psicológicos', 'success');
-            }, 3000);
-        }
-
-        // Renderizar consejos
-        function renderTips(tips) {
-            tipsGrid.innerHTML = '';
-            
-            tips.forEach(tip => {
-                const isFavorite = favorites.some(fav => fav.id === tip.id);
-                const tipCard = createTipCard(tip, isFavorite);
-                tipsGrid.appendChild(tipCard);
-            });
-        }
-
-        // Crear tarjeta de consejo
-        function createTipCard(tip, isFavorite) {
-            const card = document.createElement('div');
-            card.className = 'tip-card';
-            
-            card.innerHTML = `
-                <div class="tip-header">
-                    <div class="tip-icon">
-                        <i class="fas ${tip.icon}"></i>
-                    </div>
-                    <div class="tip-actions">
-                        <button class="tip-btn favorite ${isFavorite ? 'active' : ''}" data-id="${tip.id}">
-                            <i class="fas fa-star"></i>
-                        </button>
-                        <button class="tip-btn copy" data-id="${tip.id}">
-                            <i class="fas fa-copy"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="tip-content">
-                    <h3>${tip.title}</h3>
-                    <p>${tip.description}</p>
-                </div>
-            `;
-            
-            // Event listeners
-            const favoriteBtn = card.querySelector('.favorite');
-            const copyBtn = card.querySelector('.copy');
-            
-            favoriteBtn.addEventListener('click', () => toggleFavorite(tip));
-            copyBtn.addEventListener('click', () => copyTip(tip));
-            
-            return card;
-        }
-
-        // Alternar favorito
-        function toggleFavorite(tip) {
-            const index = favorites.findIndex(fav => fav.id === tip.id);
-            
-            if (index > -1) {
-                favorites.splice(index, 1);
-                showToast('Consejo eliminado de favoritos', 'info');
-            } else {
-                favorites.push(tip);
-                showToast('Consejo añadido a favoritos', 'success');
-            }
-            
-            localStorage.setItem('favorites', JSON.stringify(favorites));
-            updateFavoritesSection();
-            
-            // Actualizar botón en la tarjeta actual
-            const favoriteBtn = document.querySelector(`.favorite[data-id="${tip.id}"]`);
-            if (favoriteBtn) {
-                favoriteBtn.classList.toggle('active');
-            }
-        }
-
-        // Copiar consejo
-        function copyTip(tip) {
-            const text = `${tip.title}\n\n${tip.description}`;
-            
-            navigator.clipboard.writeText(text).then(() => {
-                showToast('Consejo copiado al portapapeles', 'success');
-            }).catch(() => {
-                showToast('Error al copiar el consejo', 'error');
-            });
-        }
-
-        // Actualizar sección de favoritos
-        function updateFavoritesSection() {
-            if (favorites.length > 0) {
-                favoritesSection.classList.add('active');
-                favoritesGrid.innerHTML = '';
-                
-                favorites.forEach(tip => {
-                    const tipCard = createTipCard(tip, true);
-                    favoritesGrid.appendChild(tipCard);
-                });
-            } else {
-                favoritesSection.classList.remove('active');
-            }
-        }
-
-        // Limpiar favoritos
-        function clearFavorites() {
-            favorites = [];
-            localStorage.removeItem('favorites');
-            updateFavoritesSection();
-            showToast('Todos los favoritos han sido eliminados', 'info');
-            
-            // Actualizar botones en las tarjetas actuales
-            document.querySelectorAll('.favorite.active').forEach(btn => {
-                btn.classList.remove('active');
-            });
-        }
-
-        // Mostrar notificación toast
-        function showToast(message, type = 'info') {
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            
-            const icon = type === 'success' ? 'fa-check-circle' : 
-                         type === 'error' ? 'fa-exclamation-circle' : 
-                         'fa-info-circle';
-            
-            toast.innerHTML = `
-                <i class="fas ${icon}"></i>
-                <span>${message}</span>
-            `;
-            
-            toastContainer.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.style.animation = 'slideIn 0.3s ease reverse';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        // Chatbot Functions
-        function openChat() {
-            chatWidget.classList.add('open');
-            chatFab.style.display = 'none';
-        }
-
-        function closeChat() {
-            chatWidget.classList.remove('open');
-            chatFab.style.display = 'flex';
+            return 'No entendí tu pregunta. Intenta reformularla. Puedo responder sobre: Acerca de Yachay, Servicios, Precios, y las 6 funciones de esta página (despensa, región, bienestar, etc.).';
         }
 
         function addChatMessage(message, sender) {
+            const chatBody = document.getElementById('chatBody');
             const messageDiv = document.createElement('div');
             messageDiv.className = `chat-message ${sender}`;
-            
-            const avatar = document.createElement('div');
-            avatar.className = 'chat-avatar';
-            avatar.innerHTML = sender === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
-            
-            const bubble = document.createElement('div');
-            bubble.className = 'chat-bubble';
-            bubble.textContent = message;
-            
-            if (sender === 'user') {
-                messageDiv.appendChild(bubble);
-                messageDiv.appendChild(avatar);
-            } else {
-                messageDiv.appendChild(avatar);
-                messageDiv.appendChild(bubble);
-            }
-            
+            messageDiv.innerHTML = message;
             chatBody.appendChild(messageDiv);
             chatBody.scrollTop = chatBody.scrollHeight;
         }
 
-        function sendChatMessage() {
+        function clearChat() {
+            const chatBody = document.getElementById('chatBody');
+            chatBody.innerHTML = '<div class="chat-message bot">¡Hola! Soy el asistente de Yachay Mikuy. ¿En qué puedo ayudarte hoy?</div>';
+            chatBody.scrollTop = 0;
+        }
+
+        function handleSendMessage() {
+            const chatInput = document.getElementById('chatInput');
             const message = chatInput.value.trim();
-            if (!message) return;
-            
+            if (message === '') return;
             addChatMessage(message, 'user');
             chatInput.value = '';
-            
-            // Buscar respuesta en la base de conocimiento
             setTimeout(() => {
-                const response = getChatbotResponse(message);
-                addChatMessage(response, 'bot');
+                const botResponse = getBotResponse(message);
+                addChatMessage(botResponse, 'bot');
             }, 500);
         }
 
-        function getChatbotResponse(message) {
-            const lowerMessage = message.toLowerCase();
-            
-            for (const key in chatKnowledgeBase) {
-                if (lowerMessage.includes(key)) {
-                    return chatKnowledgeBase[key];
+        function setupChatbotListeners() {
+            const chatFab = document.getElementById('chatFab');
+            const chatWindow = document.getElementById('chatWindow');
+            const closeChatBtn = document.getElementById('closeChatBtn');
+            const chatSendBtn = document.getElementById('chatSendBtn');
+            const chatInput = document.getElementById('chatInput');
+
+            chatFab.addEventListener('click', () => {
+                const isActive = chatWindow.classList.toggle('active');
+                if (!isActive) {
+                    clearChat();
                 }
-            }
+            });
             
-            return "No entiendo tu pregunta. Intenta preguntar sobre consejos, favoritos, anemia o emociones.";
+            closeChatBtn.addEventListener('click', () => {
+                chatWindow.classList.remove('active');
+                clearChat();
+            });
+
+            chatSendBtn.addEventListener('click', handleSendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    handleSendMessage();
+                }
+            });
+        }
+        // --- FIN: LÓGICA DEL CHATBOT ---
+
+        // Adapter mejorado para incluir saveSession
+        const storageAdapter = {
+            getUsers: () => JSON.parse(localStorage.getItem('yachay_users') || '[]'),
+            getChildren: () => JSON.parse(localStorage.getItem('yachay_children') || '[]'),
+            getSession: () => JSON.parse(localStorage.getItem('yachay_session') || '{"currentUserId":null,"exploringAsGuest":false}'),
+            saveSession: (session) => localStorage.setItem('yachay_session', JSON.stringify(session)), // MÉTODO AÑADIDO
+            saveChildren: (children) => localStorage.setItem('yachay_children', JSON.stringify(children)),
+            saveResponses: (responses) => localStorage.setItem('yachay_responses', JSON.stringify(responses))
+        };
+        
+        function showToast(message, type = 'info') { const container = document.getElementById('toastContainer'); if (!container) return; const toastId = 'toast-' + Date.now(); const toastHtml = ` <div id="${toastId}" class="custom-toast toast-${type}"> <div class="me-2"> ${type === 'success' ? '<i class="fas fa-check-circle text-success"></i>' : type === 'error' ? '<i class="fas fa-exclamation-circle text-danger"></i>' : '<i class="fas fa-info-circle text-info"></i>'} </div> <div class="flex-grow-1">${message}</div> <button type="button" class="btn-close ms-2" onclick="document.getElementById('${toastId}').remove()"></button> </div> `; container.insertAdjacentHTML('beforeend', toastHtml); setTimeout(() => document.getElementById(toastId)?.remove(), 5000); }
+        function calculateAge(dob) { const age = new Date(new Date() - new Date(dob)).getFullYear() - 1970; return age > 0 ? age : 0; }
+        function getURLParameter(name) { return new URLSearchParams(window.location.search).get(name); }
+
+        function createFoodAnimation() {
+            const container = document.getElementById('foodContainer');
+            if (!container) return;
+            const foodIcons = ['fas fa-apple-alt', 'fas fa-carrot', 'fas fa-lemon', 'fas fa-pepper-hot', 'fas fa-seedling', 'fas fa-leaf', 'fas fa-fish', 'fas fa-egg', 'fas fa-bread-slice', 'fas fa-cheese', 'fas fa-drumstick-bite', 'fas fa-ice-cream', 'fas fa-pizza-slice', 'fas fa-cookie', 'fas fa-bacon', 'fas fa-stroopwafel', 'fas fa-hotdog', 'fas fa-candy-cane', 'fas fa-shrimp', 'fas fa-burger', 'fas fa-blender', 'fas fa-mug-hot', 'fas fa-plate-wheat', 'fas fa-bottle-water'];
+            const colors = [ '#FF4500', '#FFD700', '#3CB371', '#1E90FF', '#9370DB', '#FF8C00', '#20B2AA', '#DC143C', '#FFDAB9', '#4682B4', '#6B8E23', '#FF69B4', '#FF7F50', '#8A2BE2', '#00CED1', '#FF1493', '#FF4B00', '#32CD32', '#00BFFF', '#FF6347' ];
+            const iconCount = 35;
+            for (let i = 0; i < iconCount; i++) {
+                const iconEl = document.createElement('i');
+                const randomIcon = foodIcons[Math.floor(Math.random() * foodIcons.length)];
+                iconEl.className = `${randomIcon} food-icon`;
+                iconEl.style.left = `${Math.random() * 98}vw`;
+                iconEl.style.animationDuration = `${Math.random() * 20 + 25}s`;
+                iconEl.style.animationDelay = `-${Math.random() * 25}s`;
+                iconEl.style.fontSize = `${Math.random() * 1.2 + 1.3}rem`;
+                iconEl.style.color = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(iconEl);
+            }
+        }
+        
+        function displayDynamicMessage() {
+            const messages = [
+                "¡Un gran día para crecer fuerte y sano!",
+                "La nutrición de hoy es la energía de mañana.",
+                "Explorando nuevos sabores para un futuro saludable.",
+                "Cada bocado nutritivo es un paso hacia el bienestar.",
+                "¡Listo para un día lleno de aprendizaje y buena comida!"
+            ];
+            const messageContainer = document.getElementById('dynamicMessage');
+            if(messageContainer) {
+                const randomIndex = Math.floor(Math.random() * messages.length);
+                messageContainer.textContent = `"${messages[randomIndex]}"`;
+            }
         }
 
-        // Inicializar aplicación
-        init();
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- INICIO: CONFIGURACIÓN DEL TEMPORIZADOR Y EVENTOS ---
+            resetInactivityTimer(); // Inicia el temporizador al cargar la página
+            
+            // Añade listeners para resetear el temporizador con la interacción del usuario
+            window.addEventListener('mousemove', resetInactivityTimer);
+            window.addEventListener('mousedown', resetInactivityTimer);
+            window.addEventListener('keypress', resetInactivityTimer);
+            window.addEventListener('touchmove', resetInactivityTimer);
+            window.addEventListener('scroll', resetInactivityTimer, true);
+            // --- FIN: CONFIGURACIÓN DEL TEMPORIZADOR Y EVENTOS ---
+
+            // --- AÑADIDO: Iniciar Chatbot y Guía ---
+            setupChatbotListeners();
+            setTimeout(startGuidedTour, 500); // 500ms de retraso para que cargue la página
+
+            createFoodAnimation();
+            displayDynamicMessage();
+
+            const childId = getURLParameter('childId');
+            const session = storageAdapter.getSession();
+            const isGuestMode = getURLParameter('guest') === 'true' || session.exploringAsGuest;
+
+            if (!childId) {
+                document.body.innerHTML = '<h1>Error: No se ha seleccionado un perfil. Redirigiendo...</h1>';
+                setTimeout(() => window.location.href = 'index1.html', 3000);
+                return;
+            }
+
+            const childrenData = storageAdapter.getChildren();
+            const currentChild = childrenData.find(child => child.id === childId);
+
+            if (!currentChild) {
+                document.body.innerHTML = `<h1>Error: Perfil no encontrado. Redirigiendo...</h1>`;
+                setTimeout(() => window.location.href = 'index1.html', 3000);
+                return;
+            }
+
+            loadChildProfile(currentChild, isGuestMode);
+            
+            // --- INICIO: LÓGICA DEL BOTÓN SALIR ---
+            const logoutButton = document.getElementById('logoutBtn');
+            if(logoutButton) {
+                logoutButton.addEventListener('click', (e) => {
+                    e.preventDefault(); // Previene la navegación del enlace
+                    
+                    const session = storageAdapter.getSession();
+                    session.currentUserId = null;
+                    session.exploringAsGuest = false;
+                    storageAdapter.saveSession(session);
+                    
+                    showToast('Has cerrado sesión.', 'info');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                });
+            }
+            // --- FIN: LÓGICA DEL BOTÓN SALIR ---
+
+
+            function loadChildProfile(child, guest) {
+                document.getElementById('childName').textContent = child.name;
+                document.getElementById('childAge').textContent = calculateAge(child.dob);
+                document.title = `${child.name} - Perfil - Yachay Mikuy`;
+
+                const guestParam = guest ? '&guest=true' : '';
+                document.getElementById('pantryLink').href = `chicos1.html?childId=${child.id}${guestParam}`;
+                document.getElementById('wellnessLink').href = `chicos3.html?childId=${child.id}${guestParam}`;
+                document.getElementById('academicLink').href = `chicos4.html?childId=${child.id}${guestParam}`;
+                document.getElementById('gamesLink').href = `chicos5.html?childId=${child.id}${guestParam}`;
+                document.getElementById('dailyLink').href = `chicos6.html?childId=${child.id}${guestParam}`;
+                
+                const departments = ["Amazonas", "Áncash", "Apurímac", "Arequipa", "Ayacucho", "Cajamarca", "Callao", "Cusco", "Huancavelica", "Huánuco", "Ica", "Junín", "La Libertad", "Lambayeque", "Lima", "Loreto", "Madre de Dios", "Moquegua", "Pasco", "Piura", "Puno", "San Martín", "Tacna", "Tumbes", "Ucayali"];
+                const regionSelector = document.getElementById('regionSelector');
+                departments.forEach(dept => {
+                    const option = document.createElement('option');
+                    option.value = dept.toLowerCase().replace(/á/g, 'a').replace(/\s+/g, '-');
+                    option.textContent = dept;
+                    regionSelector.appendChild(option);
+                });
+
+                document.getElementById('regionButton').addEventListener('click', () => {
+                    if (regionSelector.value) {
+                        window.location.href = `chicos2.html?childId=${child.id}&departamento=${regionSelector.value}${guestParam}`;
+                    } else {
+                        showToast('Por favor, selecciona un departamento.', 'error');
+                    }
+                });
+            }
+
+            setupFooterModals();
+        });
+
+        function setupFooterModals() {
+            const actionModalContainer = document.getElementById('actionModalContainer');
+
+            const ui = {
+                openModal: (content) => { 
+                    actionModalContainer.innerHTML = content;
+                    setTimeout(() => actionModalContainer.querySelector('.modal')?.classList.add('active'), 10);
+                },
+                closeModal: () => { 
+                    const modal = actionModalContainer.querySelector('.modal');
+                    if (modal) {
+                        modal.classList.remove('active');
+                        setTimeout(() => actionModalContainer.innerHTML = '', 300);
+                    }
+                }
+            };
+            
+            const templates = {
+                aboutModal: () => ` <div class="modal active"> <div class="modal-content"> <div class="modal-header"> <h2>Acerca de Yachay Mikuy</h2> <button class="close-modal">&times;</button> </div> <div class="modal-body"> <div class="content-section"> <h3><i class="fas fa-bullseye"></i> Nuestra Misión</h3> <p>Reducir la anemia infantil en más del 60% y mejorar la nutrición infantil en Latinoamérica con soluciones personalizadas, accesibles y sostenibles.</p> </div> <div class="content-section"> <h3><i class="fas fa-eye"></i> Nuestra Visión</h3> <p>Ser la plataforma líder que transforma la nutrición infantil en Latinoamérica, asegurando un futuro brillante para cada niño a través de la tecnología y el conocimiento ancestral.</p> </div> <div class="content-section"> <h3><i class="fas fa-users"></i> Nuestro Equipo</h3> <p>Somos un equipo multidisciplinario con más de tres años de experiencia en innovación, tecnología y gestión. Nuestro equipo incluye a María Palacios (Directora Ejecutiva), Álvaro Quiroz (Director de Tecnología), Luz Montalvo, Christian Valdivia y Steve Gómez, todos dedicados a crear soluciones escalables y de alto impacto.</p> </div> <div class="highlight-box"> <h3 style="margin-top:0;"><i class="fas fa-exclamation-circle"></i> Un Problema Real</h3> <p>En América Latina, alrededor de 23 millones de niños sufren de anemia. Solo en Perú, 2 millones están afectados. Estas cifras nos impulsan a actuar.</p> </div> </div> </div> </div>`,
+                servicesModal: () => ` <div class="modal active"> <div class="modal-content"> <div class="modal-header"> <h2>Nuestros Servicios</h2> <button class="close-modal">&times;</button> </div> <div class="modal-body"> <div class="content-section"> <h3><i class="fas fa-robot"></i> Planes Personalizados con IA</h3> <p>Somos la primera plataforma que combate la anemia a través de planes personalizados con enfoque integral. Usamos IA y Big Data para procesar la información de cada niño y generar un plan único que se adapta a sus circunstancias locales y culturales.</p> <ul> <li>Recopilación de información del niño.</li> <li>Procesamiento de datos con IA y Big Data.</li> <li>Generación de un plan 100% personalizado.</li> <li>Monitoreo y ajustes constantes.</li> </ul> </div> <div class="content-section"> <h3><i class="fas fa-gamepad"></i> Gamificación con "Mikuycito"</h3> <p>Para hacer el proceso divertido y educativo, hemos creado a Mikuycito, el aliado interactivo de la alimentación inteligente.</p> <ul> <li>Avatar personalizable para cada niño.</li> <li>Juegos interactivos sobre nutrición.</li> <li>Recompensas y premios por rachas de alimentación saludable.</li> <li>Cuestionarios de aprendizaje.</li> </ul> </div> <div class="content-section"> <h3><i class="fas fa-dollar-sign"></i> Precios Accesibles</h3> <p>Creemos que la salud no debe ser un lujo. Por eso ofrecemos precios asequibles para todos.</p> <ul> <li><b>Público General:</b> $5 mensuales.</li> <li><b>Áreas Vulnerables:</b> $3 mensuales.</li> <li>Además, contamos con funciones gratuitas para todos.</li> </ul> </div> <div class="highlight-box"> <h3 style="margin-top:0;"><i class="fas fa-rocket"></i> Recuperación 5 Veces más Rápida</h3> <p>Con nuestra metodología personalizada, el tiempo de recuperación de la anemia se reduce de 5 meses (o más) a tan solo 1 mes.</p> </div> </div> </div> </div>`,
+                faqModal: () => ` <div class="modal active"> <div class="modal-content"> <div class="modal-header"> <h2>Preguntas Frecuentes</h2> <button class="close-modal">&times;</button> </div> <div class="modal-body"> <div class="content-section"> <h3><i class="fas fa-question-circle"></i> ¿Por qué Yachay Mikuy es diferente?</h3> <p>A diferencia de los suplementos genéricos o programas estatales, nosotros no ofrecemos una solución única para todos. Entendemos que la anemia es un problema multidimensional (nutricional, psicológico, cognitivo). Por eso, creamos planes 100% personalizados que consideran las diferencias individuales y se adaptan a la realidad local de cada familia.</p> </div> <div class="content-section"> <h3><i class="fas fa-child"></i> ¿Para qué edades está diseñada la plataforma?</h3> <p>Nuestra plataforma está diseñada principalmente para niños de 0 a 13 años, una etapa crucial para el desarrollo físico y cognitivo.</p> </div> <div class="content-section"> <h3><i class="fas fa-user-plus"></i> ¿Cómo garantizan que el plan funcionará?</h3> <p>Nuestro sistema se basa en datos y estudios científicos que demuestran la eficacia de los tratamientos personalizados. Un estudio en The Lancet (2010) y otro de Nutri H (2023) confirman que la fortificación y las intervenciones personalizadas reducen la anemia en tiempos tan cortos como 1 o 2 meses.</p> </div> <div class="content-section"> <h3><i class="fas fa-shield-alt"></i> ¿Es seguro compartir los datos de mis hijos?</h3> <p>La seguridad y privacidad de tus datos son nuestra máxima prioridad. Cumplimos con todas las normativas de protección de datos y utilizamos tecnología de encriptación para mantener segura la información. Solo usamos los datos para generar y mejorar los planes nutricionales.</p> </div> </div> </div> </div>`,
+                privacyModal: () => ` <div class="modal active"> <div class="modal-content"> <div class="modal-header"> <h2>Política de Privacidad</h2> <button class="close-modal">&times;</button> </div> <div class="modal-body"> <div class="content-section"> <h3><i class="fas fa-info-circle"></i> Información que Recopilamos</h3> <p>Recopilamos información personal y de salud de manera responsable para personalizar la experiencia:</p> <ul> <li><strong>Datos del Tutor:</strong> Nombre, correo electrónico, teléfono.</li> <li><strong>Datos del Niño:</strong> Nombre, fecha de nacimiento, peso, altura, historial médico relevante, hábitos alimenticios y de actividad física.</li> <li><strong>Datos de Uso:</strong> Interacciones con la plataforma y el avatar Mikuycito.</li> </ul> </div> <div class="content-section"> <h3><i class="fas fa-cogs"></i> Uso de la Información</h3> <p>Utilizamos la información para:</p> <ul> <li>Generar planes de alimentación personalizados mediante nuestros algoritmos de IA.</li> <li>Monitorear el progreso y ajustar las recomendaciones.</li> <li>Mejorar nuestros servicios y realizar investigaciones anonimizadas para combatir la malnutrición.</li> <li>Comunicar actualizaciones importantes sobre la cuenta y el plan nutricional.</li> </ul> </div> <div class="content-section"> <h3><i class="fas fa-user-shield"></i> Consentimiento Parental</h3> <p>Requerimos el consentimiento explícito y verificable de los padres o tutores legales para recopilar y procesar los datos de un menor de edad. Los tutores tienen el control total sobre la información y pueden solicitar su acceso, rectificación o eliminación en cualquier momento.</p> </div> <div class="highlight-box"> <h3 style="margin-top:0;"><i class="fas fa-exclamation-triangle"></i> Importante</h3> <p>No compartimos datos personales identificables con terceros sin su consentimiento explícito, excepto cuando sea requerido por ley. Esta política se actualiza periódicamente.</p> </div> </div> </div> </div>`,
+                termsModal: () => ` <div class="modal active"> <div class="modal-content"> <div class="modal-header"> <h2>Términos y Condiciones</h2> <button class="close-modal">&times;</button> </div> <div class="modal-body"> <div class="content-section"> <h3><i class="fas fa-check-circle"></i> Aceptación de los Términos</h3> <p>Al utilizar la plataforma Yachay Mikuy, aceptas estos términos y condiciones. El uso de la plataforma para un menor de edad implica que usted, como padre o tutor, acepta estos términos en su nombre.</p> </div> <div class="content-section"> <h3><i class="fas fa-heart"></i> Descargo de Responsabilidad Médica</h3> <p>Yachay Mikuy es una herramienta de apoyo y educación nutricional. <strong>No reemplaza el diagnóstico, consejo o tratamiento de un profesional médico cualificado.</strong> Siempre consulte a su pediatra o nutricionista antes de realizar cambios significativos en la dieta de su hijo, especialmente si existen condiciones médicas preexistentes.</p> </div> <div class="content-section"> <h3><i class="fas user-check"></i> Responsabilidades del Usuario</h3> <ul> <li>Usted es responsable de proporcionar información precisa y actualizada sobre su hijo para garantizar la personalización efectiva del plan.</li> <li>Es su responsabilidad supervisar la implementación del plan nutricional y el uso de la aplicación por parte del menor.</li> <li>Se compromete a no utilizar la plataforma para fines ilegales o no autorizados.</li> </ul> </div> <div class="content-section"> <h3><i class="fas fa-copyright"></i> Propiedad Intelectual</h3> <p>Todo el contenido, algoritmos y la marca Yachay Mikuy son propiedad de sus creadores. Queda prohibida su reproducción o distribución sin autorización expresa.</p> </div> <div class="highlight-box"> <h3 style="margin-top:0;"><i class="fas fa-sync-alt"></i> Modificaciones</h3> <p>Nos reservamos el derecho de modificar estos términos en cualquier momento. Se notificará a los usuarios de cambios significativos. El uso continuado de la plataforma constituirá la aceptación de los nuevos términos.</p> </div> </div> </div> </div>`
+            };
+
+            document.body.addEventListener('click', (e) => {
+                const link = e.target.closest('a');
+                if (link) {
+                    if (link.id === 'aboutLink') { e.preventDefault(); ui.openModal(templates.aboutModal()); }
+                    else if (link.id === 'servicesLink') { e.preventDefault(); ui.openModal(templates.servicesModal()); }
+                    else if (link.id === 'faqLink') { e.preventDefault(); ui.openModal(templates.faqModal()); }
+                    else if (link.id === 'privacyLink') { e.preventDefault(); ui.openModal(templates.privacyModal()); }
+                    else if (link.id === 'termsLink') { e.preventDefault(); ui.openModal(templates.termsModal()); }
+                }
+                if (e.target.matches('.modal, .close-modal')) {
+                    ui.closeModal();
+                }
+            });
+        }
     </script>
 </body>
-</html>
+</html> 
