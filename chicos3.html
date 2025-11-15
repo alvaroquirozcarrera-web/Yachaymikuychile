@@ -379,14 +379,8 @@
         }
 
         @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .tip-card:hover {
@@ -506,14 +500,8 @@
         }
 
         @keyframes slideIn {
-            from { 
-                transform: translateX(100%); 
-                opacity: 0; 
-            }
-            to { 
-                transform: translateX(0); 
-                opacity: 1; 
-            }
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         .toast.success {
@@ -711,84 +699,6 @@
                 right: 1rem;
             }
         }
-
-        /* Modal para confirmación de cierre de sesión */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-        }
-
-        .modal {
-            background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            transform: scale(0.8);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-overlay.active .modal {
-            transform: scale(1);
-        }
-
-        .modal h3 {
-            color: var(--dark);
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .modal p {
-            color: #666;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .modal-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-
-        .modal-buttons button {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .modal-confirm {
-            background: var(--accent);
-            color: white;
-        }
-
-        .modal-cancel {
-            background: #e0e0e0;
-            color: var(--dark);
-        }
-
-        .modal-buttons button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
     </style>
 </head>
 <body>
@@ -840,7 +750,7 @@
                     <i class="fas fa-lightbulb"></i>
                 </div>
                 <h3>Consejos Personalizados</h3>
-                <p>Obtén recomendaciones psicológicas adaptadas a las necesidades específicas de tu hijo con IA avanzada.</p>
+                <p>Obtén recomendaciones psicológicas adaptadas a las necesidades específicas de tu hijo.</p>
             </div>
             <div class="info-card">
                 <div class="info-card-icon">
@@ -871,13 +781,13 @@
             <!-- AI Development Message -->
             <div class="ai-development-message" id="ai-development-message">
                 <i class="fas fa-robot"></i>
-                <span><strong>IA en desarrollo</strong> - Estamos generando consejos personalizados adaptados a la situación de tu hijo...</span>
+                <span><strong>IA en desarrollo</strong> - Estamos generando consejos personalizados para tu hijo...</span>
             </div>
             
             <!-- Loading State -->
             <div class="loading-state" id="loading-state">
                 <div class="spinner"></div>
-                <p>Analizando la situación...</p>
+                <p>Generando consejos personalizados para tu hijo...</p>
             </div>
         </section>
 
@@ -932,21 +842,10 @@
         </div>
     </div>
 
-    <!-- Modal de confirmación de cierre de sesión -->
-    <div class="modal-overlay" id="logout-modal">
-        <div class="modal">
-            <h3><i class="fas fa-sign-out-alt"></i> ¿Cerrar sesión?</h3>
-            <p>¿Estás seguro de que quieres cerrar tu sesión? Serás redirigido a la página principal.</p>
-            <div class="modal-buttons">
-                <button class="modal-cancel" id="cancel-logout">Cancelar</button>
-                <button class="modal-confirm" id="confirm-logout">Sí, cerrar sesión</button>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Sistema de Usuarios
+        // Sistema de Usuarios y Niños
         const userSystem = {
+            // Obtener usuario actual
             getCurrentUser: function() {
                 const sessionData = localStorage.getItem('yachay_session');
                 if (sessionData) {
@@ -959,17 +858,19 @@
                 return null;
             },
             
+            // Obtener todos los niños
             getChildren: function() {
                 return JSON.parse(localStorage.getItem('yachay_children') || '[]');
             },
             
+            // Obtener niño por ID
             getChildById: function(childId) {
                 const children = this.getChildren();
                 return children.find(c => c.id === childId);
             },
             
+            // Cerrar sesión
             logout: function() {
-                // Eliminar la sesión
                 localStorage.removeItem('yachay_session');
                 return true;
             }
@@ -1014,7 +915,7 @@
                 icon: "fa-theater-masks"
             },
             {
-                id: 7,
+                id:7,
                 title: "Combinación de Alimentos",
                 description: "Combina alimentos ricos en hierro con vitamina C. Sirve lentejas con pimientos o espinacas con tomate para mejorar la absorción y enseñar nutrición visualmente.",
                 icon: "fa-apple-alt"
@@ -1109,11 +1010,6 @@
         const backBtn = document.getElementById('back-btn');
         const logoutBtn = document.getElementById('logout-btn');
 
-        // Modal elements
-        const logoutModal = document.getElementById('logout-modal');
-        const cancelLogoutBtn = document.getElementById('cancel-logout');
-        const confirmLogoutBtn = document.getElementById('confirm-logout');
-
         // Chatbot Elements
         const chatFab = document.getElementById('chat-fab');
         const chatWidget = document.getElementById('chat-widget');
@@ -1136,11 +1032,12 @@
             loadUserData();
             setupEventListeners();
             updateFavoritesSection();
-            addChatMessage("¡Hola! Soy tu asistente personalizado. ¿En qué puedo ayudarte hoy?", 'bot');
+            addChatMessage("¡Hola! Soy tu asistente. ¿En qué puedo ayudarte hoy?", 'bot');
         }
 
-        // Cargar datos del usuario
+        // Cargar datos del usuario y niño
         function loadUserData() {
+            // Obtener usuario actual
             currentUser = userSystem.getCurrentUser();
             
             if (currentUser) {
@@ -1154,6 +1051,8 @@
                     currentChild = userSystem.getChildById(childId);
                     if (currentChild) {
                         userName.textContent = `${currentUser.name} - ${currentChild.name}`;
+                    } else {
+                        showToast('No se encontraron datos del niño', 'error');
                     }
                 }
             } else {
@@ -1177,15 +1076,13 @@
                 }
             });
             
-            // Event listeners para el modal de logout
-            logoutBtn.addEventListener('click', showLogoutModal);
-            cancelLogoutBtn.addEventListener('click', hideLogoutModal);
-            confirmLogoutBtn.addEventListener('click', performLogout);
-            
-            // Event listener para cerrar el modal al hacer clic fuera
-            logoutModal.addEventListener('click', (e) => {
-                if (e.target === logoutModal) {
-                    hideLogoutModal();
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (userSystem.logout()) {
+                    showToast('Sesión cerrada correctamente', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'index1.html';
+                    }, 1500);
                 }
             });
             
@@ -1196,38 +1093,6 @@
             chatInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') sendChatMessage();
             });
-        }
-
-        // Función para mostrar el modal de logout
-        function showLogoutModal() {
-            logoutModal.classList.add('active');
-        }
-
-        // Función para ocultar el modal de logout
-        function hideLogoutModal() {
-            logoutModal.classList.remove('active');
-        }
-
-        // Función para realizar el logout
-        function performLogout() {
-            hideLogoutModal();
-            
-            // Mostrar mensaje de procesamiento
-            showToast('Cerrando sesión...', 'info');
-            
-            // Realizar el logout después de un breve retraso
-            setTimeout(() => {
-                if (userSystem.logout()) {
-                    showToast('Sesión cerrada correctamente', 'success');
-                    
-                    // Redirigir a index.html después de cerrar sesión
-                    setTimeout(() => {
-                        window.location.href = 'index1.html';
-                    }, 1000);
-                } else {
-                    showToast('Error al cerrar sesión', 'error');
-                }
-            }, 500);
         }
 
         // Generar consejos
@@ -1285,7 +1150,7 @@
         function renderTips(tips) {
             tipsGrid.innerHTML = '';
             
-            tips.forEach((tip, index) => {
+            tips.forEach(tip => {
                 const isFavorite = favorites.some(fav => fav.id === tip.id);
                 const tipCard = createTipCard(tip, isFavorite);
                 tipsGrid.appendChild(tipCard);
