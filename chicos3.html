@@ -4,447 +4,275 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienestar Psicológico - YachayMikuy</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        :root {
-            --primary-color: #9C27B0;
-            --secondary-color: #673AB7;
-            --accent-color: #E91E63;
-            --light-color: #F9F9F9;
-            --dark-color: #333;
-            --danger-color: #F44336;
-            --warning-color: #FF9800;
-            --success-color: #4CAF50;
-            --info-color: #03A9F4;
-            --pastel-purple: #E1BEE7;
-            --pastel-pink: #F8BBD0;
-            --pastel-blue: #BBDEFB;
-            --pastel-green: #C8E6C9;
-            --pastel-yellow: #FFF9C4;
-            --primary-blue: #2c5aa0;
-            --light-blue: #5d8cc4;
-            --dark-blue: #1a3a6e;
-            --iron-color: #B22222;
-            --vitamin-c-color: #FF8C00;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #ff6b6b;
+            --success: #4ecdc4;
+            --warning: #ffd93d;
+            --dark: #2c3e50;
+            --light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
         }
 
         body {
-            background-color: #f5f5f5;
-            color: var(--dark-color);
-            line-height: 1.6;
-            background-image: url('https://picsum.photos/seed/psychology-children/1600/900.jpg');
-            background-size: cover;
-            background-attachment: fixed;
-            background-position: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding-bottom: 60px;
+            color: var(--dark);
         }
 
-        .overlay {
-            position: fixed;
+        /* Header */
+        .header {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
             top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.85);
-            z-index: -1;
+            z-index: 1000;
         }
 
-        .container {
+        .header-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Barra superior mejorada para móviles */
-        .header {
-            background-color: white;
-            border-radius: 15px;
-            padding: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border: 2px solid var(--primary-color);
         }
 
-        .header h1 {
-            color: var(--primary-color);
+        .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.75rem;
             font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
         }
 
-        .header h1 i {
-            font-size: 1.5rem;
-            color: var(--primary-color);
+        .logo i {
+            font-size: 2rem;
         }
 
-        .header-buttons {
+        .header-actions {
             display: flex;
-            gap: 10px;
+            gap: 1rem;
         }
 
         .btn {
-            padding: 10px 15px;
+            padding: 0.5rem 1.25rem;
             border: none;
             border-radius: 25px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 0.5rem;
             transition: all 0.3s ease;
             font-size: 0.9rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .btn-primary {
-            background-color: var(--primary-color);
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
         }
 
         .btn-secondary {
-            background-color: var(--secondary-color);
-            color: white;
+            background: var(--light);
+            color: var(--dark);
+            border: 2px solid #e0e0e0;
         }
 
         .btn-danger {
-            background-color: var(--danger-color);
-            color: white;
-        }
-
-        .btn-warning {
-            background-color: var(--warning-color);
-            color: white;
-        }
-
-        .btn-success {
-            background-color: var(--success-color);
-            color: white;
-        }
-
-        .btn-info {
-            background-color: var(--info-color);
-            color: white;
-        }
-
-        .btn-iron {
-            background-color: var(--iron-color);
-            color: white;
-        }
-
-        .btn-vitamin-c {
-            background-color: var(--vitamin-c-color);
+            background: var(--accent);
             color: white;
         }
 
         .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
-        /* Sección de Anemia y Bienestar Emocional */
-        .anemia-wellness-section {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border: 2px solid var(--iron-color);
-            position: relative;
-            overflow: hidden;
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
 
-        .anemia-wellness-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 10px;
-            height: 100%;
-            background-color: var(--iron-color);
-        }
-
-        .anemia-wellness-title {
-            color: var(--iron-color);
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .anemia-wellness-content {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .anemia-wellness-text {
-            flex: 1;
-            min-width: 250px;
-        }
-
-        .anemia-wellness-image {
-            flex: 1;
-            min-width: 250px;
-            max-width: 300px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .anemia-wellness-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .emotion-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .emotion-card {
-            background-color: #fff9f9;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        /* Hero Section */
+        .hero {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
             text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Info Cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
             transition: transform 0.3s ease;
         }
 
-        .emotion-card:hover {
+        .info-card:hover {
             transform: translateY(-5px);
         }
 
-        .emotion-icon {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-
-        .emotion-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: var(--iron-color);
-        }
-
-        .emotion-description {
-            font-size: 0.9rem;
-            color: var(--dark-color);
-        }
-
-        .interaction-section {
-            background-color: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border: 2px solid var(--primary-color);
-        }
-
-        .interaction-section h2 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            text-align: center;
+        .info-card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            margin-bottom: 1rem;
         }
 
-        .mood-input {
-            margin-bottom: 20px;
+        .info-card-icon i {
+            font-size: 1.5rem;
+            color: white;
         }
 
-        .mood-input textarea {
+        .info-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .info-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Generator Section */
+        .generator-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .generator-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .generator-header h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .input-group textarea {
             width: 100%;
-            min-height: 150px;
-            padding: 15px;
-            border: 2px solid var(--pastel-purple);
+            min-height: 120px;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
             border-radius: 10px;
             font-size: 1rem;
             resize: vertical;
-            font-family: inherit;
             transition: border-color 0.3s ease;
         }
 
-        .mood-input textarea:focus {
+        .input-group textarea:focus {
             outline: none;
-            border-color: var(--primary-color);
-        }
-
-        .generate-btn-container {
-            text-align: center;
-            margin-top: 20px;
+            border-color: var(--primary);
         }
 
         .generate-btn {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border: none;
-            border-radius: 30px;
-            padding: 15px 30px;
+            border-radius: 10px;
             font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
         }
 
         .generate-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(156, 39, 176, 0.4);
-        }
-
-        .tips-section {
-            margin-top: 30px;
-        }
-
-        .tips-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-
-        .tip-card {
-            background-color: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            animation: fadeIn 0.5s;
-        }
-
-        .tip-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .tip-card.removing {
-            animation: fadeOut 0.5s forwards;
-        }
-
-        .tip-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 5px;
-            height: 100%;
-            background-color: var(--primary-color);
-        }
-
-        .tip-card:nth-child(2n)::before {
-            background-color: var(--secondary-color);
-        }
-
-        .tip-card:nth-child(3n)::before {
-            background-color: var(--accent-color);
-        }
-
-        .tip-card:nth-child(4n)::before {
-            background-color: var(--info-color);
-        }
-
-        .tip-card:nth-child(5n)::before {
-            background-color: var(--success-color);
-        }
-
-        .tip-card:nth-child(6n)::before {
-            background-color: var(--warning-color);
-        }
-
-        .tip-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            padding-left: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .tip-card p {
-            color: var(--dark-color);
-            line-height: 1.6;
-            padding-left: 10px;
-        }
-
-        .favorite-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background-color: transparent;
-            border: none;
-            color: #ccc;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .favorite-btn.active {
-            color: var(--danger-color);
-        }
-
-        .favorite-btn:hover {
-            transform: scale(1.2);
-        }
-
-        .copy-tip-btn {
-            background-color: var(--info-color);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            padding: 8px 15px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            margin-top: 15px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s ease;
-        }
-
-        .copy-tip-btn:hover {
-            background-color: #0288d1;
             transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .loader {
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--primary-color);
-            border-radius: 50%;
+        .generate-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Loading State */
+        .loading-state {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .loading-state.active {
+            display: block;
+        }
+
+        .spinner {
             width: 40px;
             height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 20px auto;
-            display: none;
+            margin: 0 auto 1rem;
         }
 
         @keyframes spin {
@@ -452,1748 +280,875 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Tips Grid */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .tip-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            position: relative;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease;
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeOut {
-            from { opacity: 1; transform: translateY(0); }
-            to { opacity: 0; transform: translateY(-10px); }
+        .tip-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
         }
 
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 15px;
-            border-radius: 10px;
+        .tip-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .tip-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tip-icon i {
+            font-size: 1.2rem;
             color: white;
-            z-index: 1000;
-            animation: fadeIn 0.5s;
         }
 
+        .tip-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tip-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: transform 0.2s ease;
+        }
+
+        .tip-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .tip-btn.favorite {
+            color: #ccc;
+        }
+
+        .tip-btn.favorite.active {
+            color: var(--accent);
+        }
+
+        .tip-btn.copy {
+            color: var(--primary);
+        }
+
+        .tip-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .tip-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Favorites Section */
         .favorites-section {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border: 2px solid var(--danger-color);
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
             display: none;
+        }
+
+        .favorites-section.active {
+            display: block;
         }
 
         .favorites-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 1.5rem;
         }
 
         .favorites-header h2 {
-            color: var(--primary-color);
-            font-size: 1.3rem;
+            color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
         }
 
-        .clear-favorites-btn {
-            background-color: var(--danger-color);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            padding: 8px 15px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .clear-favorites-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .favorites-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 15px;
-        }
-
-        .favorite-tip-card {
-            background-color: var(--pastel-pink);
-            border-radius: 10px;
-            padding: 15px;
-            position: relative;
-            transition: transform 0.3s ease;
-        }
-
-        .favorite-tip-card:hover {
-            transform: translateY(-3px);
-        }
-
-        .favorite-tip-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .favorite-tip-card p {
-            color: var(--dark-color);
-            line-height: 1.5;
-            font-size: 0.95rem;
-        }
-
-        .remove-favorite-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: transparent;
-            border: none;
-            color: var(--danger-color);
-            font-size: 1rem;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .remove-favorite-btn:hover {
-            transform: scale(1.2);
-        }
-
-        .game-suggestion {
-            background-color: var(--pastel-blue);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 15px;
-            border-left: 4px solid var(--info-color);
-        }
-
-        .game-suggestion h4 {
-            color: var(--info-color);
-            margin-bottom: 8px;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .game-suggestion p {
-            color: var(--dark-color);
-            font-size: 0.9rem;
-        }
-
-        .development-message {
-            background-color: #fff3cd;
-            border: 1px solid #ffeeba;
-            color: #856404;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            text-align: center;
-            font-weight: bold;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        /* Toast container para notificaciones */
+        /* Toast Notifications */
         .toast-container {
             position: fixed;
             top: 20px;
             right: 20px;
-            z-index: 1050;
+            z-index: 2000;
         }
-        
-        .custom-toast {
+
+        .toast {
             background: white;
             border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            padding: 15px 20px;
-            margin-bottom: 10px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-lg);
             display: flex;
             align-items: center;
+            gap: 1rem;
+            min-width: 300px;
             animation: slideIn 0.3s ease;
         }
-        
+
         @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        .toast-success {
-            border-left: 5px solid var(--success-color);
-        }
-        
-        .toast-error {
-            border-left: 5px solid var(--danger-color);
-        }
-        
-        .toast-info {
-            border-left: 5px solid var(--info-color);
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        /* Footer para móviles */
-        .mobile-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: var(--primary-blue);
-            color: white;
-            padding: 10px;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            z-index: 100;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        .toast.success {
+            border-left: 4px solid var(--success);
         }
 
-        .mobile-footer a {
-            color: white;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.8rem;
+        .toast.error {
+            border-left: 4px solid var(--accent);
         }
 
-        .mobile-footer i {
-            font-size: 1.2rem;
-            margin-bottom: 5px;
+        .toast.info {
+            border-left: 4px solid var(--primary);
         }
 
-        /* Sección de Consejos para la Anemia */
-        .anemia-tips-section {
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border: 2px solid var(--iron-color);
-        }
-
-        .anemia-tips-title {
-            color: var(--iron-color);
+        .toast i {
             font-size: 1.5rem;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
-        .anemia-tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+        .toast.success i {
+            color: var(--success);
         }
 
-        .anemia-tip-card {
-            background-color: #fff9f9;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+        .toast.error i {
+            color: var(--accent);
         }
 
-        .anemia-tip-card:hover {
-            transform: translateY(-5px);
+        .toast.info i {
+            color: var(--primary);
         }
 
-        .anemia-tip-image {
-            height: 150px;
-            overflow: hidden;
-        }
-
-        .anemia-tip-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .anemia-tip-card:hover .anemia-tip-image img {
-            transform: scale(1.05);
-        }
-
-        .anemia-tip-content {
-            padding: 15px;
-        }
-
-        .anemia-tip-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: var(--iron-color);
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .anemia-tip-description {
-            font-size: 0.9rem;
-            color: var(--dark-color);
-            line-height: 1.5;
-        }
-        
-        /* 1. 🤖 Estilos del Chatbot Flotante */
+        /* Chatbot */
         .chat-fab {
             position: fixed;
-            bottom: 80px; /* Ajustado para no chocar con el footer móvil */
-            right: 20px;
+            bottom: 2rem;
+            right: 2rem;
             width: 60px;
             height: 60px;
-            background-color: var(--danger-color); /* Color rojo solicitado */
-            color: white;
+            background: var(--accent);
             border-radius: 50%;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
             cursor: pointer;
-            z-index: 1040;
-            transition: transform 0.3s ease;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            z-index: 1000;
         }
+
         .chat-fab:hover {
             transform: scale(1.1);
         }
+
         .chat-widget {
             position: fixed;
-            bottom: 150px;
-            right: 20px;
-            width: 350px;
-            max-width: 90%;
+            bottom: 2rem;
+            right: 2rem;
+            width: 380px;
             height: 500px;
-            max-height: 70vh;
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            z-index: 1039;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
             display: flex;
             flex-direction: column;
-            overflow: hidden;
             transform: scale(0);
             transform-origin: bottom right;
             transition: transform 0.3s ease;
+            z-index: 999;
         }
+
         .chat-widget.open {
             transform: scale(1);
         }
+
         .chat-header {
-            background-color: var(--danger-color); /* Color rojo solicitado */
+            background: var(--accent);
             color: white;
-            padding: 15px;
+            padding: 1rem;
+            border-radius: 20px 20px 0 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .chat-header h3 {
             margin: 0;
-            font-size: 1.2rem;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 0.5rem;
         }
-        .close-chat-btn {
+
+        .chat-close {
             background: none;
             border: none;
             color: white;
             font-size: 1.5rem;
             cursor: pointer;
-            opacity: 0.8;
-            transition: opacity 0.2s;
         }
-        .close-chat-btn:hover {
-            opacity: 1;
-        }
-        .chat-history {
-            flex-grow: 1;
-            padding: 15px;
+
+        .chat-body {
+            flex: 1;
+            padding: 1rem;
             overflow-y: auto;
-            background-color: #f9f9f9;
+            background: #f8f9fa;
         }
+
         .chat-message {
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
             display: flex;
+            gap: 0.5rem;
         }
-        .chat-message .avatar {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            background-color: #ddd;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            margin-right: 10px;
-            flex-shrink: 0;
-        }
-        .chat-message .avatar-user {
-            background-color: var(--secondary-color);
-            color: white;
-        }
-        .chat-message .avatar-bot {
-            background-color: var(--danger-color);
-            color: white;
-        }
-        .chat-message .message-content {
-            background-color: white;
-            padding: 10px 15px;
-            border-radius: 15px;
-            max-width: 80%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            word-wrap: break-word;
-        }
+
         .chat-message.user {
             justify-content: flex-end;
         }
-        .chat-message.user .message-content {
-            background-color: var(--info-color);
+
+        .chat-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--primary);
             color: white;
-            border-top-right-radius: 0;
-        }
-        .chat-message.user .avatar {
-            margin-right: 0;
-            margin-left: 10px;
-        }
-        .chat-message.bot .message-content {
-            background-color: #ECECEC;
-            color: var(--dark-color);
-            border-top-left-radius: 0;
-        }
-        /* Botones de sugerencia */
-        .chat-suggestions {
-            padding: 10px 15px;
-            border-top: 1px solid #eee;
             display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
         }
-        .suggestion-btn {
-            background-color: transparent;
-            border: 1px solid var(--primary-color);
-            color: var(--primary-color);
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
+
+        .chat-message.user .chat-avatar {
+            background: var(--accent);
         }
-        .suggestion-btn:hover {
-            background-color: var(--primary-color);
+
+        .chat-bubble {
+            max-width: 70%;
+            padding: 0.75rem 1rem;
+            border-radius: 15px;
+            background: white;
+        }
+
+        .chat-message.user .chat-bubble {
+            background: var(--accent);
             color: white;
         }
-        .chat-input-area {
+
+        .chat-input {
+            padding: 1rem;
+            border-top: 1px solid #e0e0e0;
             display: flex;
-            border-top: 1px solid #ddd;
-            padding: 10px;
+            gap: 0.5rem;
         }
-        #chat-input {
-            flex-grow: 1;
-            border: none;
-            padding: 10px;
-            border-radius: 20px;
-            background-color: #f4f4f4;
-        }
-        #chat-input:focus {
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 25px;
             outline: none;
-            box-shadow: 0 0 0 2px var(--info-color);
         }
-        #chat-send-btn {
-            background-color: var(--primary-color);
+
+        .chat-input button {
+            background: var(--primary);
             color: white;
             border: none;
             border-radius: 50%;
             width: 40px;
             height: 40px;
-            margin-left: 10px;
             cursor: pointer;
-            transition: background-color 0.2s;
-        }
-        #chat-send-btn:hover {
-            background-color: var(--dark-blue);
+            transition: background 0.3s ease;
         }
 
-        /* 2. 🗺️ Estilos Guía Interactiva (Intro.js) - Fondo Blanco Sólido */
-        .introjs-tooltip {
-            background-color: white !important;
-            color: var(--dark-color) !important;
-            border: 2px solid var(--primary-color);
-        }
-        .introjs-arrow.top { border-bottom-color: white !important; }
-        .introjs-arrow.bottom { border-top-color: white !important; }
-        .introjs-arrow.left { border-right-color: white !important; }
-        .introjs-arrow.right { border-left-color: white !important; }
-
-        .introjs-tooltiptext {
-            color: var(--dark-color) !important;
-        }
-        .introjs-prevbutton, .introjs-nextbutton {
-            background-color: var(--primary-color) !important;
-            color: white !important;
-            text-shadow: none !important;
-            border: none !important;
-            box-shadow: none !important;
-        }
-        .introjs-prevbutton:hover, .introjs-nextbutton:hover {
-            background-color: var(--dark-blue) !important;
-        }
-        .introjs-donebutton {
-             background-color: var(--success-color) !important;
-             color: white !important;
-             text-shadow: none !important;
-            border: none !important;
-            box-shadow: none !important;
-        }
-        .introjs-skipbutton {
-            color: var(--danger-color) !important;
-            font-weight: bold;
+        .chat-input button:hover {
+            background: var(--secondary);
         }
 
-        /* Estilos para la sección de consejos generados */
-        .ai-development-message {
-            background-color: #e3f2fd;
-            border: 1px solid #bbdefb;
-            color: #0d47a1;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px 0;
-            text-align: center;
-            font-weight: bold;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .ai-development-message.show {
-            display: flex !important;
-        }
-
-        .ai-loading {
-            display: none;
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .ai-loading.show {
-            display: block !important;
-        }
-
-        .ai-loading-spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top: 4px solid var(--primary-color);
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 10px;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            .header {
+            .header-content {
                 flex-direction: column;
-                gap: 15px;
-                padding: 15px;
+                gap: 1rem;
             }
 
-            .header h1 {
-                font-size: 1.3rem;
+            .hero h1 {
+                font-size: 2rem;
             }
 
-            .header-buttons {
-                width: 100%;
-                justify-content: space-between;
-            }
-
-            .tips-container {
+            .tips-grid {
                 grid-template-columns: 1fr;
             }
 
-            .favorites-container {
-                grid-template-columns: 1fr;
+            .chat-widget {
+                width: calc(100vw - 2rem);
+                height: 70vh;
+                right: 1rem;
+                bottom: 1rem;
             }
 
-            .anemia-wellness-content {
-                flex-direction: column;
-            }
-
-            .emotion-cards {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-
-            .anemia-tips-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .mobile-footer {
-                display: flex;
-            }
-            
-            /* Chatbot responsivo */
-             .chat-fab {
-                bottom: 70px; /* Ajuste para footer móvil */
-            }
-             .chat-widget {
-                width: 95%;
-                height: 80vh;
-                max-height: 80vh;
-                bottom: 70px;
-                right: 2.5%;
-                transform-origin: bottom center;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .mobile-footer {
-                display: none;
+            .chat-fab {
+                bottom: 1rem;
+                right: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="header">
-            <h1><i class="fas fa-brain"></i> Bienestar Psicológico</h1>
-            <div class="header-buttons">
-                <a href="#" id="backToProfile" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Volver al Perfil</a>
-                <a href="index1.html" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i> Salir</a>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-brain"></i>
+                <span>YachayMikuy</span>
+            </div>
+            <div class="header-actions">
+                <a href="#" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Volver</span>
+                </a>
+                <a href="#" class="btn btn-danger">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Salir</span>
+                </a>
             </div>
         </div>
+    </header>
 
-        <div class="anemia-wellness-section">
-            <h2 class="anemia-wellness-title"><i class="fas fa-heartbeat"></i> Anemia y Bienestar Emocional</h2>
-            <div class="anemia-wellness-content">
-                <div class="anemia-wellness-text">
-                    <p>La anemia no solo afecta físicamente a los niños, sino que también puede influir en su estado de ánimo y desarrollo emocional. Los niños con anemia pueden experimentar:</p>
-                    <ul style="margin-left: 20px; margin-top: 10px;">
-                        <li>Irritabilidad y cambios de humor</li>
-                        <li>Fatiga que afecta su participación en actividades</li>
-                        <li>Dificultad para concentrarse en tareas</li>
-                        <li>Menor interés en juegos sociales</li>
-                    </ul>
-                    <p style="margin-top: 10px;">Una nutrición adecuada no solo combate la anemia, sino que también promueve un mejor equilibrio emocional y cognitivo.</p>
-                    <div style="margin-top: 15px;">
-                        <span class="btn-iron" style="padding: 5px 10px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;">
-                            <i class="fas fa-tint"></i> Hierro
-                        </span>
-                        <span style="margin: 0 10px;">+</span>
-                        <span class="btn-vitamin-c" style="padding: 5px 10px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;">
-                            <i class="fas fa-lemon"></i> Vitamina C
-                        </span>
-                        <span style="margin: 0 10px;">=</span>
-                        <span class="btn-success" style="padding: 5px 10px; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 5px;">
-                            <i class="fas fa-smile"></i> Bienestar Emocional
-                        </span>
-                    </div>
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Bienestar Psicológico Infantil</h1>
+            <p>Consejos personalizados para apoyar el desarrollo emocional de tu hijo y combatir los efectos de la anemia</p>
+        </section>
+
+        <!-- Info Cards -->
+        <section class="info-grid">
+            <div class="info-card">
+                <div class="info-card-icon">
+                    <i class="fas fa-heartbeat"></i>
                 </div>
-                <div class="anemia-wellness-image">
-                    <img src="https://picsum.photos/seed/child-emotions/300/200.jpg" alt="Emociones infantiles">
+                <h3>Anemia y Emociones</h3>
+                <p>La anemia puede afectar el estado de ánimo, causando irritabilidad, fatiga y dificultad de concentración en los niños.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">
+                    <i class="fas fa-lightbulb"></i>
                 </div>
+                <h3>Consejos Personalizados</h3>
+                <p>Obtén recomendaciones psicológicas adaptadas a las necesidades específicas de tu hijo.</p>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Guarda tus Favoritos</h3>
+                <p>Guarda los consejos más útiles y accede a ellos rápidamente cuando los necesites.</p>
+            </div>
+        </section>
+
+        <!-- Generator Section -->
+        <section class="generator-section">
+            <div class="generator-header">
+                <h2>Generador de Consejos</h2>
+                <p>Describe cómo se siente tu hijo y obtén consejos personalizados</p>
             </div>
             
-            <div class="emotion-cards">
-                <div class="emotion-card">
-                    <div class="emotion-icon" style="color: var(--danger-color);">
-                        <i class="fas fa-tired"></i>
-                    </div>
-                    <div class="emotion-title">Fatiga</div>
-                    <div class="emotion-description">La falta de hierro reduce la energía y puede causar apatía</div>
-                </div>
-                <div class="emotion-card">
-                    <div class="emotion-icon" style="color: var(--warning-color);">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <div class="emotion-title">Concentración</div>
-                    <div class="emotion-description">El oxígeno insuficiente afecta la capacidad de concentración</div>
-                </div>
-                <div class="emotion-card">
-                    <div class="emotion-icon" style="color: var(--info-color);">
-                        <i class="fas fa-mood"></i>
-                    </div>
-                    <div class="emotion-title">Estado de Ánimo</div>
-                    <div class="emotion-description">La anemia puede causar irritabilidad y cambios de humor</div>
-                </div>
-                <div class="emotion-card">
-                    <div class="emotion-icon" style="color: var(--success-color);">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="emotion-title">Socialización</div>
-                    <div class="emotion-description">La energía afecta la participación en actividades sociales</div>
-                </div>
+            <div class="input-group">
+                <label for="mood-input">¿Cómo se siente tu hijo hoy?</label>
+                <textarea id="mood-input" placeholder="Ej: Hoy se sintió frustrado porque no pudo armar su juguete, está cansado o no quiere comer..."></textarea>
             </div>
-        </div>
+            
+            <button class="generate-btn" id="generate-btn">
+                <i class="fas fa-magic"></i>
+                <span>Generar Consejos</span>
+            </button>
+            
+            <div class="loading-state" id="loading-state">
+                <div class="spinner"></div>
+                <p>Generando consejos personalizados para tu hijo...</p>
+            </div>
+        </section>
 
-        <div class="anemia-tips-section">
-            <h2 class="anemia-tips-title"><i class="fas fa-lightbulb"></i> Consejos para Apoyar el Bienestar Emocional</h2>
-            <div class="anemia-tips-grid">
-                <div class="anemia-tip-card">
-                    <div class="anemia-tip-image">
-                        <img src="https://picsum.photos/seed/positive-reinforcement/300/150.jpg" alt="Refuerzo positivo">
-                    </div>
-                    <div class="anemia-tip-content">
-                        <div class="anemia-tip-title">
-                            <i class="fas fa-star"></i> Refuerzo Positivo
-                        </div>
-                        <div class="anemia-tip-description">
-                            Celebra los pequeños logros, especialmente cuando tu hijo pruebe nuevos alimentos ricos en hierro. El refuerzo positivo crea asociaciones emocionales saludables con la comida.
-                        </div>
-                    </div>
-                </div>
-                <div class="anemia-tip-card">
-                    <div class="anemia-tip-image">
-                        <img src="https://picsum.photos/seed/food-creativity/300/150.jpg" alt="Creatividad con alimentos">
-                    </div>
-                    <div class="anemia-tip-content">
-                        <div class="anemia-tip-title">
-                            <i class="fas fa-palette"></i> Creatividad con Alimentos
-                        </div>
-                        <div class="anemia-tip-description">
-                            Transforma los alimentos ricos en hierro en divertidas creaciones. Hacer "caritas" con espinacas o "árboles" con brócoli puede reducir la resistencia a probar nuevos alimentos.
-                        </div>
-                    </div>
-                </div>
-                <div class="anemia-tip-card">
-                    <div class="anemia-tip-image">
-                        <img src="https://picsum.photos/seed/relaxation-techniques/300/150.jpg" alt="Técnicas de relajación">
-                    </div>
-                    <div class="anemia-tip-content">
-                        <div class="anemia-tip-title">
-                            <i class="fas fa-spa"></i> Técnicas de Relajación
-                        </div>
-                        <div class="anemia-tip-description">
-                            Enseña técnicas simples de respiración que tu hijo pueda usar cuando se sienta frustrado o cansado. La respiración profunda aumenta el oxígeno y mejora el estado de ánimo.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- Tips Grid -->
+        <section class="tips-grid" id="tips-grid">
+            <!-- Tips will be dynamically inserted here -->
+        </section>
 
-        <div class="interaction-section">
-            <h2><i class="fas fa-comments"></i> ¿Cómo se siente tu hijo hoy?</h2>
-            <div class="mood-input">
-                <textarea id="mood-description" placeholder="Hoy se sintió frustrado porque no pudo armar su juguete..."></textarea>
-            </div>
-            <div class="generate-btn-container">
-                <button id="generate-tips" class="generate-btn">
-                    <i class="fas fa-lightbulb"></i> Generar Consejos
+        <!-- Favorites Section -->
+        <section class="favorites-section" id="favorites-section">
+            <div class="favorites-header">
+                <h2>
+                    <i class="fas fa-star"></i>
+                    <span>Mis Consejos Favoritos</span>
+                </h2>
+                <button class="btn btn-secondary" id="clear-favorites">
+                    <i class="fas fa-trash"></i>
+                    <span>Limpiar</span>
                 </button>
             </div>
-            
-            <!-- Mensaje de desarrollo de IA -->
-            <div class="ai-development-message" id="ai-development-message">
-                <i class="fas fa-robot"></i> IA en desarrollo - Generando consejos personalizados...
+            <div class="tips-grid" id="favorites-grid">
+                <!-- Favorite tips will be inserted here -->
             </div>
-            
-            <!-- Indicador de carga -->
-            <div class="ai-loading" id="ai-loading">
-                <div class="ai-loading-spinner"></div>
-                <p>Generando consejos psicológicos adaptados a la situación de tu hijo...</p>
-            </div>
-        </div>
+        </section>
+    </main>
 
-        <div class="loader" id="loader"></div>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
 
-        <div class="favorites-section" id="favorites-section">
-            <div class="favorites-header">
-                <h2><i class="fas fa-star"></i> Consejos Favoritos</h2>
-                <button id="clear-favorites" class="clear-favorites-btn">Limpiar Favoritos</button>
-            </div>
-            <div class="favorites-container" id="favorites-container"></div>
-        </div>
-
-        <div class="tips-section">
-            <div class="tips-container" id="tips-container"></div>
-        </div>
-    </div>
-
-    <div class="mobile-footer">
-        <a href="#" id="mobileBackToProfile">
-            <i class="fas fa-arrow-left"></i>
-            <span>Volver</span>
-        </a>
-        <a href="#" id="mobileHome">
-            <i class="fas fa-home"></i>
-            <span>Inicio</span>
-        </a>
-        <a href="#" id="mobileProfile">
-            <i class="fas fa-user"></i>
-            <span>Perfil</span>
-        </a>
-        <a href="#" id="mobileExit">
-            <i class="fas fa-sign-out-alt"></i>
-            <span>Salir</span>
-        </a>
-    </div>
-
-    <div class="toast-container" id="toastContainer"></div>
-    
+    <!-- Chatbot -->
     <div class="chat-fab" id="chat-fab">
         <i class="fas fa-robot"></i>
     </div>
     <div class="chat-widget" id="chat-widget">
         <div class="chat-header">
-            <h3><i class="fas fa-robot"></i> Asistente YachayMikuy</h3>
-            <button id="close-chat-btn" class="close-chat-btn">&times;</button>
+            <h3>
+                <i class="fas fa-robot"></i>
+                <span>Asistente YachayMikuy</span>
+            </h3>
+            <button class="chat-close" id="chat-close">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
-        <div class="chat-history" id="chat-history">
-            </div>
-        <div class="chat-suggestions" id="chat-suggestions">
-            </div>
-        <div class="chat-input-area">
+        <div class="chat-body" id="chat-body">
+            <!-- Chat messages will be inserted here -->
+        </div>
+        <div class="chat-input">
             <input type="text" id="chat-input" placeholder="Escribe tu pregunta...">
-            <button id="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
+            <button id="chat-send">
+                <i class="fas fa-paper-plane"></i>
+            </button>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/7.2.0/introjs.min.js"></script>
 
     <script>
-        // Datos de ejemplo para consejos iniciales
-        const sampleTips = [
+        // Database de consejos psicológicos
+        const psychologicalTips = [
             {
-                titulo: "Técnica de Respiración del Volcán",
-                descripcion: "Enséñale a tu hijo a respirar profundamente imaginando que es un volcán. Inhala lentamente por la nariz contando hasta 4, sostén el aire contando hasta 2, y exhala por la boca como si fuera lava de volcán contando hasta 6. Repite 3-5 veces para calmar la ansiedad.",
+                id: 1,
+                title: "Respiración del Volcán",
+                description: "Enséñale a tu hijo a respirar profundamente imaginando que es un volcán. Inhala por la nariz contando hasta 4, sostén el aire y exhala como lava. Repite 3-5 veces para calmar la ansiedad.",
                 icon: "fa-wind"
             },
             {
-                titulo: "El Frasco de la Calma",
-                descripcion: "Crea un frasco transparente con agua, purpurina brillante y un poco de glicerina. Cuando tu hijo se sienta ansioso, agita el frasco y obsérvalo con él mientras la purpurina se asienta. Esto ayuda a redirigir la atención y calmar el sistema nervioso.",
+                id: 2,
+                title: "Frasco de la Calma",
+                description: "Crea un frasco con agua, purpurina y glicerina. Cuando tu hijo se sienta ansioso, agítalo y observen juntos cómo la purpurina se asienta lentamente.",
                 icon: "fa-prescription-bottle"
             },
             {
-                titulo: "Dibuja tus Emociones",
-                descripcion: "Invita a tu hijo a dibujar lo que siente usando colores que representen sus emociones. Después, pueden hablar sobre el dibujo juntos. Esta actividad ayuda a los niños a expresar sentimientos que difícilmente pueden verbalizar.",
+                id: 3,
+                title: "Dibuja tus Emociones",
+                description: "Invita a tu hijo a dibujar lo que siente usando colores. Después, hablen sobre el dibujo. Esto ayuda a expresar sentimientos difíciles de verbalizar.",
                 icon: "fa-paint-brush"
             },
             {
-                titulo: "Cuentos Terapéuticos",
-                descripcion: "Crea o busca cuentos donde los personajes enfrenten situaciones similares a las de tu hijo. Al ver cómo los personajes resuelven sus problemas, tu hijo puede encontrar soluciones para sus propias emociones y sentirse comprendido.",
+                id: 4,
+                title: "Cuentos Terapéuticos",
+                description: "Crea historias donde personajes enfrenten situaciones similares. Tu hijo puede encontrar soluciones para sus propias emociones sintiéndose comprendido.",
                 icon: "fa-book-open"
             },
             {
-                titulo: "El Rincón de la Serenidad",
-                descripcion: "Dedica un espacio en casa como 'rincón de la serenidad' con cojines, libros tranquilos, juguetes sensoriales y música suave. Cuando tu hijo se sienta abrumado, puede ir a este espacio para calmarse por sí mismo.",
+                id: 5,
+                title: "Rincón de la Serenidad",
+                description: "Dedica un espacio con cojines, libros tranquilos y música suave. Cuando tu hijo se sienta abrumado, puede ir allí para calmarse por sí mismo.",
                 icon: "fa-couch"
             },
             {
-                titulo: "Juego de Roles",
-                descripcion: "Practica situaciones difíciles a través del juego de roles. Tú puedes ser tu hijo y él puede ser otra persona (amigo, maestro, etc.). Esto le permite ver la situación desde otra perspectiva y desarrollar estrategias para manejarla.",
+                id: 6,
+                title: "Juego de Roles",
+                description: "Practica situaciones difíciles intercambiando roles. Tu hijo puede ver la perspectiva de otros y desarrollar estrategias para manejar sus emociones.",
                 icon: "fa-theater-masks"
-            }
-        ];
-
-        // 18 consejos psicológicos relacionados con la anemia y salud infantil
-        const psychologicalTips = [
+            },
             {
-                titulo: "Combinación de Alimentos",
-                descripcion: "Combina alimentos ricos en hierro con vitamina C para mejorar la absorción. Por ejemplo, sirve lentejas con pimientos o espinacas con tomate. Esto no solo combate la anemia sino que también enseña sobre nutrición de forma visual.",
+                id: 7,
+                title: "Combinación de Alimentos",
+                description: "Combina alimentos ricos en hierro con vitamina C. Sirve lentejas con pimientos o espinacas con tomate para mejorar la absorción y enseñar nutrición visualmente.",
                 icon: "fa-apple-alt"
             },
             {
-                titulo: "Juegos de Identificación",
-                descripcion: "Crea juegos donde tu hijo identifique alimentos 'energéticos' (ricos en hierro). Usa tarjetas con imágenes y haz una competencia de 'quién encuentra más alimentos que dan fuerza'. Esto crea una asociación positiva con estos alimentos.",
-                icon: "fa-search"
-            },
-            {
-                titulo: "Cocina en Familia",
-                descripcion: "Involucra a tu hijo en la preparación de comidas ricas en hierro. Los niños que participan en la cocina están más dispuestos a probar nuevos alimentos. Además, fortalece los vínculos familiares y mejora la autoestima.",
+                id: 8,
+                title: "Cocina en Familia",
+                description: "Involucra a tu hijo en preparar comidas ricas en hierro. Los niños que cocinan están más dispuestos a probar nuevos alimentos y fortalece los vínculos.",
                 icon: "fa-utensils"
             },
             {
-                titulo: "Narrativa de Superhéroes",
-                descripcion: "Crea historias donde los personajes obtienen superpoderes al comer alimentos ricos en hierro. Tu hijo puede imaginar que obtiene 'poderes de concentración' al comer espinacas o 'fuerza súper' al comer lentejas.",
+                id: 9,
+                title: "Narrativa de Superhéroes",
+                description: "Crea historias donde personajes obtienen superpoderes al comer alimentos ricos en hierro. Tu hijo puede imaginar que obtiene 'poderes de concentración'.",
                 icon: "fa-mask"
             },
             {
-                titulo: "Rutinas Visuales",
-                descripcion: "Establece rutinas visuales para las comidas con pictogramas que incluyan alimentos ricos en hierro. Esto reduce la ansiedad ante lo desconocido y crea expectativas positivas sobre las comidas.",
-                icon: "fa-calendar-check"
-            },
-            {
-                titulo: "Premios No Alimenticios",
-                descripcion: "Recompensa el consumo de alimentos ricos en hierro con actividades especiales, no con dulces. Por ejemplo, tiempo extra de juego, una lectura juntos o una salida especial. Esto evita asociar solo alimentos 'poco saludables' como recompensa.",
-                icon: "fa-trophy"
-            },
-            {
-                titulo: "Jardín de Hierro",
-                descripcion: "Si tienes espacio, cultiven juntos vegetales ricos en hierro como espinacas o acelgas. Los niños que cultivan sus propios alimentos están más interesados en probarlos. Además, es una actividad física beneficiosa.",
-                icon: "fa-seedling"
-            },
-            {
-                titulo: "Degustación a Ciegas",
-                descripcion: "Organiza degustaciones a ciegas con diferentes alimentos ricos en hierro. Conviértelo en un juego divertido donde tu hijo adivina qué está comiendo. Esto reduce la resistencia a probar nuevos alimentos.",
-                icon: "fa-eye-slash"
-            },
-            {
-                titulo: "Libro de Recetas Personalizado",
-                descripcion: "Crea un libro de recetas simple con ilustraciones de tu hijo mostrando platos ricos en hierro que le gusten. Esto le da sentido de propiedad y orgullo por sus elecciones alimenticias.",
-                icon: "fa-book"
-            },
-            {
-                titulo: "Taller de Emociones y Nutrición",
-                descripcion: "Organiza sesiones breves donde conecten emociones con alimentos. Por ejemplo: 'Cuando te sientas cansado, tu cuerpo necesita alimentos con hierro como las lentejas'. Esto crea conciencia corporal y emocional.",
-                icon: "fa-heartbeat"
-            },
-            {
-                titulo: "Tabla de Progresos",
-                descripcion: "Crea una tabla visual donde tu hijo pueda marcar cada vez que prueba un alimento rico en hierro. Establece metas pequeñas y celebra los logros. Esto refuerza positivamente el comportamiento y mejora la autoconfianza.",
+                id: 10,
+                title: "Tabla de Progresos",
+                description: "Crea una tabla visual donde tu hijo marque cada vez que prueba un alimento rico en hierro. Celebre los logros para reforzar positivamente el comportamiento.",
                 icon: "fa-chart-line"
             },
             {
-                titulo: "Amigos Imaginarios",
-                descripcion: "Inventa personajes que aman alimentos ricos en hierro. Tu hijo puede 'adoptar' a uno de estos amigos y querer comer como él. Esto externaliza la resistencia y hace el cambio más fácil.",
-                icon: "fa-ghost"
-            },
-            {
-                titulo: "Experimentos Culinarios",
-                descripcion: "Realiza 'experimentos' simples como cambiar el color de alimentos (ej: puré de papa con remolacha) para hacerlos más interesantes. La curiosidad puede vencer la resistencia a probar nuevos alimentos.",
-                icon: "fa-flask"
-            },
-            {
-                titulo: "Música y Comida",
-                descripcion: "Crea canciones sobre alimentos ricos en hierro. La música ayuda a memorizar información y crea asociaciones positivas. Pueden inventar una melodía simple sobre 'los alimentos que nos dan fuerza'.",
-                icon: "fa-music"
-            },
-            {
-                titulo: "Visitas Educativas",
-                descripcion: "Visita granjas o mercados locales donde tu hijo pueda ver alimentos frescos ricos en hierro. Conocer el origen de los alimentos aumenta la disposición a probarlos.",
-                icon: "fa-store"
-            },
-            {
-                titulo: "Arte con Comida",
-                descripcion: "Usa alimentos ricos en hierro como materiales artísticos. Por ejemplo, crear mosaicos con diferentes granos o 'pintar' con purés de vegetales. Esto familiariza a tu hijo con los alimentos de una manera no amenazante.",
-                icon: "fa-palette"
-            },
-            {
-                titulo: "Tiempo de Calma Post-Comida",
-                descripcion: "Establece un período de 10-15 minutos de relajación después de las comidas, practicando respiración profunda. Esto mejora la digestión y ayuda al cuerpo a absorber mejor los nutrientes, incluido el hierro.",
+                id: 11,
+                title: "Tiempo de Calma Post-Comida",
+                description: "Establece 10-15 minutos de relajación después de comer. Practiquen respiración profunda para mejorar la digestión y absorción de nutrientes.",
                 icon: "fa-spa"
             },
             {
-                titulo: "Diario de Bienestar",
-                descripcion: "Ayuda a tu hijo a llevar un simple diario visual donde registre cómo se siente antes y después de comer alimentos ricos en hierro. Esto le ayudará a conectar la nutrición con su bienestar físico y emocional.",
+                id: 12,
+                title: "Diario de Bienestar",
+                description: "Ayuda a tu hijo a llevar un diario visual registrando cómo se siente antes y después de comer alimentos ricos en hierro para conectar nutrición y emociones.",
                 icon: "fa-journal-whills"
+            },
+            {
+                id: 13,
+                title: "Juegos de Identificación",
+                description: "Crea juegos donde tu hijo identifique alimentos 'energéticos'. Usa tarjetas con imágenes y haz competencias de quién encuentra más alimentos que dan fuerza.",
+                icon: "fa-search"
+            },
+            {
+                id: 14,
+                title: "Premios No Alimenticios",
+                description: "Recompensa el consumo de alimentos ricos en hierro con actividades especiales: tiempo extra de juego, una lectura juntos o una salida especial.",
+                icon: "fa-trophy"
+            },
+            {
+                id: 15,
+                title: "Música y Alimentos",
+                description: "Crea canciones sobre alimentos ricos en hierro. La música ayuda a memorizar información y crea asociaciones positivas con estos alimentos.",
+                icon: "fa-music"
+            },
+            {
+                id: 16,
+                title: "Experimentos Culinarios",
+                description: "Realiza experimentos simples como cambiar el color de alimentos (puré de papa con remolacha) para hacerlos más interesantes y despertar la curiosidad.",
+                icon: "fa-flask"
+            },
+            {
+                id: 17,
+                title: "Visitas Educativas",
+                description: "Visita granjas o mercados locales donde tu hijo pueda ver alimentos frescos ricos en hierro. Conocer el origen aumenta la disposición a probarlos.",
+                icon: "fa-store"
+            },
+            {
+                id: 18,
+                title: "Amigos Imaginarios",
+                description: "Inventa personajes que aman alimentos ricos en hierro. Tu hijo puede 'adoptar' a uno de estos amigos y querer comer como él, facilitando el cambio.",
+                icon: "fa-ghost"
             }
         ];
 
-        // Variables globales
-        let childId = "";
-        let childData = {};
-        let tips = [];
-        let favoriteTips = [];
-        let displayedTips = []; // Consejos que se han mostrado
+        // Estado de la aplicación
+        let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+        let displayedTips = [];
+        let isGenerating = false;
 
-        // Storage Adapter - Para facilitar migración a backend
-        const storageAdapter = {
-            // Users
-            getUsers: function() {
-                const users = localStorage.getItem('yachay_users');
-                return users ? JSON.parse(users) : [];
-            },
-            saveUsers: function(users) {
-                localStorage.setItem('yachay_users', JSON.stringify(users));
-            },
-            
-            // Children
-            getChildren: function() {
-                const children = localStorage.getItem('yachay_children');
-                return children ? JSON.parse(children) : [];
-            },
-            saveChildren: function(children) {
-                localStorage.setItem('yachay_children', JSON.stringify(children));
-            },
-            
-            // Responses
-            getResponses: function() {
-                const responses = localStorage.getItem('yachay_responses');
-                return responses ? JSON.parse(responses) : {};
-            },
-            saveResponses: function(responses) {
-                localStorage.setItem('yachay_responses', JSON.stringify(responses));
-            },
-            
-            // Session
-            getSession: function() {
-                const session = localStorage.getItem('yachay_session');
-                return session ? JSON.parse(session) : { currentUserId: null, exploringAsGuest: false, lastActiveAt: null };
-            },
-            saveSession: function(session) {
-                localStorage.setItem('yachay_session', JSON.stringify(session));
-            },
-            
-            // Audit Log
-            getAuditLog: function() {
-                const auditLog = localStorage.getItem('yachay_auditLog');
-                return auditLog ? JSON.parse(auditLog) : [];
-            },
-            saveAuditLog: function(auditLog) {
-                localStorage.setItem('yachay_auditLog', JSON.stringify(auditLog));
-            }
+        // DOM Elements
+        const generateBtn = document.getElementById('generate-btn');
+        const moodInput = document.getElementById('mood-input');
+        const loadingState = document.getElementById('loading-state');
+        const tipsGrid = document.getElementById('tips-grid');
+        const favoritesSection = document.getElementById('favorites-section');
+        const favoritesGrid = document.getElementById('favorites-grid');
+        const clearFavoritesBtn = document.getElementById('clear-favorites');
+        const toastContainer = document.getElementById('toast-container');
+
+        // Chatbot Elements
+        const chatFab = document.getElementById('chat-fab');
+        const chatWidget = document.getElementById('chat-widget');
+        const chatClose = document.getElementById('chat-close');
+        const chatBody = document.getElementById('chat-body');
+        const chatInput = document.getElementById('chat-input');
+        const chatSend = document.getElementById('chat-send');
+
+        // Base de conocimiento del chatbot
+        const chatKnowledgeBase = {
+            "hola": "¡Hola! Soy tu asistente de YachayMikuy. Estoy aquí para ayudarte con consejos sobre bienestar infantil y anemia.",
+            "consejos": "Puedes generar consejos personalizados describiendo cómo se siente tu hijo en el área de texto y haciendo clic en 'Generar Consejos'.",
+            "favoritos": "Para guardar un consejo como favorito, haz clic en la estrella ⭐ en la tarjeta del consejo. Puedes ver todos tus favoritos en la sección correspondiente.",
+            "anemia": "La anemia puede afectar el estado emocional de los niños causando fatiga, irritabilidad y dificultad de concentración. Una buena nutrición ayuda a combatirla.",
+            "emociones": "Es importante ayudar a los niños a identificar y expresar sus emociones. Usa técnicas como el dibujo, juegos de roles o cuentos terapéuticos."
         };
 
-        // --- INICIO DE FUNCIONES DE SINCRONIZACIÓN ---
-        
-        // Función para sincronizar la eliminación/restauración entre páginas
-        function syncChildDeletionAcrossPages(childId, action) {
-            // action puede ser 'soft-delete', 'restore' o 'permanent-delete'
-            const syncData = {
-                childId: childId,
-                action: action,
-                timestamp: new Date().toISOString()
-            };
-            
-            // Guardar en localStorage para que otras páginas puedan detectar cambios
-            localStorage.setItem('yachay_sync_action', JSON.stringify(syncData));
-            
-            // Notificar a otras pestañas abiertas usando BroadcastChannel
-            if ('BroadcastChannel' in window) {
-                const channel = new BroadcastChannel('yachay_sync');
-                channel.postMessage(syncData);
-            }
+        // Inicialización
+        function init() {
+            setupEventListeners();
+            updateFavoritesSection();
+            addChatMessage("¡Hola! Soy tu asistente. ¿En qué puedo ayudarte hoy?", 'bot');
         }
 
-        // --- FIN DE FUNCIONES DE SINCRONIZACIÓN ---
-
-        // Función para mostrar notificaciones toast mejoradas
-        function showToast(message, type = 'info') {
-            const toastContainer = document.getElementById('toastContainer');
-            const toastId = 'toast-' + Date.now();
+        // Configurar event listeners
+        function setupEventListeners() {
+            generateBtn.addEventListener('click', generateTips);
+            clearFavoritesBtn.addEventListener('click', clearFavorites);
             
-            const toastHtml = `
-                <div id="${toastId}" class="custom-toast toast-${type}">
-                    <div class="me-2">
-                        ${type === 'success' ? '<i class="fas fa-check-circle text-success"></i>' : 
-                          type === 'error' ? '<i class="fas fa-exclamation-circle text-danger"></i>' : 
-                          '<i class="fas fa-info-circle text-info"></i>'}
-                    </div>
-                    <div class="flex-grow-1">${message}</div>
-                    <button type="button" class="btn-close ms-2" onclick="document.getElementById('${toastId}').remove()"></button>
-                </div>
-            `;
-            
-            toastContainer.insertAdjacentHTML('beforeend', toastHtml);
-            
-            // Auto remove after 5 seconds
-            setTimeout(() => {
-                const toast = document.getElementById(toastId);
-                if (toast) toast.remove();
-            }, 5000);
+            // Chatbot events
+            chatFab.addEventListener('click', openChat);
+            chatClose.addEventListener('click', closeChat);
+            chatSend.addEventListener('click', sendChatMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendChatMessage();
+            });
         }
 
-        // Función para obtener el childId de la URL
-        function getChildIdFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('childId');
-        }
-
-        // Función para cargar los datos del niño desde localStorage
-        function loadChildData() {
-            const childrenData = storageAdapter.getChildren();
-            const child = childrenData.find(c => c.id === childId);
-            if (child) {
-                childData = child;
-                updateHeaderWithChildName();
-                loadFavoriteTips();
-                return true;
-            }
-            return false;
-        }
-
-        // Función para actualizar el encabezado con el nombre del niño
-        function updateHeaderWithChildName() {
-            const headerTitle = document.querySelector('.header h1');
-            headerTitle.innerHTML = `<i class="fas fa-brain"></i> Bienestar Psicológico para ${childData.name}`;
-            
-            // Actualizar enlace de volver al perfil
-            const backToProfileLink = document.getElementById('backToProfile');
-            backToProfileLink.href = `chicos.html?childId=${childId}`;
-            
-            // Actualizar enlaces del footer móvil
-            const mobileBackToProfile = document.getElementById('mobileBackToProfile');
-            const mobileProfile = document.getElementById('mobileProfile');
-            
-            mobileBackToProfile.href = `chicos.html?childId=${childId}`;
-            mobileProfile.href = `chicos.html?childId=${childId}`;
-        }
-
-        // Función para cargar los consejos favoritos
-        function loadFavoriteTips() {
-            const savedFavorites = localStorage.getItem(`favoriteTips_${childId}`);
-            if (savedFavorites) {
-                favoriteTips = JSON.parse(savedFavorites);
-                if (favoriteTips.length > 0) {
-                    document.getElementById('favorites-section').style.display = 'block';
-                    renderFavoriteTips();
-                }
-            }
-        }
-
-        // Función para guardar los consejos favoritos
-        function saveFavoriteTips() {
-            localStorage.setItem(`favoriteTips_${childId}`, JSON.stringify(favoriteTips));
-        }
-
-        // Función para mostrar notificaciones (mantenida por compatibilidad)
-        function showNotification(message, type) {
-            showToast(message, type);
-        }
-
-        // Función para generar consejos psicológicos - COMPLETAMENTE REESCRITA
+        // Generar consejos
         function generateTips() {
-            console.log("Función generateTips llamada");
+            if (isGenerating) return;
             
-            // Obtener elementos del DOM
-            const aiLoading = document.getElementById('ai-loading');
-            const aiDevelopmentMessage = document.getElementById('ai-development-message');
-            const moodDescription = document.getElementById('mood-description');
+            isGenerating = true;
+            generateBtn.disabled = true;
+            loadingState.classList.add('active');
             
-            console.log("Elementos del DOM:", { aiLoading, aiDevelopmentMessage, moodDescription });
-            
-            // Verificar que los elementos existan
-            if (!aiLoading || !aiDevelopmentMessage || !moodDescription) {
-                console.error("No se encontraron los elementos del DOM");
-                showToast("Error: No se encontraron los elementos necesarios", "error");
-                return;
-            }
-            
-            // Mostrar mensajes de carga usando display block
-            console.log("Mostrando mensajes de carga");
-            aiLoading.style.display = 'block';
-            aiDevelopmentMessage.style.display = 'flex';
-            
-            // Limpiar el área de texto
-            moodDescription.value = '';
-            
-            // Simular carga de 2 segundos
+            // Simular carga
             setTimeout(() => {
-                console.log("Ocultando mensajes de carga");
-                // Ocultar mensajes de carga
-                aiLoading.style.display = 'none';
-                aiDevelopmentMessage.style.display = 'none';
-                
-                // Obtener consejos que no se han mostrado aún
-                const remainingTips = psychologicalTips.filter(tip => 
-                    !displayedTips.some(displayed => displayed.titulo === tip.titulo)
+                const availableTips = psychologicalTips.filter(tip => 
+                    !displayedTips.includes(tip.id)
                 );
                 
-                // Si ya se mostraron todos los consejos, reiniciar la lista
-                if (remainingTips.length === 0) {
-                    displayedTips = [];
-                    showToast('Has visto todos los consejos. Reiniciando la lista...', 'info');
-                }
-                
-                // Seleccionar 6 consejos aleatorios de los disponibles
-                const tipsToShow = [];
-                const availableTips = remainingTips.length > 0 ? remainingTips : psychologicalTips;
-                
-                // Copiar la lista para no modificar el original
-                const tempTips = [...availableTips];
+                // Si ya se mostraron todos, reiniciar
+                const tipsToUse = availableTips.length > 0 ? availableTips : psychologicalTips;
                 
                 // Seleccionar 6 consejos aleatorios
+                const selectedTips = [];
+                const tempTips = [...tipsToUse];
+                
                 for (let i = 0; i < 6 && tempTips.length > 0; i++) {
                     const randomIndex = Math.floor(Math.random() * tempTips.length);
-                    tipsToShow.push(tempTips[randomIndex]);
+                    selectedTips.push(tempTips[randomIndex]);
+                    displayedTips.push(tempTips[randomIndex].id);
                     tempTips.splice(randomIndex, 1);
                 }
                 
-                // Agregar a la lista de mostrados
-                displayedTips = [...displayedTips, ...tipsToShow];
+                // Mostrar consejos
+                renderTips(selectedTips);
                 
-                console.log("Consejos a mostrar:", tipsToShow);
+                // Limpiar input
+                moodInput.value = '';
                 
-                // Actualizar los consejos
-                updateTips(tipsToShow);
+                // Ocultar loading
+                loadingState.classList.remove('active');
+                generateBtn.disabled = false;
+                isGenerating = false;
                 
-                // Mostrar notificación
-                showToast('Se han generado 6 nuevos consejos psicológicos', 'success');
+                showToast('Se han generado 6 nuevos consejos', 'success');
             }, 2000);
         }
 
-        // Función para actualizar los consejos
-        function updateTips(newTips) {
-            console.log("Actualizando consejos con:", newTips);
+        // Renderizar consejos
+        function renderTips(tips) {
+            tipsGrid.innerHTML = '';
             
-            // Eliminar los consejos existentes con animación
-            const existingCards = document.querySelectorAll('.tip-card');
-            existingCards.forEach((card, index) => {
-                setTimeout(() => {
-                    card.classList.add('removing');
-                }, index * 100);
-            });
-            
-            // Añadir los nuevos consejos después de que se completen las animaciones
-            setTimeout(() => {
-                tips = newTips;
-                renderTips();
-            }, existingCards.length * 100 + 500);
-        }
-
-        // Función para renderizar los consejos
-        function renderTips() {
-            console.log("Renderizando consejos:", tips);
-            
-            const tipsContainer = document.getElementById('tips-container');
-            tipsContainer.innerHTML = '';
-            
-            tips.forEach((tip, index) => {
-                const card = document.createElement('div');
-                card.className = 'tip-card';
-                
-                // Verificar si este consejo está en favoritos
-                const isFavorite = favoriteTips.some(fav => fav.titulo === tip.titulo && fav.descripcion === tip.descripcion);
-                
-                card.innerHTML = `
-                    <button class="favorite-btn ${isFavorite ? 'active' : ''}" data-index="${index}">
-                        <i class="fas fa-star"></i>
-                    </button>
-                    <h3><i class="fas ${tip.icon || 'fa-lightbulb'}"></i> ${tip.titulo}</h3>
-                    <p>${tip.descripcion}</p>
-                    <button class="copy-tip-btn" data-index="${index}">
-                        <i class="fas fa-copy"></i> Copiar Consejo
-                    </button>
-                `;
-                
-                tipsContainer.appendChild(card);
-            });
-            
-            // Añadir event listeners a los botones de favoritos
-            document.querySelectorAll('.favorite-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    toggleFavorite(index);
-                });
-            });
-            
-            // Añadir event listeners a los botones de copiar
-            document.querySelectorAll('.copy-tip-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    copyTip(index);
-                });
+            tips.forEach(tip => {
+                const isFavorite = favorites.some(fav => fav.id === tip.id);
+                const tipCard = createTipCard(tip, isFavorite);
+                tipsGrid.appendChild(tipCard);
             });
         }
 
-        // Función para alternar un consejo como favorito
-        function toggleFavorite(index) {
-            const tip = tips[index];
-            const favoriteBtn = document.querySelectorAll('.favorite-btn')[index];
+        // Crear tarjeta de consejo
+        function createTipCard(tip, isFavorite) {
+            const card = document.createElement('div');
+            card.className = 'tip-card';
             
-            // Verificar si ya está en favoritos
-            const existingIndex = favoriteTips.findIndex(fav => fav.titulo === tip.titulo && fav.descripcion === tip.descripcion);
+            card.innerHTML = `
+                <div class="tip-header">
+                    <div class="tip-icon">
+                        <i class="fas ${tip.icon}"></i>
+                    </div>
+                    <div class="tip-actions">
+                        <button class="tip-btn favorite ${isFavorite ? 'active' : ''}" data-id="${tip.id}">
+                            <i class="fas fa-star"></i>
+                        </button>
+                        <button class="tip-btn copy" data-id="${tip.id}">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="tip-content">
+                    <h3>${tip.title}</h3>
+                    <p>${tip.description}</p>
+                </div>
+            `;
             
-            if (existingIndex !== -1) {
-                // Si ya está en favoritos, eliminarlo
-                favoriteTips.splice(existingIndex, 1);
-                favoriteBtn.classList.remove('active');
+            // Event listeners
+            const favoriteBtn = card.querySelector('.favorite');
+            const copyBtn = card.querySelector('.copy');
+            
+            favoriteBtn.addEventListener('click', () => toggleFavorite(tip));
+            copyBtn.addEventListener('click', () => copyTip(tip));
+            
+            return card;
+        }
+
+        // Alternar favorito
+        function toggleFavorite(tip) {
+            const index = favorites.findIndex(fav => fav.id === tip.id);
+            
+            if (index > -1) {
+                favorites.splice(index, 1);
                 showToast('Consejo eliminado de favoritos', 'info');
             } else {
-                // Si no está en favoritos, añadirlo
-                favoriteTips.push({...tip});
-                favoriteBtn.classList.add('active');
+                favorites.push(tip);
                 showToast('Consejo añadido a favoritos', 'success');
             }
             
-            // Guardar los favoritos actualizados
-            saveFavoriteTips();
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            updateFavoritesSection();
             
-            // Actualizar la sección de favoritos
-            if (favoriteTips.length > 0) {
-                document.getElementById('favorites-section').style.display = 'block';
-                renderFavoriteTips();
-            } else {
-                document.getElementById('favorites-section').style.display = 'none';
+            // Actualizar botón en la tarjeta actual
+            const favoriteBtn = document.querySelector(`.favorite[data-id="${tip.id}"]`);
+            if (favoriteBtn) {
+                favoriteBtn.classList.toggle('active');
             }
         }
 
-        // Función para renderizar los consejos favoritos
-        function renderFavoriteTips() {
-            const favoritesContainer = document.getElementById('favorites-container');
-            favoritesContainer.innerHTML = '';
+        // Copiar consejo
+        function copyTip(tip) {
+            const text = `${tip.title}\n\n${tip.description}`;
             
-            favoriteTips.forEach((tip, index) => {
-                const card = document.createElement('div');
-                card.className = 'favorite-tip-card';
-                
-                card.innerHTML = `
-                    <button class="remove-favorite-btn" data-index="${index}">
-                        <i class="fas fa-times"></i>
-                    </button>
-                    <h3><i class="fas ${tip.icon || 'fa-lightbulb'}"></i> ${tip.titulo}</h3>
-                    <p>${tip.descripcion}</p>
-                    
-                    <div class="game-suggestion">
-                        <h4><i class="fas fa-gamepad"></i> Juego Sugerido</h4>
-                        <p>${getGameSuggestion(tip.titulo)}</p>
-                    </div>
-                `;
-                
-                favoritesContainer.appendChild(card);
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Consejo copiado al portapapeles', 'success');
+            }).catch(() => {
+                showToast('Error al copiar el consejo', 'error');
             });
-            
-            // Añadir event listeners a los botones de eliminar favoritos
-            document.querySelectorAll('.remove-favorite-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const index = parseInt(this.getAttribute('data-index'));
-                    removeFavorite(index);
+        }
+
+        // Actualizar sección de favoritos
+        function updateFavoritesSection() {
+            if (favorites.length > 0) {
+                favoritesSection.classList.add('active');
+                favoritesGrid.innerHTML = '';
+                
+                favorites.forEach(tip => {
+                    const tipCard = createTipCard(tip, true);
+                    favoritesGrid.appendChild(tipCard);
                 });
-            });
-        }
-
-        // Función para obtener una sugerencia de juego según el título del consejo
-        function getGameSuggestion(tipTitle) {
-            const suggestions = {
-                "Combinación de Alimentos": "Juego 'Combinación Perfecta': Haz tarjetas con alimentos ricos en hierro y otras con vitamina C. Tu hijo debe emparejarlos correctamente.",
-                "Juegos de Identificación": "Crea una 'Búsqueda del Tesoro' donde tu hijo debe encontrar todos los alimentos 'energéticos' que has escondido por la casa.",
-                "Cocina en Familia": "Organiza un 'Concurso de Chefs' donde cada miembro de la familia crea un plato diferente usando un ingrediente rico en hierro.",
-                "Narrativa de Superhéroes": "Crea un 'Libro de Superpoderes' donde tu hijo dibuje los superpoderes que obtiene al comer diferentes alimentos ricos en hierro.",
-                "Rutinas Visuales": "Haz un 'Tablero de Misiones Diarias' con pictogramas que representen las comidas y snacks ricos en hierro que debe consumir.",
-                "Premios No Alimenticios": "Crea una 'Rueda de Recompensas' con diferentes actividades especiales que tu hijo puede ganar al probar nuevos alimentos.",
-                "Jardín de Hierro": "Inicia un 'Diario de Jardín' donde tu hijo dibuje el crecimiento de las plantas y anote cuándo las cosechan y comen.",
-                "Degustación a Ciegas": "Organiza un 'Festival de Sabores' donde tu hijo debe adivinar qué alimento rico en hierro está probando.",
-                "Libro de Recetas Personalizado": "Crea un 'Club de Chefs' donde tu hijo puede invitar a amigos o familiares a cocinar las recetas de su libro.",
-                "Taller de Emociones y Nutrición": "Haz un 'Mapa de Emociones' donde tu hijo dibuje cómo se siente antes y después de comer diferentes alimentos.",
-                "Tabla de Progresos": "Diseña un 'Juego de la Oca' donde cada casilla representa un alimento rico en hierro probado y avanza en el tablero.",
-                "Amigos Imaginarios": "Crea títeres de los 'Amigos de los Alimentos Fuertes' y represente historias donde ellos comen alimentos ricos en hierro.",
-                "Experimentos Culinarios": "Organiza un 'Laboratorio de Cocina' donde tu hijo pueda experimentar con diferentes combinaciones de alimentos ricos en hierro.",
-                "Música y Comida": "Graben un 'Video Musical' donde canten y bailen la canción de los alimentos ricos en hierro.",
-                "Visitas Educativas": "Creen un 'Diario de Aventuras' donde tu hijo dibuje y escriba sobre las visitas a lugares donde se cultivan alimentos ricos en hierro.",
-                "Arte con Comida": "Organicen una 'Exposición de Arte Comestible' donde tu hijo muestre sus creaciones artísticas hechas con alimentos.",
-                "Tiempo de Calma Post-Comida": "Creen un 'Rincón de Relajación' con cojines y música suave donde puedan practicar la respiración después de las comidas.",
-                "Diario de Bienestar": "Diseñen un 'Códice de Emociones' donde tu hijo registre con símbolos y colores cómo se siente antes y después de comer."
-            };
-            
-            return suggestions[tipTitle] || "Visita la sección 'Jugando es Divertido' para encontrar juegos y actividades que complementen este consejo.";
-        }
-
-        // Función para eliminar un consejo de favoritos
-        function removeFavorite(index) {
-            favoriteTips.splice(index, 1);
-            saveFavoriteTips();
-            
-            if (favoriteTips.length > 0) {
-                renderFavoriteTips();
             } else {
-                document.getElementById('favorites-section').style.display = 'none';
+                favoritesSection.classList.remove('active');
             }
-            
-            // Actualizar el estado del botón de favoritos en la tarjeta correspondiente
-            tips.forEach((tip, tipIndex) => {
-                const isFavorite = favoriteTips.some(fav => fav.titulo === tip.titulo && fav.descripcion === tip.descripcion);
-                const favoriteBtn = document.querySelectorAll('.favorite-btn')[tipIndex];
-                if (favoriteBtn) {
-                    if (isFavorite) {
-                        favoriteBtn.classList.add('active');
-                    } else {
-                        favoriteBtn.classList.remove('active');
-                    }
-                }
-            });
-            
-            showToast('Consejo eliminado de favoritos', 'info');
         }
 
-        // Función para limpiar todos los favoritos
-        function clearAllFavorites() {
-            favoriteTips = [];
-            saveFavoriteTips();
-            document.getElementById('favorites-section').style.display = 'none';
+        // Limpiar favoritos
+        function clearFavorites() {
+            favorites = [];
+            localStorage.removeItem('favorites');
+            updateFavoritesSection();
+            showToast('Todos los favoritos han sido eliminados', 'info');
             
-            // Actualizar el estado de todos los botones de favoritos
-            document.querySelectorAll('.favorite-btn').forEach(btn => {
+            // Actualizar botones en las tarjetas actuales
+            document.querySelectorAll('.favorite.active').forEach(btn => {
                 btn.classList.remove('active');
             });
-            
-            showToast('Todos los favoritos han sido eliminados', 'info');
         }
 
-        // Función para copiar un consejo al portapapeles
-        function copyTip(index) {
-            const tip = tips[index];
+        // Mostrar notificación toast
+        function showToast(message, type = 'info') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
             
-            const textToCopy = `${tip.titulo}\n\n${tip.descripcion}`;
+            const icon = type === 'success' ? 'fa-check-circle' : 
+                         type === 'error' ? 'fa-exclamation-circle' : 
+                         'fa-info-circle';
             
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                showToast('Consejo copiado al portapapeles', 'success');
-            }).catch(err => {
-                showToast('Error al copiar el consejo', 'error');
-                console.error('Error al copiar: ', err);
-            });
+            toast.innerHTML = `
+                <i class="fas ${icon}"></i>
+                <span>${message}</span>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.animation = 'slideIn 0.3s ease reverse';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
         }
 
-        // Función para inicializar los consejos de ejemplo
-        function initializeSampleTips() {
-            tips = [...sampleTips];
-            renderTips();
+        // Chatbot Functions
+        function openChat() {
+            chatWidget.classList.add('open');
+            chatFab.style.display = 'none';
         }
 
-        // Función para inicializar el footer móvil
-        function initMobileFooter() {
-            // Enlace de inicio
-            document.getElementById('mobileHome').addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.href = 'index1.html';
-            });
-            
-            // Enlace de salir
-            document.getElementById('mobileExit').addEventListener('click', function(e) {
-                e.preventDefault();
-                window.location.href = 'index1.html';
-            });
+        function closeChat() {
+            chatWidget.classList.remove('open');
+            chatFab.style.display = 'flex';
         }
-        
-        // --- 1. 🤖 INICIO LÓGICA DEL CHATBOT ---
 
-        // Base de conocimiento específica para esta página
-        const chatKnowledgeBase = {
-            // Saludos y general
-            "hola": "¡Hola! Soy el asistente de YachayMikuy. Estoy aquí para ayudarte a entender esta sección de 'Bienestar Psicológico'. ¿En qué puedo ayudarte?",
-            "gracias": "¡De nada! Estoy aquí para ayudarte a ti y a tu familia.",
-            "adiós": "¡Hasta pronto! Que tengas un día tranquilo y nutritivo.",
-            "qué es yachaymikuy": "YachayMikuy es una aplicación diseñada para ayudarte a combatir la anemia infantil en Perú, usando recetas nutritivas, seguimiento y consejos de bienestar.",
-
-            // Contenido de la página
-            "qué es esta página": "Esta página te ayuda a entender la importante conexión entre la anemia y el bienestar psicológico del niño. También te da consejos prácticos para manejar sus emociones.",
-            "relación anemia y emociones": "La sección 'Anemia y Bienestar Emocional' lo explica. La fatiga causada por la anemia puede hacer que el niño esté más irritable, le cueste concentrarse y tenga menos interés en jugar. ¡Comer bien (Hierro + Vitamina C) también ayuda a sentirse bien!",
-            "efectos de la anemia": "Además de lo físico, la anemia puede causar fatiga emocional, problemas de concentración, cambios de humor (como irritabilidad) y menos ganas de socializar o jugar.",
-            "consejos generales": "La página te da 3 consejos iniciales muy buenos: 'Refuerzo Positivo' (celebrar sus logros), 'Creatividad con Alimentos' (hacer la comida divertida) y 'Técnicas de Relajación' (enseñarle a respirar).",
-
-            // Interacción
-            "cómo generar consejos": "¡Es muy fácil! En la sección '¿Cómo se siente tu hijo hoy?', escribe en el cuadro de texto lo que observaste (ej: 'está frustrado' o 'no quiere comer') y presiona el botón 'Generar Consejos'.",
-            "para qué es el cuadro de texto": "Es para que describas el estado de ánimo o una situación específica de tu hijo. Al presionar 'Generar Consejos', la app te dará ideas y técnicas personalizadas para esa situación.",
-            "qué son los consejos de ejemplo": "Son técnicas que puedes usar ahora mismo. Por ejemplo, la 'Respiración del Volcán' o 'El Frasco de la Calma' son geniales para la ansiedad. 'Dibuja tus Emociones' es perfecto para que exprese lo que siente.",
-
-            // Favoritos
-            "cómo guardo un consejo": "¡Fácil! En cada tarjeta de consejo que aparezca, verás una estrella (⭐). Solo haz clic en ella para guardarla en tu sección de 'Consejos Favoritos'.",
-            "dónde veo mis favoritos": "Tus consejos guardados aparecerán en la sección 'Consejos Favoritos', justo debajo del generador de consejos, para que puedas acceder a ellos rápidamente.",
-            "cómo borro favoritos": "Puedes borrar todos tus consejos guardados a la vez presionando el botón 'Limpiar Favoritos'. Si quieres borrar solo uno, ve a la sección de favoritos y presiona la 'X' en la tarjeta del consejo.",
-            
-            // Navegación
-            "cómo vuelvo al perfil": "Puedes usar el botón 'Volver al Perfil' en la parte de arriba, o el ícono de 'Volver' o 'Perfil' en la barra de navegación de abajo (en móviles).",
-            "cómo salgo": "Para salir, puedes presionar el botón rojo 'Salir' en la cabecera, o el ícono 'Salir' en la barra de navegación de abajo (en móviles)."
-        };
-
-        const chatFab = document.getElementById('chat-fab');
-        const chatWidget = document.getElementById('chat-widget');
-        const closeChatBtn = document.getElementById('close-chat-btn');
-        const chatHistory = document.getElementById('chat-history');
-        const chatInput = document.getElementById('chat-input');
-        const chatSendBtn = document.getElementById('chat-send-btn');
-        const chatSuggestions = document.getElementById('chat-suggestions');
-
-        function addMessageToChat(message, sender) {
+        function addChatMessage(message, sender) {
             const messageDiv = document.createElement('div');
             messageDiv.className = `chat-message ${sender}`;
             
             const avatar = document.createElement('div');
-            avatar.className = 'avatar';
+            avatar.className = 'chat-avatar';
             avatar.innerHTML = sender === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
-            avatar.classList.add(sender === 'user' ? 'avatar-user' : 'avatar-bot');
             
-            const content = document.createElement('div');
-            content.className = 'message-content';
-            content.textContent = message;
+            const bubble = document.createElement('div');
+            bubble.className = 'chat-bubble';
+            bubble.textContent = message;
             
-            if (sender === 'user') {
-                messageDiv.appendChild(content);
-                messageDiv.appendChild(avatar);
-            } else {
-                messageDiv.appendChild(avatar);
-                messageDiv.appendChild(content);
-            }
-            
-            chatHistory.appendChild(messageDiv);
-            chatHistory.scrollTop = chatHistory.scrollHeight;
+            messageDiv.appendChild(avatar);
+            messageDiv.appendChild(bubble);
+            chatBody.appendChild(messageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
         }
 
-        // Función para obtener sugerencias aleatorias (Req 1. Botones Dinámicos)
-        function renderRandomSuggestions() {
-            chatSuggestions.innerHTML = '';
-            const allKeys = Object.keys(chatKnowledgeBase);
-            const suggestions = [];
+        function sendChatMessage() {
+            const message = chatInput.value.trim();
+            if (!message) return;
             
-            // Filtrar para no incluir saludos básicos
-            const filteredKeys = allKeys.filter(k => !["hola", "gracias", "adiós", "qué es yachaymikuy"].includes(k));
+            addChatMessage(message, 'user');
+            chatInput.value = '';
             
-            // Tomar 3 sugerencias aleatorias
-            while (suggestions.length < 3 && filteredKeys.length > 0) {
-                const randomIndex = Math.floor(Math.random() * filteredKeys.length);
-                const randomKey = filteredKeys.splice(randomIndex, 1)[0];
-                suggestions.push(randomKey);
-            }
-            
-            suggestions.forEach(key => {
-                const btn = document.createElement('button');
-                btn.className = 'suggestion-btn';
-                // Capitalizar la primera letra para el botón
-                btn.textContent = key.charAt(0).toUpperCase() + key.slice(1) + '?';
-                btn.onclick = () => {
-                    chatInput.value = key;
-                    handleChatSend();
-                };
-                chatSuggestions.appendChild(btn);
-            });
-        }
-
-        function getChatbotResponse(userInput) {
-            const normalizedInput = userInput.toLowerCase().trim()
-                .replace(/[¿?¡!]/g, '') // Quitar puntuación
-                .replace("dame ", "")
-                .replace("info de ", "")
-                .replace("sobre ", "")
-                .replace("explícame ", "");
-
-            // Buscar coincidencias en la base de conocimiento
-            let bestMatch = null;
-            let bestMatchScore = 0;
-
-            for (const key in chatKnowledgeBase) {
-                const keywords = key.split(' ');
-                let score = 0;
-                
-                // Coincidencia exacta
-                if (normalizedInput.includes(key)) {
-                    score = 100; // Alta prioridad
-                } else {
-                    // Coincidencia de palabras clave
-                    keywords.forEach(word => {
-                        if (normalizedInput.includes(word)) {
-                            score++;
-                        }
-                    });
-                }
-
-                if (score > bestMatchScore) {
-                    bestMatchScore = score;
-                    bestMatch = chatKnowledgeBase[key];
-                }
-            }
-            
-            // Req 1. Respuesta por Defecto
-            if (bestMatchScore > 0) {
-                return bestMatch;
-            } else {
-                return "Ok, no he entendido bien tu pregunta. Puedes usar uno de los botones de sugerencia para explorar.";
-            }
-        }
-
-        function handleChatSend() {
-            const userInput = chatInput.value;
-            if (userInput.trim() === "") return;
-            
-            addMessageToChat(userInput, 'user');
-            chatInput.value = "";
-            
-            // Simular respuesta del bot
+            // Buscar respuesta en la base de conocimiento
             setTimeout(() => {
-                const botResponse = getChatbotResponse(userInput);
-                addMessageToChat(botResponse, 'bot');
-                // Req 1. Botones Dinámicos: Cambiar después de cada respuesta
-                renderRandomSuggestions();
+                const response = getChatbotResponse(message);
+                addChatMessage(response, 'bot');
             }, 500);
         }
 
-        function clearChatHistory() {
-            chatHistory.innerHTML = '';
-            addMessageToChat("¡Hola! Soy tu asistente. ¿Cómo puedo ayudarte con el bienestar emocional de tu hijo?", 'bot');
-            renderRandomSuggestions();
-        }
-
-        function initChatbot() {
-            chatFab.addEventListener('click', () => {
-                chatWidget.classList.toggle('open');
-                chatFab.style.display = 'none';
-            });
+        function getChatbotResponse(message) {
+            const lowerMessage = message.toLowerCase();
             
-            closeChatBtn.addEventListener('click', () => {
-                chatWidget.classList.remove('open');
-                chatFab.style.display = 'flex';
-                // Req 1. Limpieza: Borrar historial al cerrar
-                clearChatHistory();
-            });
-            
-            chatSendBtn.addEventListener('click', handleChatSend);
-            chatInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    handleChatSend();
+            for (const key in chatKnowledgeBase) {
+                if (lowerMessage.includes(key)) {
+                    return chatKnowledgeBase[key];
                 }
-            });
+            }
             
-            // Cargar mensaje inicial y sugerencias
-            clearChatHistory();
-        }
-        // --- FIN LÓGICA DEL CHATBOT ---
-
-
-        // --- 2. 🗺️ INICIO LÓGICA DE GUÍA INTERACTIVA (INTRO.JS) ---
-
-        function startGeneralPageTour() {
-            // Req 2. Activación: Se llama CADA VEZ, sin localStorage.
-            
-            const intro = introJs();
-            intro.setOptions({
-                steps: [
-                    {
-                        element: document.querySelector('.header'),
-                        title: '👋 ¡Bienvenido a Bienestar Psicológico!',
-                        intro: 'Esta es la cabecera. Desde aquí puedes ver el título de la sección y volver a tu perfil o salir de la app.'
-                    },
-                    {
-                        element: document.querySelector('.anemia-wellness-section'),
-                        title: '💡 Anemia y Emociones',
-                        intro: 'Esta sección es clave. Explica cómo la anemia (que causa fatiga y falta de concentración) puede afectar las emociones y el estado de ánimo de tu hijo.'
-                    },
-                    {
-                        element: document.querySelector('.anemia-tips-section'),
-                        title: '🧠 Consejos Generales',
-                        intro: 'Aquí tienes algunos consejos base muy importantes para apoyar a tu hijo, como usar el refuerzo positivo y la creatividad con la comida.'
-                    },
-                    {
-                        element: document.querySelector('.interaction-section'),
-                        title: '💬 ¿Cómo se siente hoy?',
-                        intro: '¡Esta es la parte interactiva! Escribe aquí cómo se siente tu hijo hoy o qué situación emocional observaste (ej: "está frustrado", "triste", etc.).'
-                    },
-                    {
-                        element: document.getElementById('generate-tips'),
-                        title: '🚀 Generar Consejos',
-                        intro: 'Luego de escribir, presiona este botón para generar consejos personalizados que te ayuden a manejar esa emoción específica.'
-                    },
-                    {
-                        element: document.getElementById('tips-container'),
-                        title: '📝 Tus Consejos',
-                        intro: 'Los consejos que generes (o los de ejemplo) aparecerán aquí. ¡Puedes guardarlos como favoritos!'
-                    },
-                    {
-                        element: document.getElementById('favorites-section'),
-                        title: '⭐ Consejos Favoritos',
-                        intro: 'Si guardas algún consejo haciendo clic en la estrella (⭐), aparecerá aquí para que puedas revisarlo fácilmente cuando lo necesites.'
-                    },
-                    {
-                        element: document.getElementById('chat-fab'),
-                        title: '🤖 ¿Necesitas Ayuda?',
-                        intro: 'Si tienes alguna pregunta sobre esta sección o cómo usarla, ¡haz clic en este botón rojo para chatear conmigo!',
-                        position: 'left'
-                    }
-                ],
-                nextLabel: 'Siguiente &rarr;',
-                prevLabel: '&larr; Anterior',
-                doneLabel: '¡Entendido!',
-                tooltipClass: 'custom-intro-tooltip',
-                showProgress: true,
-                showBullets: false
-            });
-
-            intro.start();
+            return "No entiendo tu pregunta. Intenta preguntar sobre consejos, favoritos, anemia o emociones.";
         }
 
-        // --- FIN LÓGICA DE GUÍA INTERACTIVA ---
-        
-
-        // Función de inicialización
-        function init() {
-            // --- INICIO DE VERIFICACIÓN DE SINCRONIZACIÓN AL CARGAR ---
-            // Verificar si hay acciones de sincronización pendientes de otras pestañas
-            const syncAction = localStorage.getItem('yachay_sync_action');
-            if (syncAction) {
-                const syncData = JSON.parse(syncAction);
-                // Si la acción es reciente (menos de 5 segundos), la procesamos
-                const actionTime = new Date(syncData.timestamp);
-                const now = new Date();
-                if ((now - actionTime) < 5000) {
-                    // Si la acción afecta al niño actual, redirigimos
-                    const currentChildId = getChildIdFromUrl();
-                    if (currentChildId === syncData.childId) {
-                        if (syncData.action === 'soft-delete' || syncData.action === 'permanent-delete') {
-                            showToast('El perfil actual ha sido eliminado', 'info');
-                            setTimeout(() => {
-                                window.location.href = 'chicos.html';
-                            }, 2000);
-                        }
-                    }
-                }
-                // Limpiamos la acción para no procesarla de nuevo
-                localStorage.removeItem('yachay_sync_action');
-            }
-
-            // Configurar listener para sincronización en tiempo real con otras pestañas
-            if ('BroadcastChannel' in window) {
-                const channel = new BroadcastChannel('yachay_sync');
-                channel.onmessage = function(event) {
-                    const syncData = event.data;
-                    // Si recibimos un mensaje de sincronización, verificamos si afecta al niño actual
-                    const currentChildId = getChildIdFromUrl();
-                    if (currentChildId === syncData.childId) {
-                        if (syncData.action === 'soft-delete' || syncData.action === 'permanent-delete') {
-                            showToast('El perfil actual ha sido eliminado', 'info');
-                            setTimeout(() => {
-                                window.location.href = 'chicos.html';
-                            }, 2000);
-                        }
-                    }
-                };
-            }
-            // --- FIN DE VERIFICACIÓN DE SINCRONIZACIÓN AL CARGAR ---
-
-            // Obtener el childId de la URL
-            childId = getChildIdFromUrl();
-            
-            if (!childId) {
-                showToast('No se encontró el ID del niño', 'error');
-                return;
-            }
-            
-            // Cargar los datos del niño
-            if (!loadChildData()) {
-                showToast('No se encontraron datos del niño', 'error');
-                return;
-            }
-            
-            // Inicializar componentes
-            initMobileFooter();
-            
-            // --- NUEVAS INICIALIZACIONES ---
-            // 1. 🤖 Inicializar el Chatbot
-            initChatbot();
-            
-            // 2. 🗺️ Iniciar la Guía Interactiva
-            // Req 2. Activación: Se llama CADA VEZ que se carga la página.
-            // Req 2. Guía por Secciones: Esta página NO tiene tabs, por lo tanto, se lanza el tour general.
-            startGeneralPageTour();
-            // --- FIN NUEVAS INICIALIZACIONES ---
-            
-            // Inicializar consejos de ejemplo
-            initializeSampleTips();
-            
-            // Event listeners - ASEGURAR QUE EL BOTÓN GENERAR CONSEJOS FUNCIONE
-            const generateBtn = document.getElementById('generate-tips');
-            if (generateBtn) {
-                generateBtn.addEventListener('click', generateTips);
-                console.log("Event listener añadido al botón generar consejos");
-            } else {
-                console.error("No se encontró el botón generar consejos");
-            }
-            
-            const clearFavoritesBtn = document.getElementById('clear-favorites');
-            if (clearFavoritesBtn) {
-                clearFavoritesBtn.addEventListener('click', clearAllFavorites);
-            }
-        }
-
-        // Ejecutar la inicialización cuando el DOM esté cargado
-        document.addEventListener('DOMContentLoaded', init);
+        // Inicializar aplicación
+        init();
     </script>
 </body>
 </html> 
