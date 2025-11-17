@@ -1938,9 +1938,10 @@
             // Listener de clics para todo el documento
             document.body.addEventListener('click', (e) => {
                 const isMainLink = e.target.closest('a[href="index2.html"]');
+                const isProductsLink = e.target.closest('a[href="productos.html"]');
                 const isExternalLink = e.target.closest('a[target="_blank"]');
                 
-                if (isMainLink || isExternalLink) { return; }
+                if (isMainLink || isProductsLink || isExternalLink) { return; }
                 
                 if (e.target.closest('a') && !e.target.closest('.team-social a')) { 
                      e.preventDefault();
