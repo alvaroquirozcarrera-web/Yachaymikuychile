@@ -294,19 +294,35 @@
             color: var(--primary-blue);
         }
 
-        .add-to-cart-btn {
+        .product-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .add-to-cart-btn, .details-btn {
             background-color: var(--primary-blue);
             color: var(--white);
             border: none;
-            padding: 10px 20px;
+            padding: 10px 15px;
             border-radius: 30px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .details-btn {
+            background-color: var(--accent-color);
         }
 
         .add-to-cart-btn:hover {
             background-color: #0d3669;
+        }
+
+        .details-btn:hover {
+            background-color: #0d7fa7;
         }
 
         /* Estilos del Footer */
@@ -730,6 +746,147 @@
             opacity: 1;
         }
 
+        /* Modal de Detalles del Producto */
+        .product-details-modal .modal-content {
+            max-width: 900px;
+        }
+
+        .product-details-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .product-details-header {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .product-details-image {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .product-details-info {
+            flex-grow: 1;
+        }
+
+        .product-details-title {
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        .product-details-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+        }
+
+        .product-details-rating {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .product-details-rating .stars {
+            color: var(--warning-color);
+        }
+
+        .product-details-section {
+            margin-bottom: 25px;
+        }
+
+        .product-details-section h3 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .product-details-section p, .product-details-section ul {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .product-details-section ul {
+            padding-left: 20px;
+        }
+
+        .product-details-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .product-details-nutrients {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .nutrient-item {
+            background-color: var(--light-gray);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .nutrient-name {
+            font-weight: 600;
+            color: var(--primary-blue);
+        }
+
+        .nutrient-value {
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
+
+        .product-details-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .product-details-actions button {
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-to-cart-details-btn {
+            background-color: var(--primary-blue);
+            color: var(--white);
+        }
+
+        .add-to-cart-details-btn:hover {
+            background-color: #0d3669;
+        }
+
+        .close-details-btn {
+            background-color: var(--medium-gray);
+            color: var(--text-dark);
+        }
+
+        .close-details-btn:hover {
+            background-color: #c1c7cd;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .main-banner h1 {
@@ -747,6 +904,19 @@
             .floating-cart {
                 bottom: 20px;
                 right: 20px;
+            }
+
+            .product-details-header {
+                flex-direction: column;
+            }
+
+            .product-details-image {
+                width: 100%;
+                height: auto;
+            }
+
+            .product-details-actions {
+                flex-direction: column;
             }
         }
 
@@ -910,6 +1080,21 @@
         </div>
     </div>
 
+    <!-- Modal de Detalles del Producto -->
+    <div class="modal product-details-modal" id="product-details-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Detalles del Producto</h2>
+                <button class="close-modal" id="close-product-details-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="product-details-container" id="product-details-container">
+                    <!-- Los detalles del producto se insertarán aquí con JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal de Información -->
     <div class="modal" id="info-modal">
         <div class="modal-content">
@@ -929,157 +1114,352 @@
     </div>
 
     <script>
-        // Base de Datos de Productos
+        // Base de Datos de Productos con información detallada
         const productos = [
             {
                 id: 1,
                 nombre: "Hierro Plus Junior",
                 descripcion: "Suplemento líquido con hierro y vitamina C para mejor absorción",
+                descripcionDetallada: "Hierro Plus Junior es un suplemento nutricional especialmente formulado para niños, que combina hierro de alta biodisponibilidad con vitamina C para maximizar su absorción. Su formulación líquida facilita la administración en niños pequeños y su sabor a frutas naturales hace que sea agradable al paladar.",
                 precio: 45.90,
                 imagen_url: "https://picsum.photos/seed/hierro1/400/300.jpg",
                 categoria: "suplementos",
-                nutrientes: { hierro: "7.6mg", vitaminaC: "30mg" },
-                distintivo: "Más Vendido"
+                nutrientes: { hierro: "7.6mg", vitaminaC: "30mg", vitaminaB12: "2.5mcg", acidoFolico: "200mcg" },
+                distintivo: "Más Vendido",
+                beneficios: [
+                    "Ayuda a prevenir y tratar la anemia ferropénica",
+                    "Mejora la concentración y el rendimiento escolar",
+                    "Fortalece el sistema inmunológico",
+                    "Contribuye al desarrollo cognitivo infantil"
+                ],
+                modoDeUso: "Niños de 2 a 6 años: 5 ml (1 cucharadita) una vez al día, preferentemente después de una comida. Niños de 7 a 12 años: 10 ml (2 cucharaditas) una vez al día. Agitar bien antes de usar.",
+                contraindicaciones: "No administrar en caso de hemocromatosis, anemia hemolítica o hipersensibilidad a cualquiera de los componentes. Mantener fuera del alcance de los niños.",
+                presentacion: "Frasco de 250 ml con dosificador graduado.",
+                certificaciones: "Certificado por DIGESA, registro sanitario N° XXXXXX-YYYY.",
+                valoracion: 4.5,
+                opiniones: 127
             },
             {
                 id: 2,
                 nombre: "Cereal Fortificado NutriNiños",
                 descripcion: "Cereal enriquecido con hierro y vitaminas esenciales",
+                descripcionDetallada: "NutriNiños es un cereal fortificado desarrollado por nutricionistas infantiles para garantizar un aporte adecuado de nutrientes esenciales en el desayuno de los niños. Elaborado a base de granos integrales peruanos como la quinua y la kiwicha, enriquecido con hierro, zinc y vitaminas del complejo B.",
                 precio: 28.50,
                 imagen_url: "https://picsum.photos/seed/cereal1/400/300.jpg",
                 categoria: "cereales",
-                nutrientes: { hierro: "5.2mg", proteina: "14g" },
-                distintivo: null
+                nutrientes: { hierro: "5.2mg", proteina: "14g", fibra: "6g", zinc: "3mg" },
+                distintivo: null,
+                beneficios: [
+                    "Aporte energético para actividades diarias",
+                    "Mejora la digestión gracias a su contenido de fibra",
+                    "Fortalece el sistema inmune",
+                    "Apoya el crecimiento y desarrollo óseo"
+                ],
+                modoDeUso: "Mezclar 30g (3 cucharadas soperas) con 200ml de leche, agua o yogurt. Se puede consumir frío o caliente. Apto para niños a partir de los 6 meses.",
+                contraindicaciones: "Contiene gluten. No recomendado para niños con enfermedad celíaca sin supervisión médica.",
+                presentacion: "Caja de 300g con cierre hermético para conservar frescura.",
+                certificaciones: "Certificado orgánico, libre de transgénicos.",
+                valoracion: 4.2,
+                opiniones: 89
             },
             {
                 id: 3,
                 nombre: "Galletas de Quinua y Hierro",
                 descripcion: "Snack delicioso y nutritivo con alto contenido de hierro",
+                descripcionDetallada: "Nuestras galletas de quinua y hierro son una alternativa saludable a los snacks tradicionales. Elaboradas con harina de quinua peruana, enriquecidas con hierro hemínico de origen natural y endulzadas con panela orgánica, son perfectas para el recreo escolar o como merienda nutritiva.",
                 precio: 15.75,
                 imagen_url: "https://picsum.photos/seed/galletas1/400/300.jpg",
                 categoria: "snacks",
-                nutrientes: { hierro: "3.8mg", fibra: "6g" },
-                distintivo: null
+                nutrientes: { hierro: "3.8mg", fibra: "6g", proteina: "8g", calcio: "120mg" },
+                distintivo: null,
+                beneficios: [
+                    "Snack saludable para el recreo escolar",
+                    "Fuente de energía de liberación lenta",
+                    "Aporta hierro biodisponible",
+                    "Libre de conservantes artificiales"
+                ],
+                modoDeUso: "Ideal como snack entre comidas. Consumir 2-3 galletas al día como parte de una dieta equilibrada.",
+                contraindicaciones: "Contiene gluten y trazas de frutos secos. No recomendado para alérgicos a estos ingredientes.",
+                presentacion: "Paquete individual de 60g (6 galletas). Disponible en packs de 6 unidades.",
+                certificaciones: "Certificado kosher, sin aditivos artificiales.",
+                valoracion: 4.7,
+                opiniones: 203
             },
             {
                 id: 4,
                 nombre: "Polvo de Sangre de Res",
                 descripcion: "Suplemento natural rico en hierro hemínico",
+                descripcionDetallada: "El polvo de sangre de res deshidratada es una fuente natural de hierro hemínico, el tipo de hierro con mayor tasa de absorción en el organismo. Procesado mediante liofilización para conservar todas sus propiedades nutricionales, es ideal para complementar la dieta de niños con deficiencia de hierro.",
                 precio: 32.00,
                 imagen_url: "https://picsum.photos/seed/sangre1/400/300.jpg",
                 categoria: "suplementos",
-                nutrientes: { hierro: "10.2mg", proteina: "20g" },
-                distintivo: null
+                nutrientes: { hierro: "10.2mg", proteina: "20g", vitaminaB12: "5mcg", zinc: "4mg" },
+                distintivo: null,
+                beneficios: [
+                    "Alta biodisponibilidad de hierro",
+                    "Fuente natural de vitamina B12",
+                    "Ayuda a formar glóbulos rojos saludables",
+                    "Aporta proteínas de alta calidad"
+                ],
+                modoDeUso: "Mezclar 1 cucharadita (5g) en sopas, purés, jugos o batidos. No altera significativamente el sabor de los alimentos.",
+                contraindicaciones: "No apto para vegetarianos o veganos. Personas con problemas de coagulación deben consultar a su médico.",
+                presentacion: "Frasco de 150g con dosificador.",
+                certificaciones: "Certificado por SENASA, proceso HACCP.",
+                valoracion: 4.0,
+                opiniones: 67
             },
             {
                 id: 5,
                 nombre: "Puré de Hígado de Pollo",
                 descripcion: "Alimento infantil con alto contenido de hierro",
+                descripcionDetallada: "Nuestro puré de hígado de pollo es una opción deliciosa y nutritiva para introducir alimentos ricos en hierro en la dieta de los bebés y niños pequeños. Elaborado con hígado de pollo de granja orgánica, vegetales naturales y sin aditivos, conserva el sabor y los nutrientes esenciales.",
                 precio: 18.90,
                 imagen_url: "https://picsum.photos/seed/higado1/400/300.jpg",
                 categoria: "alimentos",
-                nutrientes: { hierro: "4.5mg", proteina: "16g" },
-                distintivo: "Recomendado"
+                nutrientes: { hierro: "4.5mg", proteina: "16g", vitaminaA: "1200IU", acidoFolico: "50mcg" },
+                distintivo: "Recomendado",
+                beneficios: [
+                    "Alta concentración de hierro biodisponible",
+                    "Fuente de vitamina A para la visión",
+                    "Textura suave ideal para bebés",
+                    "Sin conservantes ni colorantes artificiales"
+                ],
+                modoDeUso: "Listo para consumir. Calentar al baño maría o microondas. Apto para bebés a partir de los 6 meses.",
+                contraindicaciones: "No recomendado para bebés con alergia al pollo o sus derivados.",
+                presentacion: "Potitos de 120g. Disponible en packs de 4 unidades.",
+                certificaciones: "Certificado orgánico, libre de OGM.",
+                valoracion: 4.6,
+                opiniones: 156
             },
             {
                 id: 6,
                 nombre: "Jarabe Multivitamínico",
                 descripcion: "Completo suplemento con hierro, zinc y vitaminas A, C, D",
+                descripcionDetallada: "El jarabe multivitamínico es una formulación completa que combina minerales esenciales como hierro y zinc con vitaminas clave para el desarrollo infantil. Su sabor a frutas tropicales y su textura suave lo hacen ideal para niños que rechazan otros suplementos.",
                 precio: 38.50,
                 imagen_url: "https://picsum.photos/seed/jarabe1/400/300.jpg",
                 categoria: "suplementos",
-                nutrientes: { hierro: "6.0mg", zinc: "5mg" },
-                distintivo: null
+                nutrientes: { hierro: "6.0mg", zinc: "5mg", vitaminaA: "1500IU", vitaminaD: "400IU" },
+                distintivo: null,
+                beneficios: [
+                    "Refuerza el sistema inmunológico",
+                    "Mejora el apetito en niños con falta de apetito",
+                    "Contribuye al crecimiento saludable",
+                    "Prevenir carencias nutricionales"
+                ],
+                modoDeUso: "Niños de 1 a 3 años: 5 ml (1 cucharadita) al día. Niños de 4 a 12 años: 10 ml (2 cucharaditas) al día. Preferentemente con el desayuno.",
+                contraindicaciones: "No administrar junto con otros suplementos que contengan vitamina A sin supervisión médica.",
+                presentacion: "Frasco de 250 ml con dosificador graduado.",
+                certificaciones: "Certificado por DIGESA, registro sanitario N° XXXXXX-YYYY.",
+                valoracion: 4.3,
+                opiniones: 98
             },
             {
                 id: 7,
                 nombre: "Barritas Energéticas con Hierro",
                 descripcion: "Snack ideal para el recreo, con hierro y frutos secos",
+                descripcionDetallada: "Las barritas energéticas con hierro son una opción práctica y nutritiva para llevar en el bolsillo o mochila escolar. Elaboradas con una mezcla de avena, quinua, frutos secos andinos y enriquecidas con hierro, proporcionan energía sostenida para las actividades diarias de los niños.",
                 precio: 22.30,
                 imagen_url: "https://picsum.photos/seed/barritas1/400/300.jpg",
                 categoria: "snacks",
-                nutrientes: { hierro: "2.8mg", fibra: "8g" },
-                distintivo: null
+                nutrientes: { hierro: "2.8mg", fibra: "8g", proteina: "7g", potasio: "250mg" },
+                distintivo: null,
+                beneficios: [
+                    "Energía de liberación prolongada",
+                    "Snack práctico para llevar",
+                    "Fuente de fibra para buena digestión",
+                    "Libre de azúcares refinados"
+                ],
+                modoDeUso: "Ideal como snack entre comidas o antes de actividades físicas. Consumir 1 barrita al día como parte de una dieta equilibrada.",
+                contraindicaciones: "Contiene frutos secos y gluten. No apto para personas con alergia a estos ingredientes.",
+                presentacion: "Caja con 6 barritas individuales de 30g cada una.",
+                certificaciones: "Certificado kosher, sin aditivos artificiales.",
+                valoracion: 4.4,
+                opiniones: 172
             },
             {
                 id: 8,
                 nombre: "Mix de Legumbres Secas",
                 descripcion: "Mezcla de lentejas, garbanzos y frijoles, fuente natural de hierro",
+                descripcionDetallada: "Nuestro mix de legumbres secas combina las variedades más nutritivas y ricas en hierro de la agricultura peruana. Lentejas rojas, garbanzos andinos y frijoles canarios seleccionados, procesados y envasados para conservar todas sus propiedades nutricionales.",
                 precio: 19.90,
                 imagen_url: "https://picsum.photos/seed/legumbres1/400/300.jpg",
                 categoria: "alimentos",
-                nutrientes: { hierro: "5.5mg", proteina: "22g" },
-                distintivo: null
+                nutrientes: { hierro: "5.5mg", proteina: "22g", fibra: "15g", folato: "300mcg" },
+                distintivo: null,
+                beneficios: [
+                    "Fuente vegetal de proteínas y hierro",
+                    "Alto contenido de fibra digestiva",
+                    "Bajo índice glucémico",
+                    "Versatilidad en la preparación"
+                ],
+                modoDeUso: "Remojar durante 8 horas antes de cocinar. Cocinar en agua hirviendo durante 20-30 minutos hasta que estén tiernas. Ideal para sopas, guisos o ensaladas.",
+                contraindicaciones: "Puede causar flatulencias en personas sensibles. Introducir gradualmente en la dieta.",
+                presentacion: "Bolsa de 500g con mezcla equilibrada de legumbres.",
+                certificaciones: "Certificado orgánico, libre de pesticidas.",
+                valoracion: 4.1,
+                opiniones: 84
             },
             {
                 id: 9,
                 nombre: "Cápsulas de Hierro Quelado",
                 descripcion: "Hierro de alta absorción sin efectos secundarios",
+                descripcionDetallada: "Las cápsulas de hierro quelado utilizan una forma de hierro unida a aminoácidos que mejora significativamente su absorción y reduce los efectos secundarios gastrointestinales comunes de otros suplementos de hierro. Ideales para niños mayores y adolescentes que pueden tragar cápsulas.",
                 precio: 55.00,
                 imagen_url: "https://picsum.photos/seed/capsulas1/400/300.jpg",
                 categoria: "suplementos",
-                nutrientes: { hierro: "14mg", vitaminaC: "50mg" },
-                distintivo: "Alta Potencia"
+                nutrientes: { hierro: "14mg", vitaminaC: "50mg", vitaminaB12: "3mcg", acidoFolico: "400mcg" },
+                distintivo: "Alta Potencia",
+                beneficios: [
+                    "Máxima absorción de hierro",
+                    "Mínimos efectos secundarios digestivos",
+                    "No interfiere con la absorción de otros nutrientes",
+                    "Dosis precisa y fácil de administrar"
+                ],
+                modoDeUso: "Adolescentes de 12 a 18 años: 1 cápsula al día con el desayuno. No superar la dosis recomendada. Tomar con al menos 200ml de agua.",
+                contraindicaciones: "No administrar a niños menores de 12 años. Personas con enfermedades gastrointestinales deben consultar a su médico.",
+                presentacion: "Frasco con 30 cápsulas (dosis para 1 mes).",
+                certificaciones: "Certificado por DIGESA, registro sanitario N° XXXXXX-YYYY.",
+                valoracion: 4.5,
+                opiniones: 109
             },
             {
                 id: 10,
                 nombre: "Granola Fortificada",
                 descripcion: "Deliciosa granola con hierro, avena y frutos secos",
+                descripcionDetallada: "Nuestra granola fortificada combina avena integral, quinua tostada, frutos secos andinos y semillas, enriquecida con hierro y zinc. Endulzada con miel de abeja orgánica, es perfecta para un desayuno nutritivo o como snack energético durante el día.",
                 precio: 26.75,
                 imagen_url: "https://picsum.photos/seed/granola1/400/300.jpg",
                 categoria: "cereales",
-                nutrientes: { hierro: "4.2mg", fibra: "9g" },
-                distintivo: null
+                nutrientes: { hierro: "4.2mg", fibra: "9g", proteina: "12g", omega3: "800mg" },
+                distintivo: null,
+                beneficios: [
+                    "Desayuno completo y nutritivo",
+                    "Fuente de energía sostenida",
+                    "Aporta grasas saludables",
+                    "Textura crujiente y sabor delicioso"
+                ],
+                modoDeUso: "Consumir 40-50g con leche, yogurt o frutas. Ideal como topping para batidos o ensaladas de frutas.",
+                contraindicaciones: "Contiene frutos secos y miel. No apto para alérgicos a frutos secos ni para niños menores de 1 año.",
+                presentacion: "Bolsa de 400g con cierre hermético.",
+                certificaciones: "Certificado orgánico, libre de transgénicos.",
+                valoracion: 4.6,
+                opiniones: 198
             },
             {
                 id: 11,
                 nombre: "Chips de Camote y Espinaca",
                 descripcion: "Snack crujiente y nutritivo con hierro y betacarotenos",
+                descripcionDetallada: "Los chips de camote y espinaca son una alternativa saludable a las papas fritas tradicionales. Elaborados con camote morado peruano y espinaca fresca, horneados no fritos, conservan sus nutrientes y ofrecen un sabor único que gusta tanto a niños como a adultos.",
                 precio: 17.50,
                 imagen_url: "https://picsum.photos/seed/chips1/400/300.jpg",
                 categoria: "snacks",
-                nutrientes: { hierro: "2.1mg", vitaminaA: "1200IU" },
-                distintivo: null
+                nutrientes: { hierro: "2.1mg", vitaminaA: "1200IU", fibra: "5g", potasio: "350mg" },
+                distintivo: null,
+                beneficios: [
+                    "Snack bajo en grasa",
+                    "Fuente de betacarotenos antioxidantes",
+                    "Aporte de hierro vegetal",
+                    "Crujiente y sabroso sin culpa"
+                ],
+                modoDeUso: "Ideal como snack entre comidas o acompañamiento de platos principales. Consumir 1 porción (30g) al día.",
+                contraindicaciones: "Elaborado en un equipo que también procesa productos con gluten. Puede contener trazas.",
+                presentacion: "Bolsa individual de 30g. Disponible en packs de 6 unidades.",
+                certificaciones: "Certificado kosher, sin aditivos artificiales.",
+                valoracion: 4.2,
+                opiniones: 145
             },
             {
                 id: 12,
                 nombre: "Puré de Legumbres Mixtas",
                 descripcion: "Comida infantil con lentejas, garbanzos y espinacas",
+                descripcionDetallada: "El puré de legumbres mixtas es una forma deliciosa de introducir proteínas vegetales y hierro en la dieta de los bebés. Combinación suave de lentejas rojas, garbanzos tiernos y espinacas frescas, cocinados lentamente para preservar nutrientes y sabor.",
                 precio: 21.80,
                 imagen_url: "https://picsum.photos/seed/pure1/400/300.jpg",
                 categoria: "alimentos",
-                nutrientes: { hierro: "4.8mg", proteina: "12g" },
-                distintivo: null
+                nutrientes: { hierro: "4.8mg", proteina: "12g", fibra: "6g", vitaminaK: "45mcg" },
+                distintivo: null,
+                beneficios: [
+                    "Aporte de proteínas vegetales",
+                    "Textura suave ideal para bebés",
+                    "Combina múltiples nutrientes esenciales",
+                    "Sin sal ni conservantes añadidos"
+                ],
+                modoDeUso: "Listo para consumir. Calentar al baño maría o microondas. Apto para bebés a partir de los 8 meses.",
+                contraindicaciones: "No recomendado para bebés con alergia a las legumbres.",
+                presentacion: "Potitos de 120g. Disponible en packs de 4 unidades.",
+                certificaciones: "Certificado orgánico, libre de OGM.",
+                valoracion: 4.4,
+                opiniones: 167
             },
             {
                 id: 13,
                 nombre: "Gotas de Hierro Infantil",
                 descripcion: "Suplemento líquido con hierro para bebés y niños pequeños",
+                descripcionDetallada: "Las gotas de hierro infantil están especialmente formuladas para bebés y niños pequeños que necesitan un suplemento de hierro. Su formato en gotas permite una dosificación precisa y su formulación con hierro quelado minimiza los efectos secundarios digestivos.",
                 precio: 42.00,
                 imagen_url: "https://picsum.photos/seed/gotas1/400/300.jpg",
                 categoria: "suplementos",
-                nutrientes: { hierro: "7mg", vitaminaD: "400IU" },
-                distintivo: null
+                nutrientes: { hierro: "7mg", vitaminaC: "25mg", vitaminaD: "400IU", acidoFolico: "150mcg" },
+                distintivo: null,
+                beneficios: [
+                    "Dosis precisa en formato gotas",
+                    "Fácil de administrar a bebés",
+                    "Hierro de alta absorción",
+                    "Sin sabor metálico desagradable"
+                ],
+                modoDeUso: "Bebes de 6 meses a 1 año: 0.5 ml (10 gotas) al día. Niños de 1 a 3 años: 1 ml (20 gotas) al día. Administrar directamente o mezclar con alimentos.",
+                contraindicaciones: "No administrar junto con leche o productos lácteos, ya que reducen la absorción del hierro.",
+                presentacion: "Frasco cuentagotas de 30 ml (dosis para 1 mes).",
+                certificaciones: "Certificado por DIGESA, registro sanitario N° XXXXXX-YYYY.",
+                valoracion: 4.3,
+                opiniones: 123
             },
             {
                 id: 14,
                 nombre: "Muesli con Frutos Secos",
                 descripcion: "Cereal energético con hierro, almendras y pasas",
+                descripcionDetallada: "El muesli con frutos secos combina avena integral, quinua, amaranto, almendras, nueces y pasas, enriquecido con hierro para un desayuno completo y nutritivo. Endulzado ligeramente con miel de abeja, es una opción energética para empezar el día con fuerza.",
                 precio: 24.90,
                 imagen_url: "https://picsum.photos/seed/muesli1/400/300.jpg",
                 categoria: "cereales",
-                nutrientes: { hierro: "3.6mg", fibra: "7g" },
-                distintivo: null
+                nutrientes: { hierro: "3.6mg", fibra: "7g", proteina: "10g", calcio: "150mg" },
+                distintivo: null,
+                beneficios: [
+                    "Desayuno energético y nutritivo",
+                    "Combina cereales y frutos secos",
+                    "Fuente de calcio y hierro",
+                    "Fácil y rápido de preparar"
+                ],
+                modoDeUso: "Consumir 40-50g con leche, yogurt o simplemente con agua. Puede consumirse frío o caliente.",
+                contraindicaciones: "Contiene frutos secos y miel. No apto para alérgicos a frutos secos ni para niños menores de 1 año.",
+                presentacion: "Bolsa de 450g con cierre hermético.",
+                certificaciones: "Certificado orgánico, libre de transgénicos.",
+                valoracion: 4.5,
+                opiniones: 176
             },
             {
                 id: 15,
                 nombre: "Hamburguesas de Lenteja",
                 descripcion: "Deliciosas hamburguesas vegetales ricas en hierro y proteína",
+                descripcionDetallada: "Las hamburguesas de lenteja son una alternativa saludable y deliciosa a las hamburguesas de carne. Elaboradas con lentejas rojas, quinua, vegetales y especias naturales, ofrecen un alto contenido de proteínas vegetales, hierro y fibra, con el sabor y la textura que gustan a los niños.",
                 precio: 23.60,
                 imagen_url: "https://picsum.photos/seed/hamburguesas1/400/300.jpg",
                 categoria: "alimentos",
-                nutrientes: { hierro: "5.2mg", proteina: "18g" },
-                distintivo: "Nuevo"
+                nutrientes: { hierro: "5.2mg", proteina: "18g", fibra: "8g", zinc: "2.5mg" },
+                distintivo: "Nuevo",
+                beneficios: [
+                    "Alternativa vegetariana nutritiva",
+                    "Alto contenido de proteínas vegetales",
+                    "Fuente de hierro biodisponible",
+                    "Lista para cocinar en pocos minutos"
+                ],
+                modoDeUso: "Cocinar en sartén antiadherente con poco aceite durante 4-5 minutos por cada lado. Servir en pan con vegetales frescos.",
+                contraindicaciones: "Contiene gluten. No recomendado para personas con enfermedad celíaca sin supervisión médica.",
+                presentacion: "Paquete de 4 hamburguesas de 80g cada una. Congelado.",
+                certificaciones: "Certificado kosher, sin aditivos artificiales.",
+                valoracion: 4.6,
+                opiniones: 58
             }
         ];
 
@@ -1107,6 +1487,9 @@
         const closeInfoModal = document.getElementById('close-info-modal');
         const infoModalTitle = document.getElementById('info-modal-title');
         const infoModalBody = document.getElementById('info-modal-body');
+        const productDetailsModal = document.getElementById('product-details-modal');
+        const closeProductDetailsModal = document.getElementById('close-product-details-modal');
+        const productDetailsContainer = document.getElementById('product-details-container');
 
         // Renderizar productos
         function renderProducts(categoria = 'todos') {
@@ -1138,7 +1521,14 @@
                         </div>
                         <div class="product-footer">
                             <span class="product-price">S/ ${producto.precio.toFixed(2)}</span>
-                            <button class="add-to-cart-btn" data-id="${producto.id}">Añadir</button>
+                            <div class="product-buttons">
+                                <button class="details-btn" data-id="${producto.id}">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+                                <button class="add-to-cart-btn" data-id="${producto.id}">
+                                    <i class="fas fa-shopping-cart"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
@@ -1146,15 +1536,126 @@
                 productsContainer.appendChild(productCard);
             });
             
-            // Añadir event listeners a los botones de añadir al carrito
+            // Añadir event listeners a los botones
             document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
                 btn.addEventListener('click', addToCart);
+            });
+            
+            document.querySelectorAll('.details-btn').forEach(btn => {
+                btn.addEventListener('click', showProductDetails);
+            });
+        }
+
+        // Mostrar detalles del producto
+        function showProductDetails(e) {
+            const productId = parseInt(e.target.closest('.details-btn').getAttribute('data-id'));
+            const product = productos.find(p => p.id === productId);
+            
+            let nutrientesHTML = '';
+            for (const [key, value] of Object.entries(product.nutrientes)) {
+                nutrientesHTML += `
+                    <div class="nutrient-item">
+                        <div class="nutrient-name">${key}</div>
+                        <div class="nutrient-value">${value}</div>
+                    </div>
+                `;
+            }
+            
+            let beneficiosHTML = '';
+            product.beneficios.forEach(beneficio => {
+                beneficiosHTML += `<li>${beneficio}</li>`;
+            });
+            
+            // Generar estrellas para la valoración
+            let starsHTML = '';
+            const fullStars = Math.floor(product.valoracion);
+            const hasHalfStar = product.valoracion % 1 !== 0;
+            
+            for (let i = 0; i < fullStars; i++) {
+                starsHTML += '<i class="fas fa-star"></i>';
+            }
+            
+            if (hasHalfStar) {
+                starsHTML += '<i class="fas fa-star-half-alt"></i>';
+            }
+            
+            const emptyStars = 5 - Math.ceil(product.valoracion);
+            for (let i = 0; i < emptyStars; i++) {
+                starsHTML += '<i class="far fa-star"></i>';
+            }
+            
+            productDetailsContainer.innerHTML = `
+                <div class="product-details-header">
+                    <img src="${product.imagen_url}" alt="${product.nombre}" class="product-details-image">
+                    <div class="product-details-info">
+                        <h2 class="product-details-title">${product.nombre}</h2>
+                        <div class="product-details-price">S/ ${product.precio.toFixed(2)}</div>
+                        <div class="product-details-rating">
+                            <div class="stars">${starsHTML}</div>
+                            <span>${product.valoracion} (${product.opiniones} opiniones)</span>
+                        </div>
+                        <p>${product.descripcionDetallada}</p>
+                    </div>
+                </div>
+                
+                <div class="product-details-section">
+                    <h3><i class="fas fa-heart"></i> Beneficios</h3>
+                    <ul>
+                        ${beneficiosHTML}
+                    </ul>
+                </div>
+                
+                <div class="product-details-section">
+                    <h3><i class="fas fa-chart-bar"></i> Información Nutricional</h3>
+                    <div class="product-details-nutrients">
+                        ${nutrientesHTML}
+                    </div>
+                </div>
+                
+                <div class="product-details-section">
+                    <h3><i class="fas fa-book"></i> Modo de Uso</h3>
+                    <p>${product.modoDeUso}</p>
+                </div>
+                
+                <div class="product-details-section">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Contraindicaciones</h3>
+                    <p>${product.contraindicaciones}</p>
+                </div>
+                
+                <div class="product-details-section">
+                    <h3><i class="fas fa-box"></i> Presentación</h3>
+                    <p>${product.presentacion}</p>
+                </div>
+                
+                <div class="product-details-section">
+                    <h3><i class="fas fa-certificate"></i> Certificaciones</h3>
+                    <p>${product.certificaciones}</p>
+                </div>
+                
+                <div class="product-details-actions">
+                    <button class="add-to-cart-details-btn" data-id="${product.id}">
+                        <i class="fas fa-shopping-cart"></i> Añadir al Carrito
+                    </button>
+                    <button class="close-details-btn">
+                        <i class="fas fa-times"></i> Cerrar
+                    </button>
+                </div>
+            `;
+            
+            productDetailsModal.classList.add('active');
+            
+            // Añadir event listener al botón de añadir al carrito
+            document.querySelector('.add-to-cart-details-btn').addEventListener('click', addToCart);
+            
+            // Añadir event listener al botón de cerrar
+            document.querySelector('.close-details-btn').addEventListener('click', () => {
+                productDetailsModal.classList.remove('active');
             });
         }
 
         // Añadir producto al carrito
         function addToCart(e) {
-            const productId = parseInt(e.target.getAttribute('data-id'));
+            const productId = parseInt(e.target.closest('button').getAttribute('data-id'));
             const product = productos.find(p => p.id === productId);
             
             const existingItem = carrito.find(item => item.id === productId);
@@ -1170,6 +1671,11 @@
             
             updateCartUI();
             showNotification();
+            
+            // Si se añade desde el modal de detalles, cerrar el modal
+            if (e.target.closest('.add-to-cart-details-btn')) {
+                productDetailsModal.classList.remove('active');
+            }
         }
 
         // Actualizar la interfaz del carrito
@@ -1382,6 +1888,10 @@
             infoModal.classList.remove('active');
         });
 
+        closeProductDetailsModal.addEventListener('click', () => {
+            productDetailsModal.classList.remove('active');
+        });
+
         checkoutBtn.addEventListener('click', () => {
             if (carrito.length > 0) {
                 cartModal.classList.remove('active');
@@ -1434,6 +1944,9 @@
             }
             if (e.target === infoModal) {
                 infoModal.classList.remove('active');
+            }
+            if (e.target === productDetailsModal) {
+                productDetailsModal.classList.remove('active');
             }
         });
 
