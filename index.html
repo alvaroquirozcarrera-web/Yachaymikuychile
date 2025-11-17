@@ -308,6 +308,7 @@
             text-shadow: 1px 1px 3px rgba(0,0,0,0.7); /* Aumentada la sombra para mejorar legibilidad */
         }
         
+        /* Estilos para botones principales */
         .btn-hero {
             background: linear-gradient(45deg, var(--accent-red), #ff6b6b);
             color: white;
@@ -326,6 +327,10 @@
             letter-spacing: 1px;
             z-index: 1000;
             cursor: pointer;
+            white-space: nowrap; /* Evita que el texto se divida */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .btn-hero::before {
@@ -348,6 +353,90 @@
             transform: translateY(-5px) scale(1.05);
             box-shadow: 0 15px 35px rgba(230, 57, 70, 0.7);
             color: white;
+        }
+        
+        /* Estilos para el nuevo botón de productos */
+        .btn-products {
+            background: linear-gradient(45deg, var(--primary-blue), var(--accent-color));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 18px 50px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(26, 75, 140, 0.5);
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 1000;
+            cursor: pointer;
+            white-space: nowrap; /* Evita que el texto se divida */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-products::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-products:hover::before {
+            left: 100%;
+        }
+        
+        .btn-products:hover {
+            background: linear-gradient(45deg, #0a3166, var(--primary-blue));
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(26, 75, 140, 0.7);
+            color: white;
+        }
+        
+        /* Ajustes específicos para móviles - CORRECCIÓN DE BOTONES */
+        @media (max-width: 768px) {
+            .btn-hero {
+                padding: 14px 25px; /* Reducido padding para móviles */
+                font-size: 1rem; /* Reducido tamaño de fuente */
+                min-width: 160px; /* Ancho mínimo para asegurar que el texto quepa */
+                text-align: center; /* Centrado del texto */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: auto; /* Altura automática para acomodar el contenido */
+                line-height: 1.2; /* Espaciado entre líneas */
+            }
+            
+            .btn-products {
+                padding: 14px 25px; /* Reducido padding para móviles */
+                font-size: 1rem; /* Reducido tamaño de fuente */
+                min-width: 160px; /* Ancho mínimo para asegurar que el texto quepa */
+                text-align: center; /* Centrado del texto */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: auto; /* Altura automática para acomodar el contenido */
+                line-height: 1.2; /* Espaciado entre líneas */
+            }
+            
+            /* Ajuste específico para pantallas muy pequeñas */
+            @media (max-width: 480px) {
+                .btn-hero, .btn-products {
+                    padding: 12px 20px; /* Padding aún más reducido */
+                    font-size: 0.9rem; /* Tamaño de fuente más pequeño */
+                    min-width: 140px; /* Ancho mínimo reducido */
+                    letter-spacing: 0.5px; /* Espaciado entre letras reducido */
+                }
+            }
         }
         
         /* Estilos para tarjetas */
@@ -668,7 +757,6 @@
             .section-title { font-size: 2rem; }
             .section-subtitle { font-size: 1.1rem; }
             .stat-number { font-size: 2.5rem; }
-            .btn-hero { padding: 15px 30px; font-size: 1.1rem; }
             .floating-know-more { bottom: 20px; right: 20px; padding: 12px 20px; font-size: 0.9rem; }
         }
 
@@ -970,49 +1058,6 @@
             border-radius: 8px; border-left: 4px solid var(--accent-red); 
             margin: 1rem 0; 
         }
-        
-        /* Estilos para el nuevo botón de productos */
-        .btn-products {
-            background: linear-gradient(45deg, var(--primary-blue), var(--accent-color));
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 18px 50px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            transition: all 0.4s ease;
-            box-shadow: 0 8px 25px rgba(26, 75, 140, 0.5);
-            text-decoration: none;
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            z-index: 1000;
-            cursor: pointer;
-        }
-        
-        .btn-products::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: left 0.5s;
-        }
-        
-        .btn-products:hover::before {
-            left: 100%;
-        }
-        
-        .btn-products:hover {
-            background: linear-gradient(45deg, #0a3166, var(--primary-blue));
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(26, 75, 140, 0.7);
-            color: white;
-        }
     </style>
      <!-- Matomo -->
     <script>
@@ -1065,7 +1110,7 @@
                 <div class="text-center" data-aos="fade-up">
                     <h1 class="section-title">Yachay Mikuy</h1>
                     <p class="section-subtitle">Combatiendo la anemia infantil en Perú con planes de alimentación personalizados y adaptados culturalmente</p>
-                    <div class="d-flex justify-content-center gap-3">
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
                         <a href="index2.html#login" class="btn-hero" onclick="forceLogin(event)">comenzar</a>
                         <a href="productos.html" class="btn-products">Ver productos de anemia</a>
                     </div>
@@ -1497,7 +1542,7 @@
                 <div class="text-center" data-aos="fade-up">
                     <h2 class="section-title">Únete a la lucha contra la anemia infantil</h2>
                     <p class="section-subtitle">Juntos podemos transformar la nutrición de miles de niños en Perú</p>
-                    <div class="d-flex justify-content-center gap-3">
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
                         <a href="index2.html#login" class="btn-hero" onclick="forceLogin(event)">comenzar</a>
                         <a href="productos.html" class="btn-products">Ver productos de anemia</a>
                     </div>
@@ -2186,7 +2231,7 @@
                         { 
                             title: 'Paso 2 de 11',
                             element: document.querySelector('.section-with-bg'), 
-                            intro: 'Aquí encontrarás el título principal y nuestro lema. ¡Puedes hacer clic en "comenzar" para registrarte!',
+                            intro: 'Aquí encontrarás el título principal y nuestro lema. ¡Puedes hacer clic en "Comenzar Ahora" para registrarte!',
                             position: 'floating'
                         },
                         { 
