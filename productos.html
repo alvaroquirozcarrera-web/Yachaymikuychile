@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yachay Mikuy - Productos Anti-Anemia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --azul-primario: #1a4b8c;
+            --rojo-acento: #e63946;
+            --naranja-amarillo: #FF9800;
+            --blanco: #ffffff;
+            --gris-claro: #f5f5f5;
+            --gris: #e0e0e0;
+            --sombra: 0 2px 10px rgba(0, 0, 0, 0.1);
+            --sombra-suave: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--gris-claro);
+            padding-top: 80px; /* Espacio para el header fijo */
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--azul-primario);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: var(--sombra);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background-color: var(--blanco);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--azul-primario);
+            font-weight: bold;
+            font-size: 24px;
+        }
+
+        .brand-name {
+            color: var(--blanco);
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .nav-button {
+            background-color: transparent;
+            border: 2px solid var(--blanco);
+            color: var(--blanco);
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: var(--blanco);
+            color: var(--azul-primario);
+        }
+
+        /* Banner Principal */
+        .main-banner {
+            background: linear-gradient(135deg, var(--azul-primario), var(--rojo-acento));
+            color: var(--blanco);
+            padding: 60px 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .main-banner h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .main-banner p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 400;
+        }
+
+        /* Barra de Filtros */
+        .filter-bar {
+            background-color: var(--blanco);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            box-shadow: var(--sombra-suave);
+            position: sticky;
+            top: 80px;
+            z-index: 100;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: transparent;
+            border: 2px solid var(--azul-primario);
+            color: var(--azul-primario);
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background-color: var(--azul-primario);
+            color: var(--blanco);
+        }
+
+        .filter-btn.active {
+            background-color: var(--azul-primario);
+            color: var(--blanco);
+        }
+
+        /* Cuadrícula de Productos */
+        .products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background-color: var(--blanco);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--sombra);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--rojo-acento);
+            color: var(--blanco);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .product-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            color: var(--azul-primario);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .product-description {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .product-nutrients {
+            background-color: var(--gris-claro);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .product-nutrients span {
+            display: inline-block;
+            margin-right: 15px;
+            font-weight: 600;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--azul-primario);
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--azul-primario);
+            color: var(--blanco);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: #0d3669;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--azul-primario), var(--rojo-acento));
+            color: var(--blanco);
+            padding: 50px 20px 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section a {
+            color: var(--blanco);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--naranja-amarillo);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-icons a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Carrito Flotante */
+        .floating-cart {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--rojo-acento);
+            color: var(--blanco);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: var(--sombra);
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+
+        .floating-cart:hover {
+            transform: scale(1.1);
+            background-color: #d62828;
+        }
+
+        .cart-icon {
+            font-size: 1.5rem;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: var(--naranja-amarillo);
+            color: var(--blanco);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: var(--blanco);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-header {
+            background-color: var(--azul-primario);
+            color: var(--blanco);
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--blanco);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--gris);
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-info {
+            flex-grow: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: var(--azul-primario);
+            font-weight: 600;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .quantity-btn {
+            background-color: var(--azul-primario);
+            color: var(--blanco);
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .remove-item {
+            background-color: var(--rojo-acento);
+            color: var(--blanco);
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .cart-summary {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--gris);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .checkout-btn {
+            background-color: var(--rojo-acento);
+            color: var(--blanco);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            background-color: #d62828;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .empty-cart-icon {
+            font-size: 3rem;
+            color: var(--gris);
+            margin-bottom: 20px;
+        }
+
+        /* Formulario de Pago */
+        .payment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 10px;
+            border: 1px solid var(--gris);
+            border-radius: 5px;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .payment-method {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid var(--gris);
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover {
+            border-color: var(--azul-primario);
+        }
+
+        .payment-method.selected {
+            background-color: var(--azul-primario);
+            color: var(--blanco);
+            border-color: var(--azul-primario);
+        }
+
+        .payment-summary {
+            background-color: var(--gris-claro);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .summary-row.total {
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding-top: 10px;
+            border-top: 1px solid var(--gris);
+        }
+
+        .submit-payment-btn {
+            background-color: var(--rojo-acento);
+            color: var(--blanco);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            width: 100%;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-payment-btn:hover {
+            background-color: #d62828;
+        }
+
+        /* Notificación */
+        .notification {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background-color: var(--azul-primario);
+            color: var(--blanco);
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: var(--sombra);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1002;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-banner h1 {
+                font-size: 2rem;
+            }
+
+            .products-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-bar {
+                top: 70px;
+            }
+
+            .floating-cart {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .products-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="logo">YM</div>
+            <div class="brand-name">Yachay Mikuy</div>
+        </div>
+        <button class="nav-button">Inicio</button>
+    </header>
+
+    <!-- Banner Principal -->
+    <section class="main-banner">
+        <h1>Productos Anti-Anemia</h1>
+        <p>Descubre nuestra selección de productos ricos en hierro, especialmente formulados para combatir la anemia infantil en Perú</p>
+    </section>
+
+    <!-- Barra de Filtros -->
+    <div class="filter-bar">
+        <button class="filter-btn active" data-category="todos">Todos</button>
+        <button class="filter-btn" data-category="suplementos">Suplementos</button>
+        <button class="filter-btn" data-category="alimentos">Alimentos</button>
+        <button class="filter-btn" data-category="cereales">Cereales</button>
+        <button class="filter-btn" data-category="snacks">Snacks</button>
+    </div>
+
+    <!-- Cuadrícula de Productos -->
+    <div class="products-container" id="products-container">
+        <!-- Los productos se insertarán aquí con JavaScript -->
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Redes Sociales</h3>
+                <p>Síguenos en nuestras redes sociales</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <ul>
+                    <li><i class="fas fa-envelope"></i> info@yachaymikuy.pe</li>
+                    <li><i class="fas fa-phone"></i> +51 1 234 5678</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Lima - Perú</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Enlaces Útiles</h3>
+                <ul>
+                    <li><a href="#">Acerca de Nosotros</a></li>
+                    <li><a href="#">Política de Privacidad</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Preguntas Frecuentes</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Yachay Mikuy. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Carrito Flotante -->
+    <div class="floating-cart" id="floating-cart">
+        <i class="fas fa-shopping-cart cart-icon"></i>
+        <span class="cart-count" id="cart-count">0</span>
+    </div>
+
+    <!-- Modal del Carrito -->
+    <div class="modal" id="cart-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Tu Carrito</h2>
+                <button class="close-modal" id="close-cart-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="cart-items">
+                    <!-- Los items del carrito se insertarán aquí con JavaScript -->
+                </div>
+                <div class="cart-summary">
+                    <div class="cart-total">
+                        <span>Total:</span>
+                        <span id="cart-total">S/ 0.00</span>
+                    </div>
+                    <button class="checkout-btn" id="checkout-btn">Proceder al Pago</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Pago -->
+    <div class="modal" id="payment-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Información de Pago</h2>
+                <button class="close-modal" id="close-payment-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="payment-form" id="payment-form">
+                    <div class="form-group">
+                        <label for="name">Nombre Completo</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Dirección de Envío</label>
+                        <input type="text" id="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Método de Pago</label>
+                        <div class="payment-methods">
+                            <div class="payment-method" data-method="tarjeta">
+                                <i class="fas fa-credit-card"></i>
+                                <p>Tarjeta</p>
+                            </div>
+                            <div class="payment-method" data-method="transferencia">
+                                <i class="fas fa-university"></i>
+                                <p>Transferencia</p>
+                            </div>
+                            <div class="payment-method" data-method="yape">
+                                <i class="fas fa-mobile-alt"></i>
+                                <p>Yape</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-summary">
+                        <div class="summary-row">
+                            <span>Subtotal:</span>
+                            <span id="payment-subtotal">S/ 0.00</span>
+                        </div>
+                        <div class="summary-row">
+                            <span>Envío:</span>
+                            <span id="payment-shipping">S/ 10.00</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Total:</span>
+                            <span id="payment-total">S/ 0.00</span>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-payment-btn">Confirmar Pedido</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notificación -->
+    <div class="notification" id="notification">
+        Producto añadido al carrito
+    </div>
+
+    <script>
+        // Base de Datos de Productos
+        const productos = [
+            {
+                id: 1,
+                nombre: "Hierro Plus Junior",
+                descripcion: "Suplemento líquido con hierro y vitamina C para mejor absorción",
+                precio: 45.90,
+                imagen_url: "https://picsum.photos/seed/hierro1/400/300.jpg",
+                categoria: "suplementos",
+                nutrientes: { hierro: "7.6mg", vitaminaC: "30mg" },
+                distintivo: "Más Vendido"
+            },
+            {
+                id: 2,
+                nombre: "Cereal Fortificado NutriNiños",
+                descripcion: "Cereal enriquecido con hierro y vitaminas esenciales",
+                precio: 28.50,
+                imagen_url: "https://picsum.photos/seed/cereal1/400/300.jpg",
+                categoria: "cereales",
+                nutrientes: { hierro: "5.2mg", proteina: "14g" },
+                distintivo: null
+            },
+            {
+                id: 3,
+                nombre: "Galletas de Quinua y Hierro",
+                descripcion: "Snack delicioso y nutritivo con alto contenido de hierro",
+                precio: 15.75,
+                imagen_url: "https://picsum.photos/seed/galletas1/400/300.jpg",
+                categoria: "snacks",
+                nutrientes: { hierro: "3.8mg", fibra: "6g" },
+                distintivo: null
+            },
+            {
+                id: 4,
+                nombre: "Polvo de Sangre de Res",
+                descripcion: "Suplemento natural rico en hierro hemínico",
+                precio: 32.00,
+                imagen_url: "https://picsum.photos/seed/sangre1/400/300.jpg",
+                categoria: "suplementos",
+                nutrientes: { hierro: "10.2mg", proteina: "20g" },
+                distintivo: null
+            },
+            {
+                id: 5,
+                nombre: "Puré de Hígado de Pollo",
+                descripcion: "Alimento infantil con alto contenido de hierro",
+                precio: 18.90,
+                imagen_url: "https://picsum.photos/seed/higado1/400/300.jpg",
+                categoria: "alimentos",
+                nutrientes: { hierro: "4.5mg", proteina: "16g" },
+                distintivo: "Recomendado"
+            },
+            {
+                id: 6,
+                nombre: "Jarabe Multivitamínico",
+                descripcion: "Completo suplemento con hierro, zinc y vitaminas A, C, D",
+                precio: 38.50,
+                imagen_url: "https://picsum.photos/seed/jarabe1/400/300.jpg",
+                categoria: "suplementos",
+                nutrientes: { hierro: "6.0mg", zinc: "5mg" },
+                distintivo: null
+            },
+            {
+                id: 7,
+                nombre: "Barritas Energéticas con Hierro",
+                descripcion: "Snack ideal para el recreo, con hierro y frutos secos",
+                precio: 22.30,
+                imagen_url: "https://picsum.photos/seed/barritas1/400/300.jpg",
+                categoria: "snacks",
+                nutrientes: { hierro: "2.8mg", fibra: "8g" },
+                distintivo: null
+            },
+            {
+                id: 8,
+                nombre: "Mix de Legumbres Secas",
+                descripcion: "Mezcla de lentejas, garbanzos y frijoles, fuente natural de hierro",
+                precio: 19.90,
+                imagen_url: "https://picsum.photos/seed/legumbres1/400/300.jpg",
+                categoria: "alimentos",
+                nutrientes: { hierro: "5.5mg", proteina: "22g" },
+                distintivo: null
+            },
+            {
+                id: 9,
+                nombre: "Cápsulas de Hierro Quelado",
+                descripcion: "Hierro de alta absorción sin efectos secundarios",
+                precio: 55.00,
+                imagen_url: "https://picsum.photos/seed/capsulas1/400/300.jpg",
+                categoria: "suplementos",
+                nutrientes: { hierro: "14mg", vitaminaC: "50mg" },
+                distintivo: "Alta Potencia"
+            },
+            {
+                id: 10,
+                nombre: "Granola Fortificada",
+                descripcion: "Deliciosa granola con hierro, avena y frutos secos",
+                precio: 26.75,
+                imagen_url: "https://picsum.photos/seed/granola1/400/300.jpg",
+                categoria: "cereales",
+                nutrientes: { hierro: "4.2mg", fibra: "9g" },
+                distintivo: null
+            },
+            {
+                id: 11,
+                nombre: "Chips de Camote y Espinaca",
+                descripcion: "Snack crujiente y nutritivo con hierro y betacarotenos",
+                precio: 17.50,
+                imagen_url: "https://picsum.photos/seed/chips1/400/300.jpg",
+                categoria: "snacks",
+                nutrientes: { hierro: "2.1mg", vitaminaA: "1200IU" },
+                distintivo: null
+            },
+            {
+                id: 12,
+                nombre: "Puré de Legumbres Mixtas",
+                descripcion: "Comida infantil con lentejas, garbanzos y espinacas",
+                precio: 21.80,
+                imagen_url: "https://picsum.photos/seed/pure1/400/300.jpg",
+                categoria: "alimentos",
+                nutrientes: { hierro: "4.8mg", proteina: "12g" },
+                distintivo: null
+            },
+            {
+                id: 13,
+                nombre: "Gotas de Hierro Infantil",
+                descripcion: "Suplemento líquido con hierro para bebés y niños pequeños",
+                precio: 42.00,
+                imagen_url: "https://picsum.photos/seed/gotas1/400/300.jpg",
+                categoria: "suplementos",
+                nutrientes: { hierro: "7mg", vitaminaD: "400IU" },
+                distintivo: null
+            },
+            {
+                id: 14,
+                nombre: "Muesli con Frutos Secos",
+                descripcion: "Cereal energético con hierro, almendras y pasas",
+                precio: 24.90,
+                imagen_url: "https://picsum.photos/seed/muesli1/400/300.jpg",
+                categoria: "cereales",
+                nutrientes: { hierro: "3.6mg", fibra: "7g" },
+                distintivo: null
+            },
+            {
+                id: 15,
+                nombre: "Hamburguesas de Lenteja",
+                descripcion: "Deliciosas hamburguesas vegetales ricas en hierro y proteína",
+                precio: 23.60,
+                imagen_url: "https://picsum.photos/seed/hamburguesas1/400/300.jpg",
+                categoria: "alimentos",
+                nutrientes: { hierro: "5.2mg", proteina: "18g" },
+                distintivo: "Nuevo"
+            }
+        ];
+
+        // Carrito de Compras
+        let carrito = [];
+
+        // Elementos del DOM
+        const productsContainer = document.getElementById('products-container');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const floatingCart = document.getElementById('floating-cart');
+        const cartCount = document.getElementById('cart-count');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCartModal = document.getElementById('close-cart-modal');
+        const cartItems = document.getElementById('cart-items');
+        const cartTotal = document.getElementById('cart-total');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const paymentModal = document.getElementById('payment-modal');
+        const closePaymentModal = document.getElementById('close-payment-modal');
+        const paymentForm = document.getElementById('payment-form');
+        const paymentSubtotal = document.getElementById('payment-subtotal');
+        const paymentTotal = document.getElementById('payment-total');
+        const notification = document.getElementById('notification');
+        const paymentMethods = document.querySelectorAll('.payment-method');
+
+        // Renderizar productos
+        function renderProducts(categoria = 'todos') {
+            productsContainer.innerHTML = '';
+            
+            const productosFiltrados = categoria === 'todos' 
+                ? productos 
+                : productos.filter(producto => producto.categoria === categoria);
+            
+            productosFiltrados.forEach(producto => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                
+                let nutrientesHTML = '';
+                for (const [key, value] of Object.entries(producto.nutrientes)) {
+                    nutrientesHTML += `<span>${key}: ${value}</span>`;
+                }
+                
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        <img src="${producto.imagen_url}" alt="${producto.nombre}">
+                        ${producto.distintivo ? `<div class="product-badge">${producto.distintivo}</div>` : ''}
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">${producto.nombre}</h3>
+                        <p class="product-description">${producto.descripcion}</p>
+                        <div class="product-nutrients">
+                            ${nutrientesHTML}
+                        </div>
+                        <div class="product-footer">
+                            <span class="product-price">S/ ${producto.precio.toFixed(2)}</span>
+                            <button class="add-to-cart-btn" data-id="${producto.id}">Añadir</button>
+                        </div>
+                    </div>
+                `;
+                
+                productsContainer.appendChild(productCard);
+            });
+            
+            // Añadir event listeners a los botones de añadir al carrito
+            document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+                btn.addEventListener('click', addToCart);
+            });
+        }
+
+        // Añadir producto al carrito
+        function addToCart(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const product = productos.find(p => p.id === productId);
+            
+            const existingItem = carrito.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.cantidad++;
+            } else {
+                carrito.push({
+                    ...product,
+                    cantidad: 1
+                });
+            }
+            
+            updateCartUI();
+            showNotification();
+        }
+
+        // Actualizar la interfaz del carrito
+        function updateCartUI() {
+            // Actualizar contador del carrito flotante
+            const totalItems = carrito.reduce((total, item) => total + item.cantidad, 0);
+            cartCount.textContent = totalItems;
+            
+            // Actualizar contenido del modal del carrito
+            if (carrito.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <p>Tu carrito está vacío</p>
+                    </div>
+                `;
+                cartTotal.textContent = 'S/ 0.00';
+            } else {
+                cartItems.innerHTML = '';
+                let total = 0;
+                
+                carrito.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    
+                    cartItem.innerHTML = `
+                        <img src="${item.imagen_url}" alt="${item.nombre}" class="cart-item-image">
+                        <div class="cart-item-info">
+                            <h4 class="cart-item-title">${item.nombre}</h4>
+                            <p class="cart-item-price">S/ ${item.precio.toFixed(2)}</p>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn decrease" data-id="${item.id}">-</button>
+                                <span>${item.cantidad}</span>
+                                <button class="quantity-btn increase" data-id="${item.id}">+</button>
+                            </div>
+                            <button class="remove-item" data-id="${item.id}">Eliminar</button>
+                        </div>
+                    `;
+                    
+                    cartItems.appendChild(cartItem);
+                    total += item.precio * item.cantidad;
+                });
+                
+                cartTotal.textContent = `S/ ${total.toFixed(2)}`;
+                
+                // Añadir event listeners a los botones de cantidad y eliminar
+                document.querySelectorAll('.quantity-btn').forEach(btn => {
+                    btn.addEventListener('click', updateQuantity);
+                });
+                
+                document.querySelectorAll('.remove-item').forEach(btn => {
+                    btn.addEventListener('click', removeFromCart);
+                });
+            }
+        }
+
+        // Actualizar cantidad de un producto en el carrito
+        function updateQuantity(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            const item = carrito.find(item => item.id === productId);
+            
+            if (e.target.classList.contains('increase')) {
+                item.cantidad++;
+            } else if (e.target.classList.contains('decrease')) {
+                item.cantidad--;
+                if (item.cantidad === 0) {
+                    removeFromCart(e);
+                    return;
+                }
+            }
+            
+            updateCartUI();
+        }
+
+        // Eliminar producto del carrito
+        function removeFromCart(e) {
+            const productId = parseInt(e.target.getAttribute('data-id'));
+            carrito = carrito.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        // Mostrar notificación
+        function showNotification() {
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Event Listeners
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Actualizar botón activo
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Filtrar productos
+                const categoria = btn.getAttribute('data-category');
+                renderProducts(categoria);
+            });
+        });
+
+        floatingCart.addEventListener('click', () => {
+            cartModal.classList.add('active');
+        });
+
+        closeCartModal.addEventListener('click', () => {
+            cartModal.classList.remove('active');
+        });
+
+        checkoutBtn.addEventListener('click', () => {
+            if (carrito.length > 0) {
+                cartModal.classList.remove('active');
+                paymentModal.classList.add('active');
+                
+                // Actualizar resumen de pago
+                const subtotal = parseFloat(cartTotal.textContent.replace('S/ ', ''));
+                paymentSubtotal.textContent = `S/ ${subtotal.toFixed(2)}`;
+                paymentTotal.textContent = `S/ ${(subtotal + 10).toFixed(2)}`;
+            }
+        });
+
+        closePaymentModal.addEventListener('click', () => {
+            paymentModal.classList.remove('active');
+        });
+
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', () => {
+                paymentMethods.forEach(m => m.classList.remove('selected'));
+                method.classList.add('selected');
+            });
+        });
+
+        paymentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Aquí iría la lógica para procesar el pago
+            // Por ahora, solo mostraremos un mensaje de éxito y vaciaremos el carrito
+            alert('¡Pedido realizado con éxito! Gracias por tu compra.');
+            
+            // Vaciar carrito
+            carrito = [];
+            updateCartUI();
+            
+            // Cerrar modal de pago
+            paymentModal.classList.remove('active');
+            
+            // Resetear formulario
+            paymentForm.reset();
+            paymentMethods.forEach(m => m.classList.remove('selected'));
+        });
+
+        // Cerrar modales al hacer clic fuera de ellos
+        window.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.classList.remove('active');
+            }
+            if (e.target === paymentModal) {
+                paymentModal.classList.remove('active');
+            }
+        });
+
+        // Inicializar la página
+        renderProducts();
+        updateCartUI();
+    </script>
+</body>
+</html>
