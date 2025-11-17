@@ -4,94 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yachay Mikuy - Productos Anti-Anemia</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --azul-primario: #1a4b8c;
-            --rojo-acento: #e63946;
-            --naranja-amarillo: #FF9800;
-            --blanco: #ffffff;
-            --gris-claro: #f5f5f5;
-            --gris: #e0e0e0;
-            --sombra: 0 2px 10px rgba(0, 0, 0, 0.1);
-            --sombra-suave: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --primary-blue: #1a4b8c; 
+            --accent-red: #e63946; 
+            --secondary-color: #FF9800;
+            --accent-color: #2196F3;
+            --light-color: #F5F5F5;
+            --dark-color: #333333;
+            --success-color: #8BC34A;
+            --warning-color: #FFC107;
+            --danger-color: #F44336;
+            --info-color: #03A9F4;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --medium-gray: #dee2e6;
+            --text-dark: #212529;
+            --shadow: 0 8px 24px rgba(0, 0, 0, 0.08); 
+            --radius: 12px;
+            --transition: all 0.3s ease-in-out;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Nunito', sans-serif;
+            color: var(--text-dark);
             line-height: 1.6;
-            color: #333;
-            background-color: var(--gris-claro);
+            overflow-x: hidden;
             padding-top: 80px; /* Espacio para el header fijo */
+            background-color: var(--light-gray);
         }
-
-        /* Header */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: var(--azul-primario);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        
+        /* Estilos del Header */
+        .header {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
             z-index: 1000;
-            box-shadow: var(--sombra);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            height: 80px;
         }
-
-        .logo-container {
+        
+        .header-container {
             display: flex;
             align-items: center;
-            gap: 15px;
-        }
-
-        .logo {
-            width: 50px;
-            height: 50px;
-            background-color: var(--blanco);
-            border-radius: 50%;
-            display: flex;
             justify-content: center;
+            height: 100%;
+            padding: 0 20px;
+        }
+        
+        .logo-container {
+            height: 60px;
+            width: 60px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
             align-items: center;
-            color: var(--azul-primario);
-            font-weight: bold;
-            font-size: 24px;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            overflow: hidden;
+            position: relative;
+            z-index: 10;
+            transition: transform 0.3s ease;
         }
-
-        .brand-name {
-            color: var(--blanco);
-            font-size: 24px;
-            font-weight: 700;
+        
+        .logo-container:hover {
+            transform: scale(1.05);
         }
-
-        .nav-button {
-            background-color: transparent;
-            border: 2px solid var(--blanco);
-            color: var(--blanco);
-            padding: 8px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
+        
+        .logo-container img {
+            height: 80%;
+            width: 80%;
+            object-fit: contain;
+            display: block;
         }
-
-        .nav-button:hover {
-            background-color: var(--blanco);
-            color: var(--azul-primario);
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            height: 80px;
+            padding: 5px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-left: 15px;
+            color: white;
         }
-
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--secondary-color);
+            font-size: 2.2rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Ajustes para dispositivos móviles */
+        @media (max-width: 768px) {
+            .header {
+                height: 60px;
+            }
+            
+            .logo-container {
+                height: 45px;
+                width: 45px;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+                height: 60px;
+            }
+            
+            body {
+                padding-top: 60px;
+            }
+        }
+        
         /* Banner Principal */
         .main-banner {
-            background: linear-gradient(135deg, var(--azul-primario), var(--rojo-acento));
-            color: var(--blanco);
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-red));
+            color: var(--white);
             padding: 60px 20px;
             text-align: center;
             margin-bottom: 30px;
@@ -112,12 +159,12 @@
 
         /* Barra de Filtros */
         .filter-bar {
-            background-color: var(--blanco);
+            background-color: var(--white);
             padding: 15px 20px;
             display: flex;
             justify-content: center;
             gap: 15px;
-            box-shadow: var(--sombra-suave);
+            box-shadow: var(--shadow);
             position: sticky;
             top: 80px;
             z-index: 100;
@@ -127,8 +174,8 @@
 
         .filter-btn {
             background-color: transparent;
-            border: 2px solid var(--azul-primario);
-            color: var(--azul-primario);
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
             padding: 8px 20px;
             border-radius: 30px;
             cursor: pointer;
@@ -137,13 +184,13 @@
         }
 
         .filter-btn:hover {
-            background-color: var(--azul-primario);
-            color: var(--blanco);
+            background-color: var(--primary-blue);
+            color: var(--white);
         }
 
         .filter-btn.active {
-            background-color: var(--azul-primario);
-            color: var(--blanco);
+            background-color: var(--primary-blue);
+            color: var(--white);
         }
 
         /* Cuadrícula de Productos */
@@ -158,10 +205,10 @@
         }
 
         .product-card {
-            background-color: var(--blanco);
+            background-color: var(--white);
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: var(--sombra);
+            box-shadow: var(--shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -193,8 +240,8 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background-color: var(--rojo-acento);
-            color: var(--blanco);
+            background-color: var(--accent-red);
+            color: var(--white);
             padding: 5px 10px;
             border-radius: 20px;
             font-size: 0.8rem;
@@ -209,7 +256,7 @@
         }
 
         .product-title {
-            color: var(--azul-primario);
+            color: var(--primary-blue);
             font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 10px;
@@ -221,7 +268,7 @@
         }
 
         .product-nutrients {
-            background-color: var(--gris-claro);
+            background-color: var(--light-gray);
             padding: 10px;
             border-radius: 8px;
             margin-bottom: 15px;
@@ -244,12 +291,12 @@
         .product-price {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--azul-primario);
+            color: var(--primary-blue);
         }
 
         .add-to-cart-btn {
-            background-color: var(--azul-primario);
-            color: var(--blanco);
+            background-color: var(--primary-blue);
+            color: var(--white);
             border: none;
             padding: 10px 20px;
             border-radius: 30px;
@@ -262,70 +309,114 @@
             background-color: #0d3669;
         }
 
-        /* Footer */
-        footer {
-            background: linear-gradient(135deg, var(--azul-primario), var(--rojo-acento));
-            color: var(--blanco);
-            padding: 50px 20px 20px;
+        /* Estilos del Footer */
+        .footer { 
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-color)); 
+            color: rgba(255,255,255,0.9); 
+            padding: 2.5rem 5%; 
+            margin-top: 0;
+            position: relative;
+            overflow: hidden;
         }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 30px;
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)"/></svg>');
+            background-size: 100px 100px;
+            opacity: 0.3;
         }
-
-        .footer-section h3 {
-            margin-bottom: 20px;
-            font-size: 1.3rem;
+        
+        .footer-content { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 2rem; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            position: relative;
+            z-index: 2;
         }
-
-        .footer-section ul {
-            list-style: none;
+        .footer-section { 
+            display: flex; 
+            flex-direction: column; 
         }
-
-        .footer-section ul li {
-            margin-bottom: 10px;
+        .footer-section h3 { 
+            color: var(--white); 
+            margin-bottom: 1.2rem; 
+            font-size: 1.2rem; 
+            font-weight: 700;
+            position: relative; 
+            padding-bottom: 0.5rem; 
         }
-
-        .footer-section a {
-            color: var(--blanco);
+        .footer-section h3::after { 
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            width: 40px; 
+            height: 3px; 
+            background: var(--accent-red); 
+            border-radius: 2px;
+        }
+        .footer-links { list-style: none; padding: 0; margin: 0; }
+        .footer-links li { margin-bottom: 0.8rem; }
+        .footer-links a { 
+            color: rgba(255,255,255,0.8); 
+            text-decoration: none; 
+            transition: var(--transition); 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            font-weight: 500;
+        }
+        .footer-links a:hover { 
+            color: var(--white); 
+            transform: translateX(5px); 
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+        .footer-links a i { width: 20px; text-align: center; }
+        .footer-section p { 
+            margin-bottom: 0.8rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            font-weight: 500;
+        }
+        .social-links { 
+            display: flex; 
+            gap: 1rem; 
+            margin-top: 1rem; 
+        }
+        .social-links a { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 45px; 
+            height: 45px; 
+            background: rgba(255,255,255,0.1); 
+            border-radius: 50%; 
+            transition: var(--transition); 
+            border: 2px solid rgba(255,255,255,0.2);
+            color: white;
             text-decoration: none;
-            transition: color 0.3s ease;
         }
-
-        .footer-section a:hover {
-            color: var(--naranja-amarillo);
+        .social-links a:hover { 
+            background: var(--accent-red); 
+            transform: translateY(-5px) rotate(360deg); 
+            box-shadow: 0 10px 20px rgba(230, 57, 70, 0.4);
         }
-
-        .social-icons {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .social-icons a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transition: background-color 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        .footer-bottom { 
+            text-align: center; 
+            margin-top: 2rem; 
+            padding-top: 1.5rem; 
+            border-top: 1px solid rgba(255,255,255,0.2); 
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 2;
         }
 
         /* Carrito Flotante */
@@ -333,8 +424,8 @@
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background-color: var(--rojo-acento);
-            color: var(--blanco);
+            background-color: var(--accent-red);
+            color: var(--white);
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -342,7 +433,7 @@
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            box-shadow: var(--sombra);
+            box-shadow: var(--shadow);
             z-index: 999;
             transition: all 0.3s ease;
         }
@@ -360,8 +451,8 @@
             position: absolute;
             top: 0;
             right: 0;
-            background-color: var(--naranja-amarillo);
-            color: var(--blanco);
+            background-color: var(--secondary-color);
+            color: var(--white);
             width: 24px;
             height: 24px;
             border-radius: 50%;
@@ -392,7 +483,7 @@
         }
 
         .modal-content {
-            background-color: var(--blanco);
+            background-color: var(--white);
             border-radius: 10px;
             width: 100%;
             max-width: 600px;
@@ -402,8 +493,8 @@
         }
 
         .modal-header {
-            background-color: var(--azul-primario);
-            color: var(--blanco);
+            background-color: var(--primary-blue);
+            color: var(--white);
             padding: 20px;
             border-radius: 10px 10px 0 0;
             display: flex;
@@ -419,7 +510,7 @@
         .close-modal {
             background: none;
             border: none;
-            color: var(--blanco);
+            color: var(--white);
             font-size: 1.5rem;
             cursor: pointer;
         }
@@ -433,7 +524,7 @@
             gap: 15px;
             margin-bottom: 20px;
             padding-bottom: 20px;
-            border-bottom: 1px solid var(--gris);
+            border-bottom: 1px solid var(--medium-gray);
         }
 
         .cart-item-image {
@@ -453,7 +544,7 @@
         }
 
         .cart-item-price {
-            color: var(--azul-primario);
+            color: var(--primary-blue);
             font-weight: 600;
         }
 
@@ -465,8 +556,8 @@
         }
 
         .quantity-btn {
-            background-color: var(--azul-primario);
-            color: var(--blanco);
+            background-color: var(--primary-blue);
+            color: var(--white);
             border: none;
             width: 25px;
             height: 25px;
@@ -478,8 +569,8 @@
         }
 
         .remove-item {
-            background-color: var(--rojo-acento);
-            color: var(--blanco);
+            background-color: var(--accent-red);
+            color: var(--white);
             border: none;
             padding: 5px 10px;
             border-radius: 5px;
@@ -490,7 +581,7 @@
         .cart-summary {
             margin-top: 20px;
             padding-top: 20px;
-            border-top: 1px solid var(--gris);
+            border-top: 1px solid var(--medium-gray);
         }
 
         .cart-total {
@@ -502,8 +593,8 @@
         }
 
         .checkout-btn {
-            background-color: var(--rojo-acento);
-            color: var(--blanco);
+            background-color: var(--accent-red);
+            color: var(--white);
             border: none;
             padding: 12px 20px;
             border-radius: 30px;
@@ -525,7 +616,7 @@
 
         .empty-cart-icon {
             font-size: 3rem;
-            color: var(--gris);
+            color: var(--medium-gray);
             margin-bottom: 20px;
         }
 
@@ -549,7 +640,7 @@
         .form-group input,
         .form-group select {
             padding: 10px;
-            border: 1px solid var(--gris);
+            border: 1px solid var(--medium-gray);
             border-radius: 5px;
             font-family: 'Nunito', sans-serif;
         }
@@ -563,7 +654,7 @@
         .payment-method {
             flex: 1;
             padding: 10px;
-            border: 1px solid var(--gris);
+            border: 1px solid var(--medium-gray);
             border-radius: 5px;
             text-align: center;
             cursor: pointer;
@@ -571,17 +662,17 @@
         }
 
         .payment-method:hover {
-            border-color: var(--azul-primario);
+            border-color: var(--primary-blue);
         }
 
         .payment-method.selected {
-            background-color: var(--azul-primario);
-            color: var(--blanco);
-            border-color: var(--azul-primario);
+            background-color: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue);
         }
 
         .payment-summary {
-            background-color: var(--gris-claro);
+            background-color: var(--light-gray);
             padding: 15px;
             border-radius: 8px;
             margin-top: 15px;
@@ -597,12 +688,12 @@
             font-weight: 700;
             font-size: 1.2rem;
             padding-top: 10px;
-            border-top: 1px solid var(--gris);
+            border-top: 1px solid var(--medium-gray);
         }
 
         .submit-payment-btn {
-            background-color: var(--rojo-acento);
-            color: var(--blanco);
+            background-color: var(--accent-red);
+            color: var(--white);
             border: none;
             padding: 12px 20px;
             border-radius: 30px;
@@ -623,11 +714,11 @@
             position: fixed;
             bottom: 100px;
             right: 30px;
-            background-color: var(--azul-primario);
-            color: var(--blanco);
+            background-color: var(--primary-blue);
+            color: var(--white);
             padding: 15px 20px;
             border-radius: 8px;
-            box-shadow: var(--sombra);
+            box-shadow: var(--shadow);
             transform: translateY(100px);
             opacity: 0;
             transition: all 0.3s ease;
@@ -650,7 +741,7 @@
             }
 
             .filter-bar {
-                top: 70px;
+                top: 60px;
             }
 
             .floating-cart {
@@ -668,12 +759,16 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <div class="logo-container">
-            <div class="logo">YM</div>
-            <div class="brand-name">Yachay Mikuy</div>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-container">
+                <img src="https://picsum.photos/seed/logo/100/100.jpg" alt="Yachay Mikuy Logo">
+            </div>
+            <div class="logo">
+                <i class="fas fa-heartbeat"></i>
+                Yachay Mikuy
+            </div>
         </div>
-        <button class="nav-button">Inicio</button>
     </header>
 
     <!-- Banner Principal -->
@@ -697,39 +792,36 @@
     </div>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer">
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Redes Sociales</h3>
-                <p>Síguenos en nuestras redes sociales</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                <div class="social-links">
+                    <a href="https://facebook.com/yachaymikuy" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.linkedin.com/company/yachay-mikuy/posts/?feedView=all" target="_blank" title="linkedin"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://instagram.com/yachaymikuy" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtu.be/La15HNlOpEM" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://wa.me/51918072862" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
             <div class="footer-section">
                 <h3>Contacto</h3>
-                <ul>
-                    <li><i class="fas fa-envelope"></i> info@yachaymikuy.pe</li>
-                    <li><i class="fas fa-phone"></i> +51 1 234 5678</li>
-                    <li><i class="fas fa-map-marker-alt"></i> Lima - Perú</li>
-                </ul>
+                <p><i class="fas fa-envelope"></i> yachay.mikuy@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +51 918 072 862</p>
+                <p><i class="fas fa-map-marker-alt"></i> Lima - Perú</p>
             </div>
             <div class="footer-section">
                 <h3>Enlaces Útiles</h3>
-                <ul>
-                    <li><a href="#">Acerca de Nosotros</a></li>
-                    <li><a href="#">Política de Privacidad</a></li>
-                    <li><a href="#">Términos y Condiciones</a></li>
-                    <li><a href="#">Preguntas Frecuentes</a></li>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="showAboutModal(); return false;"><i class="fas fa-info-circle"></i> Acerca de Nosotros</a></li>
+                    <li><a href="#" onclick="showServicesModal(); return false;"><i class="fas fa-concierge-bell"></i> Servicios</a></li>
+                    <li><a href="#" onclick="showFaqModal(); return false;"><i class="fas fa-question-circle"></i> Preguntas Frecuentes</a></li>
+                    <li><a href="#" onclick="showPrivacyModal(); return false;"><i class="fas fa-shield-alt"></i> Política de Privacidad</a></li>
+                    <li><a href="#" onclick="showTermsModal(); return false;"><i class="fas fa-file-contract"></i> Términos y Condiciones</a></li>
                 </ul>
             </div>
         </div>
-        <div class="copyright">
-            <p>&copy; 2025 Yachay Mikuy. Todos los derechos reservados.</p>
-        </div>
+        <div class="footer-bottom">&copy; 2025 Yachay Mikuy. Todos los derechos reservados.</div>
     </footer>
 
     <!-- Carrito Flotante -->
@@ -814,6 +906,19 @@
                     </div>
                     <button type="submit" class="submit-payment-btn">Confirmar Pedido</button>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Información -->
+    <div class="modal" id="info-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="info-modal-title">Título</h2>
+                <button class="close-modal" id="close-info-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="info-modal-body">
+                <!-- Contenido dinámico -->
             </div>
         </div>
     </div>
@@ -998,6 +1103,10 @@
         const paymentTotal = document.getElementById('payment-total');
         const notification = document.getElementById('notification');
         const paymentMethods = document.querySelectorAll('.payment-method');
+        const infoModal = document.getElementById('info-modal');
+        const closeInfoModal = document.getElementById('close-info-modal');
+        const infoModalTitle = document.getElementById('info-modal-title');
+        const infoModalBody = document.getElementById('info-modal-body');
 
         // Renderizar productos
         function renderProducts(categoria = 'todos') {
@@ -1152,6 +1261,102 @@
             }, 3000);
         }
 
+        // Funciones para mostrar modales de información
+        function showAboutModal() {
+            infoModalTitle.textContent = 'Acerca de Yachay Mikuy';
+            infoModalBody.innerHTML = `
+                <div class="content-section">
+                    <h3><i class="fas fa-bullseye"></i> Nuestra Misión</h3>
+                    <p>Reducir la prevalencia de anemia y malnutrición en niños de 0 a 13 años mediante planes de alimentación personalizados, adaptados culturalmente y económicamente a la realidad de las familias peruanas.</p>
+                </div>
+                <div class="content-section">
+                    <h3><i class="fas fa-eye"></i> Nuestra Visión</h3>
+                    <p>Convertirnos en la plataforma digital líder en nutrición infantil en Perú, contribuyendo al desarrollo humano y social del país a través de hábitos alimentarios saludables.</p>
+                </div>
+                <div class="content-section">
+                    <h3><i class="fas fa-users"></i> Nuestro Equipo</h3>
+                    <p>Contamos con un equipo multidisciplinario de profesionales de la salud, nutricionistas, desarrolladores de software y expertos en educación, comprometidos con mejorar la nutrición infantil en el país.</p>
+                </div>
+            `;
+            infoModal.classList.add('active');
+        }
+
+        function showServicesModal() {
+            infoModalTitle.textContent = 'Nuestros Servicios';
+            infoModalBody.innerHTML = `
+                <div class="content-section">
+                    <h3><i class="fas fa-utensils"></i> Planes de Alimentación Personalizados</h3>
+                    <p>Desarrollamos planes nutricionales adaptados a las necesidades específicas de cada niño, considerando edad, estado de salud, disponibilidad de alimentos locales y capacidad económica del hogar.</p>
+                </div>
+                <div class="content-section">
+                    <h3><i class="fas fa-chart-line"></i> Seguimiento Nutricional</h3>
+                    <p>Monitoreamos el progreso de cada niño a través de registro diario de consumo alimentario, evaluación periódica de indicadores de salud y ajustes automáticos según resultados.</p>
+                </div>
+                <div class="content-section">
+                    <h3><i class="fas fa-graduation-cap"></i> Educación Nutricional</h3>
+                    <p>Ofrecemos material educativo en múltiples formatos: recetas prácticas con ingredientes locales, videos tutoriales y guías informativas sobre nutrientes esenciales.</p>
+                </div>
+            `;
+            infoModal.classList.add('active');
+        }
+
+        function showFaqModal() {
+            infoModalTitle.textContent = 'Preguntas Frecuentes';
+            infoModalBody.innerHTML = `
+                <div class="content-section">
+                    <h3><i class="fas fa-question-circle"></i> ¿Qué es Yachay Mikuy?</h3>
+                    <p>Yachay Mikuy es una plataforma digital que ofrece planes de alimentación personalizados para combatir la anemia infantil en Perú, combinando tecnología, educación y nutrición culturalmente adaptada.</p>
+                </div>
+                <div class="content-section">
+                    <h3><i class="fas fa-child"></i> ¿Para qué edades está diseñada la plataforma?</h3>
+                    <p>Nuestra plataforma está diseñada para niños de 0 a 13 años, etapa crucial en el desarrollo donde los hábitos alimentarios se consolidan y se pueden prevenir deficiencias nutricionales a largo plazo.</p>
+                </div>
+                <div class="content-section">
+                    <h3><i class="fas fa-dollar-sign"></i> ¿Qué costo tiene el servicio?</h3>
+                    <p>Ofrecemos diferentes planes de suscripción: Plan básico: S/10-15 mensuales, Plan premium con atención personalizada, Subsidios para familias vulnerables mediante alianzas y Acceso gratuito en centros educativos convenidos.</p>
+                </div>
+            `;
+            infoModal.classList.add('active');
+        }
+
+        function showPrivacyModal() {
+            infoModalTitle.textContent = 'Política de Privacidad';
+            infoModalBody.innerHTML = `
+                <div class="content-section">
+                    <h3><i class="fas fa-info-circle"></i> Información que Recopilamos</h3>
+                    <p>Recopilamos información personal y de salud de manera responsable: Datos personales (nombre, correo, teléfono), Datos de los niños (nombre, fecha de nacimiento, peso, altura) y Datos de uso (interacciones con la plataforma).</p>
+                </div>
+                <div class="content-section">
+                    <h3><i class="fas fa-lock"></i> Protección de Datos</h3>
+                    <p>Implementamos medidas de seguridad robustas: Cifrado SSL/TLS para todas las transmisiones, Almacenamiento cifrado en servidores seguros y Autenticación de dos factores para accesos críticos.</p>
+                </div>
+                <div class="content-section">
+                    <h3><i class="fas fa-user-shield"></i> Derechos de los Usuarios</h3>
+                    <p>Tienes derecho a: Acceder a tus datos, Rectificar información inexacta, Cancelar el tratamiento de datos y Oponerte al procesamiento de tus datos.</p>
+                </div>
+            `;
+            infoModal.classList.add('active');
+        }
+
+        function showTermsModal() {
+            infoModalTitle.textContent = 'Términos y Condiciones';
+            infoModalBody.innerHTML = `
+                <div class="content-section">
+                    <h3><i class="fas fa-check-circle"></i> Aceptación de los Términos</h3>
+                    <p>Al utilizar la plataforma Yachay Mikuy, aceptas estos términos y condiciones en su totalidad. Si no estás de acuerdo con alguno de estos términos, no debes utilizar nuestros servicios.</p>
+                </div>
+                <div class="content-section">
+                    <h3><i class="fas fa-user-check"></i> Responsabilidades del Usuario</h3>
+                    <p>Como usuario, te comprometes a: Proporcionar información veraz y actualizada, Mantener la confidencialidad de tus credenciales, Seguir las recomendaciones nutricionales de manera responsable y Respetar los derechos de otros usuarios.</p>
+                </div>
+                <div class="content-section">
+                    <h3><i class="fas fa-heart"></i> Información Médica</h3>
+                    <p>Importante considerar: Yachay Mikuy no reemplaza la consulta médica profesional. Las recomendaciones son complementarias al tratamiento médico. Ante cualquier emergencia médica, contacta a servicios de salud.</p>
+                </div>
+            `;
+            infoModal.classList.add('active');
+        }
+
         // Event Listeners
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1171,6 +1376,10 @@
 
         closeCartModal.addEventListener('click', () => {
             cartModal.classList.remove('active');
+        });
+
+        closeInfoModal.addEventListener('click', () => {
+            infoModal.classList.remove('active');
         });
 
         checkoutBtn.addEventListener('click', () => {
@@ -1222,6 +1431,9 @@
             }
             if (e.target === paymentModal) {
                 paymentModal.classList.remove('active');
+            }
+            if (e.target === infoModal) {
+                infoModal.classList.remove('active');
             }
         });
 
